@@ -1,0 +1,230 @@
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as ToastStories from './Toast.stories';
+
+<Meta of={ToastStories} />
+
+# Toast
+
+Transient notifications anchored to a corner of the viewport. Mount one `<Toaster />` at the app root, then call the imperative `toast()` / `toast.success()` / `toast.error()` functions from anywhere in your app.
+
+## When to use
+
+- Confirming an asynchronous action ("Saved", "File deleted", "Email sent").
+- Surfacing errors from background work the user didn't directly initiate.
+- Offering one quick undo for a destructive action via `action`.
+
+## When not to use
+
+- Confirming a successful settings save — see [internal note](#do--dont) below.
+- Critical errors that must block until acknowledged — use [Dialog](?path=/docs/general-dialog--docs).
+- Inline form validation errors — use field-level error states.
+- Long messages — toasts are scanned in passing, not read.
+
+## Anatomy
+
+<Canvas of={ToastStories.Default} />
+
+A single `<Toaster />` lives at the root of your app — typically in `App.vue`. From anywhere else in the app, import `toast` and call it:
+
+```ts
+import { toast } from '@fromforgesoftware/vue-kit';
+
+toast.success('Saved', { description: 'Profile updated.' });
+toast.error('Could not save', { description: 'Please try again.' });
+
+toast('File deleted', {
+	description: 'report-q4.pdf was moved to trash.',
+	action: { label: 'Undo', onClick: () => restoreFile() },
+});
+```
+
+## Composition
+
+<table>
+	<thead>
+		<tr>
+			<th>Component / function</th>
+			<th>Purpose</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>&lt;Toaster /&gt;</code>
+			</td>
+			<td>Mount once at the app root. Owns position, theme, default duration.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>toast()</code>
+			</td>
+			<td>Show a neutral toast.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>toast.info()</code>
+			</td>
+			<td>Informational toast.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>toast.success()</code>
+			</td>
+			<td>Success confirmation.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>toast.warning()</code>
+			</td>
+			<td>Warning, recoverable.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>toast.error()</code>
+			</td>
+			<td>
+				Error message — auto-announced more assertively when <code>richColors</code> is on.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>toast.promise()</code>
+			</td>
+			<td>Wire a toast directly to a promise (loading / success / error).</td>
+		</tr>
+		<tr>
+			<td>
+				<code>toast.dismiss(id?)</code>
+			</td>
+			<td>Dismiss one or all toasts programmatically.</td>
+		</tr>
+	</tbody>
+</table>
+
+## Variants
+
+<Canvas of={ToastStories.Variants} />
+
+## With description
+
+<Canvas of={ToastStories.WithDescription} />
+
+## With action
+
+<Canvas of={ToastStories.WithAction} />
+
+Use exactly one action per toast. Multiple actions in a transient surface are missed by users who scan-and-dismiss.
+
+## Promise-bound toast
+
+<Canvas of={ToastStories.PromiseToast} />
+
+## Positions
+
+<Canvas of={ToastStories.Positions} />
+
+Pick one position per app — switching mid-flight is jarring for screen-reader users tracking the live region.
+
+## Props
+
+<Controls of={ToastStories.Default} />
+
+## Keyboard interaction
+
+<table>
+	<thead>
+		<tr>
+			<th>Key / event</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<kbd>Alt</kbd>+<kbd>T</kbd> (default hotkey)
+			</td>
+			<td>Focuses the toast region — toasts are normally outside tab order.</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>Tab</kbd> within a toast
+			</td>
+			<td>Cycles to action button and close button.</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>Enter</kbd> / <kbd>Space</kbd> on action / close
+			</td>
+			<td>Activates the button.</td>
+		</tr>
+		<tr>
+			<td>Swipe (touch)</td>
+			<td>Dismisses the toast.</td>
+		</tr>
+		<tr>
+			<td>Auto-dismiss</td>
+			<td>
+				After <code>duration</code> ms (default 4000).
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+## Accessibility (WCAG 2.2 AA)
+
+- **4.1.3 Status messages**: `Toaster` mounts a `section[aria-live="polite"]`, so screen readers announce new toasts without stealing focus.
+- **2.1.1 Keyboard**: action and close buttons are keyboard-operable. The toast itself is reachable via the configurable hotkey (default <kbd>Alt</kbd>+<kbd>T</kbd>).
+- **2.2.1 Timing adjustable**: pause-on-hover is built in. Increase `duration` for important messages; consider `Infinity` for errors that need explicit dismissal.
+- **2.5.8 Target size**: the close button on a toast measures ≥ 20×20 px. Pair toasts with a destructive `action` label of at least 24×24 px hit area.
+- **1.4.3 Contrast**: with `richColors`, toast text and background clear 4.5 : 1.
+
+> Keep error toasts for **background failures** the user couldn't have prevented. Foreground errors (form validation) belong on the field, not in a toast — the user is already looking at the form.
+
+## Responsive behaviour
+
+<Canvas of={ToastStories.InteractiveResponsive} />
+
+The toast stack is fixed-positioned and never causes horizontal overflow. On narrow viewports it should sit near the top or bottom edge — avoid centring on phones because it competes with the keyboard.
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>Confirm async actions ("Email sent", "Schedule published").</td>
+			<td>Confirm settings/preferences saves — they're already implied by the form state.</td>
+		</tr>
+		<tr>
+			<td>
+				Pair destructive actions with one undo via <code>action</code>.
+			</td>
+			<td>Stack multiple actions in a single toast — users miss them.</td>
+		</tr>
+		<tr>
+			<td>
+				Use <code>toast.error()</code> for background failures.
+			</td>
+			<td>Use a toast for blocking errors — use a Dialog.</td>
+		</tr>
+		<tr>
+			<td>
+				Mount one <code>&lt;Toaster /&gt;</code> per app, at the root.
+			</td>
+			<td>
+				Render <code>&lt;Toaster /&gt;</code> inside multiple layouts — toasts will multiply.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Increase <code>duration</code> for messages users need to read in full.
+			</td>
+			<td>Cram a paragraph into a single toast — write a Dialog or a notification.</td>
+		</tr>
+	</tbody>
+</table>

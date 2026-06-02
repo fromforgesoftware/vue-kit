@@ -1,0 +1,217 @@
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as CardStories from './Card.stories';
+
+<Meta of={CardStories} />
+
+# Card
+
+Surface used to group related content. Cards have a border, rounded corners, and consistent padding. Compose with the header, title, description, content, and footer sub-components.
+
+## When to use
+
+- Group related fields, metadata, or actions on a settings page.
+- Render a list of items where each item is a self-contained block (project, employee, document).
+- Wrap a callout or summary block that needs visual separation from the surrounding flow.
+
+## When not to use
+
+- For a full-bleed page layout — keep cards inside a constrained container.
+- For lightweight inline content — use a divider or a simple spacing pattern instead.
+- For interactive popovers — use [Popover](?path=/docs/general-popover--docs) or [Tooltip](?path=/docs/general-tooltip--docs).
+
+## Anatomy
+
+<Canvas of={CardStories.Default} />
+
+A card composes:
+
+- `Card` — the surface container.
+- `CardHeader` — wraps the title and description.
+- `CardTitle` — semantic `<h3>` with size variants.
+- `CardDescription` — supporting text under the title.
+- `CardContent` — main content area; opt into top spacing with the `spacing` prop.
+- `CardFooter` — footer row with `align` and `spacing` controls.
+
+## Variants
+
+<Canvas of={CardStories.Variants} />
+
+<table>
+	<thead>
+		<tr>
+			<th>Variant</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>default</code>
+			</td>
+			<td>Primary content surface.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>muted</code>
+			</td>
+			<td>Secondary surface — call-out blocks, summary panels.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>ghost</code>
+			</td>
+			<td>Embedded sections that share the parent\'s background.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>accent</code>
+			</td>
+			<td>
+				Default surface with a colored top line. Pair with <code>accentColor</code> to set the color
+				(defaults to grey).
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+## Accent
+
+<Canvas of={CardStories.Accent} />
+
+The `accent` variant is the default surface with a 4 px colored line on top — useful for grouping cards by category. Pass any CSS color through the `accentColor` prop. When omitted, the line uses the standard `--border` token (grey).
+
+```vue
+<Card variant="accent" accentColor="#3b82f6">…</Card>
+```
+
+## Padding
+
+<Canvas of={CardStories.Padding} />
+
+<table>
+	<thead>
+		<tr>
+			<th>Padding</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>none</code>
+			</td>
+			<td>Cards that host a flush layout (table, image gallery).</td>
+		</tr>
+		<tr>
+			<td>
+				<code>sm</code>
+			</td>
+			<td>Compact lists.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>default</code>
+			</td>
+			<td>General use.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>lg</code>
+			</td>
+			<td>Hero sections, prominent panels.</td>
+		</tr>
+	</tbody>
+</table>
+
+## Interactive
+
+<Canvas of={CardStories.Interactive} />
+
+Pass `interactive` to add a hover border and focus ring. Combine with `tabindex="0"` and `role="button"` (or wrap in an `<a>` / `<RouterLink>`) to make the card actually clickable.
+
+## Title sizes
+
+<Canvas of={CardStories.TitleSizes} />
+
+`CardTitle` and `CardDescription` accept `size="sm" | "default" | "lg"`. Pair them so they scale together.
+
+## Footer alignment
+
+<Canvas of={CardStories.FooterAlignment} />
+
+`CardFooter` supports `align="start" | "center" | "end" | "between"` for the most common action layouts.
+
+## Composition
+
+```vue
+<Card variant="muted" padding="lg">
+  <CardHeader spacing="loose">
+    <CardTitle size="lg">{{ title }}</CardTitle>
+    <CardDescription>{{ description }}</CardDescription>
+  </CardHeader>
+  <CardContent spacing="default">
+    <slot />
+  </CardContent>
+  <CardFooter align="end" spacing="default">
+    <Button variant="secondary">Cancel</Button>
+    <Button>Save</Button>
+  </CardFooter>
+</Card>
+```
+
+## Props
+
+<Controls of={CardStories.Default} />
+
+## Accessibility (WCAG 2.2 AA)
+
+- **1.3.1 Info and Relationships**: `CardTitle` renders as `<h3>` and `CardDescription` as `<p>` so the page outline reads correctly.
+- **1.4.3 Contrast**: `default` and `muted` variants pair surface and foreground tokens at ≥ 4.5 : 1.
+- **2.4.7 Focus Visible**: when `interactive`, a 2 px focus ring with `outline-offset-2` is applied automatically.
+- **2.5.8 Target Size**: interactive cards span their content — comfortably above 24 × 24 px. For non-interactive cards this criterion does not apply.
+- **4.1.2 Name, Role, Value**: an interactive card requires a `role` (`button` or `link`) plus `tabindex="0"` so assistive tech announces it.
+
+## Responsive behaviour
+
+<Canvas of={CardStories.InteractiveResponsive} />
+
+Cards expand to fit their container. Padding is fixed across breakpoints — if you need a smaller card on mobile, switch the `padding` prop manually.
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>Compose with sub-components for consistent spacing</td>
+			<td>Recreate header/title/description with raw HTML — you'll drift from the system</td>
+		</tr>
+		<tr>
+			<td>
+				Use <code>variant="muted"</code> for secondary panels nested in a primary card
+			</td>
+			<td>
+				Stack two <code>default</code> cards visually identical — the hierarchy disappears
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Use <code>padding="none"</code> when embedding a Table or list with its own padding
+			</td>
+			<td>Add manual margin classes to undo card padding</td>
+		</tr>
+		<tr>
+			<td>
+				Set <code>interactive</code> + <code>role="button"</code> for clickable cards
+			</td>
+			<td>
+				Add <code>cursor-pointer</code> alone — that's not keyboard-accessible
+			</td>
+		</tr>
+	</tbody>
+</table>

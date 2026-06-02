@@ -1,0 +1,177 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as TimeRangeFieldStories from './TimeRangeField.stories';
+
+<Meta of={TimeRangeFieldStories} />
+
+# TimeRangeField
+
+Segmented time-range input — start and end times each have their own focusable hour / minute (and optional second + AM/PM) segments. Built on Reka UI's `TimeRangeField` primitive.
+
+## When to use
+
+- Fast keyboard time-range entry (shift hours, lunch break, meeting slots).
+- Free-typing a known range — segments accept digits and snap on overflow.
+
+## When not to use
+
+- Single time entry — use [TimeField](?path=/docs/dates-timefield--docs).
+- Date-range entry — use [DateRangeField](?path=/docs/dates-daterangefield--docs).
+
+## Anatomy
+
+<Canvas of={TimeRangeFieldStories.Default} />
+
+`TimeRangeFieldRoot` wraps two segment groups (start, end) with hour / minute pairs and an optional AM/PM toggle. They're separated by an en-dash.
+
+## Sizes
+
+<Canvas of={TimeRangeFieldStories.Sizes} />
+
+<table>
+	<thead>
+		<tr>
+			<th>Size</th>
+			<th>Height</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>sm</code>
+			</td>
+			<td>28 px</td>
+			<td>Compact contexts (timeline rows, shift bars)</td>
+		</tr>
+		<tr>
+			<td>
+				<code>default</code>
+			</td>
+			<td>32 px</td>
+			<td>General forms</td>
+		</tr>
+		<tr>
+			<td>
+				<code>lg</code>
+			</td>
+			<td>40 px</td>
+			<td>Hero booking flows</td>
+		</tr>
+	</tbody>
+</table>
+
+## States
+
+<Canvas of={TimeRangeFieldStories.Disabled} />
+
+<Canvas of={TimeRangeFieldStories.Readonly} />
+
+<Canvas of={TimeRangeFieldStories.WithError} />
+
+`error` sets `aria-invalid="true"` on the field root. Pair with `describedBy` pointing to your error message id.
+
+## Composition
+
+<Canvas of={TimeRangeFieldStories.WithSeconds} />
+
+<Canvas of={TimeRangeFieldStories.TwelveHour} />
+
+<Canvas of={TimeRangeFieldStories.TwentyFourHour} />
+
+`granularity="second"` adds a second segment. `hourCycle` switches between 12-hour (with AM/PM) and 24-hour clocks. When omitted the user's locale preference is used.
+
+## Keyboard interaction
+
+<table>
+	<thead>
+		<tr>
+			<th>Key</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>digit</td>
+			<td>Type into focused segment; advances on overflow</td>
+		</tr>
+		<tr>
+			<td>
+				<code>ArrowLeft</code> / <code>ArrowRight</code>
+			</td>
+			<td>Move focus across all segments — including across start → end boundary</td>
+		</tr>
+		<tr>
+			<td>
+				<code>ArrowUp</code> / <code>ArrowDown</code>
+			</td>
+			<td>Increment / decrement focused segment (or toggle AM/PM)</td>
+		</tr>
+		<tr>
+			<td>
+				<code>A</code> / <code>P</code>
+			</td>
+			<td>Set AM / PM directly when the dayPeriod segment has focus</td>
+		</tr>
+		<tr>
+			<td>
+				<code>Backspace</code>
+			</td>
+			<td>Clear focused segment</td>
+		</tr>
+	</tbody>
+</table>
+
+## Props
+
+<Controls of={TimeRangeFieldStories.Default} />
+
+<ArgTypes of={TimeRangeFieldStories} />
+
+## Accessibility (WCAG 2.2 AA)
+
+- **2.4.6 Labels**: pair every field with `<Label>`.
+- **3.3.1 Error identification**: pass `error` and `describedBy`.
+- **2.4.7 Focus visible**: focused segments highlight with `bg-accent`; the wrapper renders a 2 px ring.
+- **2.5.8 Target size**: every size's wrapper meets ≥ 24 × 24 px.
+- **4.1.2 Name & state**: each segment exposes `role="spinbutton"` with min / max bounds.
+
+## Responsive behaviour
+
+<Canvas of={TimeRangeFieldStories.InteractiveResponsive} />
+
+The root is `w-fit`. On narrow viewports (`< sm`) consider stacking start and end as separate `TimeField`s instead.
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				Use <code>error</code> + <code>describedBy</code> for validation messages.
+			</td>
+			<td>
+				Toggle <code>variant="error"</code> manually.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Match <code>size</code> to surrounding form fields. Use <code>sm</code> in compact rows.
+			</td>
+			<td>
+				Override <code>class="h-..."</code> — use the <code>size</code> variant.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Validate <em>start &lt; end</em> in your form schema.
+			</td>
+			<td>Trust client-side ordering — also validate on submit.</td>
+		</tr>
+	</tbody>
+</table>

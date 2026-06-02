@@ -1,0 +1,200 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as InputSearchStories from './InputSearch.stories';
+
+<Meta of={InputSearchStories} />
+
+# InputSearch
+
+Search input with a leading magnifying glass and a trailing clear button. Built atop the same wrapper conventions as `Input` so the two visually align.
+
+## When to use
+
+- Free-form text used to filter a list, table, or grid.
+- Typeahead inputs that need debounce-friendly emits and explicit Enter handling.
+- Toolbar / sidebar filters where the magnifying glass affordance is desirable.
+
+## When not to use
+
+- Generic single-line text fields — use [Input](?path=/docs/form-input--docs).
+- Selecting from a known set of options — use [Select](?path=/docs/form-select--docs) or [Autocomplete](?path=/docs/form-autocomplete--docs).
+- Multiple tag-style values — use [InputChip](?path=/docs/form-tags-input--docs).
+
+## Anatomy
+
+<Canvas of={InputSearchStories.Default} />
+
+A wrapper hosts the magnifying glass icon, the native search input, and a clear button. The clear button only renders when there is a value.
+
+## Sizes
+
+<Canvas of={InputSearchStories.Sizes} />
+
+<table>
+	<thead>
+		<tr>
+			<th>Size</th>
+			<th>Height</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>sm</code>
+			</td>
+			<td>28 px</td>
+			<td>Compact toolbars, sidebars</td>
+		</tr>
+		<tr>
+			<td>
+				<code>default</code>
+			</td>
+			<td>32 px</td>
+			<td>General forms</td>
+		</tr>
+		<tr>
+			<td>
+				<code>lg</code>
+			</td>
+			<td>40 px</td>
+			<td>Page-level search hero</td>
+		</tr>
+	</tbody>
+</table>
+
+The clear button is always at least 24 × 24 px so it meets WCAG 2.2 SC 2.5.8.
+
+## States
+
+<Canvas of={InputSearchStories.Disabled} />
+
+<Canvas of={InputSearchStories.WithError} />
+
+`error` sets `aria-invalid="true"` and tints the wrapper border. Pair with `describedBy` pointing to the helper / error message id.
+
+## Variants
+
+<Canvas of={InputSearchStories.WithDebounce} />
+
+<Canvas of={InputSearchStories.WithLabel} />
+
+<Canvas of={InputSearchStories.HideClear} />
+
+## Events
+
+<table>
+	<thead>
+		<tr>
+			<th>Event</th>
+			<th>Fires when</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>update:modelValue</code>
+			</td>
+			<td>
+				Value changes (debounced when <code>debounceTime &gt; 0</code>)
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>search</code>
+			</td>
+			<td>
+				User presses <kbd>Enter</kbd>; pending debounce is flushed first
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>clear</code>
+			</td>
+			<td>User clicks the clear button</td>
+		</tr>
+	</tbody>
+</table>
+
+## Keyboard interaction
+
+<table>
+	<thead>
+		<tr>
+			<th>Key</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>Any character</td>
+			<td>Updates the value</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>Enter</kbd>
+			</td>
+			<td>
+				Emits <code>search</code>; flushes pending debounced emit
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+## Props
+
+<Controls of={InputSearchStories.Default} />
+
+<ArgTypes of={InputSearchStories} />
+
+## Accessibility (WCAG 2.2 AA)
+
+- **2.4.6 Labels**: Pair with a `<Label>` or supply `aria-label` directly on the input via attribute fall-through.
+- **3.3.1 Error identification**: Use `error` + `describedBy` to surface validation.
+- **2.5.8 Target size**: Wrapper meets ≥ 24 × 24 px at every size; clear button is square ≥ 24 × 24 px.
+- **2.4.7 Focus visible**: Focus draws a 2 px ring at ≥ 3 : 1 contrast.
+- **iOS no-zoom**: input uses `text-sm` minimum (12 px) — prevents iOS Safari auto-zoom on focus.
+- **Native search**: `type="search"` exposes a clear gesture on iOS (long-press, voice) — our overlay button supplements it.
+
+## Responsive behaviour
+
+<Canvas of={InputSearchStories.InteractiveResponsive} />
+
+The wrapper is `w-full` and shrinks to its parent. Place inside a max-width container (`w-72` or `max-w-sm`) so the field doesn't dominate wide layouts.
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				Use <code>debounceTime</code> for typeahead-driven API calls.
+			</td>
+			<td>Hit the API on every keystroke synchronously — debounce by 200-500 ms.</td>
+		</tr>
+		<tr>
+			<td>
+				Listen to <code>search</code> for explicit Enter-driven submissions.
+			</td>
+			<td>Bind a Form submit on the wrapper — InputSearch is not a form.</td>
+		</tr>
+		<tr>
+			<td>
+				Hide the clear button via <code>hideClear</code> when clearing should be a deliberate
+				multi-step action.
+			</td>
+			<td>Hide it without providing an alternative way to clear.</td>
+		</tr>
+		<tr>
+			<td>
+				Pair with <code>&lt;Label&gt;</code> or <code>aria-label</code>.
+			</td>
+			<td>Rely on the magnifying glass alone — assistive tech can't announce the icon.</td>
+		</tr>
+	</tbody>
+</table>

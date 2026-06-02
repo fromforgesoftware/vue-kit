@@ -1,0 +1,209 @@
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as AvatarStories from './Avatar.stories';
+
+<Meta of={AvatarStories} />
+
+# Avatar
+
+Compact representation of a person, team, or entity. Renders an image when available with a graceful fallback to initials, an icon, or arbitrary slot content.
+
+## When to use
+
+- Anywhere a person or team is represented inline (comments, lists, sidebars).
+- As the trigger for an account menu or profile popover (wrap the Avatar in a button at the consumer).
+- For team / org avatars (use `shape="rounded"` to differentiate from people).
+
+## When not to use
+
+- For brand logos that need full-bleed colour. Use a dedicated logo SVG.
+- For avatars that need editing on hover. That's a different component (Avatar editor).
+
+## Anatomy
+
+<Canvas of={AvatarStories.Default} />
+
+A circular surface that loads `src` first; if loading fails or no src is provided, the fallback slot renders.
+
+## Initials fallback
+
+<Canvas of={AvatarStories.InitialsFallback} />
+
+Initials are derived from `name`: first letter of the first two words, uppercased. For single-word names, the first two letters are used.
+
+<Canvas of={AvatarStories.ExplicitInitials} />
+
+Pass `initials` to override the derivation — useful when names contain emoji, non-Latin scripts, or where a brand-specific abbreviation is preferred.
+
+## Icon fallback
+
+<Canvas of={AvatarStories.IconFallback} />
+
+Use the `fallback` slot for a generic placeholder when no name or initials are available. Pair with a Lucide icon at `size="sm"` and `opacity-60` for the recede effect.
+
+## Sizes
+
+<Canvas of={AvatarStories.Sizes} />
+
+<table>
+	<thead>
+		<tr>
+			<th>Size</th>
+			<th>Pixels</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>xs</code>
+			</td>
+			<td>24 × 24</td>
+			<td>
+				Inline with <code>text-xs</code> — table cells, dense lists
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>sm</code>
+			</td>
+			<td>28 × 28</td>
+			<td>Compact lists, comments</td>
+		</tr>
+		<tr>
+			<td>
+				<code>default</code>
+			</td>
+			<td>32 × 32</td>
+			<td>General use — sidebars, headers</td>
+		</tr>
+		<tr>
+			<td>
+				<code>lg</code>
+			</td>
+			<td>40 × 40</td>
+			<td>Profile cards, large lists</td>
+		</tr>
+		<tr>
+			<td>
+				<code>xl</code>
+			</td>
+			<td>48 × 48</td>
+			<td>Hero / page-header avatars</td>
+		</tr>
+	</tbody>
+</table>
+
+## Shapes
+
+<Canvas of={AvatarStories.Shapes} />
+
+<table>
+	<thead>
+		<tr>
+			<th>Shape</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>circle</code>
+			</td>
+			<td>People, default</td>
+		</tr>
+		<tr>
+			<td>
+				<code>rounded</code>
+			</td>
+			<td>Teams, organisations, projects</td>
+		</tr>
+		<tr>
+			<td>
+				<code>square</code>
+			</td>
+			<td>Brand glyphs, logos that fill the bounds</td>
+		</tr>
+	</tbody>
+</table>
+
+## Status indicator (composition)
+
+<Canvas of={AvatarStories.WithStatusIndicator} />
+
+For online/offline indicators or unread counts, compose Avatar with Badge using absolute positioning at the corner. Use `ring-2 ring-background` on the badge so it's separated from the avatar circle.
+
+```vue
+<div class="relative inline-flex">
+  <Avatar :name="user.name" :src="user.imageUrl" />
+  <Badge variant="success" shape="pill" size="xs"
+         class="absolute -bottom-0.5 -right-0.5 ring-2 ring-background">●</Badge>
+</div>
+```
+
+## Avatar group
+
+<Canvas of={AvatarStories.Group} />
+
+Stack avatars with `-ms-2` overlap and `ring-2 ring-background` to visually separate. After three or four faces, switch to a "+ N more" label rather than continuing to stack.
+
+## Props
+
+<Controls of={AvatarStories.Default} />
+
+## Accessibility (WCAG 2.2 AA)
+
+- **1.1.1 Non-text Content**: when `src` is set, the `<img>` has `alt` text — defaults to `name`, override via `alt` for richer descriptions ("Photograph of …").
+- **1.4.3 Contrast**: fallback text uses `bg-secondary` + `text-secondary-foreground`, ≥ 4.5 : 1, axe-verified.
+- **2.5.8 Target Size**: avatars are non-interactive by default. When the consumer wraps an Avatar in a button or link, that wrapping element is responsible for meeting the 24 × 24 minimum.
+- **4.1.2 Name, Role, Value**: image announces itself with the alt text. Initial-fallback avatars are presented as text by reka-ui.
+
+## Responsive behaviour
+
+Avatars use absolute pixel sizes that don't change across breakpoints — consistent visual size is intentional. If your layout needs adaptive sizing, switch the `size` prop manually based on a breakpoint signal.
+
+<Canvas of={AvatarStories.InteractiveResponsive} />
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>✅ Do</th>
+			<th>❌ Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				Pass <code>name</code> for screen readers and initials
+			</td>
+			<td>
+				Leave <code>name</code> empty for unknown users — pass "Unknown" or render the icon fallback
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Use <code>alt</code> to describe the image content for accessibility
+			</td>
+			<td>
+				Repeat the user's name in <code>alt</code> when an avatar is purely decorative next to a
+				name label
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Wrap in a <code>&lt;button&gt;</code> when the avatar is interactive
+			</td>
+			<td>
+				Add <code>cursor-pointer</code> to the avatar without a real button — that's not
+				keyboard-accessible
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Use <code>shape="rounded"</code> for teams to differentiate from people
+			</td>
+			<td>Mix circle and square shapes for the same entity type</td>
+		</tr>
+	</tbody>
+</table>

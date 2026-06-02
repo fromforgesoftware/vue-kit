@@ -1,0 +1,158 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Foundation/Colors" />
+
+# Colors
+
+Every colour in the library is defined as an [OKLCH](https://oklch.com) triplet stored on a CSS custom property. Components reference these via the `color-*` Tailwind utilities (`bg-primary`, `text-foreground`, `border-input`, etc.) — never via hex codes or hard-coded `oklch()`.
+
+OKLCH is perceptually uniform: a 0.1 step in lightness is roughly the same visual distance everywhere on the spectrum, which makes WCAG contrast and dark-theme inversion easier to reason about than HSL or sRGB.
+
+## Why this matters
+
+- **Themability**: a single `--primary` change cascades across every component.
+- **Dark mode**: only the `--*` raw values change in `[data-theme='dark']`; the `--color-*` aliases stay constant.
+- **WCAG**: contrast ratios are testable from the design tokens alone — axe verifies them automatically per story.
+
+## Semantic tokens
+
+These are the colour roles every component should reference. Don't introduce new raw colours in component CSS — extend this list instead.
+
+<table>
+	<thead>
+		<tr>
+			<th>Token</th>
+			<th>Usage</th>
+			<th>Pair with</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>bg-background</code> / <code>text-foreground</code>
+			</td>
+			<td>Page surface and primary text</td>
+			<td>—</td>
+		</tr>
+		<tr>
+			<td>
+				<code>bg-card</code> / <code>text-card-foreground</code>
+			</td>
+			<td>Elevated surface (cards, dialogs, popovers)</td>
+			<td>border-border</td>
+		</tr>
+		<tr>
+			<td>
+				<code>bg-popover</code> / <code>text-popover-foreground</code>
+			</td>
+			<td>Floating layers (menus, tooltips)</td>
+			<td>border-border</td>
+		</tr>
+		<tr>
+			<td>
+				<code>bg-primary</code> / <code>text-primary-foreground</code>
+			</td>
+			<td>Brand-coloured emphasis (CTAs, active states)</td>
+			<td>—</td>
+		</tr>
+		<tr>
+			<td>
+				<code>bg-secondary</code> / <code>text-secondary-foreground</code>
+			</td>
+			<td>Low-emphasis surfaces (secondary buttons, badge backgrounds)</td>
+			<td>—</td>
+		</tr>
+		<tr>
+			<td>
+				<code>bg-muted</code> / <code>text-muted-foreground</code>
+			</td>
+			<td>De-emphasised text (captions, placeholders)</td>
+			<td>—</td>
+		</tr>
+		<tr>
+			<td>
+				<code>bg-accent</code> / <code>text-accent-foreground</code>
+			</td>
+			<td>Hover / focused state for menu items, list rows</td>
+			<td>—</td>
+		</tr>
+		<tr>
+			<td>
+				<code>bg-destructive</code> / <code>text-destructive-foreground</code>
+			</td>
+			<td>Failure, delete, irreversible actions</td>
+			<td>focus-visible:ring-destructive/20</td>
+		</tr>
+		<tr>
+			<td>
+				<code>bg-success</code> / <code>text-success-foreground</code>
+			</td>
+			<td>Confirmations, positive state</td>
+			<td>—</td>
+		</tr>
+		<tr>
+			<td>
+				<code>bg-warning</code> / <code>text-warning-foreground</code>
+			</td>
+			<td>Heads-up, non-blocking caution</td>
+			<td>—</td>
+		</tr>
+		<tr>
+			<td>
+				<code>bg-info</code> / <code>text-info-foreground</code>
+			</td>
+			<td>Informational notices</td>
+			<td>—</td>
+		</tr>
+		<tr>
+			<td>
+				<code>border-border</code>
+			</td>
+			<td>Dividers, card borders</td>
+			<td>—</td>
+		</tr>
+		<tr>
+			<td>
+				<code>border-input</code>
+			</td>
+			<td>Form-control borders</td>
+			<td>—</td>
+		</tr>
+		<tr>
+			<td>
+				<code>ring-ring</code>
+			</td>
+			<td>Focus rings (always 3 px, opacity 0.5)</td>
+			<td>—</td>
+		</tr>
+	</tbody>
+</table>
+
+### Soft variants
+
+Solid colour tokens have a "soft" companion built on `/10` and `/20` opacity modifiers — these are used by the `soft-*` Badge variants and any low-emphasis status display. The pattern: tinted background (`bg-success/10`) with full-strength foreground (`text-success`).
+
+## Surface tokens (specialised)
+
+Two namespaces extend the semantic palette for specialised patterns:
+
+- **`color-sidebar-*`** — the navigation chrome. Separate from `card` so sidebar can feel rooted while content cards float.
+- **`color-chart-*`** (1 – 5) — categorical chart data series. Picked for perceptual distinctness, not brand alignment.
+- **`color-st-*`** (Schedule Timeline) and **`color-ec-*`** (Event Calendar) — pattern-specific category palettes (work, leave, meeting…). Don't reuse them in unrelated contexts; they carry domain meaning.
+
+## Theming
+
+The default light theme lives in `[data-theme='light']` (and `:root`). A dark theme can be introduced by adding a `[data-theme='dark']` block in `_colors.css` and toggling the attribute on `<html>`. **No component should reference `dark:` Tailwind variants directly** — colour inversion is handled by the token swap.
+
+## Contrast & a11y
+
+Every solid `*-foreground` pairing meets **WCAG 1.4.3 (4.5 : 1)** against its base, verified by axe per story. Soft variants meet contrast against their tinted background (`bg-success/10 + text-success` ≈ 7 : 1).
+
+When introducing a new variant, run the rendered story through the `Accessibility` panel. If contrast fails, adjust the OKLCH lightness — don't fall back to `text-white` or `text-black` literals.
+
+## Don't
+
+- Hard-code `oklch(...)` values in component CSS or stories. Use the token.
+- Use `dark:` variants. Theme via attribute swap.
+- Introduce new chart colours. Pick from `chart-1` … `chart-5`.
+- Use semantic tokens decoratively (`bg-success` for visual interest). They carry meaning to assistive tech and the design system.

@@ -1,0 +1,322 @@
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as DropdownMenuStories from './DropdownMenu.stories';
+
+<Meta of={DropdownMenuStories} />
+
+# Dropdown Menu
+
+A list of actions or options that opens when the user clicks a button. Supports submenus, checkbox items, radio groups, keyboard shortcuts, and a destructive variant for delete actions. Built on Reka UI — content portals to `document.body`.
+
+## When to use
+
+- Action menus on a row, card, or toolbar (Edit / Duplicate / Delete).
+- Account / user menus with sign out, profile, switch tenant.
+- Toggling visible columns, sorting, filters.
+
+## When not to use
+
+- Right-click context actions — use [Context Menu](?path=/docs/general-context-menu--docs).
+- Application-wide horizontal menus (File / Edit / View) — use [Menubar](?path=/docs/general-menubar--docs).
+- A select that captures one value into a form — use Select.
+- Plain help text or hover previews — use Tooltip or Hover Card.
+
+## Anatomy
+
+<Canvas of={DropdownMenuStories.Default} />
+
+## Composition
+
+<table>
+	<thead>
+		<tr>
+			<th>Subcomponent</th>
+			<th>Purpose</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>DropdownMenu</code>
+			</td>
+			<td>
+				Root provider. Owns <code>open</code>, <code>defaultOpen</code>, and <code>modal</code>.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>DropdownMenuTrigger</code>
+			</td>
+			<td>
+				The button that opens the menu. Uses <code>as-child</code> to merge into a real button.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>DropdownMenuContent</code>
+			</td>
+			<td>
+				The portaled panel. Owns <code>side</code>, <code>align</code>, <code>sideOffset</code>,{' '}
+				<code>alignOffset</code>, <code>size</code>, <code>loop</code>.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>DropdownMenuItem</code>
+			</td>
+			<td>
+				A single action. Supports <code>variant="destructive"</code>, <code>inset</code>,{' '}
+				<code>disabled</code>.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>DropdownMenuLabel</code>
+			</td>
+			<td>A non-interactive section label.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>DropdownMenuSeparator</code>
+			</td>
+			<td>A horizontal divider between groups of items.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>DropdownMenuShortcut</code>
+			</td>
+			<td>Right-aligned hint for the keyboard shortcut associated with an item.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>DropdownMenuGroup</code>
+			</td>
+			<td>Wraps related items so screen readers announce them as a group.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>DropdownMenuCheckboxItem</code>
+			</td>
+			<td>
+				Toggleable item. Two-way binds via <code>v-model:checked</code>.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>DropdownMenuRadioGroup</code>
+			</td>
+			<td>
+				Wraps a set of <code>DropdownMenuRadioItem</code> children. Two-way binds via{' '}
+				<code>v-model</code>.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>DropdownMenuRadioItem</code>
+			</td>
+			<td>Single choice within a radio group.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>DropdownMenuSub</code>
+			</td>
+			<td>Provider for a nested submenu. Owns the sub-open state.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>DropdownMenuSubTrigger</code>
+			</td>
+			<td>
+				Item that opens its child <code>DropdownMenuSubContent</code> on hover or Right Arrow.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>DropdownMenuSubContent</code>
+			</td>
+			<td>The portaled submenu panel.</td>
+		</tr>
+	</tbody>
+</table>
+
+## Sizes
+
+<Canvas of={DropdownMenuStories.Sizes} />
+
+<table>
+	<thead>
+		<tr>
+			<th>Size</th>
+			<th>Min width</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>sm</code>
+			</td>
+			<td>10rem</td>
+			<td>Compact action menus on dense rows.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>default</code>
+			</td>
+			<td>14rem</td>
+			<td>Most action menus.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>lg</code>
+			</td>
+			<td>18rem</td>
+			<td>Menus with longer labels or descriptions.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>auto</code>
+			</td>
+			<td>fit-content</td>
+			<td>Anchored selectors where the items determine width.</td>
+		</tr>
+	</tbody>
+</table>
+
+## Variants
+
+<Canvas of={DropdownMenuStories.Variants} />
+
+`DropdownMenuItem` accepts `variant="destructive"` for delete or remove actions. The variant tints the text and any icon red and shifts the focus background to a soft destructive tint — never override the colour with `class`.
+
+## Submenus, checkboxes, radio groups
+
+<Canvas of={DropdownMenuStories.WithSubmenuAndChecks} />
+
+## Props
+
+<Controls of={DropdownMenuStories.Default} />
+
+## Keyboard interaction
+
+<table>
+	<thead>
+		<tr>
+			<th>Key / event</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				Click trigger / <kbd>Enter</kbd> / <kbd>Space</kbd>
+			</td>
+			<td>Opens the menu.</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>Arrow Down</kbd>
+			</td>
+			<td>Moves focus to next item, wrapping to first.</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>Arrow Up</kbd>
+			</td>
+			<td>Moves focus to previous item, wrapping to last.</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>Arrow Right</kbd>
+			</td>
+			<td>Opens a submenu when focused on a sub-trigger.</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>Arrow Left</kbd>
+			</td>
+			<td>Closes the current submenu and returns focus to the sub-trigger.</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>Home</kbd> / <kbd>End</kbd>
+			</td>
+			<td>Focuses the first or last item.</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>Enter</kbd> / <kbd>Space</kbd>
+			</td>
+			<td>Activates the focused item.</td>
+		</tr>
+		<tr>
+			<td>Type a letter</td>
+			<td>Focus jumps to the next item starting with that letter (typeahead).</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>Escape</kbd>
+			</td>
+			<td>Closes the menu and returns focus to the trigger.</td>
+		</tr>
+		<tr>
+			<td>Click outside</td>
+			<td>Closes the menu.</td>
+		</tr>
+	</tbody>
+</table>
+
+## Accessibility (WCAG 2.2 AA)
+
+- **2.4.3 Focus order**: focus moves into the menu on open and returns to the trigger on close.
+- **2.4.7 Focus visible**: items keep the standard `:focus-visible` ring; focused items also pick up an accent background.
+- **2.1.1 Keyboard**: full menu is operable from the keyboard — open, navigate, activate, close.
+- **4.1.2 Name, Role, Value**: trigger keeps its own role and accessible name; items use `role="menuitem"`, `role="menuitemcheckbox"`, `role="menuitemradio"` automatically.
+- **2.5.8 Target size**: items render at minimum 24 px tall thanks to `min-h-6` on item variants.
+
+> Pair every icon-only `DropdownMenuTrigger` with `aria-label` on its inner button — the trigger has no accessible name otherwise.
+
+## Responsive behaviour
+
+<Canvas of={DropdownMenuStories.InteractiveResponsive} />
+
+The menu is portaled to `document.body` and never affects parent layout. Triggers should respect their container's width.
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				Use <code>variant="destructive"</code> for Delete and Remove actions.
+			</td>
+			<td>
+				Override colours with <code>class="text-destructive"</code>.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Group related items with <code>DropdownMenuLabel</code> + <code>DropdownMenuSeparator</code>
+				.
+			</td>
+			<td>List 12+ unrelated actions in one menu — split into a sub-menu or separate Popover.</td>
+		</tr>
+		<tr>
+			<td>
+				Pair an icon-only trigger with <code>aria-label</code>.
+			</td>
+			<td>Rely on the menu items as the trigger's accessible name.</td>
+		</tr>
+		<tr>
+			<td>
+				Keep shortcuts visible with <code>DropdownMenuShortcut</code> for power users.
+			</td>
+			<td>Show shortcuts that aren't actually wired up.</td>
+		</tr>
+	</tbody>
+</table>

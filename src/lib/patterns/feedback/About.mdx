@@ -1,0 +1,59 @@
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as Stories from './FeedbackPopover.stories';
+
+<Meta of={Stories} />
+
+# FeedbackPopover
+
+A popover form that collects user feedback text. The trigger button opens a popover containing a heading, a textarea, and a submit button. After successful submission the parent calls `setSuccess()` which briefly shows a thank-you state before automatically closing.
+
+## When to use
+
+- Collecting in-product feedback, bug reports, or feature requests without leaving the current page.
+- Any lightweight form that fits in a small popover rather than a full dialog.
+
+## Anatomy
+
+<Canvas of={Stories.Default} />
+
+## Custom labels
+
+<Canvas of={Stories.CustomLabels} />
+
+## Props
+
+<Controls of={Stories.Default} />
+
+## Accessibility (WCAG 2.2 AA)
+
+<table>
+	<thead>
+		<tr>
+			<th>Criterion</th>
+			<th>Coverage</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>2.1.1 Keyboard</td>
+			<td>
+				Trigger is a native button; Tab reaches textarea and submit; Escape closes the popover.
+			</td>
+		</tr>
+		<tr>
+			<td>2.4.3 Focus Order</td>
+			<td>Focus moves into the popover when opened (managed by Reka UI Popover).</td>
+		</tr>
+		<tr>
+			<td>2.5.8 Target Size</td>
+			<td>Trigger button and submit button are ≥ 24×24 px.</td>
+		</tr>
+		<tr>
+			<td>4.1.3 Status Messages</td>
+			<td>
+				The success state is wrapped in <code>aria-live="polite"</code> so screen readers announce
+				it without moving focus.
+			</td>
+		</tr>
+	</tbody>
+</table>

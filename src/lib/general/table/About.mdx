@@ -1,0 +1,311 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as TableStories from './Table.stories';
+
+<Meta of={TableStories} />
+
+# Table
+
+Styling primitive for the native HTML `<table>`. Renders semantic `<thead>`, `<tbody>`, `<tr>`, `<th>`, `<td>`, `<tfoot>`, and `<caption>` with consistent padding, alignment, and selected-state styling. Sorting, pagination, and selection machinery live in [`DataTable`](?path=/docs/patterns-data-table--docs).
+
+## When to use
+
+- Presenting tabular data with rows and columns.
+- When DataTable is too heavy (no sorting, pagination, or selection needed).
+- Inside cards, drawers, or panels where a small static table is sufficient.
+
+## When not to use
+
+- Anything dynamic — sortable, paginated, selectable, or filtered. Use [DataTable](?path=/docs/patterns-data-table--docs) instead.
+- Lists of items where the table grid would be redundant — use a plain list.
+- Layout — tables for layout are forbidden by HTML semantics. Use flex or grid.
+
+## Anatomy
+
+<Canvas of={TableStories.Default} />
+
+## Composition
+
+```vue
+<Table density="default">
+  <TableCaption>Recent invoices</TableCaption>
+  <TableHeader>
+    <TableRow>
+      <TableHead>Invoice</TableHead>
+      <TableHead align="right">Amount</TableHead>
+    </TableRow>
+  </TableHeader>
+  <TableBody>
+    <TableRow v-for="row in rows" :key="row.id" :selected="row.id === selectedId">
+      <TableCell>{{ row.id }}</TableCell>
+      <TableCell align="right" numeric>{{ row.amount }}</TableCell>
+    </TableRow>
+  </TableBody>
+  <TableFooter>
+    <TableRow>
+      <TableCell colspan="1">Total</TableCell>
+      <TableCell align="right" numeric>$1,750.00</TableCell>
+    </TableRow>
+  </TableFooter>
+</Table>
+```
+
+<table>
+	<thead>
+		<tr>
+			<th>Subcomponent</th>
+			<th>Maps to</th>
+			<th>Purpose</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>Table</code>
+			</td>
+			<td>
+				<code>&lt;table&gt;</code> inside a scrollable wrapper
+			</td>
+			<td>
+				Root. Owns <code>density</code>, <code>surface</code>, and <code>stickyHeader</code> —
+				propagated to children via inject.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>TableHeader</code>
+			</td>
+			<td>
+				<code>&lt;thead&gt;</code>
+			</td>
+			<td>
+				Header row group. Accepts <code>sticky</code> override.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>TableBody</code>
+			</td>
+			<td>
+				<code>&lt;tbody&gt;</code>
+			</td>
+			<td>Body row group.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>TableFooter</code>
+			</td>
+			<td>
+				<code>&lt;tfoot&gt;</code>
+			</td>
+			<td>Footer row group with muted background.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>TableRow</code>
+			</td>
+			<td>
+				<code>&lt;tr&gt;</code>
+			</td>
+			<td>
+				One row. <code>selected</code> sets <code>data-state="selected"</code>;{' '}
+				<code>interactive</code> upgrades to a clickable row.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>TableHead</code>
+			</td>
+			<td>
+				<code>&lt;th scope="col"&gt;</code>
+			</td>
+			<td>
+				Column header cell. Accepts <code>align</code>.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>TableCell</code>
+			</td>
+			<td>
+				<code>&lt;td&gt;</code>
+			</td>
+			<td>
+				Body cell. Accepts <code>align</code>, <code>numeric</code>.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>TableCaption</code>
+			</td>
+			<td>
+				<code>&lt;caption&gt;</code>
+			</td>
+			<td>Accessible name for the table — render once at the top.</td>
+		</tr>
+	</tbody>
+</table>
+
+## Densities
+
+<Canvas of={TableStories.Densities} />
+
+<table>
+	<thead>
+		<tr>
+			<th>Density</th>
+			<th>Head</th>
+			<th>Cell</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>compact</code>
+			</td>
+			<td>h-8 px-2 text-xs</td>
+			<td>p-2 text-xs</td>
+			<td>Dense data — log tables, settings, admin views</td>
+		</tr>
+		<tr>
+			<td>
+				<code>default</code>
+			</td>
+			<td>h-10 px-3 text-xs</td>
+			<td>p-3 text-sm</td>
+			<td>General use</td>
+		</tr>
+		<tr>
+			<td>
+				<code>relaxed</code>
+			</td>
+			<td>h-12 px-4 text-sm</td>
+			<td>p-4 text-sm</td>
+			<td>Marketing, billing, invoice tables</td>
+		</tr>
+	</tbody>
+</table>
+
+## Alignments
+
+<Canvas of={TableStories.Alignments} />
+
+Pass `align` to either `<TableHead>` or `<TableCell>`. For numeric columns, prefer `align="right"` on both the header and the cell, and pair the cell with `numeric` for tabular figures.
+
+## Numeric columns
+
+<Canvas of={TableStories.Numeric} />
+
+`numeric` applies `tabular-nums` so digits line up vertically — essential for currency and counts.
+
+## Selected rows
+
+<Canvas of={TableStories.SelectedRow} />
+
+Set `selected` on a row to apply the selected background. The row exposes `data-state="selected"` for assistive tech and tests.
+
+## Interactive rows
+
+<Canvas of={TableStories.InteractiveRows} />
+
+`interactive` rows show a stronger hover state and a pointer cursor. Use when the entire row is clickable (e.g. opens a detail view).
+
+## Sticky header
+
+<Canvas of={TableStories.StickyHeader} />
+
+Set `stickyHeader` on the root table to pin `<thead>` to the top of a scrolling container. Useful for long lists in fixed-height panels.
+
+## Surface
+
+<Canvas of={TableStories.Surfaces} />
+
+`surface="card"` adds a bordered, rounded wrapper. `none` (the default) leaves the table flush with its parent.
+
+## Footer
+
+<Canvas of={TableStories.WithFooter} />
+
+`<TableFooter>` renders inside `<tfoot>` with a muted background — for totals or summary rows.
+
+## Props
+
+<Controls of={TableStories.Default} />
+
+<ArgTypes of={TableStories} />
+
+## Accessibility (WCAG 2.2 AA)
+
+- **1.3.1 Info and Relationships**: native `<table>`, `<thead>`, `<tbody>`, `<th>`, `<td>` semantics are preserved. `<TableHead>` defaults `scope="col"` so screen readers announce column headers correctly.
+- **1.4.3 Contrast**: header text uses `text-muted-foreground` and body text uses `text-foreground` — both clear 4.5 : 1 against `bg-card` and `bg-background`.
+- **1.4.11 Non-text Contrast**: row borders use `border` (1 px `border-border`) which clears 3 : 1.
+- **2.4.6 Headings and Labels**: `<TableCaption>` provides the accessible name for the entire table — render exactly one if your table needs context beyond visible headers.
+- **2.5.8 Target Size**: target sizes apply to interactive controls inside cells (buttons, links, checkboxes) — they are sized by the consumer component (`Button`, `Checkbox`, etc.) and meet the 24 px minimum at all densities.
+- **4.1.2 Name, Role, Value**: rows expose `data-state` for selected/hovered states. Native `<th>` / `<td>` carry the role automatically.
+
+## Responsive behaviour
+
+<Canvas of={TableStories.InteractiveResponsive} />
+
+The table is wrapped in `relative w-full overflow-auto` — when content overflows on narrow viewports, the wrapper scrolls horizontally rather than the page. The wrapper itself never causes page-level horizontal overflow.
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				Use the <code>align</code> prop instead of <code>class="text-right"</code>.
+			</td>
+			<td>
+				Pass alignment via <code>class</code> — the prop is the supported API.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Pair <code>align="right"</code> with <code>numeric</code> on monetary or count columns.
+			</td>
+			<td>
+				Use <code>text-right</code> on numeric columns without <code>tabular-nums</code> — digits
+				won't line up.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Render exactly one <code>TableCaption</code> per table.
+			</td>
+			<td>Stack two captions or omit captions entirely on tables that need explanation.</td>
+		</tr>
+		<tr>
+			<td>
+				Set <code>density="compact"</code> for log/admin tables; <code>relaxed</code> for
+				marketing/billing.
+			</td>
+			<td>
+				Override row padding with <code>class="py-1"</code> — change the density instead.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Use <code>interactive</code> to indicate a clickable row.
+			</td>
+			<td>
+				Use <code>cursor-pointer</code> via <code>class</code> — the prop is the supported API.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Reach for <code>DataTable</code> when you need sorting, pagination, or selection.
+			</td>
+			<td>
+				Re-implement those behaviours on top of <code>Table</code>.
+			</td>
+		</tr>
+	</tbody>
+</table>

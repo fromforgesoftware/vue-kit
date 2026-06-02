@@ -1,0 +1,232 @@
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as PopoverStories from './Popover.stories';
+
+<Meta of={PopoverStories} />
+
+# Popover
+
+A floating panel anchored to a trigger. Opens on click, closes on Escape, outside click, or the close button. Built on Reka UI — content portals to `document.body` so it can escape `overflow: hidden` ancestors.
+
+## When to use
+
+- Compact form controls (date picker, dimension editor, colour picker).
+- Auxiliary actions tied to a specific button or icon.
+- Content the user needs to interact with — links, buttons, inputs.
+
+## When not to use
+
+- Pure help text — use [Tooltip](?path=/docs/general-tooltip--docs).
+- Hover-only previews — use [Hover Card](?path=/docs/general-hover-card--docs).
+- Modal flows that own the page — use [Dialog](?path=/docs/general-dialog--docs) or [Drawer](?path=/docs/general-drawer--docs).
+
+## Anatomy
+
+<Canvas of={PopoverStories.Default} />
+
+## Composition
+
+<table>
+	<thead>
+		<tr>
+			<th>Subcomponent</th>
+			<th>Purpose</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>Popover</code>
+			</td>
+			<td>
+				Root provider. Owns <code>open</code>, <code>defaultOpen</code>, and <code>modal</code>.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>PopoverTrigger</code>
+			</td>
+			<td>
+				The element that opens the popover. Uses <code>as-child</code> to merge into a real button.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>PopoverContent</code>
+			</td>
+			<td>
+				The portaled panel. Owns <code>side</code>, <code>align</code>, <code>sideOffset</code>,{' '}
+				<code>alignOffset</code>, <code>size</code>, and the close button.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>PopoverClose</code>
+			</td>
+			<td>Wraps any element to close the popover on click.</td>
+		</tr>
+	</tbody>
+</table>
+
+## Sides
+
+<Canvas of={PopoverStories.Sides} />
+
+`bottom` is the default. Reka flips automatically near viewport edges.
+
+## Alignments
+
+<Canvas of={PopoverStories.Alignments} />
+
+`align` controls placement along the chosen side — useful when the trigger is at a corner of its container.
+
+## Sizes
+
+<Canvas of={PopoverStories.Sizes} />
+
+<table>
+	<thead>
+		<tr>
+			<th>Size</th>
+			<th>Width</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>sm</code>
+			</td>
+			<td>14rem</td>
+			<td>Single-column compact controls</td>
+		</tr>
+		<tr>
+			<td>
+				<code>default</code>
+			</td>
+			<td>18rem</td>
+			<td>Most form panels</td>
+		</tr>
+		<tr>
+			<td>
+				<code>lg</code>
+			</td>
+			<td>20rem</td>
+			<td>Two-column form layouts</td>
+		</tr>
+		<tr>
+			<td>
+				<code>xl</code>
+			</td>
+			<td>24rem</td>
+			<td>Rich pickers, multi-section panels</td>
+		</tr>
+		<tr>
+			<td>
+				<code>auto</code>
+			</td>
+			<td>fit-content (max 24rem)</td>
+			<td>Variable-length menus, lists</td>
+		</tr>
+	</tbody>
+</table>
+
+## Modal vs non-modal
+
+Default behaviour is <strong>non-modal</strong> — the page remains interactive while the popover is open. Set `modal` on `Popover` to trap focus and inert the rest of the page; this is rarely the right choice for a popover (use a Dialog instead).
+
+## Props
+
+<Controls of={PopoverStories.Default} />
+
+## Keyboard interaction
+
+<table>
+	<thead>
+		<tr>
+			<th>Key / event</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>Click trigger</td>
+			<td>Opens the popover and focuses the first focusable child.</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>Tab</kbd> / <kbd>Shift</kbd>+<kbd>Tab</kbd>
+			</td>
+			<td>Cycles through focusable elements inside the popover.</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>Escape</kbd>
+			</td>
+			<td>Closes the popover and returns focus to the trigger.</td>
+		</tr>
+		<tr>
+			<td>Click outside</td>
+			<td>Closes the popover.</td>
+		</tr>
+		<tr>
+			<td>Click close (X)</td>
+			<td>Closes the popover.</td>
+		</tr>
+		<tr>
+			<td>Arrow keys</td>
+			<td>
+				Do <strong>not</strong> change the popover's side — that's set declaratively via the{' '}
+				<code>side</code> prop.
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+## Accessibility (WCAG 2.2 AA)
+
+- **2.4.3 Focus order**: focus moves into the popover on open and returns to the trigger on close.
+- **2.4.7 Focus visible**: the close button keeps the standard `:focus-visible` ring.
+- **2.1.1 Keyboard**: Escape closes; trigger is keyboard-activatable.
+- **4.1.2 Name, Role, Value**: trigger keeps its own role and accessible name. Pass `aria-label` on `PopoverContent` if it has no inline title.
+- **2.5.8 Target size**: the close (X) button is 24×24 px (size-6) — meets SC 2.5.8.
+
+> Pair every icon-only `PopoverTrigger` with `aria-label` on its inner button — the popover content is not a substitute for an accessible name.
+
+## Responsive behaviour
+
+<Canvas of={PopoverStories.InteractiveResponsive} />
+
+The popover is portaled to `document.body` and never affects parent layout. Trigger size at every viewport meets the 24×24 px target minimum.
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>Use Popover for compact interactive panels (filters, pickers, dimension editors).</td>
+			<td>Use Popover for plain help text — pick Tooltip.</td>
+		</tr>
+		<tr>
+			<td>
+				Pair an icon-only trigger with <code>aria-label</code>.
+			</td>
+			<td>Rely on the popover content as the trigger's name.</td>
+		</tr>
+		<tr>
+			<td>
+				Pick the smallest <code>size</code> that fits.
+			</td>
+			<td>Cram a full form into a popover — use a Dialog or Drawer.</td>
+		</tr>
+		<tr>
+			<td>Keep popovers single-purpose — one task per popover.</td>
+			<td>Open another Popover or Dialog from inside one — focus chaos.</td>
+		</tr>
+	</tbody>
+</table>

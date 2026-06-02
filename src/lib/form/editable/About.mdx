@@ -1,0 +1,282 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as EditableStories from './Editable.stories';
+
+<Meta of={EditableStories} />
+
+# Editable
+
+An inline-editable text field. Click or focus the preview to enter edit mode; press Enter to save and Escape to cancel. Built on Reka `Editable` — focus management and keyboard handling are taken care of for you.
+
+## When to use
+
+- Light-touch rename of a list item, board column, or breadcrumb crumb where opening a form would feel heavy.
+- Editing a single text value in place — title, label, name.
+
+## When not to use
+
+- Multi-field forms — use a Dialog or a real form layout.
+- Validation-heavy or required input — use [FormField](?path=/docs/form-formfield--docs) + [Input](?path=/docs/form-input--docs) so you can show error messages.
+- Numeric values with steppers — use [NumberField](?path=/docs/form-numberfield--docs).
+
+## Anatomy
+
+<Canvas of={EditableStories.Default} />
+
+## Composition
+
+Editable is a compound component:
+
+<table>
+	<thead>
+		<tr>
+			<th>Component</th>
+			<th>Role</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>Editable</code>
+			</td>
+			<td>Owns state, activation mode, submit mode, and the size token shared by descendants.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>EditableArea</code>
+			</td>
+			<td>Inline-flex slot that holds Preview + Input so they swap without reflow.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>EditablePreview</code>
+			</td>
+			<td>Read-only display of the current value. Click / focus enters edit mode.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>EditableInput</code>
+			</td>
+			<td>The input shown during edit mode. Receives focus automatically.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>EditableEditTrigger</code>
+			</td>
+			<td>
+				Optional explicit Edit button (use with <code>activationMode="none"</code>).
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>EditableSubmitTrigger</code>
+			</td>
+			<td>
+				Optional explicit Save button (use with <code>submitMode="none"</code>).
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>EditableCancelTrigger</code>
+			</td>
+			<td>Optional explicit Cancel button.</td>
+		</tr>
+	</tbody>
+</table>
+
+```vue
+<Editable v-model="name" submit-mode="enter">
+  <EditableArea>
+    <EditablePreview />
+    <EditableInput />
+  </EditableArea>
+</Editable>
+```
+
+## Sizes
+
+<Canvas of={EditableStories.Sizes} />
+
+`size` on the parent flows down to Preview / Input / Triggers via Vue provide/inject — set it once. Heights track the Input ramp (`sm` 28 px, `default` 32 px, `lg` 40 px) so the preview ↔ input swap doesn't shift the row.
+
+## Submit and activation modes
+
+<Canvas of={EditableStories.SubmitOnEnter} />
+
+<Canvas of={EditableStories.DoubleClickActivation} />
+
+<table>
+	<thead>
+		<tr>
+			<th>Mode</th>
+			<th>Behaviour</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>submitMode="blur"</code> (default)
+			</td>
+			<td>Save when the input loses focus.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>submitMode="enter"</code>
+			</td>
+			<td>Save on Enter; click-away cancels.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>submitMode="both"</code>
+			</td>
+			<td>Save on either Enter or blur.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>submitMode="none"</code>
+			</td>
+			<td>Save only via the explicit Submit trigger.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>activationMode="focus"</code> (default)
+			</td>
+			<td>Click or focus the preview to start editing.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>activationMode="dblclick"</code>
+			</td>
+			<td>Double-click the preview — useful when the parent row consumes single-click.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>activationMode="none"</code>
+			</td>
+			<td>Edit mode only via the explicit Edit trigger.</td>
+		</tr>
+	</tbody>
+</table>
+
+## States
+
+<Canvas of={EditableStories.Disabled} />
+
+<Canvas of={EditableStories.Readonly} />
+
+<Canvas of={EditableStories.WithEmptyPlaceholder} />
+
+`disabled` blocks activation and lowers opacity. `readonly` shows the preview but never enters edit mode. Empty values render the placeholder in muted text — the preview keeps its 24×24 hit area regardless.
+
+## Explicit triggers
+
+<Canvas of={EditableStories.WithExplicitTriggers} />
+
+For an Edit / Save / Cancel pattern set both `activationMode="none"` and `submitMode="none"`, then drop in `EditableEditTrigger`, `EditableSubmitTrigger`, `EditableCancelTrigger`. Every trigger is ≥ 24×24 CSS px regardless of size.
+
+## Keyboard interaction
+
+<table>
+	<thead>
+		<tr>
+			<th>Key</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<kbd>Tab</kbd> to preview
+			</td>
+			<td>Move focus to the preview (its ring matches the surrounding form ramp)</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>Enter</kbd> on preview
+			</td>
+			<td>
+				Enter edit mode (when <code>activationMode="focus"</code>)
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>Enter</kbd> in input
+			</td>
+			<td>
+				Save value (when <code>submitMode</code> is <code>enter</code> or <code>both</code>)
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>Escape</kbd> in input
+			</td>
+			<td>Cancel edit and restore the previous value</td>
+		</tr>
+		<tr>
+			<td>Click outside</td>
+			<td>
+				Save (<code>blur</code> / <code>both</code>) or cancel (<code>enter</code> /{' '}
+				<code>none</code>)
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+## Props
+
+<Controls of={EditableStories.Default} />
+
+<ArgTypes of={EditableStories} />
+
+## Accessibility (WCAG 2.2 AA)
+
+- **2.4.3 Focus order**: focus enters the preview in tab order; activation moves focus to the input; saving / cancelling returns focus to the preview.
+- **2.4.7 Focus visible**: both preview and input draw a ring at ≥ 3 : 1 contrast.
+- **2.5.8 Target size**: every size's preview and trigger meets ≥ 24×24 CSS px.
+- **3.3.5 Help / 3.3.1 Error identification**: Editable does not surface errors itself — pair with a [FormField](?path=/docs/form-formfield--docs) parent for validation messaging.
+- **4.1.2 Name, role, value**: pass `aria-label` (or text content) on each trigger so icon-only buttons announce their action.
+
+## Responsive behaviour
+
+<Canvas of={EditableStories.InteractiveResponsive} />
+
+EditableArea is `inline-flex w-full min-w-0` so the preview and input shrink to fit narrow containers. Long values truncate inside the preview while editing remains scrollable inside the input.
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				Set <code>size</code> once on the parent <code>Editable</code>.
+			</td>
+			<td>
+				Set <code>size</code> on every sub-component — it inherits via provide/inject.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Use <code>submit-mode="enter"</code> in lists where blur could fire spuriously.
+			</td>
+			<td>
+				Use the default <code>blur</code> mode in a row with hover-revealed actions — focus may
+				shift accidentally.
+			</td>
+		</tr>
+		<tr>
+			<td>Use Editable for low-stakes rename in place.</td>
+			<td>Use Editable for required validation — pair with FormField + Input.</td>
+		</tr>
+		<tr>
+			<td>
+				Pass <code>aria-label</code> on icon-only triggers.
+			</td>
+			<td>Rely on icon alone — assistive tech needs a name.</td>
+		</tr>
+	</tbody>
+</table>

@@ -1,0 +1,306 @@
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as DrawerStories from './Drawer.stories';
+
+<Meta of={DrawerStories} />
+
+# Drawer
+
+A side panel that slides in from any edge. Supports stacked side-step panels (right / left) for branched workflows. Below 640 px every side renders as a full-screen overlay.
+
+## When to use
+
+- Edit a related entity without losing the parent's context (a row's detail, a calendar event).
+- Multi-step or branched flows that benefit from a back stack.
+- Filters or actions that fit better on the side than in a Dialog.
+
+## When not to use
+
+- A simple "are you sure" — use [AlertDialog](?path=/docs/general-alert-dialog--docs).
+- A focused single-form edit — use [Dialog](?path=/docs/general-dialog--docs).
+- Lightweight tooltips or popovers — use [Tooltip](?path=/docs/general-tooltip--docs) or [Popover](?path=/docs/general-popover--docs).
+
+## Anatomy
+
+<Canvas of={DrawerStories.Default} />
+
+## Composition
+
+<table>
+	<thead>
+		<tr>
+			<th>Subcomponent</th>
+			<th>Purpose</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>Drawer</code>
+			</td>
+			<td>
+				Root provider. Owns <code>open</code>, <code>side</code>, and <code>overlay</code>.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>DrawerTrigger</code>
+			</td>
+			<td>Opens the drawer.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>DrawerPanel</code>
+			</td>
+			<td>
+				The portaled panel. Owns <code>size</code>, <code>name</code> (for side-step stacks), and
+				the close button.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>DrawerHeader</code>
+			</td>
+			<td>Title region with bottom border.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>DrawerTitle</code>
+			</td>
+			<td>
+				The accessible name (renders as <code>&lt;h2&gt;</code>).
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>DrawerBody</code>
+			</td>
+			<td>Scrollable content region.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>DrawerFooter</code>
+			</td>
+			<td>Right-aligned action bar with muted background.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>DrawerClose</code>
+			</td>
+			<td>Standalone close button — for headers or toolbars.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>DrawerStepTrigger</code>
+			</td>
+			<td>Pushes a named child panel onto the stack.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>DrawerStepClose</code>
+			</td>
+			<td>Pops the top panel (back navigation).</td>
+		</tr>
+		<tr>
+			<td>
+				<code>DrawerBack</code>
+			</td>
+			<td>
+				Pre-styled back button using <code>popStep</code>.
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+## Sides
+
+<Canvas of={DrawerStories.Sides} />
+
+<table>
+	<thead>
+		<tr>
+			<th>Side</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>right</code>
+			</td>
+			<td>Detail panes, edit forms (default).</td>
+		</tr>
+		<tr>
+			<td>
+				<code>left</code>
+			</td>
+			<td>Navigation, project picker.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>top</code>
+			</td>
+			<td>Filters, search.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>bottom</code>
+			</td>
+			<td>Mobile-style actions, recent items.</td>
+		</tr>
+	</tbody>
+</table>
+
+## Sizes
+
+<Canvas of={DrawerStories.Sizes} />
+
+For <code>left</code> / <code>right</code> drawers, <code>size</code> sets the width. For <code>top</code> / <code>bottom</code> drawers it sets the height.
+
+<table>
+	<thead>
+		<tr>
+			<th>Size</th>
+			<th>Width (left/right)</th>
+			<th>Height (top/bottom)</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>sm</code>
+			</td>
+			<td>1/3 viewport, max 24rem</td>
+			<td>1/4 viewport, max 16rem</td>
+		</tr>
+		<tr>
+			<td>
+				<code>md</code>
+			</td>
+			<td>3/4 viewport, max 28rem</td>
+			<td>1/2 viewport, max 24rem</td>
+		</tr>
+		<tr>
+			<td>
+				<code>lg</code>
+			</td>
+			<td>3/4 viewport, max 32rem</td>
+			<td>2/3 viewport</td>
+		</tr>
+		<tr>
+			<td>
+				<code>xl</code>
+			</td>
+			<td>3/4 viewport, max 42rem</td>
+			<td>3/4 viewport</td>
+		</tr>
+		<tr>
+			<td>
+				<code>full</code>
+			</td>
+			<td>viewport - 2rem</td>
+			<td>viewport - 2rem</td>
+		</tr>
+	</tbody>
+</table>
+
+## Stacked side steps
+
+<Canvas of={DrawerStories.TwoLevelSideStep} />
+
+For branched flows (e.g. "configure component" inside a parent form), wrap the second panel in a `DrawerPanel` with a unique `name`, push onto the stack with `DrawerStepTrigger`, and pop with `DrawerStepClose` or `DrawerBack`. The parent panel peeks behind the child so the user keeps context.
+
+Side-step stacking is only available on <code>right</code> and <code>left</code> drawers — top / bottom drawers replace each other.
+
+## Props
+
+<Controls of={DrawerStories.Default} />
+
+## Keyboard interaction
+
+<table>
+	<thead>
+		<tr>
+			<th>Key / event</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>Click trigger</td>
+			<td>Opens the drawer.</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>Escape</kbd>
+			</td>
+			<td>Pops the top panel (or closes the whole drawer when at root).</td>
+		</tr>
+		<tr>
+			<td>Click overlay</td>
+			<td>Closes the drawer.</td>
+		</tr>
+		<tr>
+			<td>Click close (X)</td>
+			<td>Closes the drawer.</td>
+		</tr>
+		<tr>
+			<td>
+				Click <code>DrawerBack</code> / <code>DrawerStepClose</code>
+			</td>
+			<td>Pops the top panel (back navigation).</td>
+		</tr>
+	</tbody>
+</table>
+
+## Accessibility (WCAG 2.2 AA)
+
+- **2.4.3 Focus order**: panels render with `role="dialog"` and `aria-modal="true"` while active. The drawer is the topmost focusable surface; pushed-back panels get `aria-hidden`.
+- **2.4.7 Focus visible**: close, back, and step buttons keep the standard `:focus-visible` ring.
+- **2.1.1 Keyboard**: Escape closes the active step (or the whole drawer when at root).
+- **4.1.2 Name, Role, Value**: each panel labels itself via `DrawerTitle`. If you omit it, pass `aria-label` on the panel.
+- **2.5.8 Target size**: the close button is 24×24 px (size-6) — meets SC 2.5.8.
+
+> Drawers are a focus surface, not a labelled region — give every panel a `DrawerTitle` so screen-reader users know which step they're on.
+
+## Responsive behaviour
+
+<Canvas of={DrawerStories.InteractiveResponsive} />
+
+Below 640 px the drawer fills the screen regardless of side; above 640 px it docks to the chosen edge with a floating, rounded shell.
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				Use <code>side="right"</code> for detail panes — the default and most familiar.
+			</td>
+			<td>Stack three or more side-step panels — flatten the flow.</td>
+		</tr>
+		<tr>
+			<td>
+				Pair every panel with a <code>DrawerTitle</code>.
+			</td>
+			<td>Open Dialogs from inside Drawers — focus thrash.</td>
+		</tr>
+		<tr>
+			<td>
+				Use <code>size="md"</code> as the default — the right balance for forms.
+			</td>
+			<td>
+				Use <code>full</code> for everyday use — it feels like a bad route.
+			</td>
+		</tr>
+		<tr>
+			<td>Use top / bottom for filters or quick actions.</td>
+			<td>Use top / bottom for long forms — landscape phones suffer.</td>
+		</tr>
+	</tbody>
+</table>

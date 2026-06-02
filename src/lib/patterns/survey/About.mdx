@@ -1,0 +1,103 @@
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as SurveyDialogStories from './SurveyDialog.stories';
+
+<Meta of={SurveyDialogStories} />
+
+# Survey Dialog
+
+A multi-step feedback dialog that walks the user through one or more questions and emits a single `submit` event at the end. Built on top of the base [Dialog](?path=/docs/general-dialog--docs) primitive — the dialog itself handles focus trap, scroll lock, and Escape behaviour.
+
+## When to use
+
+- Lightweight in-app feedback ("How did setup go?", "How satisfied are you with this feature?").
+- Post-onboarding NPS / CSAT prompts.
+- Any short, opt-in micro-survey where the user should not leave the current page.
+
+## When not to use
+
+- Long surveys (5+ questions, free text per step) — link to a dedicated survey page or external tool.
+- Required onboarding tasks — use a [Tour](?path=/docs/patterns-tour--docs) or full-screen wizard instead.
+- Critical confirmations — use a destructive [Dialog](?path=/docs/general-dialog--docs).
+
+## Variants
+
+<table>
+	<thead>
+		<tr>
+			<th>Steps</th>
+			<th>Behaviour</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>1 (Single step)</td>
+			<td>No step indicator, no Back button — only the submit button is shown.</td>
+		</tr>
+		<tr>
+			<td>2+ (Multi-step)</td>
+			<td>
+				Step indicator <code>1 / N</code>, Back button after step 1, Next button until last step.
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+<Canvas of={SurveyDialogStories.SingleStep} />
+<Canvas of={SurveyDialogStories.MultiStep} />
+<Canvas of={SurveyDialogStories.ThreeSteps} />
+
+## Composition
+
+Each step is rendered through a `step-{n}` slot. Consumers compose any combination of [SurveyRatingScale](?path=/docs/form-toggle-group--docs), [Textarea](?path=/docs/form-textarea--docs), or custom inputs. The dialog does not own the answer state — consumers drive `v-model` on each input.
+
+## Props
+
+<Controls of={SurveyDialogStories.MultiStep} />
+
+## Accessibility (WCAG 2.2 AA)
+
+<table>
+	<thead>
+		<tr>
+			<th>Concern</th>
+			<th>Behaviour</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>Focus management</td>
+			<td>
+				Inherits from the base Dialog: focus trap, restore on close, Escape closes. The Next/Back
+				buttons are reachable by Tab.
+			</td>
+		</tr>
+		<tr>
+			<td>Step navigation</td>
+			<td>
+				Hidden steps are visually hidden via <code>v-show</code>, but their inputs are still in the
+				DOM — answers persist when a user goes Back and Next.
+			</td>
+		</tr>
+		<tr>
+			<td>Step indicator</td>
+			<td>
+				The "<code>1 / N</code>" text is purely visual; consumers should keep step labels short so
+				screen readers can announce progress via the dialog title slot.
+			</td>
+		</tr>
+		<tr>
+			<td>Buttons</td>
+			<td>
+				Both Back and Next/Submit meet the 24 × 24 px minimum target (SC 2.5.8). The Next button
+				takes a <code>loading</code> prop for async submission feedback.
+			</td>
+		</tr>
+		<tr>
+			<td>Reduced motion</td>
+			<td>
+				The dialog uses no entrance animation beyond the base primitive's fade — no extra opt-out
+				required.
+			</td>
+		</tr>
+	</tbody>
+</table>

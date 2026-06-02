@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 200" width="280" height="200" fill="none">
+  <defs>
+    <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#94a0aa" stroke-width="1.5"/>
+    </pattern>
+    <filter id="softblur" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="18"/>
+    </filter>
+    <mask id="gridMask">
+      <rect width="280" height="200" fill="black"/>
+      <rect x="60" y="45" width="160" height="110" rx="30" fill="white" filter="url(#softblur)"/>
+    </mask>
+  </defs>
+  <rect width="280" height="200" fill="url(#grid)" mask="url(#gridMask)"/>
+  <rect x="100" y="48" width="80" height="116" rx="4" fill="#ffffff" stroke="#d1d5db"/>
+  <rect x="108" y="58" width="44" height="4" rx="2" fill="#111827"/>
+  <rect x="108" y="70" width="60" height="3" rx="1.5" fill="#9ca3af"/>
+  <rect x="108" y="78" width="64" height="3" rx="1.5" fill="#9ca3af"/>
+  <rect x="108" y="86" width="50" height="3" rx="1.5" fill="#9ca3af"/>
+  <rect x="108" y="98" width="64" height="3" rx="1.5" fill="#9ca3af"/>
+  <rect x="108" y="106" width="56" height="3" rx="1.5" fill="#9ca3af"/>
+  <rect x="108" y="114" width="62" height="3" rx="1.5" fill="#9ca3af"/>
+  <path d="M 108 140 Q 115 134 122 140 T 138 140 T 146 138" fill="none" stroke="#ee7626" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="108" y1="148" x2="148" y2="148" stroke="#9ca3af" stroke-width="0.8"/>
+  <circle cx="164" cy="148" r="9" fill="#ee7626"/>
+  <path d="M 160 148 L 163 151 L 168 145" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

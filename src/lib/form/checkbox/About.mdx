@@ -1,0 +1,183 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as CheckboxStories from './Checkbox.stories';
+
+<Meta of={CheckboxStories} />
+
+# Checkbox
+
+Boolean form control with optional indeterminate (mixed) state. Built on Reka UI's `CheckboxRoot` primitive.
+
+## When to use
+
+- Toggle a single boolean (accept terms, enable feature).
+- Multi-select inside a list — one checkbox per option, no max.
+- Parent-of-mixed-children rows — set `checked="indeterminate"`.
+
+## When not to use
+
+- Mutually exclusive choice — use [Radio](?path=/docs/form-radio--docs).
+- Settings that take immediate effect — use [Switch](?path=/docs/form-switch--docs).
+
+## Anatomy
+
+<Canvas of={CheckboxStories.Default} />
+
+A square painted control with a tick (checked) or dash (indeterminate) inside, plus an invisible padding ring that expands the hit area to ≥ 24 × 24 px.
+
+## Variants
+
+<Canvas of={CheckboxStories.Variants} />
+
+Three states: unchecked (`false`), checked (`true`), and indeterminate.
+
+## Sizes
+
+<Canvas of={CheckboxStories.Sizes} />
+
+<table>
+	<thead>
+		<tr>
+			<th>Size</th>
+			<th>Painted</th>
+			<th>Hit area</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>sm</code>
+			</td>
+			<td>14 px</td>
+			<td>≥ 24 px (via padding ring)</td>
+			<td>Dense table rows, multi-select cells</td>
+		</tr>
+		<tr>
+			<td>
+				<code>default</code>
+			</td>
+			<td>16 px</td>
+			<td>≥ 24 px (via padding ring)</td>
+			<td>General forms</td>
+		</tr>
+	</tbody>
+</table>
+
+## States
+
+<Canvas of={CheckboxStories.Disabled} />
+
+<Canvas of={CheckboxStories.Required} />
+
+<Canvas of={CheckboxStories.WithError} />
+
+<Canvas of={CheckboxStories.Indeterminate} />
+
+## Composition
+
+<Canvas of={CheckboxStories.WithLabel} />
+
+Pair Checkbox with Label using `for` matching the checkbox's `id`. This:
+
+- Makes clicking the label toggle the box.
+- Gives the box a programmatic accessible name.
+- Lets `getByLabelText` find the checkbox in tests.
+
+<Canvas of={CheckboxStories.Group} />
+
+For groups, render one Checkbox per option inside its own Label.
+
+## Keyboard interaction
+
+<table>
+	<thead>
+		<tr>
+			<th>Key / event</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<kbd>Tab</kbd>
+			</td>
+			<td>Moves focus to / from the checkbox.</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>Space</kbd>
+			</td>
+			<td>Toggles the checked state. Indeterminate becomes checked.</td>
+		</tr>
+		<tr>
+			<td>Click checkbox</td>
+			<td>Toggles the checked state.</td>
+		</tr>
+		<tr>
+			<td>Click associated label</td>
+			<td>Toggles the checked state via id↔for.</td>
+		</tr>
+	</tbody>
+</table>
+
+## Props
+
+<Controls of={CheckboxStories.Default} />
+
+<ArgTypes of={CheckboxStories} />
+
+## Accessibility (WCAG 2.2 AA)
+
+- **2.5.8 Target size**: visual square is < 24 px to keep dense forms tidy, but the `::before` ring expands the click target to ≥ 24 × 24 px. Composing with a Label inside a `flex` row gives a row-wide hit area that always meets the minimum.
+- **4.1.2 Name, role, value**: Reka exposes `role="checkbox"` and `aria-checked` (`true`, `false`, or `mixed` for indeterminate). Always pair with a Label — never rely on adjacent text alone.
+- **3.3.1 Error identification**: pass `error` to set `aria-invalid="true"` and use `describedBy` for an error message id.
+- **2.1.1 Keyboard**: Space toggles the value. Tab moves focus.
+- **2.4.7 Focus visible**: focus draws a 2 px ring + 2 px offset against the surrounding surface.
+- **1.4.11 Non-text contrast**: the checked / indeterminate state uses `bg-primary` which meets 3 : 1 against the background.
+
+## Responsive behaviour
+
+<Canvas of={CheckboxStories.InteractiveResponsive} />
+
+Checkboxes don't change layout across breakpoints. The hit area is constant at every viewport.
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				Always pair with a <code>&lt;Label for&gt;</code>.
+			</td>
+			<td>Place text next to a checkbox without a Label — it won't be the accessible name.</td>
+		</tr>
+		<tr>
+			<td>
+				Use <code>indeterminate</code> for parent rows where some children are checked.
+			</td>
+			<td>
+				Use <code>indeterminate</code> as a "third" valid value — it should resolve on next click.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Use <code>error</code> + a referenced helper text id for validation.
+			</td>
+			<td>Hide the error message and only colour the box red.</td>
+		</tr>
+		<tr>
+			<td>
+				Set <code>required</code> for fields that block form submission (e.g. Accept terms).
+			</td>
+			<td>
+				Add a visual <code>*</code> in the label slot — let the Label component handle it.
+			</td>
+		</tr>
+	</tbody>
+</table>

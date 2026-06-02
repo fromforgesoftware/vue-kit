@@ -1,0 +1,278 @@
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as TabsStories from './Tabs.stories';
+
+<Meta of={TabsStories} />
+
+# Tabs
+
+Switch between mutually exclusive content panels at the same level of hierarchy. Built on Reka UI primitives — keyboard navigation, ARIA roles, and the WAI-ARIA tab pattern are handled internally. The animated indicator slides between active triggers.
+
+## When to use
+
+- A handful of related views over the same data (Overview / Activity / Settings).
+- Switching between report axes or filtered cuts of one dataset.
+- Settings groups within a page or drawer.
+
+## When not to use
+
+- For navigation between routes — use [Breadcrumb](?path=/docs/general-breadcrumb--docs) and `<RouterLink>`. Tabs change panels, not URLs.
+- For step-by-step wizards — use [Stepper](?path=/docs/general-stepper--docs).
+- When all panels need to be visible at once — use sections with headings.
+
+## Anatomy
+
+<Canvas of={TabsStories.Default} />
+
+## Composition
+
+```vue
+<Tabs default-value="overview" variant="underlined">
+  <TabsList>
+    <TabsTrigger value="overview">Overview</TabsTrigger>
+    <TabsTrigger value="activity">Activity</TabsTrigger>
+  </TabsList>
+  <TabsContent value="overview">…</TabsContent>
+  <TabsContent value="activity">…</TabsContent>
+</Tabs>
+```
+
+<table>
+	<thead>
+		<tr>
+			<th>Subcomponent</th>
+			<th>Purpose</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>Tabs</code>
+			</td>
+			<td>
+				Root provider — defines <code>variant</code>, <code>size</code>, <code>orientation</code>,{' '}
+				<code>activationMode</code>. Holds the model.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>TabsList</code>
+			</td>
+			<td>
+				The trigger row. Contains the <code>TabsIndicator</code> automatically.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>TabsTrigger</code>
+			</td>
+			<td>
+				One clickable tab keyed by <code>value</code>.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>TabsContent</code>
+			</td>
+			<td>
+				One panel keyed by matching <code>value</code>.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>TabsIndicator</code>
+			</td>
+			<td>
+				Auto-included in <code>TabsList</code>; slides between active triggers.
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+## Variants
+
+<Canvas of={TabsStories.Variants} />
+
+<table>
+	<thead>
+		<tr>
+			<th>Variant</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>default</code>
+			</td>
+			<td>Inset segmented control on a muted surface — the everyday choice.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>pill</code>
+			</td>
+			<td>Same idea as default with rounded-lg outer; reads softer.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>underlined</code>
+			</td>
+			<td>Free-floating tabs with a moving underline; pairs with page-level navigation.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>ghost</code>
+			</td>
+			<td>No background; the indicator is the accent surface itself. Use in dense toolbars.</td>
+		</tr>
+	</tbody>
+</table>
+
+## Sizes
+
+<Canvas of={TabsStories.Sizes} />
+
+<table>
+	<thead>
+		<tr>
+			<th>Size</th>
+			<th>Trigger text</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>sm</code>
+			</td>
+			<td>
+				<code>text-xs</code> (11 px)
+			</td>
+			<td>Toolbars, dense side-panels</td>
+		</tr>
+		<tr>
+			<td>
+				<code>default</code>
+			</td>
+			<td>
+				<code>text-sm</code> (12 px)
+			</td>
+			<td>General use</td>
+		</tr>
+	</tbody>
+</table>
+
+## Orientations
+
+<Canvas of={TabsStories.Orientations} />
+
+`vertical` lays the list down the side. The indicator orientation flips automatically. Use in settings layouts or wizard sidebars.
+
+## Manual activation
+
+<Canvas of={TabsStories.ManualActivation} />
+
+By default (`activationMode="automatic"`), arrow keys both move focus and activate the new tab. Set `activationMode="manual"` when each panel triggers a network request or expensive render — focus moves on arrows, but the user must press <kbd>Enter</kbd> or <kbd>Space</kbd> to activate.
+
+## Props
+
+<Controls of={TabsStories.Default} />
+
+## Keyboard interaction
+
+<table>
+	<thead>
+		<tr>
+			<th>Key</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<kbd>Tab</kbd>
+			</td>
+			<td>Move focus into the tab list (lands on the active tab).</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>ArrowRight</kbd> / <kbd>ArrowLeft</kbd>
+			</td>
+			<td>
+				Move focus (and activate, in <code>automatic</code> mode) to the next/previous tab. Loops at
+				ends.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>ArrowDown</kbd> / <kbd>ArrowUp</kbd>
+			</td>
+			<td>
+				Same as Right/Left when <code>orientation="vertical"</code>.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>Home</kbd> / <kbd>End</kbd>
+			</td>
+			<td>Jump focus to the first / last tab.</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>Enter</kbd> / <kbd>Space</kbd>
+			</td>
+			<td>
+				Activate the focused tab (required in <code>manual</code> mode).
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+## Accessibility (WCAG 2.2 AA)
+
+- **1.4.3 Contrast**: active and inactive trigger text both clear 4.5 : 1 on their respective backgrounds.
+- **1.4.11 Non-text contrast**: the indicator and focus ring clear 3 : 1 against the surrounding surface.
+- **2.1.1 Keyboard**: every trigger is a real `<button>` with the WAI-ARIA tab pattern (`role="tab"`, `aria-selected`, `aria-controls`).
+- **2.4.3 Focus order**: roving focus — only one tab stop per tablist. Inactive tabs have `tabindex="-1"`.
+- **2.4.7 Focus visible**: a 3 px ring at `--ring` is applied on `:focus-visible`.
+- **2.5.8 Target size**: every trigger meets the 24×24 px minimum at every size and viewport.
+- **4.1.2 Name, Role, Value**: triggers expose `role="tab"` with `aria-selected` and `aria-controls` linking to the panel; panels expose `role="tabpanel"` with `aria-labelledby` pointing at their trigger.
+
+## Responsive behaviour
+
+<Canvas of={TabsStories.InteractiveResponsive} />
+
+The `TabsList` is `overflow-x-auto` with hidden scrollbars (`scrollbar-none`) — when there are too many tabs to fit, the list scrolls horizontally rather than wrapping to a second row. The active tab is always reachable via arrow keys.
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>Keep tab labels short (1–2 words).</td>
+			<td>Use full sentences as labels — they break the layout on narrow viewports.</td>
+		</tr>
+		<tr>
+			<td>
+				Use <code>activationMode="manual"</code> for tabs that load remote data.
+			</td>
+			<td>Trigger expensive loads on every arrow-key press in automatic mode.</td>
+		</tr>
+		<tr>
+			<td>Pick one variant per surface.</td>
+			<td>
+				Mix <code>underlined</code> and <code>pill</code> in the same view — pick one and stay
+				consistent.
+			</td>
+		</tr>
+		<tr>
+			<td>Use Tabs for view-switching at the same hierarchy.</td>
+			<td>Use Tabs for routes — change the URL with a navigation primitive instead.</td>
+		</tr>
+	</tbody>
+</table>

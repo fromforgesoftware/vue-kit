@@ -1,0 +1,91 @@
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as InlineConfirmationStories from './InlineConfirmation.stories';
+
+<Meta of={InlineConfirmationStories} />
+
+# InlineConfirmation
+
+Approve/Reject card rendered inline in an AI chat stream when the model
+proposes a write tool that requires user approval. Pair with
+[ToolCallStep](?path=/docs/chat-toolcallstep--docs) for the read-tool
+counterpart.
+
+## When to use
+
+- AI assistant panels where the LLM can invoke mutating tools (e.g.
+  `update_employee`, `delete_schedule`).
+- Any workflow surface where the user must approve a remote action with
+  full context (tool name + args summary).
+
+## When not to use
+
+- Page-level destructive actions — use the standard
+  [AlertDialog](?path=/docs/general-alert-dialog--docs).
+- Read-only AI traces — use [ToolCallStep](?path=/docs/chat-toolcallstep--docs).
+
+## Anatomy
+
+<Canvas of={InlineConfirmationStories.Pending} />
+
+```vue
+<InlineConfirmation
+	tool-name="update_employee"
+	summary="Will change Alice King's role to Manager."
+	:args="{ id: 'abc', role: 'manager' }"
+	:decision="store.decision"
+	:busy="store.confirmInFlight"
+	@decide="store.confirmToolCall($event)"
+/>
+```
+
+The component is **uncontrolled** by default — it emits `decide` and the
+parent owns the actual API call. Pass `:decision="'approve' | 'reject'"` to
+lock the buttons after the parent resolves.
+
+## States
+
+| State                             | Visible UI                                             |
+| --------------------------------- | ------------------------------------------------------ |
+| Pending (`decision = null`)       | Approve + Reject buttons                               |
+| Busy (`busy = true`)              | Buttons disabled, loading spinner on the in-flight one |
+| Approved (`decision = 'approve'`) | Green "Approved" badge, buttons hidden                 |
+| Rejected (`decision = 'reject'`)  | Muted "Rejected" badge, buttons hidden                 |
+
+## Backend wiring
+
+Triggered by an `ai.confirmation.request` WebSocket broadcast:
+
+```ts
+// useAskAIStore.ts
+case 'ai.confirmation.request':
+  messages.value.push({
+    id: data.messageID,
+    kind: 'confirmation',
+    toolCallID: data.toolCallID,
+    toolName: data.toolName,
+    args: data.arguments,        // raw JSON string from the LLM
+  })
+
+// On @decide
+async function confirmToolCall(toolCallID: string, decision: 'approve' | 'reject') {
+  await aiService.confirmToolCall(conversationID, toolCallID, decision, connectionID)
+}
+```
+
+The backend resumes the Temporal workflow on the `ai-tool-confirmation`
+signal and either runs the tool (`approve`) or feeds a synthetic
+"user declined" tool result back into the LLM loop (`reject`).
+
+## Custom title
+
+Replace the default `Approve \`tool_name\`?`heading via the`title` slot:
+
+```vue
+<InlineConfirmation tool-name="bulk_delete_schedules" :args="args" @decide="onDecide">
+  <template #title>Delete 12 shifts?</template>
+</InlineConfirmation>
+```
+
+## Controls
+
+<Controls of={InlineConfirmationStories.Pending} />

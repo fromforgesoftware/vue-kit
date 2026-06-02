@@ -1,0 +1,407 @@
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as SidebarStories from './Sidebar.stories';
+
+<Meta of={SidebarStories} />
+
+# Sidebar
+
+A composable sidebar navigation surface with collapsible states, mobile sheet behaviour, persisted open/closed state, and an icon-only rail mode. Built on a `SidebarProvider` context so any descendant can read the current state without prop drilling.
+
+## When to use
+
+- The primary navigation chrome of an app — left or right rail of the layout.
+- Multi-section navigation where the user benefits from collapsing the rail to icons to reclaim horizontal space.
+- Surfaces with grouped menus (Favorites, Records, etc.) that expand and collapse independently of the sidebar's own state.
+
+## When not to use
+
+- Simple top-of-page navigation — use a horizontal nav or breadcrumb instead.
+- One-shot drawers (settings, filters that don't persist) — use `Drawer` or `Dialog`.
+- Very narrow surfaces (< 320 px) where neither the icon rail nor the expanded sidebar fits — render a `Sheet`-style mobile menu via `SidebarTrigger` only.
+
+<Canvas sourceState="hidden" of={SidebarStories.FullExample} />
+
+## Anatomy
+
+<table>
+	<thead>
+		<tr>
+			<th>Component</th>
+			<th>Purpose</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>SidebarProvider</code>
+			</td>
+			<td>
+				Root context. Owns open / collapsed state, mobile detection, side, and collapsible mode.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>Sidebar</code>
+			</td>
+			<td>The rail itself. Renders inline on desktop and as a sheet overlay on mobile.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>SidebarHeader</code> / <code>SidebarFooter</code>
+			</td>
+			<td>Top and bottom regions. Center their content when the rail is icon-collapsed.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>SidebarContent</code>
+			</td>
+			<td>Scrollable middle region.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>SidebarGroup</code>
+			</td>
+			<td>
+				Logical grouping of menu items. Adds <code>items-center px-1</code> when icon-collapsed.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>SidebarGroupLabel</code>
+			</td>
+			<td>Section heading inside a group. Becomes a 3-dot icon trigger when collapsed.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>SidebarGroupContent</code> / <code>SidebarMenu</code> / <code>SidebarMenuItem</code>
+			</td>
+			<td>
+				Standard list scaffolding (<code>div</code> / <code>ul</code> / <code>li</code>).
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>SidebarMenuButton</code>
+			</td>
+			<td>Interactive nav item. Hides label and shows a `Tooltip` when icon-collapsed.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>SidebarMenuBadge</code> / <code>SidebarMenuAction</code>
+			</td>
+			<td>Badge / per-item action button on a menu row.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>SidebarMenuSub</code> / <code>-Item</code> / <code>-Button</code>
+			</td>
+			<td>Nested submenu scaffolding.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>SidebarMenuCollapsible</code>
+			</td>
+			<td>Single-row collapsible used for sections like "Reports".</td>
+		</tr>
+		<tr>
+			<td>
+				<code>SidebarSeparator</code>
+			</td>
+			<td>Visual divider. Hidden when collapsed.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>SidebarTrigger</code>
+			</td>
+			<td>External toggle button (typically lives in the page header).</td>
+		</tr>
+		<tr>
+			<td>
+				<code>SidebarRail</code>
+			</td>
+			<td>Thin click-to-toggle strip along the sidebar's edge.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>SidebarInput</code>
+			</td>
+			<td>Search input styled for the rail.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>SidebarCollapsibleHide</code> / <code>SidebarCollapsibleShow</code>
+			</td>
+			<td>
+				Render children only when the sidebar is expanded / collapsed respectively. Use these to
+				swap layouts (e.g. `+` button vs. 3-dots dropdown).
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+## Basic usage
+
+```vue
+<SidebarProvider collapsible="icon">
+  <Sidebar>
+    <SidebarHeader>
+      <!-- Logo, org switcher -->
+    </SidebarHeader>
+
+    <SidebarContent>
+      <SidebarGroup>
+        <SidebarGroupLabel>Navigation</SidebarGroupLabel>
+        <SidebarGroupContent>
+          <SidebarMenu>
+            <SidebarMenuItem>
+              <SidebarMenuButton is-active tooltip="Dashboard">
+                <Home />
+                <span>Dashboard</span>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          </SidebarMenu>
+        </SidebarGroupContent>
+      </SidebarGroup>
+    </SidebarContent>
+
+    <SidebarFooter>
+      <!-- User info -->
+    </SidebarFooter>
+  </Sidebar>
+
+  <main>
+    <SidebarTrigger />
+    <!-- Page content -->
+  </main>
+</SidebarProvider>
+```
+
+## Collapsed-state slots
+
+Use `SidebarCollapsibleHide` and `SidebarCollapsibleShow` when expanded and collapsed states need different markup — e.g. a labelled `+` button when expanded vs. a centred 3-dots dropdown when collapsed.
+
+```vue
+<SidebarCollapsibleHide>
+  <!-- Inline `+` button next to the Favorites label -->
+</SidebarCollapsibleHide>
+
+<SidebarCollapsibleShow>
+  <!-- 3-dots dropdown centred in the icon rail -->
+</SidebarCollapsibleShow>
+```
+
+## Composable
+
+```ts
+import { useSidebar } from '@fromforgesoftware/vue-kit';
+
+const {
+	state, // 'expanded' | 'collapsed'
+	open,
+	setOpen,
+	toggleSidebar,
+	isMobile,
+	openMobile,
+	setOpenMobile,
+	collapsible, // 'offcanvas' | 'icon' | 'none'
+	side, // 'left' | 'right'
+} = useSidebar();
+```
+
+## Keyboard interaction
+
+<table>
+	<thead>
+		<tr>
+			<th>Key / event</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<kbd>Ctrl</kbd>+<kbd>B</kbd> / <kbd>Cmd</kbd>+<kbd>B</kbd>
+			</td>
+			<td>
+				Toggles the sidebar open / closed globally (registered by <code>SidebarProvider</code>).
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>Tab</kbd> / <kbd>Shift</kbd>+<kbd>Tab</kbd>
+			</td>
+			<td>
+				Moves focus through every <code>SidebarMenuButton</code>, <code>SidebarTrigger</code>, and
+				trailing actions in DOM order.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>Enter</kbd> / <kbd>Space</kbd>
+			</td>
+			<td>
+				Activates the focused button — toggles the sidebar (on <code>SidebarTrigger</code>), selects
+				a menu item, or expands a <code>SidebarMenuCollapsible</code>.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>Esc</kbd>
+			</td>
+			<td>Closes the mobile sheet overlay when open.</td>
+		</tr>
+	</tbody>
+</table>
+
+## Props
+
+<Controls of={SidebarStories.FullExample} />
+
+## Accessibility (WCAG 2.2 AA)
+
+<table>
+	<thead>
+		<tr>
+			<th>Concern</th>
+			<th>Behaviour</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>Focus visible</td>
+			<td>
+				Menu buttons inherit the standard focus ring; the rail's drag handle uses the same ring on
+				focus.
+			</td>
+		</tr>
+		<tr>
+			<td>Name / role</td>
+			<td>
+				Trigger buttons carry localised <code>aria-label</code>s. <code>SidebarMenuButton</code>{' '}
+				exposes a <code>tooltip</code> prop that is announced via the <code>Tooltip</code> primitive
+				when icon-collapsed.
+			</td>
+		</tr>
+		<tr>
+			<td>Target size</td>
+			<td>
+				All interactive elements meet the 24 × 24 px minimum (SC 2.5.8). Icon-collapsed menu buttons
+				render as 32 × 32 px.
+			</td>
+		</tr>
+		<tr>
+			<td>Mobile overlay</td>
+			<td>
+				On <code>isMobile</code> the rail renders as a sheet with focus trapping and a scrim — same
+				behaviour as <code>Dialog</code>.
+			</td>
+		</tr>
+		<tr>
+			<td>State persistence</td>
+			<td>
+				Collapsed / expanded state is stored in <code>localStorage</code> so the user's preference
+				survives reloads.
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+## Responsive behaviour
+
+<table>
+	<thead>
+		<tr>
+			<th>Viewport</th>
+			<th>Behaviour</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>&lt; sm</code> (mobile)
+			</td>
+			<td>
+				Renders as a full-height sheet that slides in from the configured <code>side</code>.{' '}
+				<code>SidebarTrigger</code> opens it.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>≥ sm</code>
+			</td>
+			<td>
+				Inline rail. <code>collapsible="icon"</code> shrinks to a 64 px icon strip;{' '}
+				<code>"offcanvas"</code> slides off-screen; <code>"none"</code> stays fixed.
+			</td>
+		</tr>
+		<tr>
+			<td>Icon-collapsed</td>
+			<td>
+				Labels are hidden; tooltips replace them on hover/focus. <code>SidebarCollapsibleHide</code>{' '}
+				content unmounts; <code>SidebarCollapsibleShow</code> content mounts.
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				Wrap every <code>SidebarMenuButton</code> in a <code>SidebarMenuItem</code> so the rail's
+				keyboard order and tree-branch styling stay correct.
+			</td>
+			<td>
+				Render bare <code>SidebarMenuButton</code>s under <code>SidebarMenu</code> — the{' '}
+				<code>&lt;ul&gt;</code> / <code>&lt;li&gt;</code> structure breaks.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Provide a <code>tooltip</code> on every <code>SidebarMenuButton</code> so labels are still
+				readable in <code>collapsible="icon"</code> mode.
+			</td>
+			<td>
+				Rely on the inline <code>&lt;span&gt;</code> label alone — it's hidden when the rail
+				collapses.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Use <code>SidebarCollapsibleHide</code> / <code>SidebarCollapsibleShow</code> to swap
+				layouts between expanded and icon-collapsed states.
+			</td>
+			<td>
+				Toggle visibility with <code>v-if="state === 'collapsed'"</code> — it bypasses the provider
+				and won't react to mobile breakpoint changes.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Use <code>SidebarMenuCollapsible</code> for nested sections — it auto-degrades to a dropdown
+				when the rail is icon-collapsed.
+			</td>
+			<td>
+				Hand-roll a nested <code>Collapsible</code> inside the icon rail — submenus don't fit and
+				won't be reachable by keyboard.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Persist open state via the provider's built-in <code>localStorage</code> handling.
+			</td>
+			<td>
+				Re-implement persistence on top of <code>:open</code> / <code>@update:open</code> — you'll
+				fight the provider on hydration.
+			</td>
+		</tr>
+	</tbody>
+</table>

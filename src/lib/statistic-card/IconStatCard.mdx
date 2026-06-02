@@ -1,0 +1,141 @@
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as IconStatCardStories from './IconStatCard.stories';
+
+<Meta of={IconStatCardStories} />
+
+# IconStatCard
+
+StatCard with a leading icon. Use a tinted icon container (e.g. `bg-success/10 text-success`) in the `icon` slot to colour-code the metric without tinting the entire card. See <a href="?path=/docs/statistic-card-statcard--docs">StatCard</a> for the icon-less variant, <a href="?path=/docs/statistic-card-coloredstatcard--docs">ColoredStatCard</a> when you want the whole card tinted, <a href="?path=/docs/statistic-card-progressstatcard--docs">ProgressStatCard</a> for value-vs-target.
+
+## When to use
+
+- KPI dashboards where each metric has a recognisable icon (Connections, Contacts, Value, Referrals).
+- A metric where category needs a quick visual cue but the surface should stay neutral.
+- The CRM-style "summary cards" pattern with size 12 icons in a coloured circle.
+
+## When not to use
+
+- For a tinted hero metric — use <a href="?path=/docs/statistic-card-coloredstatcard--docs">ColoredStatCard</a>.
+- For value-vs-target — use <a href="?path=/docs/statistic-card-progressstatcard--docs">ProgressStatCard</a>.
+- When you don't have a meaningful icon — use plain <a href="?path=/docs/statistic-card-statcard--docs">StatCard</a>.
+
+## Anatomy
+
+<Canvas of={IconStatCardStories.Default} />
+
+The icon sits in the top-left, the trend in the top-right, and the label + value flow below. The icon container is rendered with `aria-hidden="true"` (it's purely decorative — the metric meaning lives in the label and value).
+
+Available data-slots: `icon-stat-card`, `icon-stat-card-icon`, `stat-card-label`, `stat-card-value`, `stat-card-unit`, `stat-card-footer`.
+
+## Variants
+
+<Canvas of={IconStatCardStories.Variants} />
+
+Three surface styles — same set as <a href="?path=/docs/statistic-card-statcard--docs">StatCard</a>.
+
+## Sizes
+
+<Canvas of={IconStatCardStories.Sizes} />
+
+The icon container is owned by the consumer (so you can choose `size-10` round vs. `size-12` square). The card sizing controls value/label scale and padding.
+
+## Layout
+
+<table>
+	<thead>
+		<tr>
+			<th>Layout</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>stacked</code> (default)
+			</td>
+			<td>
+				Icon top-left with the label / value / footer flowing below — the "CRM-style summary card"
+				pattern. Best when the card sits in a flexible grid and has room to breathe.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>inline</code>
+			</td>
+			<td>
+				Icon left, content column right. Better for narrow rows or summary strips where vertical
+				space matters and the icon serves as a categorical anchor (status pills, KPI rails on detail
+				pages).
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+<Canvas of={IconStatCardStories.Inline} />
+
+The two layouts share every slot (`icon`, `trend`, `footer`) and every data-slot (`stat-card-label`, `stat-card-value`, `stat-card-unit`, `stat-card-footer`) — only the visual arrangement changes. Pick `inline` whenever you'd otherwise be tempted to roll a one-off horizontal stat card by hand.
+
+## KPI Dashboard
+
+<Canvas of={IconStatCardStories.KpiDashboard} />
+
+Wrap a row of IconStatCards in <a href="?path=/docs/statistic-card-statcardgroup--docs">StatCardGroup</a> for a single connected surface. Use the `lg` size for hero KPI rows.
+
+## Interactive
+
+<Canvas of={IconStatCardStories.Interactive} />
+
+Set `interactive` to make the card clickable — adds hover border, focus ring, `role="button"`, `tabindex="0"`, and emits `click`.
+
+## Props
+
+<Controls of={IconStatCardStories.Default} />
+
+## Accessibility (WCAG 2.2 AA)
+
+- **1.1.1 Non-text Content**: the icon slot is wrapped in `aria-hidden="true"` — assistive tech announces the label and value, not the icon.
+- **1.3.1 Info and Relationships**: rendered as `<article>` with `aria-label` bound to the `label` prop.
+- **1.4.3 Contrast**: `text-foreground` and `text-muted-foreground` meet 4.5 : 1 against the surface.
+- **2.1.1 Keyboard / 2.4.7 Focus Visible**: when `interactive`, the card is in the tab order with a 2-px focus ring.
+- **2.5.8 Target Size**: an interactive card is far above 24 × 24 px.
+
+## Responsive behaviour
+
+<Canvas of={IconStatCardStories.InteractiveResponsive} />
+
+The icon container is fixed-size; only the value and label scale with the `size` prop.
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				Use a tinted container around the icon (<code>bg-success/10 text-success</code>) for
+				category cues
+			</td>
+			<td>
+				Tint the whole card — that's{' '}
+				<a href="?path=/docs/statistic-card-coloredstatcard--docs">ColoredStatCard</a>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Pick icons that clearly map to the metric (<code>Cable</code> → connections)
+			</td>
+			<td>Use icons just to fill the slot — they should aid recognition</td>
+		</tr>
+		<tr>
+			<td>
+				Keep the icon slot at <code>size-10</code> or <code>size-12</code> for visual consistency
+			</td>
+			<td>Mix icon container sizes within one row — the rhythm breaks</td>
+		</tr>
+	</tbody>
+</table>

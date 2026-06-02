@@ -1,0 +1,178 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as SwitchStories from './Switch.stories';
+
+<Meta of={SwitchStories} />
+
+# Switch
+
+Binary on/off control for settings that take immediate effect. Built on Reka UI's `SwitchRoot` primitive.
+
+## When to use
+
+- Toggle a single boolean setting that applies immediately (notifications, dark mode).
+- Surface a feature flag inside a settings panel.
+- Inline within a row where the change should be obvious without a save button.
+
+## When not to use
+
+- Multi-select inside a list — use [Checkbox](?path=/docs/form-checkbox--docs).
+- Mutually exclusive choice — use [Radio](?path=/docs/form-radio--docs).
+- Settings that require an explicit save — use Checkbox so the unsaved state reads as a form field.
+
+## Anatomy
+
+<Canvas of={SwitchStories.Default} />
+
+A pill-shaped track with a circular thumb that slides between off (left) and on (right) positions. An invisible padding ring expands the click target to ≥ 24 × 24 px.
+
+## Variants
+
+<Canvas of={SwitchStories.Variants} />
+
+Two states: unchecked (`false`) and checked (`true`). State is exposed via `data-state="checked|unchecked"` and `aria-checked`.
+
+## Sizes
+
+<Canvas of={SwitchStories.Sizes} />
+
+<table>
+	<thead>
+		<tr>
+			<th>Size</th>
+			<th>Track</th>
+			<th>Hit area</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>sm</code>
+			</td>
+			<td>16 × 28 px</td>
+			<td>≥ 24 px (via padding ring)</td>
+			<td>Dense settings tables, list rows</td>
+		</tr>
+		<tr>
+			<td>
+				<code>default</code>
+			</td>
+			<td>20 × 36 px</td>
+			<td>≥ 24 px (via padding ring)</td>
+			<td>General forms and panels</td>
+		</tr>
+	</tbody>
+</table>
+
+## States
+
+<Canvas of={SwitchStories.Disabled} />
+
+<Canvas of={SwitchStories.WithError} />
+
+## Composition
+
+<Canvas of={SwitchStories.WithLabel} />
+
+Pair Switch with Label using `for` matching the switch's `id`. This:
+
+- Makes clicking anywhere on the label row toggle the switch.
+- Gives the switch a programmatic accessible name.
+- Lets `getByLabelText` find the switch in tests.
+
+<Canvas of={SwitchStories.Group} />
+
+For a group of toggles, render one Switch per option inside its own Label.
+
+## Keyboard interaction
+
+<table>
+	<thead>
+		<tr>
+			<th>Key / event</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<kbd>Tab</kbd>
+			</td>
+			<td>Moves focus to / from the switch.</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>Space</kbd>
+			</td>
+			<td>Toggles the checked state.</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>Enter</kbd>
+			</td>
+			<td>Toggles the checked state.</td>
+		</tr>
+		<tr>
+			<td>Click switch</td>
+			<td>Toggles the checked state.</td>
+		</tr>
+		<tr>
+			<td>Click associated label</td>
+			<td>Toggles the checked state via id↔for.</td>
+		</tr>
+	</tbody>
+</table>
+
+## Props
+
+<Controls of={SwitchStories.Default} />
+
+<ArgTypes of={SwitchStories} />
+
+## Accessibility (WCAG 2.2 AA)
+
+- **2.5.8 Target size**: visible track is < 24 px tall but the `::before` ring expands the click target to ≥ 24 × 24 px. Composing with a Label inside a `flex` row gives a row-wide hit area that always meets the minimum.
+- **4.1.2 Name, role, value**: Reka exposes `role="switch"` and `aria-checked`. Always pair with a Label or pass `ariaLabel` — never rely on adjacent text alone.
+- **3.3.1 Error identification**: pass `error` to set `aria-invalid="true"` and use `describedBy` for an error message id.
+- **2.1.1 Keyboard**: Space and Enter toggle the value. Tab moves focus.
+- **2.4.7 Focus visible**: focus draws a 2 px ring + 2 px offset against the surrounding surface.
+- **1.4.11 Non-text contrast**: the checked state uses `bg-primary` against `bg-input` for unchecked — both meet 3 : 1 against the background.
+
+## Responsive behaviour
+
+<Canvas of={SwitchStories.InteractiveResponsive} />
+
+Switches don't change layout across breakpoints. The hit area is constant at every viewport.
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				Always pair with a <code>&lt;Label for&gt;</code> or pass <code>ariaLabel</code>.
+			</td>
+			<td>Place text next to a Switch without a Label — it won't be the accessible name.</td>
+		</tr>
+		<tr>
+			<td>Use Switch for settings that take immediate effect.</td>
+			<td>Use Switch inside a form that needs an explicit save — use Checkbox.</td>
+		</tr>
+		<tr>
+			<td>
+				Use <code>error</code> + a referenced helper text id for validation.
+			</td>
+			<td>Hide the error message and only colour the track red.</td>
+		</tr>
+		<tr>
+			<td>Place the Switch on the trailing edge of a settings row.</td>
+			<td>Stack Switches vertically without a clear label per row.</td>
+		</tr>
+	</tbody>
+</table>

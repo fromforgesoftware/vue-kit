@@ -1,0 +1,145 @@
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as Stories from './WidgetGrid.stories';
+
+<Meta of={Stories} />
+
+# WidgetGrid
+
+A 24-column responsive grid for dashboard widgets. Items position themselves with explicit `{ i, x, y, w, h }` coordinates — no auto-pack — so consumers stay in control of layout. Edit mode (`draggable` / `resizable`) lets users rearrange the grid; emitted events let the consumer persist the new positions.
+
+## When to use
+
+- Customisable dashboards where users arrange tiles to suit their workflow.
+- Internal admin / planner views composed of independent panels (charts, tables, summaries).
+- **Don't** use for static page layouts — Tailwind grid classes are simpler when positions are fixed.
+
+## Anatomy
+
+<Canvas of={Stories.Default} />
+
+## Variants
+
+### Editable
+
+`draggable` + `resizable` flip the grid into edit mode. Items show a move cursor on hover and are draggable; their bottom-right edge becomes a resize handle.
+
+<Canvas of={Stories.Editable} />
+
+### Background presets
+
+The `background` prop picks one of three presets — `'none'` (default, Grafana-style clean canvas), `'grid'`, or `'dots'`. The pattern aligns with the snap grid (`snapColumns` × `minRowHeight`) so consumers immediately see where panels will land.
+
+<Canvas of={Stories.BackgroundGrid} />
+<Canvas of={Stories.BackgroundDots} />
+
+### Drop-target placeholder
+
+Setting `showPlaceholder` renders a primary-tinted ghost cell at the snap target while a panel is being dragged or resized; the panel itself dims to 50% opacity so the relationship between source and target is obvious. Off by default — opt in for a Grafana-style edit affordance.
+
+<Canvas of={Stories.WithPlaceholder} />
+
+### Disable drag scale
+
+By default panels apply a subtle `scale-[1.02]` while being clicked or dragged. Setting `disableDragScale` to `true` suppresses that grow effect (the lift shadow and z-bump still apply). Combine with `showPlaceholder` to match the production dashboard look — drag feedback comes from the ghost cell and shadow alone.
+
+<Canvas of={Stories.NoDragScale} />
+
+## Props
+
+<Controls of={Stories.Default} />
+
+## Slots
+
+<table>
+	<thead>
+		<tr>
+			<th>Slot</th>
+			<th>Description</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>default</td>
+			<td>
+				Render <code>WidgetGridItem</code> components, one per item in <code>items</code>. The{' '}
+				<code>i</code> prop on each item must match the <code>i</code> in the <code>items</code>{' '}
+				array.
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+## Layout model
+
+- **Columns**: 24 by default. `snapColumns` controls drag-snap granularity (default 4 — quarter columns).
+- **Rows**: `totalRows` × `minRowHeight` (px). The grid resolves row height from container height once mounted.
+- **Margin**: `margin` (in column units) inserts a uniform gutter around every cell.
+- **Item position**: `{ i, x, y, w, h }` where `x` and `w` are column counts (0–23) and `y` and `h` are row counts.
+
+## Accessibility (WCAG 2.2 AA)
+
+<table>
+	<thead>
+		<tr>
+			<th>Criterion</th>
+			<th>Coverage</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>1.3.1 Info and Relationships</td>
+			<td>
+				Each item exposes its identifier via the <code>i</code> prop. Consumers should pair widgets
+				with their own headings/landmarks.
+			</td>
+		</tr>
+		<tr>
+			<td>2.1.1 Keyboard</td>
+			<td>
+				Drag/resize is mouse + touch driven.{' '}
+				<strong>Edit mode is not currently keyboard-accessible</strong> — keep{' '}
+				<code>draggable</code>/<code>resizable</code> toggleable so view mode (the default) stays
+				fully reachable.
+			</td>
+		</tr>
+		<tr>
+			<td>2.5.7 Dragging Movements</td>
+			<td>
+				<strong>Open gap</strong>: the drag/resize interaction lacks a keyboard or button
+				alternative. Consumers exposing edit mode should provide an explicit "Reset layout" or
+				position-picker fallback until this lands in the component.
+			</td>
+		</tr>
+		<tr>
+			<td>2.5.8 Target Size</td>
+			<td>
+				Resize handles are sized to ≥ 24×24 via <code>WidgetGridItem</code>'s padding.
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+## Responsive behaviour
+
+The grid expands to its container's width and recomputes column width on resize via `ResizeObserver`. On narrow viewports, consumers should either (a) constrain `cols` to a smaller number, or (b) swap to a stacked card list — the 24-column model assumes desktop-class widths.
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>✅ Do</th>
+			<th>❌ Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>Persist `items` to user preferences when edit mode is exposed</td>
+			<td>Use as a generic page layout — Tailwind grid handles that with less overhead</td>
+		</tr>
+		<tr>
+			<td>Provide a "Reset layout" affordance until SC 2.5.7 keyboard alternative lands</td>
+			<td>Render below 768 px — the 24-column model assumes desktop widths</td>
+		</tr>
+	</tbody>
+</table>

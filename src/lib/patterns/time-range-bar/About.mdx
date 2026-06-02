@@ -1,0 +1,235 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as TimeRangeBarStories from './TimeRangeBar.stories';
+
+<Meta of={TimeRangeBarStories} />
+
+# TimeRangeBar
+
+A time-range visualisation primitive with editable child segments, optional gaps, and three density variants. The default `bar` density is the full-fat editor (drag, resize, ruler, keyboard, hover popover, toolbars), while `card` and `pill` strip the chrome down for grid cells. Use it for shifts, sub-status overlays, schedule rows, week/month previews — anywhere a bounded duration with optional sub-blocks needs to render.
+
+## When to use
+
+- Editing or visualising a daily shift with break / lunch / sub-status segments.
+- Read-only previews of a schedule in a list, calendar cell, or detail row.
+- Compact week / month views where a colored chip or text card is enough.
+- Any "bounded duration with optional inner blocks" UI that needs drag + keyboard parity.
+
+## When not to use
+
+- Multi-day Gantt charts — use a dedicated Gantt component.
+- Free-form scheduling without a parent bounded duration — TimeRangeBar requires a fixed `durationSec`.
+- Pure progress indicators with no editable axis — a `Progress` component is leaner.
+
+## Layout: density, size, orientation
+
+Density is the visual shape; size is a scale within `bar`; orientation flips the time axis. They're orthogonal.
+
+### Densities
+
+<Canvas of={TimeRangeBarStories.HorizontalDefault} />
+
+- **`bar`** (default): full time-axis. Supports segments, ruler, edge labels, drag, resize, gaps, all slots.
+- **`card`**: read-only text card whose body is owned via the `card-content` slot. When `segments` are present a thin bottom strip renders each block proportionally. Selectable at the bar level. Always horizontal regardless of `orientation`. Min-height controlled by `cardHeightPx` (default 44).
+- **`pill`**: fixed 64×18 px colored chip. No time axis, no segments, no popover. Selectable via click. Most props are silently ignored.
+
+<Canvas of={TimeRangeBarStories.Card} />
+<Canvas of={TimeRangeBarStories.CardWithSegments} />
+<Canvas of={TimeRangeBarStories.Pill} />
+
+### Size (only meaningful when `density: 'bar'`)
+
+<Canvas of={TimeRangeBarStories.HorizontalCompact} />
+
+`'default'` renders a 40 px-tall bar; `'compact'` is 20 px and drops ruler tick labels one size. Compact also hides per-segment text regardless of width.
+
+### Orientation
+
+<Canvas of={TimeRangeBarStories.VerticalDefault} />
+
+`'horizontal'` (default) lays time on the x-axis. `'vertical'` flips to top→bottom: segments use top/height, drag math switches to clientY, edge resize handles are top/bottom, and the ruler runs to the side. Vertical bars are pinned to `verticalHeightPx` (default 320). Card density ignores orientation.
+
+## Variants
+
+<Canvas of={TimeRangeBarStories.HorizontalVariants} />
+
+Six color tones: `green | purple | blue | amber | red | gray`. The bar surface uses one variant; each `Segment` carries its own. The default summary popover renders a legend pill per segment using the same palette.
+
+## Read-only
+
+<Canvas of={TimeRangeBarStories.HorizontalReadOnly} />
+
+Disables all pointer interactions and lowers segment opacity. The hover popover still renders. Use for list previews where the user shouldn't edit the schedule.
+
+## Bar resizable
+
+<Canvas of={TimeRangeBarStories.HorizontalBarResizable} />
+
+Set `resizable` to allow dragging the bar edges to change `startTimeSec` / `durationSec`. The component emits a single `resize` event on pointer-up. Enabling `resizable` auto-enables `showRuler` — resizing without an axis is meaningless.
+
+`TimeRangeBar` intentionally has no "move the whole bar" gesture. The bar is anchored by its parent (the consumer owns layout — width, position), so a "move" would mean shifting the inner ruler/labels while the container stays put, which produces a scrolling-inside-itself effect rather than visible translation. Callers that need to move a bar within a larger time grid (e.g. a shift card sliding across a day-view's hour axis) should implement the drag at the parent layer, where the px-per-hour ratio is known — see the day-view shift card in `ScheduleTimeline`.
+
+## Stack overlapping segments
+
+<Canvas of={TimeRangeBarStories.HorizontalStackedSegments} />
+
+`stackOverlaps` assigns each colliding segment to its own lane (lowest available row) and grows the bar's cross-axis to fit. With `stackOverlaps: false` (the default), overlapping segments render on top of each other in the same lane.
+
+## Overlap rules
+
+<Canvas of={TimeRangeBarStories.HorizontalNonOverlappingSegments} />
+
+The `overlap` prop governs drag-time collision:
+
+- `'allow'` (default) — every pair can overlap freely.
+- `'block'` — no pair can overlap, except segments with `canOverlap: true` (use this for "free agent" overlays that bypass the rule).
+- `(a, b) => boolean` — custom predicate, return `true` to allow.
+
+## Gaps
+
+<Canvas of={TimeRangeBarStories.HorizontalWithGaps} />
+
+A segment with `isGap: true` represents a region of the bar that's visually absent (employee logged off, leave block in middle of a shift). The bar gets a CSS mask gradient with transparent stops at gap regions; the gap doesn't render as a colored block. Thin 1.5 px edge markers in the bar's variant color draw the cut boundaries. The default popover lists gaps in a separate muted sub-section, and the card density's bottom strip applies the same mask. The drag composable filters gaps out so they're inert (not draggable, not blocking).
+
+## Selection
+
+Selection is uncontrolled by default:
+
+- Click the bar surface → bar selected (outline). Emits `click` and `bar-select(true)`.
+- Click a segment → segment selected, bar deselected. Emits `segment-click` + `segment-select(id)`.
+- Click outside the component → both deselected. The document listener skips portaled UI surfaces (`role="menu"`, `role="dialog"`, `role="listbox"`, Reka/Radix popper wrappers) so dropdowns inside the `#toolbar` slot don't dismiss the parent.
+
+Pass `activeSegmentId` and/or `selected` as props to take control. Either prop being `undefined` means "let the component own that piece of state".
+
+## Slots
+
+| Slot                | Scope                                                                          | Purpose                                                                 |
+| ------------------- | ------------------------------------------------------------------------------ | ----------------------------------------------------------------------- |
+| `bar-hover`         | `{ startTimeSec, durationSec, segments, formatTime }`                          | Full content override for the default hover popover.                    |
+| `bar-hover-actions` | `{ startTimeSec, durationSec, segments }`                                      | Appended to the default popover; useful for an action button row.       |
+| `toolbar`           | `{ segment }`                                                                  | Renders below the active segment when one is selected.                  |
+| `bar-toolbar`       | —                                                                              | Renders at the click point on the bar surface when the bar is selected. |
+| `card-content`      | `{ startTimeSec, durationSec, segments, formatTime, formatDuration, variant }` | Body of `density="card"`.                                               |
+
+<Canvas of={TimeRangeBarStories.HorizontalWithToolbars} />
+
+## Default hover popover
+
+<Canvas of={TimeRangeBarStories.HorizontalHover} />
+
+A summary popover renders automatically on hover for `density: 'bar' | 'card'` (pill skips it). Sections, separated by `divide-y divide-border`:
+
+1. Header row — time range + total duration.
+2. Segment list (if segments) — icon + label + time range per row.
+3. Gap rows (if gaps) — muted italic sub-section under the segment list.
+4. Legend pills — one variant-colored chip per segment.
+5. Mini-bar preview — compressed proportional bar with the same gap mask.
+6. `bar-hover-actions` slot below the strip (if provided).
+
+Override the entire popover via the `bar-hover` slot, or extend it via `bar-hover-actions`.
+
+<Canvas of={TimeRangeBarStories.HorizontalHoverWithActions} />
+
+## Drag interaction
+
+- **Move a segment**: pointer-down inside the segment, drag along the time axis. Snaps to `snapSec`.
+- **Resize a segment**: pointer-down on the 4 px start / end handle, drag along the time axis.
+- **Resize the parent bar**: pointer-down on the bar edge (8 px hit zone), drag. Floor is `minDurationSec` (default 1800 s). Requires `resizable`.
+
+A floating tooltip shows the live `start – end` time during any drag.
+
+## Keyboard interaction (WCAG 2.2 SC 2.5.7)
+
+All drag operations have a keyboard alternative — segments are exposed as `role="slider"` with `aria-valuemin`, `aria-valuemax`, `aria-valuenow`, and `aria-orientation`.
+
+| Key                                     | Action                                                                       |
+| --------------------------------------- | ---------------------------------------------------------------------------- |
+| `ArrowRight` / `ArrowLeft` (horizontal) | Move along the time axis by `snapSec`                                        |
+| `ArrowDown` / `ArrowUp` (vertical)      | Move along the time axis by `snapSec`                                        |
+| `Shift` + arrow                         | Move by 5 × `snapSec`                                                        |
+| `+` / `=`                               | Grow segment by `snapSec`                                                    |
+| `-` / `_`                               | Shrink segment by `snapSec` (down to `minSegmentSec`)                        |
+| `Enter` / `Space`                       | Select the focused segment (focus + emit `segment-click` + `segment-select`) |
+| `Escape`                                | Deselect segment and bar                                                     |
+
+<Canvas of={TimeRangeBarStories.InteractiveHorizontalSegmentKeyboardMove} />
+
+## Color tokens
+
+Variant colors come from CSS custom properties defined in `_colors.css`:
+
+- `--time-range-bar-{variant}` — strong fill (used for legend pills and the card strip).
+- `--time-range-bar-{variant}-foreground` — text on the subtle background.
+- `--time-range-bar-{variant}-subtle` — segment background.
+
+Tailwind shorthands map to the same tokens: `bg-trb-{variant}`, `bg-trb-{variant}-subtle`, `text-trb-{variant}-foreground`, `border-trb-{variant}`. Override the variables to retheme without touching component code.
+
+## Anatomy
+
+Every rendered element exposes a `data-slot` attribute so consumers and tests can reach in without coupling to class names.
+
+| Slot                                         | Where                                                 |
+| -------------------------------------------- | ----------------------------------------------------- |
+| `time-range-bar`                             | Outer wrapper                                         |
+| `time-range-bar-shell`                       | Bar + edge-marker positioning shell                   |
+| `time-range-bar-container`                   | The bar itself (receives bar clicks / pointer events) |
+| `time-range-bar-resize-left` / `-right`      | Horizontal bar edge handles                           |
+| `time-range-bar-resize-top` / `-bottom`      | Vertical bar edge handles                             |
+| `time-range-bar-ruler-tick`                  | Hour ticks                                            |
+| `segment`                                    | Each rendered segment (has `data-segment-id`)         |
+| `segment-resize-left` / `-right`             | Segment resize handles (horizontal)                   |
+| `segment-resize-top` / `-bottom`             | Segment resize handles (vertical)                     |
+| `time-range-bar-gap-edge`                    | 1.5 px solid markers at gap boundaries                |
+| `time-range-bar-card`                        | Card outer container                                  |
+| `time-range-bar-card-strip`                  | Bottom segment strip in card density                  |
+| `time-range-bar-card-strip-segment`          | Each segment block in the card strip                  |
+| `time-range-bar-card-strip-track`            | Strip track behind the segments                       |
+| `time-range-bar-default-hover`               | Default popover root                                  |
+| `time-range-bar-default-hover-list`          | Segment + gap list section                            |
+| `time-range-bar-default-hover-row`           | Regular segment row                                   |
+| `time-range-bar-default-hover-gaps`          | Gap sub-section                                       |
+| `time-range-bar-default-hover-gap-row`       | Each gap row                                          |
+| `time-range-bar-default-hover-tags`          | Legend pills row                                      |
+| `time-range-bar-default-hover-strip`         | Mini-bar preview container                            |
+| `time-range-bar-default-hover-strip-segment` | Each preview block                                    |
+| `time-range-bar-default-hover-actions`       | Wrapper for the `bar-hover-actions` slot              |
+
+## Props
+
+<Controls of={TimeRangeBarStories.HorizontalDefault} />
+
+<ArgTypes of={TimeRangeBarStories} />
+
+## Accessibility (WCAG 2.2 AA)
+
+| SC    | Title                  | How TimeRangeBar conforms                                                                                                                                                                                                                        |
+| ----- | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| 1.3.1 | Info and Relationships | Segments expose `role="slider"`, `aria-label`, `aria-valuemin`, `aria-valuemax`, `aria-valuenow`, and `aria-orientation`                                                                                                                         |
+| 1.4.3 | Contrast (Minimum)     | Variants pair tinted backgrounds with full-strength foreground text via the `trb-*` tokens                                                                                                                                                       |
+| 2.1.1 | Keyboard               | Every drag interaction has an arrow-key equivalent; resize via `+` / `-`                                                                                                                                                                         |
+| 2.4.7 | Focus Visible          | `focus-visible` outline on each segment                                                                                                                                                                                                          |
+| 2.5.7 | Dragging Movements     | Arrow keys move segments without dragging — required at AAA, met at AA                                                                                                                                                                           |
+| 2.5.8 | Target Size (Minimum)  | Default bar height is 40 px — meets the 24 px AA target. `size="compact"` is 20 px and does **not** meet 24 px on its own; hosts using compact bars must surface an alternate edit affordance (e.g. a click-to-open editor or the keyboard path) |
+| 4.1.2 | Name, Role, Value      | Slider role + label + value all derive from the segment data                                                                                                                                                                                     |
+
+<Canvas of={TimeRangeBarStories.InteractiveHorizontalAriaAttributes} />
+<Canvas of={TimeRangeBarStories.InteractiveHorizontalTargetSize} />
+
+## Responsive behaviour
+
+- Segment labels are hidden when the segment renders narrower than 60 px; the icon (if any) stays. Compact size hides labels regardless of width.
+- The component fills its container along the time axis (`w-full` for horizontal, `verticalHeightPx` for vertical). It never overflows horizontally.
+- Vertical bars have a fixed pixel height — set `verticalHeightPx` to size the day column.
+- The default popover is portaled, so a narrow container won't clip it.
+
+<Canvas of={TimeRangeBarStories.InteractiveHorizontalResponsive} />
+
+## Do / Don't
+
+| Do                                                                            | Don't                                                                                           |
+| ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| Provide a `label` on each segment for screen-reader announcement              | Rely on the icon alone to convey segment meaning                                                |
+| Use `density: 'card'` or `'pill'` for compact list / grid previews            | Mount many editable `bar` density bars in a long list — performance and focus management suffer |
+| Pick a sensible `snapSec` (5 or 15 minutes typical)                           | Use `snapSec=1` — every keypress moves only one second                                          |
+| Listen to `segment-update` and persist a new array                            | Mutate the `segments` array in place — pass a fresh reference                                   |
+| Pair `overlap: 'block'` with `Segment.canOverlap` for "free agent" exceptions | Hand-roll the predicate when the prop syntax already covers it                                  |
+| Use `isGap` for visually absent regions inside a shift                        | Pass a regular variant segment when you really mean "nothing here"                              |

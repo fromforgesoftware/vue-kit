@@ -1,0 +1,390 @@
+/* OKLCH Design Tokens - matching studio/libs/ui */
+
+:root,
+[data-theme='light'] {
+	/* Default background color */
+	--background: 1 0 0;
+	--foreground: 0.141 0.005 285.823;
+
+	/* Muted backgrounds */
+	--muted: 0.967 0.001 286.375;
+	/* WCAG AA fix: L 0.55→0.42 lifts contrast vs --card (L=1) from ~3.8:1 to ~7.0:1
+     and clears opacity-80 secondary text on muted surfaces. */
+	--muted-foreground: 0.42 0.01 286;
+
+	/* Card background */
+	--card: 1 0 0;
+	--card-foreground: 0.141 0.005 285.823;
+
+	/* Popover background */
+	--popover: 1 0 0;
+	--popover-foreground: 0.141 0.005 285.823;
+
+	/* Primary colors — brand orange */
+	/* Brand decision: keep the vibrant L=0.68 orange AND keep button text white,
+     even though the pair only clears ~3:1 (WCAG SC 1.4.11 for UI components,
+     not 4.5:1 for normal text). The earlier "near-black foreground" experiment
+     made buttons look muddy; the brand owns this trade-off. axe will flag
+     `text-primary-foreground` on `--primary` surfaces — that's expected.
+     Components that need a *text-on-light* brand colour use `--primary-text`
+     below, which is darkened to clear 4.5:1 against white. */
+	--primary: 0.68 0.19 40;
+	--primary-foreground: 0.985 0 0;
+	/* Darker shade of brand orange for content TEXT on light surfaces (link
+     buttons, accent emphasis). Brand orange itself is too light for 4.5:1
+     against white; this darker shade clears ~4.6:1 while reading as the same
+     colour family. UI fills (icons, radio dots, spinners) keep `text-primary`
+     since they only need 3:1 (SC 1.4.11). */
+	--primary-text: 0.45 0.18 40;
+
+	/* Secondary colors */
+	--secondary: 0.967 0.001 286.375;
+	--secondary-foreground: 0.21 0.006 285.885;
+
+	/* Accent colors */
+	--accent: 0.967 0.001 286.375;
+	--accent-foreground: 0.21 0.006 285.885;
+
+	/* Destructive colors */
+	/* WCAG AA fix: L 0.627→0.5 to support opacity-80 white text (~4.5:1).
+     Still unmistakably red (h=29.2, c=0.22). */
+	--destructive: 0.5 0.22 29.2;
+	--destructive-foreground: 0.985 0.005 0;
+
+	/* Success colors */
+	/* WCAG AA fix (pass 2): L 0.48→0.43 so `text-success` (used in StatTrend
+     soft tone) reaches ~4.6:1 vs white at full opacity. */
+	--success: 0.43 0.16 145;
+	--success-foreground: 0.985 0 0;
+
+	/* Warning colors */
+	/* L=0.8 yellow already passes with dark foreground; tighten foreground L
+     0.2→0.18 so opacity-80 still clears 4.5:1 (~5.4:1). */
+	--warning: 0.8 0.15 85;
+	--warning-foreground: 0.18 0.02 85;
+
+	/* Info colors */
+	/* WCAG AA fix: L 0.55→0.45 so white foreground at opacity-80 reaches ~4.5:1. */
+	--info: 0.45 0.16 255;
+	--info-foreground: 0.985 0 0;
+
+	/* Default border color */
+	--border: 0.92 0 286;
+
+	/* Border color for inputs */
+	--input: 0.871 0.006 286.286;
+
+	/* Focus ring (matches brand --primary) */
+	--ring: 0.68 0.19 40;
+
+	/* Border radius */
+	--radius: 0.625rem;
+
+	/* Chart colors */
+	--chart-1: 0.646 0.222 41.116;
+	--chart-2: 0.6 0.118 184.704;
+	--chart-3: 0.398 0.07 227.392;
+	--chart-4: 0.828 0.189 84.429;
+	--chart-5: 0.769 0.188 70.08;
+
+	/* Sidebar */
+	--sidebar: 0.985 0 0;
+	--sidebar-foreground: 0.141 0.005 285.823;
+	--sidebar-primary: 0.21 0.006 285.885;
+	--sidebar-primary-foreground: 0.985 0 0;
+	--sidebar-accent: 0.935 0.002 286.375;
+	--sidebar-accent-foreground: 0.21 0.006 285.885;
+	--sidebar-border: 0.92 0.004 286.32;
+	--sidebar-ring: 0.871 0.006 286.286;
+
+	/* Schedule Timeline — item category colors (soft pastel palette) */
+	--schedule-timeline-work: 0.55 0.14 290;
+	--schedule-timeline-work-foreground: 0.35 0.12 290;
+	--schedule-timeline-work-subtle: 0.92 0.04 290;
+
+	--schedule-timeline-activity: 0.62 0.17 155;
+	--schedule-timeline-activity-foreground: 0.32 0.1 155;
+	--schedule-timeline-activity-subtle: 0.93 0.04 155;
+
+	--schedule-timeline-adherence: 0.62 0.2 25;
+	--schedule-timeline-adherence-foreground: 0.35 0.14 25;
+	--schedule-timeline-adherence-subtle: 0.93 0.05 25;
+
+	--schedule-timeline-leave: 0.7 0.12 220;
+	--schedule-timeline-leave-foreground: 0.35 0.1 220;
+	--schedule-timeline-leave-subtle: 0.93 0.03 220;
+
+	--schedule-timeline-break: 0.78 0.12 75;
+	--schedule-timeline-break-foreground: 0.35 0.08 75;
+	--schedule-timeline-break-subtle: 0.94 0.03 75;
+
+	--schedule-timeline-meeting: 0.6 0.15 310;
+	--schedule-timeline-meeting-foreground: 0.35 0.12 310;
+	--schedule-timeline-meeting-subtle: 0.93 0.04 310;
+
+	--schedule-timeline-post-process: 0.58 0.12 270;
+	--schedule-timeline-post-process-foreground: 0.35 0.1 270;
+	--schedule-timeline-post-process-subtle: 0.93 0.03 270;
+
+	--schedule-timeline-logged-in: 0.62 0.17 155;
+	--schedule-timeline-logged-in-foreground: 0.32 0.1 155;
+	--schedule-timeline-logged-in-subtle: 0.93 0.04 155;
+
+	--schedule-timeline-logged-out: 0.6 0.01 286;
+	--schedule-timeline-logged-out-foreground: 0.35 0.01 286;
+	--schedule-timeline-logged-out-subtle: 0.95 0.005 286;
+
+	--schedule-timeline-exception: 0.6 0.1 50;
+	--schedule-timeline-exception-foreground: 0.35 0.08 50;
+	--schedule-timeline-exception-subtle: 0.93 0.03 50;
+
+	/* Schedule Timeline — grid & structure */
+	--schedule-timeline-grid-line: 0.94 0.003 286;
+	--schedule-timeline-now-line: 0.627 0.257 29.2;
+	--schedule-timeline-row-hover: 0.975 0.002 286;
+	--schedule-timeline-header-bg: 0.985 0 0;
+	--schedule-timeline-employee-bg: 0.985 0 0;
+	--schedule-timeline-today-bg: 0.96 0.02 290;
+
+	/* Event Calendar — event variant colors */
+	--event-calendar-primary: 0.55 0.18 260;
+	--event-calendar-primary-foreground: 0.3 0.14 260;
+	--event-calendar-primary-subtle: 0.92 0.04 260;
+
+	--event-calendar-secondary: 0.55 0.06 286;
+	--event-calendar-secondary-foreground: 0.3 0.03 286;
+	--event-calendar-secondary-subtle: 0.93 0.01 286;
+
+	--event-calendar-success: 0.55 0.17 155;
+	--event-calendar-success-foreground: 0.3 0.12 155;
+	--event-calendar-success-subtle: 0.92 0.05 155;
+
+	--event-calendar-warning: 0.65 0.18 55;
+	--event-calendar-warning-foreground: 0.35 0.12 55;
+	--event-calendar-warning-subtle: 0.93 0.05 55;
+
+	--event-calendar-danger: 0.58 0.22 25;
+	--event-calendar-danger-foreground: 0.35 0.16 25;
+	--event-calendar-danger-subtle: 0.93 0.05 25;
+
+	--event-calendar-info: 0.55 0.15 230;
+	--event-calendar-info-foreground: 0.3 0.12 230;
+	--event-calendar-info-subtle: 0.92 0.04 230;
+
+	--event-calendar-neutral: 0.55 0.01 286;
+	--event-calendar-neutral-foreground: 0.3 0.01 286;
+	--event-calendar-neutral-subtle: 0.94 0.005 286;
+
+	/* Time Range Bar — segment variant colors (light mode mirrors *-300/*-800/*-100 saturation) */
+	--time-range-bar-green: 0.83 0.13 155;
+	--time-range-bar-green-foreground: 0.4 0.13 155;
+	--time-range-bar-green-subtle: 0.94 0.05 155;
+
+	--time-range-bar-purple: 0.83 0.1 290;
+	--time-range-bar-purple-foreground: 0.4 0.16 290;
+	--time-range-bar-purple-subtle: 0.94 0.04 290;
+
+	--time-range-bar-blue: 0.83 0.1 245;
+	--time-range-bar-blue-foreground: 0.4 0.16 245;
+	--time-range-bar-blue-subtle: 0.94 0.04 245;
+
+	--time-range-bar-amber: 0.86 0.13 80;
+	--time-range-bar-amber-foreground: 0.42 0.12 70;
+	--time-range-bar-amber-subtle: 0.95 0.06 85;
+
+	--time-range-bar-red: 0.83 0.12 25;
+	--time-range-bar-red-foreground: 0.43 0.18 25;
+	--time-range-bar-red-subtle: 0.94 0.05 25;
+
+	--time-range-bar-gray: 0.84 0.005 286;
+	--time-range-bar-gray-foreground: 0.5 0.01 286;
+	--time-range-bar-gray-subtle: 0.95 0.002 286;
+}
+
+.dark,
+html[data-theme='dark'] {
+	/* Default background color */
+	--background: 0.141 0.005 285.823;
+	--foreground: 0.985 0 0;
+
+	/* Muted backgrounds */
+	--muted: 0.21 0.006 285.885;
+	/* WCAG AA fix: L 0.65→0.78 lifts contrast vs --card (L=0.141) from
+     ~4.4:1 to ~7.5:1 — clears opacity-80 secondary text comfortably. */
+	--muted-foreground: 0.78 0.01 286;
+
+	/* Card background */
+	--card: 0.141 0.005 285.823;
+	--card-foreground: 0.985 0 0;
+
+	/* Popover background */
+	--popover: 0.141 0.005 285.823;
+	--popover-foreground: 0.985 0 0;
+
+	/* Primary colors — brand orange */
+	/* Mirror light theme: vibrant brand orange + white foreground. Same ~3:1
+     trade-off as light theme; brand wins over WCAG SC 1.4.3 normal-text. */
+	--primary: 0.68 0.19 40;
+	--primary-foreground: 0.985 0 0;
+	/* Lighter shade of brand orange for content TEXT on dark surfaces. Mirrors
+     the light theme’s `--primary-text` but inverted — passes 4.5:1 against the
+     dark `--card` / `--background`. */
+	--primary-text: 0.78 0.16 40;
+
+	/* Secondary colors */
+	--secondary: 0.274 0.006 286.033;
+	--secondary-foreground: 0.985 0 0;
+
+	/* Accent colors */
+	--accent: 0.21 0.006 285.885;
+	--accent-foreground: 0.985 0 0;
+
+	/* Destructive colors */
+	/* WCAG AA fix: L 0.627→0.52 → opacity-80 white text passes 4.5:1. */
+	--destructive: 0.52 0.22 29.2;
+	--destructive-foreground: 0.985 0.005 0;
+
+	/* Success colors */
+	/* WCAG AA fix: L 0.6→0.5 → ~4.6:1 vs white at opacity-80. */
+	--success: 0.5 0.16 145;
+	--success-foreground: 0.985 0 0;
+
+	/* Warning colors */
+	/* Yellow background with dark text continues to work in dark mode. */
+	--warning: 0.8 0.15 85;
+	--warning-foreground: 0.18 0.02 85;
+
+	/* Info colors */
+	/* WCAG AA fix: L 0.55→0.46 → ~4.5:1 vs white at opacity-80. */
+	--info: 0.46 0.16 255;
+	--info-foreground: 0.985 0 0;
+
+	/* Default border color */
+	--border: 0.274 0.006 286.033;
+
+	/* Border color for inputs */
+	--input: 0.274 0.006 286.033;
+
+	/* Focus ring (matches brand --primary) */
+	--ring: 0.68 0.19 40;
+
+	/* Chart colors */
+	--chart-1: 0.488 0.243 264.376;
+	--chart-2: 0.696 0.17 162.48;
+	--chart-3: 0.769 0.188 70.08;
+	--chart-4: 0.627 0.265 303.9;
+	--chart-5: 0.645 0.246 16.439;
+
+	/* Sidebar */
+	--sidebar: 0.205 0 0;
+	--sidebar-foreground: 0.985 0 0;
+	--sidebar-primary: 0.488 0.243 264.376;
+	--sidebar-primary-foreground: 0.985 0 0;
+	--sidebar-accent: 0.269 0 0;
+	--sidebar-accent-foreground: 0.985 0 0;
+	--sidebar-border: 0.274 0.006 286.033;
+	--sidebar-ring: 0.442 0.017 285.786;
+
+	/* Schedule Timeline — item category colors (dark: boosted saturation, lower lightness subtles) */
+	--schedule-timeline-work: 0.65 0.14 290;
+	--schedule-timeline-work-foreground: 0.85 0.08 290;
+	--schedule-timeline-work-subtle: 0.22 0.06 290;
+
+	--schedule-timeline-activity: 0.62 0.17 155;
+	--schedule-timeline-activity-foreground: 0.85 0.06 155;
+	--schedule-timeline-activity-subtle: 0.2 0.06 155;
+
+	--schedule-timeline-adherence: 0.62 0.2 25;
+	--schedule-timeline-adherence-foreground: 0.85 0.08 25;
+	--schedule-timeline-adherence-subtle: 0.22 0.08 25;
+
+	--schedule-timeline-leave: 0.7 0.12 220;
+	--schedule-timeline-leave-foreground: 0.85 0.06 220;
+	--schedule-timeline-leave-subtle: 0.2 0.05 220;
+
+	--schedule-timeline-break: 0.78 0.12 75;
+	--schedule-timeline-break-foreground: 0.85 0.05 75;
+	--schedule-timeline-break-subtle: 0.24 0.05 75;
+
+	--schedule-timeline-meeting: 0.6 0.15 310;
+	--schedule-timeline-meeting-foreground: 0.85 0.08 310;
+	--schedule-timeline-meeting-subtle: 0.2 0.06 310;
+
+	--schedule-timeline-post-process: 0.58 0.12 270;
+	--schedule-timeline-post-process-foreground: 0.85 0.06 270;
+	--schedule-timeline-post-process-subtle: 0.2 0.05 270;
+
+	--schedule-timeline-logged-in: 0.62 0.17 155;
+	--schedule-timeline-logged-in-foreground: 0.85 0.06 155;
+	--schedule-timeline-logged-in-subtle: 0.2 0.06 155;
+
+	--schedule-timeline-logged-out: 0.6 0.01 286;
+	--schedule-timeline-logged-out-foreground: 0.75 0.01 286;
+	--schedule-timeline-logged-out-subtle: 0.2 0.005 286;
+
+	--schedule-timeline-exception: 0.6 0.1 50;
+	--schedule-timeline-exception-foreground: 0.85 0.06 50;
+	--schedule-timeline-exception-subtle: 0.22 0.04 50;
+
+	/* Schedule Timeline — grid & structure */
+	--schedule-timeline-grid-line: 0.24 0.003 286;
+	--schedule-timeline-now-line: 0.627 0.257 29.2;
+	--schedule-timeline-row-hover: 0.18 0.003 286;
+	--schedule-timeline-header-bg: 0.141 0.005 285.823;
+	--schedule-timeline-employee-bg: 0.141 0.005 285.823;
+	--schedule-timeline-today-bg: 0.2 0.03 290;
+
+	/* Event Calendar — event variant colors (dark: boosted foreground, darker subtles) */
+	--event-calendar-primary: 0.65 0.18 260;
+	--event-calendar-primary-foreground: 0.85 0.08 260;
+	--event-calendar-primary-subtle: 0.22 0.06 260;
+
+	--event-calendar-secondary: 0.6 0.04 286;
+	--event-calendar-secondary-foreground: 0.8 0.02 286;
+	--event-calendar-secondary-subtle: 0.2 0.01 286;
+
+	--event-calendar-success: 0.62 0.17 155;
+	--event-calendar-success-foreground: 0.85 0.06 155;
+	--event-calendar-success-subtle: 0.2 0.06 155;
+
+	--event-calendar-warning: 0.7 0.16 55;
+	--event-calendar-warning-foreground: 0.85 0.06 55;
+	--event-calendar-warning-subtle: 0.22 0.06 55;
+
+	--event-calendar-danger: 0.62 0.2 25;
+	--event-calendar-danger-foreground: 0.85 0.08 25;
+	--event-calendar-danger-subtle: 0.22 0.08 25;
+
+	--event-calendar-info: 0.62 0.14 230;
+	--event-calendar-info-foreground: 0.85 0.06 230;
+	--event-calendar-info-subtle: 0.2 0.05 230;
+
+	--event-calendar-neutral: 0.6 0.01 286;
+	--event-calendar-neutral-foreground: 0.75 0.01 286;
+	--event-calendar-neutral-subtle: 0.2 0.005 286;
+
+	/* Time Range Bar — segment variant colors (dark: boosted foregrounds, low-L subtles) */
+	--time-range-bar-green: 0.62 0.17 155;
+	--time-range-bar-green-foreground: 0.85 0.06 155;
+	--time-range-bar-green-subtle: 0.22 0.06 155;
+
+	--time-range-bar-purple: 0.65 0.18 290;
+	--time-range-bar-purple-foreground: 0.85 0.08 290;
+	--time-range-bar-purple-subtle: 0.22 0.06 290;
+
+	--time-range-bar-blue: 0.65 0.18 245;
+	--time-range-bar-blue-foreground: 0.85 0.08 245;
+	--time-range-bar-blue-subtle: 0.22 0.06 245;
+
+	--time-range-bar-amber: 0.78 0.16 75;
+	--time-range-bar-amber-foreground: 0.85 0.08 75;
+	--time-range-bar-amber-subtle: 0.24 0.06 75;
+
+	--time-range-bar-red: 0.62 0.2 25;
+	--time-range-bar-red-foreground: 0.85 0.08 25;
+	--time-range-bar-red-subtle: 0.22 0.08 25;
+
+	--time-range-bar-gray: 0.6 0.01 286;
+	--time-range-bar-gray-foreground: 0.78 0.01 286;
+	--time-range-bar-gray-subtle: 0.22 0.005 286;
+}

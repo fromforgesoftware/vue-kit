@@ -1,0 +1,185 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as BadgeStories from './Badge.stories';
+
+<Meta of={BadgeStories} />
+
+# Badge
+
+Compact label used to surface status, categories, counts, and tags. Badges are decorative by default — for status that should be announced to assistive technology, place the badge inside a region with an appropriate `role` (`status`, `alert`) at the consumer site.
+
+## When to use
+
+- Surface a state on an entity ("Disabled", "Beta", "Pro").
+- Show a count next to an icon or label ("Unread 12").
+- Tag content with a category (filters, taxonomy chips).
+
+## When not to use
+
+- For free-floating call-to-action — use a [Button](?path=/docs/general-button--docs) with `size="sm"`.
+- For long, dense text — badges are single-line labels, not paragraphs.
+- For form input feedback — use the field's `error` slot.
+
+## Anatomy
+
+<Canvas of={BadgeStories.Default} />
+
+A badge is a single inline element that contains the label and, optionally, a leading icon, trailing count, or remove button.
+
+## Variants
+
+<Canvas of={BadgeStories.Variants} />
+
+Eleven variants in two groups:
+
+- **Solid** — `default`, `secondary`, `destructive`, `outline`, `success`, `warning`, `info`. High emphasis; use for primary states.
+- **Soft** — `soft-success`, `soft-warning`, `soft-destructive`, `soft-info`. Low emphasis; use when the badge accompanies other content and shouldn't dominate.
+
+## Sizes
+
+<Canvas of={BadgeStories.Sizes} />
+
+<table>
+	<thead>
+		<tr>
+			<th>Size</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>xs</code>
+			</td>
+			<td>Inline counts inside dense tables or sidebars</td>
+		</tr>
+		<tr>
+			<td>
+				<code>sm</code>
+			</td>
+			<td>Compact contexts (toolbars, list-row metadata)</td>
+		</tr>
+		<tr>
+			<td>
+				<code>default</code>
+			</td>
+			<td>General use</td>
+		</tr>
+		<tr>
+			<td>
+				<code>lg</code>
+			</td>
+			<td>Headline status next to a primary heading</td>
+		</tr>
+	</tbody>
+</table>
+
+## Shapes
+
+<Canvas of={BadgeStories.Shapes} />
+
+`pill` is the standard shape for counts and status indicators that appear next to icons (notification bell, avatar). `default` (rounded-md) reads as a tag.
+
+## With icon
+
+<Canvas of={BadgeStories.WithIcon} />
+
+Compose icons through the default slot. Icons inherit `currentColor`, so all variants render correctly without per-variant overrides.
+
+## With count
+
+<Canvas of={BadgeStories.WithCount} />
+
+For a label-plus-count pair, place the count in a span with `text-current opacity-60`. The badge reserves `gap-1` between children automatically.
+
+## Removable
+
+<Canvas of={BadgeStories.Removable} />
+
+Set `removable` to render a built-in close button. The button:
+
+- Has a 24 × 24 px touch target (WCAG 2.2 SC 2.5.8) implemented via an invisible expansion zone — visual size remains compact.
+- Is keyboard-activatable with `Enter` and `Space`.
+- Exposes its purpose via `aria-label` (override with the `removeLabel` prop — make it specific, e.g. `"Remove tag"` not just `"Remove"`).
+- Emits the `remove` event; consumers update their data and re-render.
+
+```vue
+<Badge removable remove-label="Remove tag" @remove="tags.splice(idx, 1)">
+  {{ tag.label }}
+</Badge>
+```
+
+## As link
+
+<Canvas of={BadgeStories.AsLink} />
+
+Wrap the badge in an `<a>` to make the whole chip navigational. The component detects the parent anchor via the `[a&]:hover:` selector and applies hover styling automatically — no extra props.
+
+## Props
+
+<Controls of={BadgeStories.Default} />
+
+<ArgTypes of={BadgeStories} />
+
+## Accessibility (WCAG 2.2 AA)
+
+- **Role**: rendered as a `<div>` by default — purely visual. For status that conveys live updates (notification counts, status changes), place the badge inside an element with `role="status"` or `aria-live="polite"` at the consumer.
+- **Contrast** (SC 1.4.3, 1.4.11): all solid variants meet 4.5 : 1 against the badge background. Soft variants pair tinted backgrounds with full-strength foreground colour — verified by axe.
+- **Focus visible** (SC 2.4.7, 2.4.13): when wrapped in an `<a>` or used with `removable`, the focus ring is the same 3-px ring used across the system, with ≥ 3 : 1 contrast against the surrounding surface.
+- **Target size** (SC 2.5.8): badges themselves don't need to meet the 24 px minimum because they are not interactive. The optional remove button **does** — and is sized accordingly.
+- **Keyboard** (SC 2.1.1): the remove button activates with `Enter` and `Space`. As a non-interactive label, the badge itself is not in the tab order.
+- **Name** (SC 4.1.2): the remove button always has an accessible name from `removeLabel`.
+
+## Responsive behaviour
+
+- Badges are inline-flex, `w-fit`, `whitespace-nowrap` — they do not break to a new line and cannot be wider than their content.
+- All sizes meet the WCAG SC 2.5.8 minimum target size for the _remove_ button at every viewport.
+- The component does not change layout across breakpoints; if your badge group needs to wrap on small screens, wrap them in a `flex flex-wrap gap-2` container at the consumer.
+
+<Canvas of={BadgeStories.InteractiveResponsive} />
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>✅ Do</th>
+			<th>❌ Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>Use one or two badges per row</td>
+			<td>Stack five-plus badges in a row — wrap them or move some to a tooltip</td>
+		</tr>
+		<tr>
+			<td>
+				Match variant to semantics (<code>destructive</code> for failures, <code>success</code> for
+				OK states)
+			</td>
+			<td>
+				Re-purpose <code>destructive</code> for visual contrast — use the variant that matches
+				meaning
+			</td>
+		</tr>
+		<tr>
+			<td>Keep labels short (1–2 words, ≤ 20 chars)</td>
+			<td>Use full sentences inside a badge</td>
+		</tr>
+		<tr>
+			<td>
+				Use <code>removable</code> for user-controlled tags (filters, multi-select chips)
+			</td>
+			<td>
+				Use <code>removable</code> for read-only status — it should not be dismissible
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Pass <code>removeLabel</code> describing what's being removed (<code>"Remove user"</code>)
+			</td>
+			<td>
+				Default to the generic <code>"Remove"</code> when context is available
+			</td>
+		</tr>
+	</tbody>
+</table>

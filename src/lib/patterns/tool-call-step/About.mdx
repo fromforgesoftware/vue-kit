@@ -1,0 +1,78 @@
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as ToolCallStepStories from './ToolCallStep.stories';
+
+<Meta of={ToolCallStepStories} />
+
+# ToolCallStep
+
+Inline card representing one tool the AI is invoking inside a conversation.
+Renders the tool name + a status badge + a collapsible body with args, result,
+and error. Designed to live in the message stream of [ChatPanel](?path=/docs/chat-chatpanel--docs)
+via the `message` render-prop slot, but can be used anywhere.
+
+## When to use
+
+- AI assistant panels — render a step per tool call (Claude / Vercel
+  AI Elements "thinking trace" pattern).
+- Workflow visualizers that want a compact, expandable representation of
+  remote function calls.
+- Read-only audit views of past AI conversations.
+
+## When not to use
+
+- For free-form text turns — use [ChatBubble](?path=/docs/chat-chatbubble--docs).
+- For approve/reject prompts on a write tool — pair this with
+  [InlineConfirmation](?path=/docs/chat-inlineconfirmation--docs).
+
+## States
+
+<Canvas of={ToolCallStepStories.AllStatuses} />
+
+| Status                   | Meaning                                              | Default open? |
+| ------------------------ | ---------------------------------------------------- | ------------- |
+| `running`                | Tool actively executing                              | ✓             |
+| `done`                   | Completed successfully                               | closed        |
+| `failed`                 | Execution failed (error rendered in place of result) | closed        |
+| `awaiting-confirmation`  | Write tool paused waiting for user approval          | ✓             |
+| `awaiting-clarification` | Paused waiting for a picker selection                | ✓             |
+
+The open-by-default heuristic surfaces in-progress / awaiting states so the
+user sees them without an extra click, while completed cards stay collapsed
+to keep the conversation scannable.
+
+## Args + Result rendering
+
+Both `args` and `result` accept either an **object** or a **JSON-shaped string**.
+JSON strings are auto-pretty-printed; non-JSON strings render verbatim; objects
+are stringified. This matches the wire format from the trading-bot backend
+(the LLM emits `arguments` as a raw JSON string in `ai.thinking`/`ai.response`
+broadcasts, while tool results come back as Go-formatted strings).
+
+## Anatomy
+
+```vue
+<ToolCallStep
+	tool-name="list_employees"
+	status="done"
+	:args="{ group: 'Support' }"
+	result='[{"id":"abc","name":"Alice"}]'
+/>
+```
+
+## Custom body
+
+Override the entire body section via the `body` slot — useful when the tool
+result is a structured artifact you want to render with a domain-specific
+component (employee card, schedule grid, etc).
+
+```vue
+<ToolCallStep tool-name="list_employees" status="done">
+  <template #body="{ args, result }">
+    <EmployeeList :data="JSON.parse(result)" />
+  </template>
+</ToolCallStep>
+```
+
+## Controls
+
+<Controls of={ToolCallStepStories.Running} />

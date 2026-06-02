@@ -1,0 +1,285 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Foundation/Spacing" />
+
+# Spacing & layout
+
+Spacing follows Tailwind's default scale (`0.25rem` = 4 px increments). The library does not introduce custom spacing tokens — the standard `p-*`, `m-*`, `gap-*`, and `space-*` utilities are used everywhere.
+
+## Spacing scale
+
+The increments most commonly used in components:
+
+<table>
+	<thead>
+		<tr>
+			<th>Token</th>
+			<th>Pixels</th>
+			<th>Common use</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>0.5</code>
+			</td>
+			<td>2 px</td>
+			<td>Tight insets inside icons / SVG paths</td>
+		</tr>
+		<tr>
+			<td>
+				<code>1</code>
+			</td>
+			<td>4 px</td>
+			<td>Border offsets, focus-ring offsets</td>
+		</tr>
+		<tr>
+			<td>
+				<code>1.5</code>
+			</td>
+			<td>6 px</td>
+			<td>Badge padding, very compact insets</td>
+		</tr>
+		<tr>
+			<td>
+				<code>2</code>
+			</td>
+			<td>8 px</td>
+			<td>Inline gaps (icon ↔ text), small button padding</td>
+		</tr>
+		<tr>
+			<td>
+				<code>3</code>
+			</td>
+			<td>12 px</td>
+			<td>Default vertical rhythm in cards</td>
+		</tr>
+		<tr>
+			<td>
+				<code>4</code>
+			</td>
+			<td>16 px</td>
+			<td>Section padding, dialog body padding</td>
+		</tr>
+		<tr>
+			<td>
+				<code>5</code>
+			</td>
+			<td>20 px</td>
+			<td>Large card padding</td>
+		</tr>
+		<tr>
+			<td>
+				<code>6</code>
+			</td>
+			<td>24 px</td>
+			<td>Dialog header padding, generous gaps</td>
+		</tr>
+		<tr>
+			<td>
+				<code>8</code>
+			</td>
+			<td>32 px</td>
+			<td>Page-level section spacing</td>
+		</tr>
+		<tr>
+			<td>
+				<code>12</code>
+			</td>
+			<td>48 px</td>
+			<td>Page-level top/bottom margin</td>
+		</tr>
+	</tbody>
+</table>
+
+## Border radius
+
+Border radius scales off a single root token (`--radius: 0.625rem` = 10 px), with three derived sizes:
+
+<table>
+	<thead>
+		<tr>
+			<th>Utility</th>
+			<th>Value</th>
+			<th>Used by</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>rounded-sm</code>
+			</td>
+			<td>6 px</td>
+			<td>Inline pills, small badges, tag chips</td>
+		</tr>
+		<tr>
+			<td>
+				<code>rounded-md</code>
+			</td>
+			<td>8 px</td>
+			<td>Buttons, default badges, inputs</td>
+		</tr>
+		<tr>
+			<td>
+				<code>rounded-lg</code>
+			</td>
+			<td>10 px</td>
+			<td>Cards, dialogs, popovers, accordion</td>
+		</tr>
+		<tr>
+			<td>
+				<code>rounded-xl</code>
+			</td>
+			<td>12 px</td>
+			<td>Onboarding dialog, hero surfaces</td>
+		</tr>
+		<tr>
+			<td>
+				<code>rounded-2xl</code>
+			</td>
+			<td>16 px</td>
+			<td>Mobile bottom-sheet top corners</td>
+		</tr>
+		<tr>
+			<td>
+				<code>rounded-full</code>
+			</td>
+			<td>9999 px</td>
+			<td>Avatars, pill-shaped badges, status dots</td>
+		</tr>
+	</tbody>
+</table>
+
+The asymmetric `rounded-t-2xl rounded-b-none` pattern is reserved for mobile bottom-sheet variants of `Dialog` and `Drawer`.
+
+## Breakpoints
+
+Tailwind's default breakpoints, used mobile-first throughout the library:
+
+<table>
+	<thead>
+		<tr>
+			<th>Prefix</th>
+			<th>Min width</th>
+			<th>Typical device</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>(no prefix)</td>
+			<td>0</td>
+			<td>Mobile portrait — 320, 375 px</td>
+		</tr>
+		<tr>
+			<td>
+				<code>sm:</code>
+			</td>
+			<td>640 px</td>
+			<td>Mobile landscape, small tablet</td>
+		</tr>
+		<tr>
+			<td>
+				<code>md:</code>
+			</td>
+			<td>768 px</td>
+			<td>Tablet</td>
+		</tr>
+		<tr>
+			<td>
+				<code>lg:</code>
+			</td>
+			<td>1024 px</td>
+			<td>Laptop</td>
+		</tr>
+		<tr>
+			<td>
+				<code>xl:</code>
+			</td>
+			<td>1280 px</td>
+			<td>Desktop</td>
+		</tr>
+		<tr>
+			<td>
+				<code>2xl:</code>
+			</td>
+			<td>1536 px</td>
+			<td>Large desktop</td>
+		</tr>
+	</tbody>
+</table>
+
+**Mobile-first rule**: components define their mobile baseline first (no prefix), then upscale with `sm:`/`md:`/`lg:`. Use `max-sm:` only for genuinely mobile-specific patterns where the layout is fundamentally different (Dialog → bottom-sheet).
+
+## Touch targets (WCAG 2.2 SC 2.5.8)
+
+Every interactive element renders at **≥ 24 × 24 CSS px**. Visible target sizes:
+
+<table>
+	<thead>
+		<tr>
+			<th>Component</th>
+			<th>Default size</th>
+			<th>Notes</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>Button (default)</td>
+			<td>36 × content</td>
+			<td>Auto width by content; explicit width via parent</td>
+		</tr>
+		<tr>
+			<td>Button (sm)</td>
+			<td>32 × content</td>
+			<td>Inline use only, in a list of similar controls</td>
+		</tr>
+		<tr>
+			<td>Button (icon)</td>
+			<td>36 × 36</td>
+			<td>Square; never below 32</td>
+		</tr>
+		<tr>
+			<td>Checkbox / Radio</td>
+			<td>16 × 16 visible</td>
+			<td>Hit area extended via padded label to ≥ 24 × 24</td>
+		</tr>
+		<tr>
+			<td>Switch</td>
+			<td>20 × 36</td>
+			<td>Hit area extended via padding</td>
+		</tr>
+		<tr>
+			<td>Badge remove button</td>
+			<td>24 × 24</td>
+			<td>Always — even on size="xs" badges</td>
+		</tr>
+		<tr>
+			<td>Resize handles (segments, splitters)</td>
+			<td>≥ 24 × 24 hit zone</td>
+			<td>Visible sliver narrower; hit zone padded</td>
+		</tr>
+	</tbody>
+</table>
+
+For complex composite controls (segment bar drag handles, slider thumbs), the visible affordance can be smaller than 24 × 24 as long as the **hit zone** is ≥ 24 × 24. Use a transparent expanded box (e.g. `::before` absolute positioning) — never sacrifice a11y for a tighter visual.
+
+## Layout primitives
+
+The library does not ship a Stack, Inline, or Box component — Tailwind's `flex`, `grid`, `gap`, and `space-*` utilities are sufficient and discoverable.
+
+```html
+<!-- Vertical stack -->
+<div class="flex flex-col gap-3">…</div>
+
+<!-- Horizontal inline -->
+<div class="flex items-center gap-2">…</div>
+
+<!-- Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">…</div>
+```
+
+## Don't
+
+- Use arbitrary spacing (`p-[18px]`). Snap to the scale — propose a new step if the scale is missing it.
+- Mix margin and padding for the same effect. Prefer `gap-*` on the parent.
+- Override library component padding via `class=""` overrides in consumers. Add a `density` or `size` variant to the component instead.

@@ -1,0 +1,195 @@
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as StatCardStories from './StatCard.stories';
+
+<Meta of={StatCardStories} />
+
+# StatCard
+
+Base statistic card. Surfaces a label, a primary metric value, and optional supporting context (unit, description, trend, action, footer). Companion components live in the same family — see <a href="?path=/docs/statistic-card-coloredstatcard--docs">ColoredStatCard</a> for tinted hero metrics, <a href="?path=/docs/statistic-card-iconstatcard--docs">IconStatCard</a> for a leading icon, <a href="?path=/docs/statistic-card-progressstatcard--docs">ProgressStatCard</a> for value-vs-target, and <a href="?path=/docs/statistic-card-statcardgroup--docs">StatCardGroup</a> for layout.
+
+## When to use
+
+- A KPI summary at the top of a dashboard or report.
+- A single number that needs context (label, period, comparison).
+- A row/grid of related metrics — wrap in <a href="?path=/docs/statistic-card-statcardgroup--docs">StatCardGroup</a>.
+
+## When not to use
+
+- For arbitrary text inside a panel — use <a href="?path=/docs/general-card--docs">Card</a>.
+- For status pills or counts — use <a href="?path=/docs/general-badge--docs">Badge</a>.
+- For tinted hero metrics — use <a href="?path=/docs/statistic-card-coloredstatcard--docs">ColoredStatCard</a>.
+- For value-vs-target / quotas — use <a href="?path=/docs/statistic-card-progressstatcard--docs">ProgressStatCard</a>.
+
+## Anatomy
+
+<Canvas of={StatCardStories.Default} />
+
+A semantic `<article>` whose `aria-label` is bound to the `label` prop. Inside:
+
+- `data-slot="stat-card-label"` — the label
+- `data-slot="stat-card-value"` — the primary value
+- `data-slot="stat-card-unit"` — optional unit suffix
+- `data-slot="stat-card-description"` — optional supporting line
+- `data-slot="stat-card-footer"` — optional comparison row
+
+## Variants
+
+<Canvas of={StatCardStories.Variants} />
+
+<table>
+	<thead>
+		<tr>
+			<th>Variant</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>default</code>
+			</td>
+			<td>Primary metric surface.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>muted</code>
+			</td>
+			<td>Secondary metric block — call-out areas, summary panels nested in a card.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>ghost</code>
+			</td>
+			<td>Embedded metric on a coloured surface — drops the border.</td>
+		</tr>
+	</tbody>
+</table>
+
+## Sizes
+
+<Canvas of={StatCardStories.Sizes} />
+
+<table>
+	<thead>
+		<tr>
+			<th>Size</th>
+			<th>Value type ramp</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>sm</code>
+			</td>
+			<td>
+				<code>text-xl</code>
+			</td>
+			<td>Dense dashboards, sidebar metrics.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>default</code>
+			</td>
+			<td>
+				<code>text-h3</code>
+			</td>
+			<td>General use.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>lg</code>
+			</td>
+			<td>
+				<code>text-h2</code>
+			</td>
+			<td>Hero KPI at the top of a report.</td>
+		</tr>
+	</tbody>
+</table>
+
+## Slots
+
+<Canvas of={StatCardStories.WithTrend} />
+
+- `trend` — typically a <a href="?path=/docs/general-stattrend--docs">StatTrend</a>.
+- `action` — a top-right control (menu, refresh).
+- `footer` — period comparison or supporting line. Mutually compatible with the `description` prop (description sits above the footer).
+
+## Interactive
+
+<Canvas of={StatCardStories.Interactive} />
+
+Set `interactive` to make the card clickable. The component automatically:
+
+- Adds `cursor-pointer`, hover border, and a 2-px focus ring with `outline-offset-2`.
+- Sets `role="button"` and `tabindex="0"`.
+- Emits `click` on mouse click, `Enter`, and `Space`.
+
+## Loading
+
+<Canvas of={StatCardStories.Loading} />
+
+Skeleton state with `aria-busy="true"` and an `sr-only` `"Loading <label>"` announcement.
+
+## Props
+
+<Controls of={StatCardStories.Default} />
+
+## Accessibility (WCAG 2.2 AA)
+
+- **1.3.1 Info and Relationships**: rendered as `<article>` with `aria-label` bound to the `label` prop so screen readers group the label and value together.
+- **1.4.3 Contrast**: text-foreground on `bg-card` / `bg-muted` meets 4.5 : 1.
+- **2.1.1 Keyboard**: when `interactive`, the card is reachable via tab and activatable with `Enter` or `Space`.
+- **2.4.7 Focus Visible**: 2-px ring with offset on `interactive` cards.
+- **2.5.8 Target Size**: an interactive card spans far more than 24 × 24 px.
+- **4.1.2 Name, Role, Value**: an interactive card has `role="button"` and the `aria-label` from the prop.
+
+## Responsive behaviour
+
+<Canvas of={StatCardStories.InteractiveResponsive} />
+
+The card expands to fit its container. Padding is fixed across breakpoints — switch the `size` prop (or `padding` on the parent grid) for mobile.
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				Pair with a <code>StatTrend</code> in the trend slot for context
+			</td>
+			<td>Show a number without context — what is it compared to?</td>
+		</tr>
+		<tr>
+			<td>
+				Use <code>variant="muted"</code> for secondary metrics inside another card
+			</td>
+			<td>
+				Stack identical <code>default</code> cards visually identical — hierarchy disappears
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Set <code>interactive</code> to make the entire card clickable
+			</td>
+			<td>
+				Wrap in an <code>&lt;a&gt;</code> manually — set <code>interactive</code> and emit-handle
+				the click
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Pass <code>label</code> and <code>value</code> as plain strings — they form the accessible
+				name
+			</td>
+			<td>Hide the label and rely on context — assistive tech needs the label</td>
+		</tr>
+	</tbody>
+</table>

@@ -1,0 +1,44 @@
+{
+	"extends": "./tsconfig.json",
+	"compilerOptions": {
+		"noEmit": false,
+		"allowImportingTsExtensions": false,
+		"declaration": true,
+		"declarationMap": true,
+		"emitDeclarationOnly": true,
+		"outDir": "./dist",
+		"rootDir": "./src",
+		"composite": false,
+		"types": ["node", "vite/client"],
+		"paths": {
+			"@/*": ["./src/*"],
+			"@fromforgesoftware/ts-kit": ["../ts-kit/dist/index.d.ts"],
+			"@fromforgesoftware/ts-kit/date": ["../ts-kit/dist/date/index.d.ts"],
+			"@fromforgesoftware/ts-kit/enums": ["../ts-kit/dist/enums/index.d.ts"],
+			"@fromforgesoftware/ts-kit/errors": ["../ts-kit/dist/errors/index.d.ts"],
+			"@fromforgesoftware/ts-kit/features": ["../ts-kit/dist/features/index.d.ts"],
+			"@fromforgesoftware/ts-kit/http": ["../ts-kit/dist/http/index.d.ts"],
+			"@fromforgesoftware/ts-kit/i18n": ["../ts-kit/dist/i18n/index.d.ts"],
+			"@fromforgesoftware/ts-kit/jsonapi": ["../ts-kit/dist/jsonapi/index.d.ts"],
+			"@fromforgesoftware/ts-kit/jsonapi-client": ["../ts-kit/dist/jsonapi-client/index.d.ts"],
+			"@fromforgesoftware/ts-kit/legacy-logger": ["../ts-kit/dist/legacy-logger/index.d.ts"],
+			"@fromforgesoftware/ts-kit/log": ["../ts-kit/dist/log/index.d.ts"],
+			"@fromforgesoftware/ts-kit/number": ["../ts-kit/dist/number/index.d.ts"],
+			"@fromforgesoftware/ts-kit/reactive": ["../ts-kit/dist/reactive/index.d.ts"],
+			"@fromforgesoftware/ts-kit/resource-state": ["../ts-kit/dist/resource-state/index.d.ts"],
+			"@fromforgesoftware/ts-kit/storage": ["../ts-kit/dist/storage/index.d.ts"],
+			"@fromforgesoftware/ts-kit/types": ["../ts-kit/dist/types/index.d.ts"]
+		}
+	},
+	"include": ["src/**/*.ts", "src/**/*.vue"],
+	"exclude": [
+		"src/**/*.test.ts",
+		"src/**/*.spec.ts",
+		"src/**/*.stories.ts",
+		"src/**/*.stories.tsx",
+		"src/**/__tests__/**",
+		"src/test-utils/playHelpers.ts",
+		"vitest.setup.ts"
+	],
+	"references": [{ "path": "../ts-kit/tsconfig.lib.json" }]
+}

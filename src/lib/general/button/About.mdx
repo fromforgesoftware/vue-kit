@@ -1,0 +1,245 @@
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as ButtonStories from './Button.stories';
+
+<Meta of={ButtonStories} />
+
+# Button
+
+The primary interactive element of the system. A button performs an action when activated by mouse, touch, Enter, or Space.
+
+## When to use
+
+- Trigger an action that affects state (Save, Delete, Refresh).
+- Initiate a flow that opens a dialog, drawer, or wizard.
+- Confirm or dismiss a destructive operation (paired with `variant="destructive"`).
+
+## When not to use
+
+- For navigation between routes — use `as="a"` (or wrap a `RouterLink` with `asChild`) and `variant="link"` so the underlying element is a real link.
+- For toggle-on/off states — use [Toggle](?path=/docs/general-toggle--docs) so `aria-pressed` is conveyed.
+- For purely decorative status — use [Badge](?path=/docs/general-badge--docs).
+
+## Anatomy
+
+<Canvas of={ButtonStories.Default} />
+
+A button renders a single interactive element. The default slot accepts text, icons, or both. The optional spinner is injected automatically when `loading` is `true`.
+
+## Variants
+
+<Canvas of={ButtonStories.Variants} />
+
+<table>
+	<thead>
+		<tr>
+			<th>Variant</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>default</code>
+			</td>
+			<td>The primary action on a page or section.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>secondary</code>
+			</td>
+			<td>The secondary action paired next to a primary button.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>outline</code>
+			</td>
+			<td>Equal-weight actions in a toolbar; tertiary actions.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>ghost</code>
+			</td>
+			<td>Low-emphasis actions, icon-only controls inside dense layouts.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>link</code>
+			</td>
+			<td>Navigational text that fits inline with prose.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>destructive</code>
+			</td>
+			<td>Irreversible actions (Delete, Remove). Pair with confirmation.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>soft-destructive</code>
+			</td>
+			<td>Destructive actions where the surrounding card already conveys risk.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>soft-success</code> / <code>soft-warning</code> / <code>soft-info</code>
+			</td>
+			<td>Stateful CTAs that match a system colour without dominating.</td>
+		</tr>
+	</tbody>
+</table>
+
+## Sizes
+
+<Canvas of={ButtonStories.Sizes} />
+
+<table>
+	<thead>
+		<tr>
+			<th>Size</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>xs</code>
+			</td>
+			<td>Inline actions inside dense rows or chips.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>sm</code>
+			</td>
+			<td>Compact toolbars, inline form controls.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>default</code>
+			</td>
+			<td>General use — the right answer most of the time.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>lg</code>
+			</td>
+			<td>Hero CTAs, primary action on a marketing surface.</td>
+		</tr>
+	</tbody>
+</table>
+
+## Icon-only sizes
+
+<Canvas of={ButtonStories.IconSizes} />
+
+Icon-only buttons use `size="icon-xs" | "icon-sm" | "icon" | "icon-lg"` so the bounding box stays square. They MUST have an `aria-label` (WCAG 4.1.2). All four sizes meet the WCAG SC 2.5.8 minimum target size of 24 × 24 CSS px.
+
+## With icons
+
+<Canvas of={ButtonStories.WithLeadingIcon} />
+<Canvas of={ButtonStories.WithTrailingIcon} />
+
+Compose icons through the default slot. Icons inherit `currentColor` and the base CVA reserves `gap-1.5` between children. For animated trailing affordances, target the icon with `group-hover:translate-x-0.5`.
+
+## Loading
+
+<Canvas of={ButtonStories.Loading} />
+
+Set `loading` to render an inline spinner and disable interaction. The spinner inherits the button's foreground colour via `tone="current"`. Override the spinner's accessible label with `loading-label` if the action is more specific than "Loading".
+
+## Disabled
+
+<Canvas of={ButtonStories.Disabled} />
+
+When the underlying element is a real `<button>` the native `disabled` attribute is applied. When `as` is something else (`a`, custom), `aria-disabled="true"` is applied instead — pair with `pointer-events: none` (already in CVA) to block clicks.
+
+## Block
+
+<Canvas of={ButtonStories.Block} />
+
+`block` makes the button fill the parent's width. Useful for full-width form submits and mobile flows.
+
+## As link / as-child
+
+<Canvas of={ButtonStories.AsLink} />
+
+Two ways to render Button as a non-button element:
+
+- **`as="a"`** — render the root as a different element. Pass `href` directly.
+- **`asChild`** — Reka pattern. The Button merges its props and classes onto the slot child. Use this when wrapping a `RouterLink`, `NuxtLink`, or any custom component that expects to remain the actual root.
+
+```vue
+<Button as-child variant="ghost">
+  <RouterLink :to="{ name: 'employees' }">Employees</RouterLink>
+</Button>
+```
+
+## Destructive actions
+
+<Canvas of={ButtonStories.DangerousAction} />
+
+`destructive` is the loud warning; `soft-destructive` is the muted version for contexts where surrounding chrome already conveys danger. Either way, pair destructive buttons with a confirmation dialog (see Patterns).
+
+## Props
+
+<Controls of={ButtonStories.Default} />
+
+## Accessibility (WCAG 2.2 AA)
+
+- **1.4.3 Contrast**: every variant pairs background and foreground tokens at ≥ 4.5 : 1.
+- **1.4.11 Non-text contrast**: borders and focus rings clear 3 : 1 against the surrounding surface.
+- **2.1.1 Keyboard**: native `<button>` activates with Enter and Space. When `as` is something else, browsers handle Enter natively for `<a>`; ensure a `role="button"` if you go further.
+- **2.4.7 Focus visible**: a 3 px ring at `--ring` is applied on `:focus-visible`.
+- **2.5.7 Pointer cancellation**: not applicable — single click is the entire interaction.
+- **2.5.8 Target size**: every text and icon size has a hit area ≥ 24 × 24 CSS px.
+- **4.1.2 Name, Role, Value**: text buttons take their accessible name from the slot. Icon-only buttons MUST set `aria-label`. Disabled buttons announce their state.
+
+## Responsive behaviour
+
+<Canvas of={ButtonStories.InteractiveResponsive} />
+
+Buttons are inline-flex, content-sized. They never reflow internally. To adapt across breakpoints, change `size` or `block` at the consumer.
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				Use one primary (<code>default</code>) action per surface.
+			</td>
+			<td>
+				Stack two <code>default</code> buttons side-by-side — the hierarchy is lost.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Pair <code>destructive</code> with a confirmation dialog.
+			</td>
+			<td>Trigger irreversible actions on the first click without confirmation.</td>
+		</tr>
+		<tr>
+			<td>
+				Set <code>aria-label</code> on every <code>icon-*</code> button.
+			</td>
+			<td>Ship icon-only buttons without an accessible name.</td>
+		</tr>
+		<tr>
+			<td>
+				Use <code>asChild</code> when wrapping a <code>RouterLink</code>.
+			</td>
+			<td>Wrap Button inside a link — the inner element loses its semantics.</td>
+		</tr>
+		<tr>
+			<td>
+				Show <code>loading</code> while a network call is in flight.
+			</td>
+			<td>Disable the button silently — users won't know whether their action registered.</td>
+		</tr>
+	</tbody>
+</table>

@@ -1,0 +1,229 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as WeekdaysPickerStories from './WeekdaysPicker.stories';
+
+<Meta of={WeekdaysPickerStories} />
+
+# WeekdaysPicker
+
+Multi-select picker for days of the week. Renders seven round day buttons in the user-preferred week-start order with roving focus, full keyboard navigation, and `aria-checked` semantics.
+
+## When to use
+
+- Configure a recurring schedule by weekday (working days, rota patterns, shift availability).
+- Filter records by day-of-week (timetable views, attendance summaries).
+- Compact read-only display of a weekday set inside table rows or summary cards (use `readonly`).
+
+## When not to use
+
+- Picking calendar dates — use [Calendar](?path=/docs/dates-calendar--docs) or [DateField](?path=/docs/dates-datefield--docs).
+- Picking a single recurring weekday — a [RadioGroup](?path=/docs/form-radio--docs) or [Select](?path=/docs/form-select--docs) reads more clearly when only one choice is allowed.
+- More than seven options — use a multi-select [Listbox](?path=/docs/form-listbox--docs).
+
+## Anatomy
+
+<Canvas of={WeekdaysPickerStories.Default} />
+
+A `<fieldset>` with a visually hidden `<legend>` wraps seven `<button role="checkbox">` elements. The button order follows the user's `getWeekStart()` preference.
+
+## Variants
+
+<Canvas of={WeekdaysPickerStories.Variants} />
+
+<table>
+	<thead>
+		<tr>
+			<th>Variant</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>default</code>
+			</td>
+			<td>
+				Filled chip — unselected days have a muted background; selected days fill with primary
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>outline</code>
+			</td>
+			<td>
+				Bordered chip — keeps a visible border on unselected days so the picker reads alongside
+				outline buttons
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+## Sizes
+
+<Canvas of={WeekdaysPickerStories.Sizes} />
+
+<table>
+	<thead>
+		<tr>
+			<th>Size</th>
+			<th>Cell size</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>sm</code>
+			</td>
+			<td>28 × 28 px</td>
+			<td>Compact contexts — table cells, side-panel summaries</td>
+		</tr>
+		<tr>
+			<td>
+				<code>default</code>
+			</td>
+			<td>36 × 36 px</td>
+			<td>General forms</td>
+		</tr>
+		<tr>
+			<td>
+				<code>lg</code>
+			</td>
+			<td>44 × 44 px</td>
+			<td>Hero contexts where weekday selection is the primary control</td>
+		</tr>
+	</tbody>
+</table>
+
+All sizes meet WCAG 2.2 SC 2.5.8 (≥ 24 × 24) on each day button.
+
+## States
+
+<Canvas of={WeekdaysPickerStories.MinSelection} />
+
+<Canvas of={WeekdaysPickerStories.Readonly} />
+
+<Canvas of={WeekdaysPickerStories.Disabled} />
+
+<Canvas of={WeekdaysPickerStories.WithError} />
+
+`min-selection` enforces a floor on the selected count — useful when an empty selection is invalid (working-day patterns require at least one day). `error` flips unselected days to a destructive border, sets `aria-invalid="true"`, and shifts the focus ring to the destructive tone. Pair it with `describedBy` pointing to your message id.
+
+## Keyboard interaction
+
+<table>
+	<thead>
+		<tr>
+			<th>Key</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<kbd>Tab</kbd>
+			</td>
+			<td>Move focus into the group (lands on the active item)</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>ArrowRight</kbd> / <kbd>ArrowDown</kbd>
+			</td>
+			<td>Move focus to the next day</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>ArrowLeft</kbd> / <kbd>ArrowUp</kbd>
+			</td>
+			<td>Move focus to the previous day</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>Home</kbd>
+			</td>
+			<td>Move focus to the first day</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>End</kbd>
+			</td>
+			<td>Move focus to the last day</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>Space</kbd> / <kbd>Enter</kbd>
+			</td>
+			<td>Toggle the focused day</td>
+		</tr>
+	</tbody>
+</table>
+
+The component manages a roving `tabindex` so Tab lands on a single member of the group. Arrow keys navigate within.
+
+## Props
+
+<Controls of={WeekdaysPickerStories.Default} />
+
+<ArgTypes of={WeekdaysPickerStories} />
+
+## Accessibility (WCAG 2.2 AA)
+
+- **4.1.2 Name, role, value**: rendered as a `<fieldset role="group">` with a hidden `<legend>` and a configurable `label` (also reflected as `aria-label`). Each button is `role="checkbox"` with `aria-checked` and `aria-label` set to the full day name.
+- **2.4.6 Headings and labels**: `label` should describe the selection's purpose (e.g. "Working days" rather than just "Days").
+- **2.5.8 Target size**: every size's painted hit area is ≥ 24 × 24 CSS px.
+- **2.4.7 Focus visible**: focused day draws a 2 px ring at ≥ 3 : 1 contrast against the surrounding surface.
+- **2.1.1 Keyboard**: full Arrow / Home / End / Space / Enter model managed by the component's roving-focus implementation.
+- **3.3.1 Error identification**: pass `error` and `describedBy` together so the message is announced when the user lands on the field.
+
+## Responsive behaviour
+
+<Canvas of={WeekdaysPickerStories.InteractiveResponsive} />
+
+The picker is `flex flex-wrap` — at very narrow viewports (< 320 px wide) days wrap onto multiple lines while keeping their hit area. For row-based table cells use `size="sm"` to keep height compact.
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				Pass a descriptive <code>label</code> (e.g. <code>"Working days"</code>).
+			</td>
+			<td>Rely on a visual heading alone — the fieldset still needs a programmatic name.</td>
+		</tr>
+		<tr>
+			<td>
+				Use <code>min-selection</code> when an empty set is invalid for the domain.
+			</td>
+			<td>Validate empty selection only on submit — the user has no per-click signal.</td>
+		</tr>
+		<tr>
+			<td>
+				Use <code>error</code> + <code>describedBy</code> for validation messages.
+			</td>
+			<td>Toggle to a manually styled wrapper — the error tone should travel with the field.</td>
+		</tr>
+		<tr>
+			<td>
+				Use <code>readonly</code> for table-cell display so users can still focus and copy.
+			</td>
+			<td>
+				Use <code>disabled</code> for read-only display — disabled removes accessibility
+				affordances.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Match <code>size</code> to the surrounding form rhythm.
+			</td>
+			<td>
+				Override <code>class="size-..."</code> on the buttons — use the <code>size</code> variant.
+			</td>
+		</tr>
+	</tbody>
+</table>

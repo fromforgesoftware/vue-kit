@@ -1,0 +1,168 @@
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as TooltipStories from './Tooltip.stories';
+
+<Meta of={TooltipStories} />
+
+# Tooltip
+
+Brief, **non-essential** help text shown on hover or focus. Built on Reka UI — opens on hover or keyboard focus, closes on Escape, blur, or pointer leave. The content portals to `document.body` so it can escape `overflow: hidden` ancestors.
+
+## When to use
+
+- Clarify the purpose of an icon-only button (`aria-label` is the canonical name; the tooltip echoes it visually).
+- Explain a metric or label that doesn't fit inline.
+- Surface a keyboard shortcut on a toolbar action.
+
+## When not to use
+
+- For information the user **must** read to use the feature — put it inline or in a [Popover](?path=/docs/general-popover--docs).
+- For form-field error messages — use the field's `error` slot.
+- On touch-only surfaces — touch users can't hover. For mobile, repeat the label inline or use a Popover with an explicit trigger.
+- For long, formatted content (lists, headings, multiple actions) — use a Popover.
+
+## Anatomy
+
+<Canvas of={TooltipStories.Default} />
+
+The trigger is the consumer's element. Reka's `TooltipTrigger` uses `as-child`, so the tooltip attaches to whatever you pass — a `<Button>`, an `<a>`, an icon, etc. The content is rendered into a portal at the document body.
+
+## Composition
+
+```vue
+<Tooltip content="Save changes" :delay-duration="200">
+  <Button size="icon" aria-label="Save"><Icon :icon="Save" /></Button>
+</Tooltip>
+```
+
+For non-string content, pass it via the `content` slot:
+
+```vue
+<Tooltip>
+  <Button variant="outline">Trigger</Button>
+  <template #content>
+    <div class="flex flex-col gap-1">
+      <strong>Heading</strong>
+      <span class="text-muted-foreground">Detail</span>
+    </div>
+  </template>
+</Tooltip>
+```
+
+## Sides
+
+<Canvas of={TooltipStories.Sides} />
+
+Pick a side that doesn't cover the trigger or its label. Reka flips automatically near viewport edges (`avoid-collisions` is on by default), so `top` is a safe everyday choice.
+
+## Delay
+
+<Canvas of={TooltipStories.WithDelay} />
+
+`delayDuration` (default 200 ms) is the hover-intent threshold. Use 0 for tooltips on dense toolbars where the user is already hunting for help; use 500+ for tooltips on prominent buttons that don't need to interrupt.
+
+`skipDelayDuration` (default 300 ms) is the window during which moving from one tooltip to an adjacent one opens without delay. This makes hovering across an icon toolbar feel snappy.
+
+## Composed content
+
+<Canvas of={TooltipStories.ComposedContent} />
+
+## Long content
+
+<Canvas of={TooltipStories.LongContent} />
+
+The tooltip is `max-w-70` (17.5 rem ≈ 280 px). If your help is longer than two lines, switch to a [Popover](?path=/docs/general-popover--docs) — long tooltips are a sign the content isn't tooltip-shaped.
+
+## Props
+
+<Controls of={TooltipStories.Default} />
+
+## Keyboard interaction
+
+<table>
+	<thead>
+		<tr>
+			<th>Key / event</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>Hover the trigger</td>
+			<td>
+				Opens the tooltip after <code>delayDuration</code>.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Focus the trigger (<kbd>Tab</kbd>)
+			</td>
+			<td>Opens the tooltip immediately (no delay on focus).</td>
+		</tr>
+		<tr>
+			<td>Pointer leaves trigger</td>
+			<td>Closes the tooltip.</td>
+		</tr>
+		<tr>
+			<td>Blur the trigger</td>
+			<td>Closes the tooltip.</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>Escape</kbd>
+			</td>
+			<td>Closes the tooltip.</td>
+		</tr>
+	</tbody>
+</table>
+
+## Accessibility (WCAG 2.2 AA)
+
+- **1.4.13 Content on hover or focus**: the tooltip is **dismissible** (Escape closes it), **hoverable** (moving the cursor into the tooltip keeps it open — disable with `disable-hoverable-content`), and **persistent** (does not auto-time-out).
+- **1.4.3 Contrast**: tooltip text on `bg-popover` clears 4.5 : 1.
+- **2.1.1 Keyboard**: tooltips open on focus and respond to Escape — no pointer required.
+- **4.1.2 Name, Role, Value**: the content has `role="tooltip"`. The trigger element keeps its own accessible name (e.g. `aria-label` on an icon button) — a tooltip is **not** a label substitute. Always pair tooltips on icon buttons with `aria-label` so screen readers don't depend on the tooltip text.
+- **2.5.7 Pointer cancellation**: not applicable — tooltips don't take primary actions.
+
+> Tooltip text supplements an existing accessible name. For an icon button, set `aria-label="Save"` AND a tooltip with `content="Save"` so both pointer and screen-reader users get the same affordance.
+
+## Responsive behaviour
+
+<Canvas of={TooltipStories.InteractiveResponsive} />
+
+Tooltips don't reflow — they appear next to their trigger and never become a layout element. On touch devices (no hover), the tooltip opens on long-press or focus only; for critical mobile help, render the label inline or switch to a Popover with an explicit trigger.
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				Pair every icon-only button with both <code>aria-label</code> and a Tooltip.
+			</td>
+			<td>Rely on the tooltip alone — screen readers without hover never see the text.</td>
+		</tr>
+		<tr>
+			<td>Keep tooltips short — one short sentence.</td>
+			<td>Cram lists, links, or formatting into a tooltip.</td>
+		</tr>
+		<tr>
+			<td>
+				Use <code>delayDuration</code>: 0 on dense toolbars where users are already exploring.
+			</td>
+			<td>
+				Use <code>delayDuration</code>: 0 on prominent buttons — annoying flash on every cursor
+				pass.
+			</td>
+		</tr>
+		<tr>
+			<td>Use a Popover for content that must be read or interacted with.</td>
+			<td>Hide essential content in a tooltip — touch users will never find it.</td>
+		</tr>
+	</tbody>
+</table>

@@ -1,0 +1,58 @@
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as Stories from './ThemeManager.stories';
+
+<Meta of={Stories} />
+
+# ThemeManager
+
+A theme selector that lets users switch between preset themes (Light, Dark, Auto) and optionally configure a fully custom color palette. Preferences are persisted to `localStorage`.
+
+## When to use
+
+- In appearance/settings panels where users can control the application theme.
+- When your design system supports multiple color themes including a user-defined custom theme.
+
+## Anatomy
+
+<Canvas of={Stories.Default} />
+
+## Variants
+
+### With Custom Theme
+
+Selecting "Custom" reveals an inline color picker panel for each design token.
+
+<Canvas of={Stories.WithCustomTheme} />
+
+## Props
+
+<Controls of={Stories.Default} />
+
+## Accessibility (WCAG 2.2 AA)
+
+<table>
+	<thead>
+		<tr>
+			<th>Criterion</th>
+			<th>Coverage</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>1.3.1 Info and Relationships</td>
+			<td>Select uses native listbox semantics with accessible labels.</td>
+		</tr>
+		<tr>
+			<td>2.1.1 Keyboard</td>
+			<td>Select opens with Enter/Space; options navigable with arrow keys.</td>
+		</tr>
+		<tr>
+			<td>2.5.8 Target Size</td>
+			<td>Select trigger meets the 24×24 px minimum.</td>
+		</tr>
+		<tr>
+			<td>3.2.2 On Input</td>
+			<td>Theme is applied immediately on selection without requiring form submission.</td>
+		</tr>
+	</tbody>
+</table>

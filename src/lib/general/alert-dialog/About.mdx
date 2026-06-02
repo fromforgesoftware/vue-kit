@@ -1,0 +1,255 @@
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as AlertDialogStories from './AlertDialog.stories';
+
+<Meta of={AlertDialogStories} />
+
+# Alert Dialog
+
+A modal confirmation that interrupts the user with a binary decision. Built on Reka UI — has the `role="alertdialog"` ARIA role, **ignores** Escape and overlay click, and forces a deliberate Cancel / Action choice. Use for irreversible actions.
+
+## When to use
+
+- Deleting an entity (workspace, account, file).
+- Logging out with unsaved changes.
+- Any action where the user might lose data or hit a billable side-effect.
+
+## When not to use
+
+- For routine forms or rich content — use [Dialog](?path=/docs/general-dialog--docs).
+- For "are you sure" prompts on safe, reversible actions — they're noise.
+- For info-only acknowledgements — use a [Toast](?path=/docs/general-toast--docs).
+
+## Anatomy
+
+<Canvas of={AlertDialogStories.Default} />
+
+## Composition
+
+<table>
+	<thead>
+		<tr>
+			<th>Subcomponent</th>
+			<th>Purpose</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>AlertDialog</code>
+			</td>
+			<td>
+				Root provider. Owns <code>open</code>, <code>variant</code> (default / destructive /
+				destructive-confirm).
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>AlertDialogTrigger</code>
+			</td>
+			<td>
+				Opens the dialog. Uses <code>as-child</code> to wrap a real button.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>AlertDialogContent</code>
+			</td>
+			<td>
+				The portaled panel. Owns <code>size</code> and the optional type-to-confirm UI.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>AlertDialogOverlay</code>
+			</td>
+			<td>
+				Auto-rendered backdrop — clicking it does <strong>not</strong> close (deliberate choice).
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>AlertDialogHeader</code>
+			</td>
+			<td>
+				Title + description block. Optional <code>icon</code> slot for a leading badge.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>AlertDialogTitle</code>
+			</td>
+			<td>
+				Wires up <code>aria-labelledby</code>.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>AlertDialogDescription</code>
+			</td>
+			<td>
+				Wires up <code>aria-describedby</code>.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>AlertDialogFooter</code>
+			</td>
+			<td>Right-aligned action bar — Cancel sits left of Action.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>AlertDialogCancel</code>
+			</td>
+			<td>Outline button. Receives initial focus by default.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>AlertDialogAction</code>
+			</td>
+			<td>
+				Primary button. Inherits the destructive variant when the root has{' '}
+				<code>variant="destructive"</code>.
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+## Variants
+
+<Canvas of={AlertDialogStories.Destructive} />
+
+<table>
+	<thead>
+		<tr>
+			<th>Variant</th>
+			<th>Effect</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>default</code>
+			</td>
+			<td>Action button uses primary styling.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>destructive</code>
+			</td>
+			<td>Action button auto-flips to destructive (red) styling.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>destructive-confirm</code>
+			</td>
+			<td>
+				Adds a type-to-confirm input. Action is disabled until the user types{' '}
+				<code>confirmValue</code> exactly.
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+## Type-to-confirm
+
+<Canvas of={AlertDialogStories.DestructiveConfirm} />
+
+For high-blast-radius deletions, set `variant="destructive-confirm"` on the root and pass `confirmValue` to `AlertDialogContent`. The dialog renders a labelled input and disables the Action button until the user types the value exactly.
+
+## Props
+
+<Controls of={AlertDialogStories.Default} />
+
+## Keyboard interaction
+
+<table>
+	<thead>
+		<tr>
+			<th>Key / event</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>Click trigger</td>
+			<td>
+				Opens the dialog. Focus moves to <strong>Cancel</strong>.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>Tab</kbd> / <kbd>Shift</kbd>+<kbd>Tab</kbd>
+			</td>
+			<td>Cycles between Cancel and Action (focus trap).</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>Escape</kbd>
+			</td>
+			<td>
+				<strong>Does not close.</strong> Forces explicit choice.
+			</td>
+		</tr>
+		<tr>
+			<td>Click overlay</td>
+			<td>
+				<strong>Does not close.</strong> Forces explicit choice.
+			</td>
+		</tr>
+		<tr>
+			<td>Click Cancel / Action</td>
+			<td>Closes the dialog and returns focus to the trigger.</td>
+		</tr>
+	</tbody>
+</table>
+
+## Accessibility (WCAG 2.2 AA)
+
+- **2.4.3 Focus order**: focus moves to Cancel on open, is trapped while open, and returns to the trigger on close.
+- **3.2.2 On input**: only Cancel / Action close the dialog — no accidental dismissals from outside taps or Escape.
+- **4.1.2 Name, Role, Value**: the panel has <code>role="alertdialog"</code>, with `aria-labelledby` and `aria-describedby` wired by the title and description.
+- **2.4.7 Focus visible**: each footer button keeps the standard `:focus-visible` ring.
+- **3.3.4 Error prevention**: the deliberate Cancel default and the optional type-to-confirm both protect against accidental data loss.
+
+> If you omit `AlertDialogTitle` (very rare), pass `aria-label` on `AlertDialogContent` so screen-reader users still hear the dialog name.
+
+## Responsive behaviour
+
+<Canvas of={AlertDialogStories.InteractiveResponsive} />
+
+AlertDialog is centred at every viewport — there's no bottom-sheet variant. The panel has `max-w-[calc(100%-2rem)]` so it never overflows on small screens.
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>Use AlertDialog for irreversible actions only.</td>
+			<td>Use AlertDialog for safe, reversible flows — it's friction.</td>
+		</tr>
+		<tr>
+			<td>
+				Set <code>variant="destructive"</code> for delete-style actions.
+			</td>
+			<td>Override the Action button class manually — the variant prop already does it.</td>
+		</tr>
+		<tr>
+			<td>
+				Use the <code>destructive-confirm</code> variant for high-blast-radius deletes.
+			</td>
+			<td>Skip type-to-confirm on workspace / account deletion — the friction is intentional.</td>
+		</tr>
+		<tr>
+			<td>
+				Use clear, action-oriented Cancel / Action labels ("Keep Account" / "Delete Account").
+			</td>
+			<td>Use generic "OK" / "Cancel" — they don't tell the user what they're confirming.</td>
+		</tr>
+	</tbody>
+</table>

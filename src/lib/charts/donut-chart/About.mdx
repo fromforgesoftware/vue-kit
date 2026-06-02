@@ -1,0 +1,162 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as DonutChartStories from './DonutChart.stories';
+
+<Meta of={DonutChartStories} />
+
+# Donut Chart
+
+Part-to-whole chart with optional centre content (totals, percentage, indicator). Wraps Chart.js and exposes `role="img"` with an accessible name. Three legend variants and a `minimal` mode without a legend cover most dashboard layouts.
+
+## When to use
+
+- Show distribution at a single point in time (job statuses, traffic sources).
+- Surface a headline number inside a visual context (centre slot).
+
+## When not to use
+
+- For comparisons across time — use [Bar Chart](?path=/docs/charts-barchart--docs).
+- For more than ~6 segments — small slices become unreadable; use a horizontal bar chart instead.
+
+## Anatomy
+
+<Canvas of={DonutChartStories.Default} />
+
+## Composition
+
+```ts
+import { type DonutSegment, DEFAULT_DONUT_COLORS } from '@fromforgesoftware/vue-kit';
+
+const segments: DonutSegment[] = [
+	{ value: 100, label: 'Active', color: DEFAULT_DONUT_COLORS[0] },
+	{ value: 48, label: 'In review', color: DEFAULT_DONUT_COLORS[1] },
+	{ value: 26, label: 'Finished', color: DEFAULT_DONUT_COLORS[2] },
+];
+```
+
+`DEFAULT_DONUT_COLORS` resolves to `--color-chart-1` … `--color-chart-5` design tokens. Each segment carries its own `color` so consumers can paint segments by domain meaning (status colours, brand colours, etc.).
+
+`DonutChartLegend` is exported separately and can be rendered standalone — useful when grouping multiple donuts under one shared legend.
+
+## Variants
+
+<Canvas of={DonutChartStories.LegendBottom} />
+
+<Canvas of={DonutChartStories.Minimal} />
+
+<table>
+	<thead>
+		<tr>
+			<th>Variant</th>
+			<th>Layout</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>default</code>
+			</td>
+			<td>chart + legend on the right</td>
+			<td>Dashboards with horizontal space</td>
+		</tr>
+		<tr>
+			<td>
+				<code>legend-bottom</code>
+			</td>
+			<td>chart on top, inline legend below</td>
+			<td>Narrow card columns</td>
+		</tr>
+		<tr>
+			<td>
+				<code>minimal</code>
+			</td>
+			<td>chart only (legend hidden)</td>
+			<td>KPI tiles where the centre number is the headline</td>
+		</tr>
+	</tbody>
+</table>
+
+## Custom centre
+
+<Canvas of={DonutChartStories.CustomCenter} />
+
+Pass a `center` slot for richer content (delta indicator, sparkline, secondary metric). Centre content is `aria-hidden` because the segment values are already in the chart's `aria-label`.
+
+## Sizes / cutout
+
+<Canvas of={DonutChartStories.Sizes} />
+
+<Canvas of={DonutChartStories.CutoutComparison} />
+
+`size` (px) controls the chart area width and height. `cutout` (0–100) controls ring thickness — `0` paints a solid pie.
+
+## Data labels
+
+<Canvas of={DonutChartStories.WithDataLabels} />
+
+Set `showDataLabels` to render percentages on each segment. `dataLabelThreshold` hides labels for slices smaller than that percent.
+
+## Empty state
+
+<Canvas of={DonutChartStories.Empty} />
+
+Pass `segments: []` and use `centerText`/`centerLabel` to communicate "No data".
+
+## Standalone legend
+
+<Canvas of={DonutChartStories.StandaloneLegend} />
+
+`DonutChartLegend` accepts the same `segments` and `variant` props.
+
+## Props
+
+<Controls of={DonutChartStories.Default} />
+
+<ArgTypes of={DonutChartStories} />
+
+## Accessibility (WCAG 2.2 AA)
+
+- **Role and name** (SC 1.1.1, 4.1.2): the wrapper carries `role="img"` and `aria-label`. When `ariaLabel` is omitted, a name is auto-derived listing each segment label and value.
+- **Centre content**: marked `aria-hidden` because the data is already announced via the chart's accessible name — avoids duplicate readout.
+- **Long description**: pass `ariaDescribedBy` pointing to a paragraph summarising the distribution for screen readers.
+- **Colour contrast**: `DEFAULT_DONUT_COLORS` resolves to theme-token colours. The 2 px borderless layout in `minimal` mode uses a 4 px gap (`spacing`) to separate segments without relying on contrast alone.
+- **Keyboard interaction**: Chart.js does not expose segment-level keyboard navigation. Pair with a sibling table for keyboard inspection if needed.
+
+## Responsive behaviour
+
+<Canvas of={DonutChartStories.InteractiveResponsive} />
+
+Use `legend-bottom` in narrow columns; `minimal` in tightly packed KPI grids. The chart canvas respects the explicit `size` prop — wrap it in a flex container if you want it to fill available space.
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				Use <code>DEFAULT_DONUT_COLORS</code> for theme-aware slices
+			</td>
+			<td>Hard-code hex values that don't track light / dark themes</td>
+		</tr>
+		<tr>
+			<td>
+				Provide a meaningful <code>ariaLabel</code> describing the distribution
+			</td>
+			<td>Rely on the auto-label when segment names are cryptic ("A", "B", "C")</td>
+		</tr>
+		<tr>
+			<td>Keep segment count ≤ 6</td>
+			<td>Use a donut for 10+ categories — small slices become unreadable</td>
+		</tr>
+		<tr>
+			<td>Combine with a bar chart for "trend over time" alongside "current breakdown"</td>
+			<td>Use a donut to show change between two snapshots</td>
+		</tr>
+	</tbody>
+</table>

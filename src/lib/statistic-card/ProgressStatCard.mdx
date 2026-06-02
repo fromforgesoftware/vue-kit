@@ -1,0 +1,153 @@
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as ProgressStatCardStories from './ProgressStatCard.stories';
+
+<Meta of={ProgressStatCardStories} />
+
+# ProgressStatCard
+
+StatCard with an embedded progress bar showing a value vs a target. Use for quotas, capacity, and completion metrics. See <a href="?path=/docs/statistic-card-statcard--docs">StatCard</a> for plain metrics, <a href="?path=/docs/statistic-card-coloredstatcard--docs">ColoredStatCard</a> for tinted hero metrics, <a href="?path=/docs/statistic-card-iconstatcard--docs">IconStatCard</a> for icon-led metrics.
+
+## When to use
+
+- Quota dashboards (API usage, storage, bandwidth).
+- Capacity indicators (CPU, memory, disk).
+- Completion progress (onboarding, project milestones).
+
+## When not to use
+
+- For an unbounded count — use <a href="?path=/docs/statistic-card-statcard--docs">StatCard</a> (`value="42"`) instead of a 0–100 progress.
+- For granular charts — use a real chart component.
+
+## Anatomy
+
+<Canvas of={ProgressStatCardStories.Default} />
+
+The card composes a label, a progress bar (`data-slot="stat-card-progress"`), and a description/status row. Slots: `header-right` (a control next to the label), `summary` (a "used / total" row above the bar), `footer` (a divider-separated supporting row).
+
+The underlying <a href="?path=/docs/general-progress--docs">Progress</a> component exposes `aria-valuenow`, `aria-valuemin`, and `aria-valuemax` automatically.
+
+## Status
+
+<Canvas of={ProgressStatCardStories.StatusVariants} />
+
+The `status` prop drives both the progress bar colour and the status label tone:
+
+<table>
+	<thead>
+		<tr>
+			<th>Status</th>
+			<th>Bar</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>default</code>
+			</td>
+			<td>primary</td>
+			<td>Neutral progress (no special signal).</td>
+		</tr>
+		<tr>
+			<td>
+				<code>success</code>
+			</td>
+			<td>success</td>
+			<td>Healthy / on track.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>warning</code>
+			</td>
+			<td>warning</td>
+			<td>Approaching limit.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>destructive</code>
+			</td>
+			<td>destructive</td>
+			<td>Critical / over limit.</td>
+		</tr>
+	</tbody>
+</table>
+
+## Variants
+
+<Canvas of={ProgressStatCardStories.Variants} />
+
+Three surface styles — same set as <a href="?path=/docs/statistic-card-statcard--docs">StatCard</a>.
+
+## Sizes
+
+<Canvas of={ProgressStatCardStories.Sizes} />
+
+## With action, summary, and footer
+
+<Canvas of={ProgressStatCardStories.WithActionAndFooter} />
+
+The `header-right` slot lets you place a control (e.g. "View API usage") next to the label. The `summary` slot renders above the bar; the `footer` slot below it with a top border.
+
+## Interactive
+
+<Canvas of={ProgressStatCardStories.Interactive} />
+
+Set `interactive` to make the card clickable — emits `click` on mouse, `Enter`, and `Space`.
+
+## Props
+
+<Controls of={ProgressStatCardStories.Default} />
+
+## Accessibility (WCAG 2.2 AA)
+
+- **1.3.1 Info and Relationships**: rendered as `<article>` with `aria-label` bound to the `label` prop. The internal `<Progress>` adds the standard `aria-valuenow / valuemin / valuemax`.
+- **1.4.3 Contrast**: status colours (`text-success`, `text-destructive`, `text-warning-foreground`) meet 4.5 : 1 against the card surface.
+- **1.4.11 Non-text Contrast**: the progress bar fill meets 3 : 1 against the track.
+- **2.1.1 Keyboard / 2.4.7 Focus Visible**: when `interactive`, the card is reachable via tab and shows a 2-px focus ring.
+- **2.5.8 Target Size**: an interactive card is well above 24 × 24 px.
+
+## Responsive behaviour
+
+<Canvas of={ProgressStatCardStories.InteractiveResponsive} />
+
+The progress bar fills the available width; secondary text wraps under the description on narrow viewports.
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				Map <code>status</code> to a real signal (warning when usage &gt; 70 %)
+			</td>
+			<td>
+				Hard-code <code>status="success"</code> regardless of the value
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Pair <code>description</code> ("3000 free calls left") with <code>secondary-text</code> ("of
+				5000 monthly quota") so context is explicit
+			</td>
+			<td>Show only the percentage — users have to do the maths</td>
+		</tr>
+		<tr>
+			<td>
+				Put the action button in <code>#header-right</code>
+			</td>
+			<td>Put it in the footer — discoverability drops</td>
+		</tr>
+		<tr>
+			<td>
+				Clamp <code>value</code> to 0–100 at the consumer
+			</td>
+			<td>Pass arbitrary numbers — the component clamps but you should be explicit</td>
+		</tr>
+	</tbody>
+</table>

@@ -1,0 +1,237 @@
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as HoverCardStories from './HoverCard.stories';
+
+<Meta of={HoverCardStories} />
+
+# Hover Card
+
+A floating panel that opens on hover or focus and shows supplementary detail. Built on Reka UI — content portals to `document.body`. Unlike [Tooltip](?path=/docs/general-tooltip--docs), the HoverCard can host **interactive** content (links, buttons, avatars) because hover-intent keeps it open while the cursor is over the panel.
+
+## When to use
+
+- Inline previews — hovering a `@user` mention reveals the user card.
+- Link previews — hovering a footnote-style link shows source detail.
+- Metric drilldowns where the user wants more info but not full navigation.
+
+## When not to use
+
+- Pure help text (no actions) — use [Tooltip](?path=/docs/general-tooltip--docs).
+- Touch-only surfaces — touch users can't hover. Pair with an explicit trigger ([Popover](?path=/docs/general-popover--docs)).
+- Modal-style content — use a [Dialog](?path=/docs/general-dialog--docs).
+
+## Anatomy
+
+<Canvas of={HoverCardStories.Default} />
+
+The trigger uses Reka's `as-child` pattern, attaching the hover handlers to whatever element you pass (a `<Button>`, an anchor, an avatar). Content is teleported into a portal at the document body.
+
+## Composition
+
+```vue
+<HoverCard :open-delay="200">
+  <HoverCardTrigger>
+    <Button variant="link">@tradingbot</Button>
+  </HoverCardTrigger>
+  <HoverCardContent side="bottom" size="lg">
+    <UserPreview />
+  </HoverCardContent>
+</HoverCard>
+```
+
+<table>
+	<thead>
+		<tr>
+			<th>Subcomponent</th>
+			<th>Purpose</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>HoverCard</code>
+			</td>
+			<td>
+				Root provider. Owns <code>open</code> state, <code>openDelay</code>, <code>closeDelay</code>
+				.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>HoverCardTrigger</code>
+			</td>
+			<td>
+				The hover/focus target. Uses <code>as-child</code> by default to merge into an existing
+				button or link.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>HoverCardContent</code>
+			</td>
+			<td>
+				The portaled panel. Controls <code>side</code>, <code>align</code>, <code>sideOffset</code>,
+				and <code>size</code>.
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+## Sides
+
+<Canvas of={HoverCardStories.Sides} />
+
+`bottom` is the default. Reka flips automatically near viewport edges (`avoidCollisions` is on by default).
+
+## Alignments
+
+<Canvas of={HoverCardStories.Alignments} />
+
+`align` controls placement along the chosen side — useful when the trigger is at a corner of its container.
+
+## Sizes
+
+<Canvas of={HoverCardStories.Sizes} />
+
+<table>
+	<thead>
+		<tr>
+			<th>Size</th>
+			<th>Width</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>sm</code>
+			</td>
+			<td>14rem</td>
+			<td>Quick previews, single-line cards</td>
+		</tr>
+		<tr>
+			<td>
+				<code>default</code>
+			</td>
+			<td>16rem</td>
+			<td>Most user/link previews</td>
+		</tr>
+		<tr>
+			<td>
+				<code>lg</code>
+			</td>
+			<td>20rem</td>
+			<td>Rich cards with avatar + bio + meta</td>
+		</tr>
+	</tbody>
+</table>
+
+## Delay
+
+<Canvas of={HoverCardStories.WithDelay} />
+
+`openDelay` (default 200 ms) gates hover intent. Increase to 500–700 ms on prominent surfaces; drop to 100 ms or less when the user is already exploring (e.g. a list of mentions).
+
+## Props
+
+<Controls of={HoverCardStories.Default} />
+
+## Keyboard interaction
+
+<table>
+	<thead>
+		<tr>
+			<th>Key / event</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>Hover the trigger</td>
+			<td>
+				Opens after <code>openDelay</code>.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Focus the trigger (<kbd>Tab</kbd>)
+			</td>
+			<td>Opens immediately (no delay on focus).</td>
+		</tr>
+		<tr>
+			<td>Pointer leaves trigger and content</td>
+			<td>
+				Closes after <code>closeDelay</code>.
+			</td>
+		</tr>
+		<tr>
+			<td>Blur the trigger</td>
+			<td>Closes the panel.</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>Escape</kbd>
+			</td>
+			<td>Closes the panel.</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>Tab</kbd> inside content
+			</td>
+			<td>Focuses interactive children (links, buttons).</td>
+		</tr>
+	</tbody>
+</table>
+
+## Accessibility (WCAG 2.2 AA)
+
+- **1.4.3 Contrast**: text on `bg-popover` clears 4.5 : 1 against the panel surface.
+- **1.4.11 Non-text contrast**: panel border and shadow clear 3 : 1 against most page surfaces.
+- **1.4.13 Content on hover or focus**: panel is dismissible (Escape), hoverable (cursor can move into the panel), and persistent (no auto-timeout).
+- **2.1.1 Keyboard**: opens on focus, closes on Escape — no pointer required.
+- **2.4.7 Focus visible**: focused trigger and any interactive children retain the standard `:focus-visible` ring.
+- **2.5.8 Target size**: triggers wrap real interactive elements (Button, link) so size constraints come from those.
+- **4.1.2 Name, Role, Value**: trigger keeps its own role and accessible name. The panel itself is decorative chrome — interactive children inside it have their own labels.
+
+> A HoverCard is **not** a label substitute. The trigger must be self-describing (link text, button label, avatar `aria-label`).
+
+## Responsive behaviour
+
+<Canvas of={HoverCardStories.InteractiveResponsive} />
+
+The panel is portaled to `document.body` and never affects parent layout. Triggers should still respect their container's width.
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>Use HoverCard for previews containing links or actions.</td>
+			<td>Use HoverCard for plain help text — pick Tooltip.</td>
+		</tr>
+		<tr>
+			<td>Pair HoverCard with a self-describing trigger (link text, labelled button).</td>
+			<td>Hide essential content — touch users will never see it.</td>
+		</tr>
+		<tr>
+			<td>
+				Tune <code>openDelay</code> for the surface — slower on prominent CTAs, faster on dense
+				lists.
+			</td>
+			<td>
+				Set <code>openDelay: 0</code> on prominent buttons — annoying flash.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Match <code>size</code> to the content — don't pad an empty <code>lg</code> card.
+			</td>
+			<td>Stuff modal-shaped content into a HoverCard — use a Dialog.</td>
+		</tr>
+	</tbody>
+</table>

@@ -1,0 +1,140 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as ColorSwatchStories from './ColorSwatch.stories';
+
+<Meta of={ColorSwatchStories} />
+
+# Color Swatch
+
+Display-only colour chip. Renders as `role="img"` with an accessible label automatically derived from the colour value, so screen readers announce "blue" rather than `#3b82f6`. For pickable swatches, use `ColorSwatchPicker` instead.
+
+## When to use
+
+- Show a colour value next to a label (palette legend, theme token table).
+- Render an inline preview chip alongside a colour input.
+- Annotate a series colour in a chart legend at the consumer.
+
+## When not to use
+
+- For user-selectable colour grids — use [Color Swatch Picker](?path=/docs/color-color-swatch-picker--docs).
+- For interactive previews that open a picker — use [Color Picker](?path=/docs/color-color-picker--docs).
+
+## Anatomy
+
+<Canvas of={ColorSwatchStories.Default} />
+
+A single inline element with an `aria-label` and `aria-roledescription="color swatch"`. The inset ring softens the edge against the page so near-white swatches stay legible.
+
+## Sizes
+
+<Canvas of={ColorSwatchStories.Sizes} />
+
+<table>
+	<thead>
+		<tr>
+			<th>Size</th>
+			<th>Pixels</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>xs</code>
+			</td>
+			<td>16 × 16</td>
+			<td>Inline chip in a chart legend</td>
+		</tr>
+		<tr>
+			<td>
+				<code>sm</code>
+			</td>
+			<td>24 × 24</td>
+			<td>Compact contexts (table cells)</td>
+		</tr>
+		<tr>
+			<td>
+				<code>default</code>
+			</td>
+			<td>32 × 32</td>
+			<td>General use</td>
+		</tr>
+		<tr>
+			<td>
+				<code>lg</code>
+			</td>
+			<td>40 × 40</td>
+			<td>Headline preview next to a hex input</td>
+		</tr>
+		<tr>
+			<td>
+				<code>xl</code>
+			</td>
+			<td>48 × 48</td>
+			<td>Featured palette display</td>
+		</tr>
+	</tbody>
+</table>
+
+## Shapes
+
+<Canvas of={ColorSwatchStories.Shapes} />
+
+`square` (rounded-md, default) and `circle` (rounded-full).
+
+## Custom label
+
+<Canvas of={ColorSwatchStories.WithLabel} />
+
+Override the auto-derived label via the `label` prop when the consumer context implies more meaning than the colour name alone (e.g. `"Brand blue"` instead of `"blue"`).
+
+## Props
+
+<Controls of={ColorSwatchStories.Default} />
+
+<ArgTypes of={ColorSwatchStories} />
+
+## Accessibility (WCAG 2.2 AA)
+
+- **Role** (SC 1.3.1): rendered as `role="img"` with `aria-roledescription="color swatch"`. Screen readers announce the colour name, not the hex.
+- **Name** (SC 4.1.2): every swatch has an accessible name — derived from the colour or overridden via `label`.
+- **Contrast** (SC 1.4.11): the inset ring guarantees ≥ 3 : 1 contrast against the page surface even for near-white swatches.
+- **Target size** (SC 2.5.8): not interactive — does not need to meet the 24 × 24 px minimum. If a consumer wraps the swatch in a click handler, they must enforce target size at the wrapper.
+
+## Responsive behaviour
+
+<Canvas of={ColorSwatchStories.InteractiveResponsive} />
+
+Swatches are inline-flex with `shrink-0` — they preserve their dimensions inside `flex-wrap` containers and never overflow horizontally.
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				Use <code>ColorSwatch</code> for read-only previews
+			</td>
+			<td>
+				Wire up <code>@click</code> handlers — use <code>ColorSwatchPicker</code> for selection
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Pass a meaningful <code>label</code> when the brand name matters
+			</td>
+			<td>Rely on the auto-derived label for important UI context</td>
+		</tr>
+		<tr>
+			<td>Pair with a hex/rgb text label for dense palette grids</td>
+			<td>
+				Use <code>xs</code> in isolation — at 16 × 16 a swatch with no label is hard to identify
+			</td>
+		</tr>
+	</tbody>
+</table>

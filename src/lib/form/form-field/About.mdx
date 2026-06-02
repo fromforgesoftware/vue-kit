@@ -1,0 +1,260 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as FormFieldStories from './FormField.stories';
+
+<Meta of={FormFieldStories} />
+
+# FormField
+
+Pairs a Label, a control, optional helper text, and an error message in one accessible compound. FormField owns the field id, `aria-describedby` wiring, and the required indicator — consumers pass any control via the default slot and bind a scoped-slot payload for accessibility hooks.
+
+## When to use
+
+- Any form input that needs a label, helper text, or validation messaging.
+- Settings-page rows where a label + description stand on the left and a Switch / Select sits on the right.
+
+## When not to use
+
+- A label-less affordance (icon-only search bar) — pass `aria-label` directly to the control.
+- A purely decorative input pair — FormField is for accessibility-wired controls.
+
+## Anatomy
+
+<Canvas of={FormFieldStories.Default} />
+
+## Composition
+
+Pass the control via the default slot and bind the scoped-slot props for accessibility wiring:
+
+```vue
+<FormField label="Email" :error="errors.email" required>
+  <template #default="{ id, error, required, ariaDescribedBy }">
+    <Input
+      :id="id"
+      v-model="email"
+      :error="error"
+      :required="required"
+      :described-by="ariaDescribedBy"
+      type="email"
+    />
+  </template>
+</FormField>
+```
+
+<table>
+	<thead>
+		<tr>
+			<th>Slot prop</th>
+			<th>Use it for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>id</code>
+			</td>
+			<td>
+				Bind to the control's <code>id</code>; matches the Label's <code>for</code>.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>error</code>
+			</td>
+			<td>
+				Boolean — when true, sets <code>aria-invalid</code> on the control.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>required</code>
+			</td>
+			<td>
+				Bind to the control's native <code>required</code> attribute.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>ariaDescribedBy</code>
+			</td>
+			<td>
+				Bind to <code>aria-describedby</code> — id of the helper text or error message, whichever is
+				visible.
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+You can also slot a control without scoped-slot binding — the wiring still applies to children that read `for`/`id` (Switch, Checkbox), but `aria-describedby` and `aria-invalid` won't propagate automatically.
+
+## States
+
+<Canvas of={FormFieldStories.WithDescription} />
+
+<Canvas of={FormFieldStories.Required} />
+
+<Canvas of={FormFieldStories.WithError} />
+
+The error message replaces the description (so the field doesn't reflow), tints the Label destructive, and sets `aria-invalid="true"` on the control via the scoped slot. The error message is rendered with `role="alert"` so screen readers announce it on appearance.
+
+## Layout
+
+<Canvas of={FormFieldStories.HorizontalLayout} />
+
+<table>
+	<thead>
+		<tr>
+			<th>Layout</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>vertical</code> (default)
+			</td>
+			<td>Most form fields — label on top, control below, hint/error after.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>horizontal</code>
+			</td>
+			<td>
+				Settings rows — label-and-description on the left, control on the right at md+. Stacks at
+				mobile.
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+## Legacy variant prop
+
+<Canvas of={FormFieldStories.PanelVariant} />
+
+<Canvas of={FormFieldStories.PageVariant} />
+
+`variant` is the legacy alias for `layout`:
+
+<table>
+	<thead>
+		<tr>
+			<th>variant</th>
+			<th>Equivalent</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>panel</code>
+			</td>
+			<td>
+				<code>layout="vertical"</code> — for drawers and embedded forms
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>page</code>
+			</td>
+			<td>
+				<code>layout="horizontal"</code> — for settings pages
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+Prefer `layout` in new code.
+
+## Visually hidden label
+
+<Canvas of={FormFieldStories.SrOnlyLabel} />
+
+Pass `srOnlyLabel` to keep the label in the accessibility tree but hide it visually — useful for icon-only or contextual fields where the label is implied by surrounding chrome.
+
+## With Textarea
+
+<Canvas of={FormFieldStories.WithTextarea} />
+
+FormField wraps any control — Input, Textarea, Switch, Select, custom. Bind the scoped-slot props for accessibility wiring.
+
+## Keyboard interaction
+
+FormField doesn't add keyboard handling of its own — keystrokes flow to the slotted control. See the documentation of the control for details.
+
+<table>
+	<thead>
+		<tr>
+			<th>Key</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<kbd>Tab</kbd>
+			</td>
+			<td>Move focus to / from the control inside the field</td>
+		</tr>
+		<tr>
+			<td>Click on label</td>
+			<td>Move focus to the associated control</td>
+		</tr>
+	</tbody>
+</table>
+
+## Props
+
+<Controls of={FormFieldStories.Default} />
+
+<ArgTypes of={FormFieldStories} />
+
+## Accessibility (WCAG 2.2 AA)
+
+- **2.4.6 Headings and labels**: every FormField has a programmatic `<label>` paired with the slotted control via `for` / `id`.
+- **3.3.1 Error identification**: when `error` is set, the message is rendered with `role="alert"` and the control receives `aria-invalid="true"` via the scoped slot.
+- **3.3.2 Labels or instructions**: the description is rendered with a stable id and exposed through `aria-describedby` so screen readers read it after the label.
+- **3.3.3 Error suggestion**: if you can suggest a fix, include it in the error message — FormField does not generate suggestions on its own.
+- **2.4.7 Focus visible**: focus styling lives on the slotted control; FormField never absorbs the focus ring.
+
+## Responsive behaviour
+
+<Canvas of={FormFieldStories.InteractiveResponsive} />
+
+Vertical layout has no breakpoint behaviour. Horizontal layout stacks at mobile and switches to row at md+ (768 px).
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				Bind the scoped-slot props (<code>id</code>, <code>error</code>,{' '}
+				<code>ariaDescribedBy</code>) on the control.
+			</td>
+			<td>
+				Set the control's <code>id</code> by hand and let it drift from the label's <code>for</code>
+				.
+			</td>
+		</tr>
+		<tr>
+			<td>Replace the description with the error when validation fails.</td>
+			<td>Show both at once — pick the one that matters now.</td>
+		</tr>
+		<tr>
+			<td>
+				Use <code>layout="horizontal"</code> for settings pages with a divide-y parent.
+			</td>
+			<td>Use horizontal for short forms with three or four fields — vertical reads better.</td>
+		</tr>
+		<tr>
+			<td>
+				Use a real label and only hide it with <code>srOnlyLabel</code> when needed.
+			</td>
+			<td>Replace a label with a placeholder — placeholders disappear on input.</td>
+		</tr>
+	</tbody>
+</table>

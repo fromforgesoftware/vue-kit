@@ -1,0 +1,147 @@
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as ChatPanelStories from './ChatPanel.stories';
+
+<Meta of={ChatPanelStories} />
+
+# ChatPanel
+
+Chrome-less chat surface — header + scrollable message list + composer — that fills
+its container. Layout-agnostic: drop it inside a `Dialog`, `Drawer`, full-screen
+page, fixed floating panel, or inline card.
+
+## When to use
+
+- AI assistant panels (in-app chat, MCP-style tool conversations).
+- User-to-user DM / group messaging surfaces.
+- Support / agent inbox conversations.
+- Comment threads where the reader writes back inline.
+
+## When not to use
+
+- For single-message presentation — use [ChatBubble](?path=/docs/chat-chatbubble--docs).
+- For one-way notifications — use [Toast](?path=/docs/general-toast--docs) or
+  [Alert](?path=/docs/general-alert--docs).
+- For a static comment list — use a Card or list pattern; `ChatPanel` always
+  reserves a composer unless `hideComposer` is set.
+
+## Anatomy
+
+<Canvas of={ChatPanelStories.Default} />
+
+Three vertical regions, each independently overridable:
+
+1. **Header** — `header-start` + `header-title` + `header-actions` slots, or
+   replace the whole thing with the `header` slot. Set `hideHeader` to drop it.
+2. **Body** — message list. Renders the default `ChatBubble` per item unless
+   the `message` render-prop slot is provided. Append inline UI after the
+   list via `messages-footer` (clarification pickers, confirmation cards, etc).
+3. **Composer** — textarea + slots for tools, attachments, and a customisable
+   send button. Set `hideComposer` for read-only history views.
+
+## Empty state
+
+<Canvas of={ChatPanelStories.EmptyState} />
+
+Pass `emptyTitle` + `emptyDescription` for the default treatment, or replace
+the whole empty region via the `empty` slot.
+
+## AI assistant pattern
+
+<Canvas of={ChatPanelStories.AIWithBadgeAndActions} />
+
+BETA badge in the header, tool dropdown in the composer footer — pure slot
+composition, no variant prop needed.
+
+## User-to-user DM pattern
+
+<Canvas of={ChatPanelStories.UserToUserWithAvatars} />
+
+Same component. The `message` render-prop slot lets you render avatars and
+author labels around the existing `ChatBubble`. Each message object also
+exposes a typed `data?: unknown` field for consumer-specific payloads
+(attachments, reactions, read receipts).
+
+## Read-only history
+
+<Canvas of={ChatPanelStories.ReadOnlyHistory} />
+
+`hideComposer` turns the panel into a pure conversation reader — appropriate
+for archived threads, audit views, or shared transcripts.
+
+## Loading / typing indicator
+
+<Canvas of={ChatPanelStories.Loading} />
+
+A message with `loading: true` renders a spinner inside its bubble — use it
+as a trailing message while the remote party is composing.
+
+## Sizes
+
+<Canvas of={ChatPanelStories.Sizes} />
+
+| Size      | Use for                                             |
+| --------- | --------------------------------------------------- |
+| `sm`      | Dense surfaces — narrow drawers, embedded sidebars. |
+| `default` | Standard chat panels.                               |
+
+`size` propagates to the default `ChatBubble` renderer; override per-message
+via the `message` slot if you need mixed densities.
+
+## Submit semantics
+
+- Default: **Enter** submits, **Shift+Enter** inserts a newline.
+- Set `submitOnEnter={false}` to require an explicit send button click
+  (mobile-style multiline input).
+- Send is automatically disabled when the draft is empty or whitespace-only.
+- Empty drafts are not emitted — `submit` always fires with a trimmed,
+  non-empty string.
+
+## Auto-scroll
+
+The body auto-scrolls to the bottom on new messages **only when the user is
+already near the bottom** (within ~32px). Scrolling up to review history
+suppresses auto-scroll until the user returns to the bottom. Disable with
+`autoScroll={false}` for surfaces where you want manual control.
+
+## Imperative API
+
+```ts
+const panel = ref<InstanceType<typeof ChatPanel> | null>(null);
+panel.value?.focus(); // focus the composer
+panel.value?.scrollToBottom(); // force-scroll to the bottom
+```
+
+## Composing with Dialog / Drawer / full-screen
+
+`ChatPanel` is intentionally chrome-less. Wrap it in whatever container suits
+the surface:
+
+```vue
+<!-- Floating dialog -->
+<Dialog v-model:open="open">
+  <DialogContent class="h-[640px] w-[440px] p-0">
+    <ChatPanel :messages="messages" @submit="send" />
+  </DialogContent>
+</Dialog>
+
+<!-- Side drawer -->
+<Drawer v-model:open="open" side="right">
+  <DrawerContent class="w-[440px] p-0">
+    <ChatPanel :messages="messages" @submit="send" />
+  </DrawerContent>
+</Drawer>
+
+<!-- Full-screen page -->
+<div class="h-screen w-screen">
+  <ChatPanel bordered :messages="messages" @submit="send" />
+</div>
+
+<!-- Fixed floating panel -->
+<div class="fixed bottom-4 right-4 h-[640px] w-[440px]">
+  <ChatPanel bordered :messages="messages" @submit="send" />
+</div>
+```
+
+## Controls
+
+<Controls of={ChatPanelStories.Default} />

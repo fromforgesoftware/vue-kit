@@ -1,0 +1,133 @@
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as PaginationStories from './Pagination.stories';
+
+<Meta of={PaginationStories} />
+
+# Pagination
+
+Page-N navigation control for paginated datasets. Built on Reka UI primitives. Handles ellipsis collapsing, sibling pages, and optional First/Last edge buttons.
+
+## When to use
+
+- A list or table of records that's too large to render in one page.
+- Server-paginated content where the total count is known.
+
+## When not to use
+
+- For infinite scroll / "load more" patterns — pagination implies discrete pages.
+- For very small datasets (≤ 20 items) — render them all and skip the control.
+- For step-by-step flows — use [Stepper](?path=/docs/general-stepper--docs).
+
+## Anatomy
+
+<Canvas of={PaginationStories.Default} />
+
+The control composes:
+
+- **First / Previous** edge buttons (left).
+- **Page-N buttons** with ellipsis collapsing distant pages.
+- **Next / Last** edge buttons (right).
+- A mobile-only label that shows just the current page on viewports < 640 px.
+
+## Props
+
+<Controls of={PaginationStories.Default} />
+
+## v-model
+
+```vue
+<script setup lang="ts">
+import { ref } from 'vue';
+const page = ref(1);
+</script>
+
+<template>
+	<Pagination v-model:page="page" :total="200" :items-per-page="20" />
+</template>
+```
+
+## Many pages
+
+<Canvas of={PaginationStories.ManyPages} />
+
+`siblingCount` (default `1`) controls how many page buttons appear either side of the current page. Increase to show a wider window.
+
+## Without edges
+
+<Canvas of={PaginationStories.NoEdges} />
+
+Set `:show-edges="false"` to drop the First/Last buttons when jumping to extremes is rare in your UX.
+
+## Disabled
+
+<Canvas of={PaginationStories.Disabled} />
+
+Disable the entire control while the underlying request is in flight. Pair with a loading state in the table itself.
+
+## Keyboard interaction
+
+<table>
+	<thead>
+		<tr>
+			<th>Key</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>Tab</code>
+			</td>
+			<td>Move focus through First, Prev, page buttons, Next, Last.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>Enter</code> / <code>Space</code>
+			</td>
+			<td>Activate the focused button.</td>
+		</tr>
+	</tbody>
+</table>
+
+## Accessibility (WCAG 2.2 AA)
+
+- **1.3.1 Info and Relationships**: each button exposes `aria-label="Page N"`, `Previous page`, etc.
+- **2.4.7 Focus visible**: standard focus ring on every button.
+- **2.4.8 Location**: the current page exposes `aria-current="page"` so screen readers announce position.
+- **2.5.8 Target size**: all buttons are 32×32 px, comfortably above the 24×24 minimum.
+- **4.1.2 Name, Role, Value**: every control has a label; the disabled state is announced.
+
+## Responsive behaviour
+
+<Canvas of={PaginationStories.InteractiveResponsive} />
+
+On viewports < 640 px (`sm`) the page-number buttons collapse to a single label showing the current page. Prev/Next/First/Last remain.
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>Disable the control while a fetch is in flight.</td>
+			<td>Allow the user to click Next twice during the same fetch — you'll race conditions.</td>
+		</tr>
+		<tr>
+			<td>
+				Bind via <code>v-model:page</code>.
+			</td>
+			<td>
+				Listen to <code>click</code> on individual buttons.
+			</td>
+		</tr>
+		<tr>
+			<td>Show this control near the bottom of the data it paginates.</td>
+			<td>Float it in a sticky bar separated from the data — context is lost.</td>
+		</tr>
+	</tbody>
+</table>

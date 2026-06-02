@@ -1,0 +1,190 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as CommandPaletteStories from './CommandPalette.stories';
+
+<Meta of={CommandPaletteStories} />
+
+# Command Palette
+
+Global search and command launcher inspired by Raycast and Linear. Opens via a `CommandPaletteTrigger` button (or `⌘K`) and surfaces a unified searchable list of routes, actions, and entities.
+
+## When to use
+
+- Global app search bound to `⌘K` / `Ctrl+K`.
+- Keyboard-first action launcher for power users.
+- Multi-mode search (commands with `>` prefix, people with `@` prefix).
+
+## When not to use
+
+- A simple type-ahead within a single field — use `Combobox`.
+- Top-of-page persistent search bar — use `InputSearch`.
+
+## Anatomy
+
+<Canvas of={CommandPaletteStories.Default} />
+
+<table>
+	<thead>
+		<tr>
+			<th>Slot</th>
+			<th>Component</th>
+			<th>Purpose</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>command-palette</code>
+			</td>
+			<td>
+				<code>CommandPalette</code>
+			</td>
+			<td>Provides search, filter, recents, and submenu context</td>
+		</tr>
+		<tr>
+			<td>
+				<code>command-palette-input</code>
+			</td>
+			<td>
+				<code>CommandPaletteInput</code>
+			</td>
+			<td>Search field with arrow-key + Enter handling</td>
+		</tr>
+		<tr>
+			<td>
+				<code>command-palette-item</code>
+			</td>
+			<td>
+				<code>CommandPaletteItem</code>
+			</td>
+			<td>One selectable row, filtered by value + keywords</td>
+		</tr>
+		<tr>
+			<td>
+				<code>command-palette-trigger</code>
+			</td>
+			<td>
+				<code>CommandPaletteTrigger</code>
+			</td>
+			<td>Search-shaped button that opens the dialog (⌘K)</td>
+		</tr>
+	</tbody>
+</table>
+
+Surrounding helpers: `CommandPaletteList`, `CommandPaletteGroup`, `CommandPaletteEmpty`, `CommandPaletteSeparator`.
+
+## Trigger button
+
+<Canvas of={CommandPaletteStories.WithTrigger} />
+
+`CommandPaletteTrigger` renders a search-shaped button with the `⌘K` shortcut. Wrap any palette content as the slot child — the trigger handles opening, focus trapping, and Escape-to-close via `CommandPaletteDialog`.
+
+## Registry-driven filtering
+
+<Canvas of={CommandPaletteStories.WithRegistry} />
+
+Pass a custom `filter` function to search across labels and `keywords` aliases. Items expose their keywords on the DOM so consumers can read them in custom filter implementations.
+
+## Prefix modes
+
+<Canvas of={CommandPaletteStories.PrefixModes} />
+
+Use `v-model:search` to react to prefix tokens (`/` for commands, `@` for people). The consumer toggles which groups render based on the leading character.
+
+## Loading state
+
+<Canvas of={CommandPaletteStories.LoadingState} />
+
+`CommandPaletteList` accepts `loading` to render a placeholder while async results are fetched.
+
+## Props
+
+<Controls of={CommandPaletteStories.Default} />
+
+<ArgTypes of={CommandPaletteStories} />
+
+## Accessibility (WCAG 2.2 AA)
+
+<table>
+	<thead>
+		<tr>
+			<th>SC</th>
+			<th>Title</th>
+			<th>How CommandPalette conforms</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>1.3.1</td>
+			<td>Info and Relationships</td>
+			<td>
+				Items use <code>role="option"</code>; the dialog uses Reka UI's accessible Dialog primitive
+			</td>
+		</tr>
+		<tr>
+			<td>2.1.1</td>
+			<td>Keyboard</td>
+			<td>ArrowUp / ArrowDown navigate; Enter selects; Escape closes; ⌘K toggles</td>
+		</tr>
+		<tr>
+			<td>2.4.3</td>
+			<td>Focus Order</td>
+			<td>Focus moves into the input on open; trapped inside the dialog while open</td>
+		</tr>
+		<tr>
+			<td>2.4.7</td>
+			<td>Focus Visible</td>
+			<td>
+				Highlighted item uses <code>data-highlighted</code> with accent background
+			</td>
+		</tr>
+		<tr>
+			<td>2.5.8</td>
+			<td>Target Size (Minimum)</td>
+			<td>Trigger button and items meet 24 × 24 px minimum</td>
+		</tr>
+		<tr>
+			<td>4.1.2</td>
+			<td>Name, Role, Value</td>
+			<td>Dialog has an accessible name; items expose their value via data attributes and text</td>
+		</tr>
+	</tbody>
+</table>
+
+<Canvas of={CommandPaletteStories.InteractiveOpensViaTrigger} />
+<Canvas of={CommandPaletteStories.InteractiveTypeToFilter} />
+<Canvas of={CommandPaletteStories.InteractiveEscapeCloses} />
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>Group items by category (Recent / Navigation / Actions)</td>
+			<td>Render a flat list of 100+ items with no grouping</td>
+		</tr>
+		<tr>
+			<td>
+				Provide <code>keywords</code> aliases for synonyms (e.g. "people" → Employees)
+			</td>
+			<td>Rely solely on the visible label for matching</td>
+		</tr>
+		<tr>
+			<td>
+				Wire <code>@select</code> to a navigation or action handler and call <code>close</code>
+			</td>
+			<td>Mutate state inside the palette without closing — leaves the user stuck</td>
+		</tr>
+		<tr>
+			<td>
+				Use <code>CommandPaletteEmpty</code> to handle no-match state
+			</td>
+			<td>Render an empty list with no feedback</td>
+		</tr>
+	</tbody>
+</table>

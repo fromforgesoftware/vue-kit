@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 200" width="280" height="200" fill="none">
+  <defs>
+    <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#5e5e68" stroke-width="1.5"/>
+    </pattern>
+    <filter id="softblur" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="18"/>
+    </filter>
+    <mask id="gridMask">
+      <rect width="280" height="200" fill="black"/>
+      <rect x="60" y="45" width="160" height="110" rx="30" fill="white" filter="url(#softblur)"/>
+    </mask>
+  </defs>
+  <rect width="280" height="200" fill="url(#grid)" mask="url(#gridMask)"/>
+  <path d="M 78 62 Q 78 54 86 54 L 194 54 Q 202 54 202 62 L 202 122 Q 202 130 194 130 L 148 130 L 140 146 L 132 130 L 86 130 Q 78 130 78 122 Z" fill="#ee7626"/>
+  <path d="M 130 82 A 10 10 0 0 1 150 82 Q 150 94 140 96 L 140 104" fill="none" stroke="#ffffff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="140" cy="114" r="3.5" fill="#ffffff"/>
+</svg>

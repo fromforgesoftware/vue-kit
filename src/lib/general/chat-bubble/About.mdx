@@ -1,0 +1,131 @@
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as ChatBubbleStories from './ChatBubble.stories';
+
+<Meta of={ChatBubbleStories} />
+
+# ChatBubble
+
+Speech bubble used in chat / messaging surfaces. Three directions cover the most common patterns.
+
+## When to use
+
+- Chat / messaging surfaces (DM, support chat, agent inbox).
+- Inline conversation summaries inside dashboards.
+- AI assistant panels.
+
+## When not to use
+
+- For static comments — use a Card or list pattern.
+- For notifications — use [Toast](?path=/docs/general-toast--docs) or [Alert](?path=/docs/general-alert--docs).
+- For user-by-user messaging without role context — use a regular list.
+
+## Anatomy
+
+<Canvas of={ChatBubbleStories.Default} />
+
+A container that aligns a bubble (with optional tail) and a timestamp.
+
+## Conversation
+
+<Canvas of={ChatBubbleStories.Conversation} />
+
+A typical conversation mixes incoming, outgoing, and system messages.
+
+## Sizes
+
+<Canvas of={ChatBubbleStories.Sizes} />
+
+<table>
+	<thead>
+		<tr>
+			<th>Size</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>sm</code>
+			</td>
+			<td>Compact thread previews.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>default</code>
+			</td>
+			<td>General use.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>lg</code>
+			</td>
+			<td>Dedicated chat surfaces (full-page conversation).</td>
+		</tr>
+	</tbody>
+</table>
+
+## Without tail
+
+<Canvas of={ChatBubbleStories.NoTail} />
+
+For consecutive messages from the same author or for system messages, set `tail` to `false`.
+
+## Loading
+
+<Canvas of={ChatBubbleStories.Loading} />
+
+When awaiting an upstream message (typing indicator, AI response), set `loading`. The bubble renders a spinner inside a polite live region.
+
+## System message
+
+<Canvas of={ChatBubbleStories.SystemMessage} />
+
+Use `direction="system"` for centred, low-emphasis messages (joined / left, status changes). The tail is always hidden in this direction.
+
+## Props
+
+<Controls of={ChatBubbleStories.Default} />
+
+## Accessibility (WCAG 2.2 AA)
+
+- **1.3.1 Info and Relationships**: each bubble is a `<div role="group">` with an optional `aria-label="Message from {author}"`. Loading bubbles use `role="status"` for live announcement.
+- **1.4.3 Contrast**: every direction × tone meets ≥ 4.5 : 1 against the bubble background.
+- **2.4.6 Headings and Labels**: pass `authorLabel` so screen readers announce the message author.
+- **4.1.3 Status Messages**: loading bubbles use `role="status"`.
+
+## Responsive behaviour
+
+<Canvas of={ChatBubbleStories.InteractiveResponsive} />
+
+Bubbles are capped at 75 % of their container width and wrap text rather than overflow. Long URLs use `break-words`.
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				Pass <code>authorLabel</code> for incoming messages
+			</td>
+			<td>Leave incoming messages without an author for screen readers</td>
+		</tr>
+		<tr>
+			<td>
+				Use <code>direction="system"</code> for join / leave / status events
+			</td>
+			<td>Use coloured bubbles for system events — they imply a person</td>
+		</tr>
+		<tr>
+			<td>
+				Hide the tail (<code>:tail="false"</code>) for consecutive messages from the same author
+			</td>
+			<td>Show the tail on every message — it crowds long threads</td>
+		</tr>
+	</tbody>
+</table>

@@ -1,0 +1,55 @@
+{
+	"compilerOptions": {
+		"target": "ES2022",
+		"useDefineForClassFields": true,
+		"module": "ESNext",
+		"lib": ["ES2022", "DOM", "DOM.Iterable"],
+		"skipLibCheck": true,
+
+		/* Bundler mode */
+		"moduleResolution": "bundler",
+		"allowImportingTsExtensions": true,
+		"isolatedModules": true,
+		"moduleDetection": "force",
+		"noEmit": true,
+		"jsx": "preserve",
+
+		/* Linting */
+		"strict": true,
+		"noImplicitAny": false,
+		"strictNullChecks": false,
+		"noUnusedLocals": false,
+		"noUnusedParameters": false,
+		"noFallthroughCasesInSwitch": true,
+
+		/* Paths */
+		"paths": {
+			"@/*": ["./src/*"],
+			"@fromforgesoftware/ts-kit": ["../ts-kit/src/index.ts"],
+			"@fromforgesoftware/ts-kit/date": ["../ts-kit/src/date/index.ts"],
+			"@fromforgesoftware/ts-kit/enums": ["../ts-kit/src/enums/index.ts"],
+			"@fromforgesoftware/ts-kit/errors": ["../ts-kit/src/errors/index.ts"],
+			"@fromforgesoftware/ts-kit/features": ["../ts-kit/src/features/index.ts"],
+			"@fromforgesoftware/ts-kit/http": ["../ts-kit/src/http/index.ts"],
+			"@fromforgesoftware/ts-kit/i18n": ["../ts-kit/src/i18n/index.ts"],
+			"@fromforgesoftware/ts-kit/jsonapi": ["../ts-kit/src/jsonapi/index.ts"],
+			"@fromforgesoftware/ts-kit/jsonapi-client": ["../ts-kit/src/jsonapi-client/index.ts"],
+			"@fromforgesoftware/ts-kit/legacy-logger": ["../ts-kit/src/legacy-logger/index.ts"],
+			"@fromforgesoftware/ts-kit/log": ["../ts-kit/src/log/index.ts"],
+			"@fromforgesoftware/ts-kit/number": ["../ts-kit/src/number/index.ts"],
+			"@fromforgesoftware/ts-kit/reactive": ["../ts-kit/src/reactive/index.ts"],
+			"@fromforgesoftware/ts-kit/resource-state": ["../ts-kit/src/resource-state/index.ts"],
+			"@fromforgesoftware/ts-kit/storage": ["../ts-kit/src/storage/index.ts"],
+			"@fromforgesoftware/ts-kit/types": ["../ts-kit/src/types/index.ts"]
+		}
+	},
+	"include": [
+		"src/**/*.ts",
+		"src/**/*.tsx",
+		"src/**/*.vue",
+		"vitest.setup.ts",
+		"env.d.ts",
+		"vitest.shims.d.ts"
+	],
+	"references": [{ "path": "./tsconfig.node.json" }]
+}

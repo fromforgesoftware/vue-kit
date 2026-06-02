@@ -1,0 +1,174 @@
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as ProgressStories from './Progress.stories';
+
+<Meta of={ProgressStories} />
+
+# Progress
+
+Determinate progress bar that visualises a known percentage. For unknown durations (waiting on a request) use `indeterminate` mode or a `Spinner`.
+
+## When to use
+
+- Multi-step flows where the total can be measured (onboarding, file upload).
+- Capacity / quota usage (storage, seats, API calls).
+- Long-running batch jobs where the server reports percentage.
+
+## When not to use
+
+- For very short waits (< 200 ms) — flicker beats progress.
+- For unknown-duration tasks — use indeterminate mode or `Spinner`.
+- For a series of parallel tasks — use multiple bars or a list with status.
+
+## Anatomy
+
+<Canvas of={ProgressStories.Default} />
+
+A track and an indicator. The indicator's transform reflects the percentage; the track tints the variant colour at low alpha so colour is consistent at every value.
+
+## Variants
+
+<Canvas of={ProgressStories.Variants} />
+
+<table>
+	<thead>
+		<tr>
+			<th>Variant</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>default</code>
+			</td>
+			<td>General progress.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>success</code>
+			</td>
+			<td>Healthy / on-track metrics.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>warning</code>
+			</td>
+			<td>At-risk metrics.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>destructive</code>
+			</td>
+			<td>Over-quota / failure thresholds.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>info</code>
+			</td>
+			<td>Informational, e.g. sync progress.</td>
+		</tr>
+	</tbody>
+</table>
+
+## Sizes
+
+<Canvas of={ProgressStories.Sizes} />
+
+<table>
+	<thead>
+		<tr>
+			<th>Size</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>sm</code>
+			</td>
+			<td>Inline list rows.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>default</code>
+			</td>
+			<td>General use.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>lg</code>
+			</td>
+			<td>Headline / hero metrics.</td>
+		</tr>
+	</tbody>
+</table>
+
+## Values
+
+<Canvas of={ProgressStories.ProgressValues} />
+
+`modelValue` is a 0–100 number. Drive it from a reactive ref to animate progress.
+
+## Indeterminate
+
+<Canvas of={ProgressStories.Indeterminate} />
+
+For unknown-duration tasks, set `indeterminate`. The bar slides back and forth; respect `prefers-reduced-motion` is provided by the browser.
+
+## With label
+
+<Canvas of={ProgressStories.WithLabel} />
+
+Compose a label row above the bar — never put text inside the track.
+
+## In a card
+
+<Canvas of={ProgressStories.InCard} />
+
+The dashboard storage pattern: heading + descriptor + bar + remaining.
+
+## Props
+
+<Controls of={ProgressStories.Default} />
+
+## Accessibility (WCAG 2.2 AA)
+
+- **1.3.1 Info and Relationships**: rendered by Reka UI as `role="progressbar"` with `aria-valuenow`, `aria-valuemin`, `aria-valuemax` (or `aria-valuenow` omitted when indeterminate).
+- **1.4.3 Contrast**: indicator colour pairs with a low-alpha track of the same hue — visible at every value.
+- **2.2.2 Pause, Stop, Hide**: indeterminate animation uses CSS, respecting `prefers-reduced-motion`.
+- **4.1.3 Status Messages**: pair with a labelled `<div role="status">` if the percentage should be announced as it changes.
+
+## Responsive behaviour
+
+<Canvas of={ProgressStories.InteractiveResponsive} />
+
+Progress is full-width by default. Wrap in a constrained container to limit its width.
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>Pair with a label or a percentage so the user can read the value</td>
+			<td>Show progress without context</td>
+		</tr>
+		<tr>
+			<td>Use semantic variants for capacity / quota metrics</td>
+			<td>
+				Hard-code colours via the <code>class</code> override
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Use <code>indeterminate</code> for known-unknown waits
+			</td>
+			<td>Show a determinate bar fixed at one value</td>
+		</tr>
+	</tbody>
+</table>

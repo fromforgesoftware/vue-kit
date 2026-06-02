@@ -1,0 +1,147 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Authentication/About" />
+
+# Authentication
+
+A set of card-based screens that compose the full authentication flow: sign-in, register, forgot password, reset password, OTP verification, and email verification. Each screen is a self-contained Vue component built on top of the shared `AuthCard` shell, so consumers can drop them into Keycloak templates, in-app modal flows, or standalone routes.
+
+## When to use
+
+- Consumer-facing sign-up / sign-in routes where the entire screen is the auth surface.
+- Keycloak login templates rendered inside an iframe or full-page redirect.
+- In-app re-authentication prompts (OTP step before approving destructive actions).
+
+## When not to use
+
+- Sub-second confirmation flows — use a [Dialog](?path=/docs/general-dialog--docs) with a single password field.
+- API-key entry / settings — use a generic form, not the auth shell.
+
+## Screens
+
+<table>
+	<thead>
+		<tr>
+			<th>Component</th>
+			<th>Purpose</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>AuthSignIn</code>
+			</td>
+			<td>Email + password + remember-me, with social-login fallbacks.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>AuthRegister</code>
+			</td>
+			<td>Name + email + password + confirmation, with social-login fallbacks.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>AuthForgotPassword</code>
+			</td>
+			<td>Single email field that triggers a reset link.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>AuthResetPassword</code>
+			</td>
+			<td>New password + confirmation after the reset link is opened.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>AuthOTPVerification</code>
+			</td>
+			<td>6-digit code entry with resend cooldown and shake-on-error animation.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>AuthEmailVerification</code>
+			</td>
+			<td>Post-registration "check your inbox" screen with resend + log-out.</td>
+		</tr>
+	</tbody>
+</table>
+
+## Composition
+
+All screens share `AuthCard`, which gives them:
+
+- Centred logo slot (defaults to a polygon brand mark; consumers override via `#logo`).
+- Title + subtitle slots wired through `#title` / `#subtitle`.
+- A consistent card padding, border, and rounded surface across screens.
+
+## Accessibility (WCAG 2.2 AA)
+
+<table>
+	<thead>
+		<tr>
+			<th>Concern</th>
+			<th>Behaviour</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>Form semantics</td>
+			<td>
+				Each screen wraps fields in a real <code>&lt;form&gt;</code> with{' '}
+				<code>@submit.prevent</code> — Enter submits, browser autofill works, password managers
+				detect the form.
+			</td>
+		</tr>
+		<tr>
+			<td>Autocomplete</td>
+			<td>
+				All fields set <code>autocomplete</code> correctly: <code>email</code>,{' '}
+				<code>current-password</code>, <code>new-password</code>, <code>name</code>,{' '}
+				<code>one-time-code</code>.
+			</td>
+		</tr>
+		<tr>
+			<td>Labels</td>
+			<td>
+				Every input has an associated <code>&lt;Label for&gt;</code>. Visible labels (no
+				placeholder-only fields) per WCAG SC 3.3.2.
+			</td>
+		</tr>
+		<tr>
+			<td>Target size</td>
+			<td>
+				The submit button on each screen meets the 24 × 24 px minimum (SC 2.5.8). Verified by the{' '}
+				<code>InteractiveTargetSize</code> tests.
+			</td>
+		</tr>
+		<tr>
+			<td>Tab order</td>
+			<td>
+				Logical: Email → Password → Remember me → Forgot password → Submit → secondary links →
+				social buttons. Verified by the <code>InteractiveTabOrder</code> tests.
+			</td>
+		</tr>
+		<tr>
+			<td>Errors</td>
+			<td>
+				OTP error shows an <code>role="alert"</code> message and a shake animation (uses CSS{' '}
+				<code>animation</code> — respects <code>prefers-reduced-motion</code> at the consumer level
+				if needed).
+			</td>
+		</tr>
+		<tr>
+			<td>Loading state</td>
+			<td>
+				The submit button uses the standard <code>loading</code> prop — keyboard / screen-reader
+				users hear the busy state via the underlying [Button](?path=/docs/general-button--docs).
+			</td>
+		</tr>
+		<tr>
+			<td>Show/hide password</td>
+			<td>
+				Toggle button has <code>aria-label</code> ("Show password" / "Hide password"); state changes
+				are announced to assistive tech.
+			</td>
+		</tr>
+	</tbody>
+</table>

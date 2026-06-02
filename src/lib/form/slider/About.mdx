@@ -1,0 +1,257 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as SliderStories from './Slider.stories';
+
+<Meta of={SliderStories} />
+
+# Slider
+
+Numeric range input with full keyboard support. Built on Reka UI's `SliderRoot` + `SliderTrack` + `SliderRange` + `SliderThumb` primitives. Always pair with a `<Label>` so the thumb has an accessible name.
+
+## When to use
+
+- Pick a number from a continuous range (volume, brightness, opacity).
+- Pick a numeric range with two thumbs (price min/max).
+- Adjust a value where the precise number matters less than the relative position.
+
+## When not to use
+
+- Precise numeric input — use [NumberField](?path=/docs/form-numberfield--docs).
+- Picking from a small discrete set — use [Radio](?path=/docs/form-radio--docs) or [Select](?path=/docs/form-select--docs).
+- Showing a value without input — use a progress bar or a static `text` element.
+
+## Anatomy
+
+<Canvas of={SliderStories.Default} />
+
+A horizontal rail with a filled range up to the current value and one circular thumb per value. The thumb's invisible padding ring expands the pointer hit target to ≥ 24 × 24 px.
+
+## Composition
+
+Slider is a single component composing four Reka primitives internally:
+
+<table>
+	<thead>
+		<tr>
+			<th>Slot</th>
+			<th>Reka primitive</th>
+			<th>Role</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>data-slot="slider"</code>
+			</td>
+			<td>
+				<code>SliderRoot</code>
+			</td>
+			<td>Container, owns layout + a11y attrs</td>
+		</tr>
+		<tr>
+			<td>
+				<code>data-slot="slider-track"</code>
+			</td>
+			<td>
+				<code>SliderTrack</code>
+			</td>
+			<td>Unfilled rail</td>
+		</tr>
+		<tr>
+			<td>
+				<code>data-slot="slider-range"</code>
+			</td>
+			<td>
+				<code>SliderRange</code>
+			</td>
+			<td>Filled portion of the rail</td>
+		</tr>
+		<tr>
+			<td>
+				<code>data-slot="slider-thumb"</code>
+			</td>
+			<td>
+				<code>SliderThumb</code>
+			</td>
+			<td>Draggable knob (one per value)</td>
+		</tr>
+	</tbody>
+</table>
+
+## Sizes
+
+<Canvas of={SliderStories.Sizes} />
+
+<table>
+	<thead>
+		<tr>
+			<th>Size</th>
+			<th>Track</th>
+			<th>Thumb</th>
+			<th>Hit area</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>sm</code>
+			</td>
+			<td>4 px</td>
+			<td>14 px</td>
+			<td>≥ 24 px (via padding ring)</td>
+			<td>Inline forms, dense settings rows</td>
+		</tr>
+		<tr>
+			<td>
+				<code>default</code>
+			</td>
+			<td>6 px</td>
+			<td>16 px</td>
+			<td>≥ 24 px (via padding ring)</td>
+			<td>General forms</td>
+		</tr>
+	</tbody>
+</table>
+
+## States
+
+<Canvas of={SliderStories.Range} />
+
+<Canvas of={SliderStories.Steps} />
+
+<Canvas of={SliderStories.Disabled} />
+
+<Canvas of={SliderStories.WithError} />
+
+## Orientations
+
+<Canvas of={SliderStories.Vertical} />
+
+Use `orientation="vertical"` for vertically-oriented sliders (e.g., volume mixers). Container needs an explicit height for the slider to stretch into.
+
+## Keyboard interaction
+
+<table>
+	<thead>
+		<tr>
+			<th>Key / event</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<kbd>Tab</kbd>
+			</td>
+			<td>Moves focus to / from the thumb.</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>→</kbd> / <kbd>↑</kbd>
+			</td>
+			<td>Increase by one step.</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>←</kbd> / <kbd>↓</kbd>
+			</td>
+			<td>Decrease by one step.</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>PageUp</kbd>
+			</td>
+			<td>Increase by 10 × step.</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>PageDown</kbd>
+			</td>
+			<td>Decrease by 10 × step.</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>Home</kbd>
+			</td>
+			<td>Jump to the minimum value.</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>End</kbd>
+			</td>
+			<td>Jump to the maximum value.</td>
+		</tr>
+		<tr>
+			<td>Pointer drag on thumb</td>
+			<td>Slide the thumb to a new value.</td>
+		</tr>
+		<tr>
+			<td>Click on track</td>
+			<td>Move the nearest thumb to the click point.</td>
+		</tr>
+	</tbody>
+</table>
+
+## Props
+
+<Controls of={SliderStories.Default} />
+
+<ArgTypes of={SliderStories} />
+
+## Accessibility (WCAG 2.2 AA)
+
+- **2.5.7 Dragging Movements**: every drag interaction has a keyboard equivalent. ArrowKeys, PageUp/Down, Home/End all adjust the value without dragging — a pointer-only user is never required to drag.
+- **2.5.8 Target size**: the visible thumb is < 24 px to keep dense forms tidy, but the `::before` ring expands the pointer hit target to ≥ 24 × 24 px.
+- **4.1.2 Name, role, value**: Reka exposes `role="slider"` on the thumb with `aria-valuenow`, `aria-valuemin`, `aria-valuemax`. Always pass `ariaLabel` or pair the slider with a Label for the accessible name.
+- **3.3.1 Error identification**: pass `error` to set `aria-invalid="true"` on the slider root and tint the thumb destructive. Use `describedBy` for the error message id.
+- **2.1.1 Keyboard**: full keyboard nav as listed above. Disabled sliders block all input.
+- **2.4.7 Focus visible**: the thumb draws a 4 px ring against the surrounding surface on focus.
+- **1.4.11 Non-text contrast**: the filled range uses `bg-primary` against `bg-muted` for the track — meets 3 : 1 against the surrounding surface.
+
+## Responsive behaviour
+
+<Canvas of={SliderStories.InteractiveResponsive} />
+
+Sliders take full width by default; they don't change layout across breakpoints. The hit area is constant at every viewport.
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				Always pair with a <code>&lt;Label&gt;</code> or pass <code>ariaLabel</code>.
+			</td>
+			<td>Place text near a Slider without a Label — it won't be the accessible name.</td>
+		</tr>
+		<tr>
+			<td>Show the current value next to the Label so users know exactly what they're picking.</td>
+			<td>
+				Hide the numeric value — Slider's strength is approximate adjustment, but users still need
+				feedback.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Use <code>step</code> matching the precision the user actually needs (e.g., 5 for percentage
+				points, 0.1 for ratings).
+			</td>
+			<td>
+				Keep <code>step=1</code> on a 0–10000 range — keyboard-only users will never reach the other
+				end.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Use <code>error</code> + a referenced helper text id for validation.
+			</td>
+			<td>Hide the error message and only colour the thumb red.</td>
+		</tr>
+	</tbody>
+</table>

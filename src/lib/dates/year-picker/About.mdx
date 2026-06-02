@@ -1,0 +1,166 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as YearPickerStories from './YearPicker.stories';
+
+<Meta of={YearPickerStories} />
+
+# YearPicker
+
+Composite year picker — button trigger that opens a popover with a paged grid of year cells. Built on Reka UI's `YearPicker` primitives.
+
+## When to use
+
+- Annual reports and KPI dashboards.
+- Filters and forms where the smallest meaningful unit is a calendar year.
+- Birth-year inputs and other historic-year selectors.
+
+## When not to use
+
+- Month or day granularity — use [MonthPicker](?path=/docs/dates-monthpicker--docs) or [DatePicker](?path=/docs/dates-datepicker--docs).
+- Year _range_ selection — use [YearRangePicker](?path=/docs/dates-yearrangepicker--docs).
+
+## Anatomy
+
+<Canvas of={YearPickerStories.Default} />
+
+`YearPickerRoot` wraps a header (page navigation + heading) and a 4-column grid of years. `yearsPerPage` controls how many years appear at once (default 12).
+
+## Variants
+
+<Canvas of={YearPickerStories.Variants} />
+
+<table>
+	<thead>
+		<tr>
+			<th>Variant</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>button</code> (default)
+			</td>
+			<td>Filters and toolbars.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>inline</code>
+			</td>
+			<td>Always-visible scheduling layouts.</td>
+		</tr>
+	</tbody>
+</table>
+
+## Sizes
+
+<Canvas of={YearPickerStories.Sizes} />
+
+`sm` / `default` / `lg` — heights 28 / 32 / 40 px on the trigger.
+
+## States
+
+<Canvas of={YearPickerStories.Disabled} />
+
+<Canvas of={YearPickerStories.WithError} />
+
+`error` sets `aria-invalid="true"` and tints the border. Pair with `describedBy`.
+
+## Composition
+
+<Canvas of={YearPickerStories.Inline} />
+
+<Canvas of={YearPickerStories.WithMinMax} />
+
+<Canvas of={YearPickerStories.CustomPageSize} />
+
+`yearsPerPage` paginates the grid — useful for historic forms where users may need to scan many years.
+
+## Keyboard interaction
+
+<table>
+	<thead>
+		<tr>
+			<th>Key</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>Enter</code> / <code>Space</code> on trigger
+			</td>
+			<td>Open the popover</td>
+		</tr>
+		<tr>
+			<td>
+				<code>ArrowLeft</code> / <code>ArrowRight</code>
+			</td>
+			<td>Move focus one year</td>
+		</tr>
+		<tr>
+			<td>
+				<code>ArrowUp</code> / <code>ArrowDown</code>
+			</td>
+			<td>Move focus one row</td>
+		</tr>
+		<tr>
+			<td>
+				<code>Enter</code> / <code>Space</code> on cell
+			</td>
+			<td>Select the focused year</td>
+		</tr>
+		<tr>
+			<td>
+				<code>Escape</code>
+			</td>
+			<td>Close the popover</td>
+		</tr>
+	</tbody>
+</table>
+
+## Props
+
+<Controls of={YearPickerStories.Default} />
+
+<ArgTypes of={YearPickerStories} />
+
+## Accessibility (WCAG 2.2 AA)
+
+- **2.4.6 Labels**: pair every picker with `<Label for="id">`.
+- **3.3.1 Error identification**: `error` + `describedBy`.
+- **2.4.7 Focus visible**: 2 px ring on trigger, nav buttons, cells.
+- **2.5.8 Target size**: trigger and year cells meet ≥ 24 × 24 px.
+- **4.1.2 Name & state**: selected cell exposes `data-selected`; nav buttons carry `aria-label`s.
+
+## Responsive behaviour
+
+<Canvas of={YearPickerStories.InteractiveResponsive} />
+
+The trigger is `w-fit`. The popover is portaled to `document.body`.
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				Use <code>error</code> + <code>describedBy</code> for validation.
+			</td>
+			<td>
+				Apply <code>border-destructive</code> manually.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Increase <code>yearsPerPage</code> for historic forms.
+			</td>
+			<td>Keep the default 12 when users need to scan decades.</td>
+		</tr>
+	</tbody>
+</table>

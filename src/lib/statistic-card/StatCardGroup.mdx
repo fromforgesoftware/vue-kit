@@ -1,0 +1,174 @@
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as StatCardGroupStories from './StatCardGroup.stories';
+
+<Meta of={StatCardGroupStories} />
+
+# StatCardGroup
+
+Layout container for a row or grid of <a href="?path=/docs/statistic-card-statcard--docs">StatCard</a>, <a href="?path=/docs/statistic-card-iconstatcard--docs">IconStatCard</a>, or <a href="?path=/docs/statistic-card-progressstatcard--docs">ProgressStatCard</a> children. Defaults to a connected surface with internal dividers — switch to `separated` to keep each card distinct.
+
+## When to use
+
+- A summary KPI row at the top of a dashboard or report.
+- Any group of related metrics that share the same period.
+- Wherever you'd otherwise hand-roll a `grid grid-cols-N` for stat cards.
+
+## When not to use
+
+- For two unrelated metrics — render them separately.
+- For arbitrary card layouts — use the underlying CSS grid directly.
+
+## Anatomy
+
+<Canvas of={StatCardGroupStories.Default} />
+
+A `<section role="group">` that lays out children in a CSS grid. The component injects classes that override the children's borders/radius in `connected` mode so the group reads as one card.
+
+## Layout
+
+<Canvas of={StatCardGroupStories.Connected} />
+
+<Canvas of={StatCardGroupStories.Separated} />
+
+<table>
+	<thead>
+		<tr>
+			<th>Layout</th>
+			<th>Behaviour</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>connected</code> (default)
+			</td>
+			<td>Single shared border + dividers between children. No gap.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>separated</code>
+			</td>
+			<td>
+				Children keep their own borders; combine with <code>gap</code>.
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+## Columns
+
+<Canvas of={StatCardGroupStories.Columns} />
+
+<table>
+	<thead>
+		<tr>
+			<th>Columns</th>
+			<th>Breakpoints</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>2</code>
+			</td>
+			<td>
+				1 col → 2 cols at <code>sm</code>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>3</code>
+			</td>
+			<td>
+				1 col → 3 cols at <code>sm</code>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>4</code>
+			</td>
+			<td>
+				1 col → 2 cols at <code>sm</code> → 4 cols at <code>lg</code>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>6</code>
+			</td>
+			<td>
+				2 cols → 3 cols at <code>sm</code> → 6 cols at <code>lg</code>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+## Gap (separated layout only)
+
+<Canvas of={StatCardGroupStories.SeparatedGaps} />
+
+`none` (0), `sm` (8 px), `default` (16 px), `lg` (24 px). Connected layouts ignore gap — dividers handle separation.
+
+## Composition
+
+```vue
+<StatCardGroup :columns="3">
+  <StatCard label="Total Sales" value="$956.82k">
+    <template #trend><StatTrend :value="5.4" direction="up" /></template>
+    <template #footer>+8.20k vs prev. 60 days</template>
+  </StatCard>
+  <StatCard label="New Customers" value="1,245">…</StatCard>
+  <StatCard label="Churn Rate" value="2.8%">…</StatCard>
+</StatCardGroup>
+```
+
+The group accepts any combination of the four card variants — the override CSS targets `data-slot="stat-card"`, `icon-stat-card`, and `progress-stat-card` so all of them render flush in `connected` mode.
+
+## Props
+
+<Controls of={StatCardGroupStories.Default} />
+
+## Accessibility (WCAG 2.2 AA)
+
+- **1.3.1 Info and Relationships**: rendered as `<section role="group">` so assistive tech announces it as a related cluster.
+- **1.4.11 Non-text Contrast**: the divider colour (`border-border`) meets 3 : 1 against the card background.
+- **Children own their accessibility**: each StatCard child carries its own `aria-label` and (when interactive) `role="button"` / `tabindex="0"`.
+
+## Responsive behaviour
+
+<Canvas of={StatCardGroupStories.InteractiveResponsive} />
+
+The grid collapses to a single column on the smallest viewports, then expands at the breakpoints listed above.
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				Use <code>connected</code> when the metrics belong to the same period
+			</td>
+			<td>
+				Use <code>connected</code> across unrelated KPIs — the visual unity implies relation
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Switch to <code>separated</code> + <code>gap</code> when each card has its own action /
+				footer that shouldn't share a border
+			</td>
+			<td>Manually wrap children in a CSS grid — let the group handle responsive columns</td>
+		</tr>
+		<tr>
+			<td>Mix StatCard / IconStatCard / ProgressStatCard inside one group when meaningful</td>
+			<td>
+				Mix sizes (one <code>sm</code>, one <code>lg</code>) — the row rhythm breaks
+			</td>
+		</tr>
+	</tbody>
+</table>

@@ -1,0 +1,120 @@
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as GroupedSelectStories from './GroupedSelect.stories';
+
+<Meta of={GroupedSelectStories} />
+
+# Grouped Select
+
+A multi-select control that organises its options under named categories (and optional sections). The trigger renders the current selection as a chip set with an overflow counter; the popover hosts a searchable, section-grouped panel.
+
+## When to use
+
+- The user picks many items from a flat-but-categorised list (permissions, tags, departments).
+- Options must stay grouped under a heading after selection — a plain multi-select would lose that structure.
+- The list is long enough to warrant search, but short enough that pagination would be overkill.
+
+## When not to use
+
+- Single-value selection — use [Select](?path=/docs/form-select--docs).
+- A small set of mutually exclusive options — use [Radio](?path=/docs/form-radio--docs) or [Toggle](?path=/docs/form-toggle--docs).
+- Hierarchical paths with arbitrary depth — use a tree picker instead.
+
+## Anatomy
+
+<Canvas of={GroupedSelectStories.Default} />
+
+The component composes two pieces:
+
+- `GroupedSelect` — trigger button, chip stack, popover wrapper.
+- `GroupedSelectPanel` — the searchable list of categories and their items. Usable standalone in a page-embedded picker.
+
+## Variants
+
+<Canvas of={GroupedSelectStories.Empty} />
+<Canvas of={GroupedSelectStories.Disabled} />
+<Canvas of={GroupedSelectStories.StandalonePanel} />
+
+<table>
+	<thead>
+		<tr>
+			<th>State</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>Default</td>
+			<td>
+				Some items selected — chips fill the trigger up to <code>maxChips</code>, the rest collapse
+				into <code>+N</code>.
+			</td>
+		</tr>
+		<tr>
+			<td>Empty</td>
+			<td>Nothing selected — placeholder is shown in muted colour.</td>
+		</tr>
+		<tr>
+			<td>Disabled</td>
+			<td>Trigger is non-interactive and visually muted.</td>
+		</tr>
+		<tr>
+			<td>Standalone panel</td>
+			<td>The picker without a popover wrapper, for embedding in a Drawer or settings page.</td>
+		</tr>
+	</tbody>
+</table>
+
+## Props
+
+<Controls of={GroupedSelectStories.Default} />
+
+## Accessibility (WCAG 2.2 AA)
+
+- **1.4.3 Contrast**: chip and placeholder tokens pair with the trigger background at ≥ 4.5 : 1.
+- **1.4.11 Non-text contrast**: trigger border and focus ring meet 3 : 1 against the surrounding surface.
+- **2.1.1 Keyboard**: Enter / Space opens the popover. Escape closes it. The popover's search field is keyboard-reachable; arrow keys navigate items.
+- **2.4.3 Focus order**: trigger → search → first item → footer action.
+- **2.4.7 Focus visible**: focus-visible ring on the trigger and on every interactive control inside the panel.
+- **2.4.11 Focus not obscured**: popover is rendered through `PopoverPortal` so it never sits beneath sticky chrome.
+- **2.5.7 Dragging**: not applicable — selection is by click / Enter, not by drag.
+- **2.5.8 Target size**: trigger and chip remove buttons have hit-areas ≥ 24 × 24 CSS px.
+- **4.1.2 Name, Role, Value**: trigger is a real `<button>`; the popover takes the dialog role from Reka with the search field as the active descendant of the listbox.
+
+## Responsive behaviour
+
+<Canvas of={GroupedSelectStories.InteractiveResponsive} />
+
+The trigger fills its parent's width on every viewport. The popover clamps to `calc(100vw - 1rem)` so it never overflows on a 320 px screen. Chips truncate via the overflow counter rather than wrapping, keeping the trigger row at one line.
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>Group items with meaningful, single-word category labels.</td>
+			<td>Surface arbitrarily nested trees — pick a tree picker.</td>
+		</tr>
+		<tr>
+			<td>
+				Provide a <code>placeholder</code> that hints at the action ("Select permissions...").
+			</td>
+			<td>Leave the placeholder generic ("Select").</td>
+		</tr>
+		<tr>
+			<td>
+				Tune <code>maxChips</code> to your trigger width — usually 3–5.
+			</td>
+			<td>Let chips wrap onto a second row; the trigger should stay 1 line tall.</td>
+		</tr>
+		<tr>
+			<td>Use the standalone panel inside a drawer or settings page when there's space.</td>
+			<td>Wrap the popover form of the component inside another popover.</td>
+		</tr>
+	</tbody>
+</table>

@@ -1,0 +1,118 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as BarChartStories from './BarChart.stories';
+
+<Meta of={BarChartStories} />
+
+# Bar Chart
+
+Vertical or horizontal bar chart with optional grouping, stacking, and rounded corners. Wraps Chart.js via vue-chartjs and exposes `role="img"` plus an accessible name so screen readers can announce what the chart represents.
+
+## When to use
+
+- Compare values across discrete categories.
+- Show trends over an evenly spaced index axis (months, weeks, days).
+- Stack contributions to a total (with `stacked`).
+
+## When not to use
+
+- For continuous data where trajectory matters — use [Line Chart](?path=/docs/charts-linechart--docs).
+- For part-to-whole at a single point in time — use [Donut Chart](?path=/docs/charts-donutchart--docs).
+
+## Anatomy
+
+<Canvas of={BarChartStories.Default} />
+
+## Composition
+
+The `data` prop drives everything:
+
+```ts
+import { type BarChartData, DEFAULT_BAR_COLORS } from '@fromforgesoftware/vue-kit';
+
+const data: BarChartData = {
+	categories: ['Q1', 'Q2', 'Q3', 'Q4'],
+	datasets: [
+		{ label: 'Revenue', color: DEFAULT_BAR_COLORS[0], data: [12, 18, 22, 31] },
+		{ label: 'Expenses', color: DEFAULT_BAR_COLORS[1], data: [9, 12, 14, 16] },
+	],
+};
+```
+
+`DEFAULT_BAR_COLORS` resolves to the `--color-chart-1` … `--color-chart-5` design tokens, so charts respect the active theme automatically. Pass any CSS colour string per dataset to override.
+
+## Variants
+
+<Canvas of={BarChartStories.Rounded} />
+
+`default` (2 px corners) and `rounded` (6 px corners). Use `rounded` for marketing dashboards; `default` for dense data tables.
+
+## Layouts
+
+<Canvas of={BarChartStories.Stacked} />
+
+<Canvas of={BarChartStories.Horizontal} />
+
+`stacked` collapses datasets into a single bar per category. `horizontal` flips the index and value axes.
+
+## Sizes
+
+<Canvas of={BarChartStories.Compact} />
+
+<Canvas of={BarChartStories.Tall} />
+
+Pass `height` (in pixels). Width fills the container.
+
+## Props
+
+<Controls of={BarChartStories.Default} />
+
+<ArgTypes of={BarChartStories} />
+
+## Accessibility (WCAG 2.2 AA)
+
+- **Role and name** (SC 1.1.1, 4.1.2): the wrapper has `role="img"` and `aria-label`. When `ariaLabel` is omitted, a name is auto-derived from the dataset labels.
+- **Long description**: pass `ariaDescribedBy` pointing to a `<p id="chart-desc">` summarising the data trend for users who can't see the visualisation.
+- **Colour contrast** (SC 1.4.11): `DEFAULT_BAR_COLORS` resolves to theme-token colours that meet ≥ 3 : 1 against the chart background. If you override colours, verify contrast manually.
+- **Keyboard interaction**: Chart.js does not expose bar-level keyboard navigation. Pair the chart with a sibling table (visually hidden if needed) when keyboard inspection of values is required.
+- **Tooltip**: tooltips are pointer-only by Chart.js default. Consumers who need keyboard tooltips should provide an alternative data table.
+
+## Responsive behaviour
+
+<Canvas of={BarChartStories.InteractiveResponsive} />
+
+The chart fills its container width and uses the `height` prop for vertical sizing. Wrap in a `<div class="overflow-hidden">` when nesting in horizontally scrolling layouts to avoid resize loops.
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				Pass <code>DEFAULT_BAR_COLORS</code> for theme-aware bars
+			</td>
+			<td>Hard-code hex values that don't track light / dark themes</td>
+		</tr>
+		<tr>
+			<td>
+				Provide a meaningful <code>ariaLabel</code> describing what the chart shows
+			</td>
+			<td>Leave the auto-label when the dataset names alone are cryptic</td>
+		</tr>
+		<tr>
+			<td>Pair charts with a visually-hidden data table for screen-reader users</td>
+			<td>Rely on tooltip text to convey the data — pointer-only by default</td>
+		</tr>
+		<tr>
+			<td>
+				Use <code>stacked</code> for part-to-whole over time
+			</td>
+			<td>Stack three or more datasets without colour-blind-safe palettes</td>
+		</tr>
+	</tbody>
+</table>

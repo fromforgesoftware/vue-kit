@@ -1,0 +1,201 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as CalendarStories from './Calendar.stories';
+
+<Meta of={CalendarStories} />
+
+# Calendar
+
+Always-visible single-month date picker built on Reka UI's Calendar primitive. Use it inline; for a popover-triggered picker compose the [DatePicker](?path=/docs/dates-datepicker--docs) instead.
+
+## When to use
+
+- The user must always see the calendar (forms with prominent date selection, scheduling layouts).
+- A specific day must be picked from a continuous range.
+- Date constraints (min/max, unavailable rules) need direct visualisation.
+
+## When not to use
+
+- Popover-style date entry — use [DatePicker](?path=/docs/dates-datepicker--docs).
+- Date _and_ time entry — use [DateField](?path=/docs/dates-datefield--docs) for keyboard segmented input.
+- Range selection — use [RangeCalendar](?path=/docs/dates-rangecalendar--docs).
+
+## Anatomy
+
+<Canvas of={CalendarStories.Default} />
+
+`CalendarRoot` wraps a header (`CalendarPrev`, `CalendarHeading` or month/year `<select>` controls, `CalendarNext`) and one or more `CalendarGrid` blocks containing day cells.
+
+## Sizes
+
+<Canvas of={CalendarStories.Sizes} />
+
+<table>
+	<thead>
+		<tr>
+			<th>Size</th>
+			<th>Cell size</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>sm</code>
+			</td>
+			<td>28 × 28 px</td>
+			<td>Compact pickers in side panels and tight forms</td>
+		</tr>
+		<tr>
+			<td>
+				<code>default</code>
+			</td>
+			<td>32 × 32 px</td>
+			<td>General use</td>
+		</tr>
+		<tr>
+			<td>
+				<code>lg</code>
+			</td>
+			<td>36 × 36 px</td>
+			<td>Hero scheduling layouts and primary date inputs</td>
+		</tr>
+	</tbody>
+</table>
+
+All sizes meet WCAG 2.2 SC 2.5.8 (≥ 24 × 24 px) for day cells.
+
+## States
+
+<Canvas of={CalendarStories.Disabled} />
+
+<Canvas of={CalendarStories.WithMinMax} />
+
+<Canvas of={CalendarStories.WithUnavailableDates} />
+
+`disabled` blocks all interaction. `minValue`/`maxValue` softly disable individual cells. `isDateUnavailable` is for context-specific rules (holidays, blocked days) — those cells render struck-through.
+
+## Composition
+
+<Canvas of={CalendarStories.WithMonthYearSelect} />
+
+<Canvas of={CalendarStories.TwoMonths} />
+
+`monthYearSelect` swaps the heading text for two `<select>` controls — useful when the user picks dates far from today. `numberOfMonths={2}` shows two months side by side; the layout wraps to a column on narrow viewports.
+
+## Keyboard interaction
+
+<table>
+	<thead>
+		<tr>
+			<th>Key</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>ArrowLeft</code> / <code>ArrowRight</code>
+			</td>
+			<td>Move focus one day backward / forward</td>
+		</tr>
+		<tr>
+			<td>
+				<code>ArrowUp</code> / <code>ArrowDown</code>
+			</td>
+			<td>Move focus one week earlier / later</td>
+		</tr>
+		<tr>
+			<td>
+				<code>Home</code> / <code>End</code>
+			</td>
+			<td>Jump to the start / end of the focused row</td>
+		</tr>
+		<tr>
+			<td>
+				<code>PageUp</code> / <code>PageDown</code>
+			</td>
+			<td>Move to the previous / next month</td>
+		</tr>
+		<tr>
+			<td>
+				<code>Shift + PageUp</code> / <code>Shift + PageDown</code>
+			</td>
+			<td>Move to the previous / next year</td>
+		</tr>
+		<tr>
+			<td>
+				<code>Enter</code> / <code>Space</code>
+			</td>
+			<td>Select the focused date</td>
+		</tr>
+	</tbody>
+</table>
+
+## Props
+
+<Controls of={CalendarStories.Default} />
+
+<ArgTypes of={CalendarStories} />
+
+## Accessibility (WCAG 2.2 AA)
+
+- **1.4.3 Contrast**: foreground tokens against `bg-background` meet 4.5 : 1; selected cell uses primary tokens (verified ≥ 4.5 : 1).
+- **2.1.1 Keyboard**: full grid navigation via Arrow / Home / End / PageUp / PageDown and Enter / Space activation.
+- **2.4.7 Focus visible**: nav buttons and day cells render a 2 px ring at ≥ 3 : 1 contrast.
+- **2.5.8 Target size**: every day cell is ≥ 24 × 24 px at all sizes; nav buttons are 24 / 28 / 32 px.
+- **4.1.2 Name & state**: `CalendarRoot` renders `role="application"` with a labelled grid; selected cells expose `aria-selected="true"` and today carries `aria-current="date"` (Reka).
+
+## Responsive behaviour
+
+<Canvas of={CalendarStories.InteractiveResponsive} />
+
+The root is `w-fit` — content drives width. `numberOfMonths={2}` wraps to a column on `< sm` breakpoints (`flex-col sm:flex-row`).
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				Use <code>size="sm"</code> when the calendar appears in a sidebar or filter panel.
+			</td>
+			<td>
+				Override <code>class</code> to shrink cells — the size variant keeps target sizes
+				WCAG-compliant.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Combine <code>minValue</code>/<code>maxValue</code> with <code>isDateUnavailable</code> for
+				hard limits + soft rules.
+			</td>
+			<td>
+				Block invalid dates only via <code>isDateDisabled</code> when the rule is a hard limit — use{' '}
+				<code>maxValue</code>.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Switch to <code>monthYearSelect</code> for date-of-birth and far-historic pickers.
+			</td>
+			<td>
+				Force users to click prev/next dozens of times — give them <code>monthYearSelect</code>{' '}
+				instead.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Wrap in <code>w-fit</code> containers — Calendar already sizes itself.
+			</td>
+			<td>
+				Stretch the Calendar to <code>w-full</code>; the grid won't reflow correctly.
+			</td>
+		</tr>
+	</tbody>
+</table>

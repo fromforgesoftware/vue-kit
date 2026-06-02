@@ -1,0 +1,188 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as PinInputStories from './PinInput.stories';
+
+<Meta of={PinInputStories} />
+
+# PinInput
+
+A sequence of single-character cells for entering PINs, OTP codes, or other fixed-length values. Built on Reka PinInput with auto-advance focus, backspace handling, and paste support.
+
+## When to use
+
+- Entering an OTP / one-time code (SMS, authenticator).
+- Numeric PIN entry where each digit should be visually separated.
+- Any fixed-length code where each character is meaningful (verification, redemption).
+
+## When not to use
+
+- Free-form text — use [Input](?path=/docs/form-input--docs).
+- Variable-length codes — use [Input](?path=/docs/form-input--docs) with appropriate validation.
+- Multiple unrelated short fields — use separate [Input](?path=/docs/form-input--docs) instances with labels.
+
+## Anatomy
+
+<Canvas of={PinInputStories.Default} />
+
+The component renders a row of cells, one per character. Focus auto-advances on input and walks back on backspace. Pasting fills all cells from the cursor position. The whole sequence is bound to `v-model` as an array of strings.
+
+## Sizes
+
+<Canvas of={PinInputStories.Sizes} />
+
+<table>
+	<thead>
+		<tr>
+			<th>Size</th>
+			<th>Cell</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>sm</code>
+			</td>
+			<td>28 × 28 px</td>
+			<td>Compact dialogs, in-line PIN prompts</td>
+		</tr>
+		<tr>
+			<td>
+				<code>default</code>
+			</td>
+			<td>32 × 32 px</td>
+			<td>General forms</td>
+		</tr>
+		<tr>
+			<td>
+				<code>lg</code>
+			</td>
+			<td>40 × 40 px</td>
+			<td>Hero verification screens</td>
+		</tr>
+	</tbody>
+</table>
+
+Every cell is square so the WCAG 2.2 SC 2.5.8 (≥ 24×24 px) target size minimum is met at every size.
+
+## Variants
+
+<Canvas of={PinInputStories.OTP} />
+
+<Canvas of={PinInputStories.Masked} />
+
+<Canvas of={PinInputStories.WithLabel} />
+
+## States
+
+<Canvas of={PinInputStories.Disabled} />
+
+<Canvas of={PinInputStories.WithError} />
+
+`error` sets `aria-invalid="true"` on the root and on every cell, and tints all cells. Pair with `describedBy` pointing to a helper / error message id.
+
+## Composition
+
+The component renders the cells internally — there are no separate sub-components to compose. To customise the per-cell appearance, pass `inputClass`. To customise the row, pass `class`.
+
+## Keyboard interaction
+
+<table>
+	<thead>
+		<tr>
+			<th>Key</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>Any character</td>
+			<td>Fills current cell, auto-advances focus</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>Backspace</kbd>
+			</td>
+			<td>Clears current cell and walks focus back</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>ArrowLeft</kbd>
+			</td>
+			<td>Moves focus to previous cell</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>ArrowRight</kbd>
+			</td>
+			<td>Moves focus to next cell</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>Cmd</kbd>/<kbd>Ctrl</kbd>+<kbd>V</kbd>
+			</td>
+			<td>Pastes value across cells from current position</td>
+		</tr>
+	</tbody>
+</table>
+
+## Props
+
+<Controls of={PinInputStories.Default} />
+
+<ArgTypes of={PinInputStories} />
+
+## Accessibility (WCAG 2.2 AA)
+
+- **2.4.6 Labels**: Pair with a `<Label>` describing the code's purpose ("Verification code", "PIN"). When no visible label fits, pass `ariaLabel` for the group; each cell already gets a per-cell name via `cellLabel` (defaults to `Digit {n}`).
+- **3.3.1 Error identification**: Use `error` + `describedBy` to surface validation. Both root and cells receive `aria-invalid="true"`.
+- **2.5.8 Target size**: Cells are ≥ 24 × 24 px at every size.
+- **2.4.7 Focus visible**: Focused cell rises via z-index so the ring is fully visible.
+- **OTP autofill**: Set `otp` to enable `autocomplete="one-time-code"` so iOS / Android can populate from SMS.
+- **iOS no-zoom**: cells use `text-sm` minimum (12 px) — prevents iOS Safari auto-zoom on focus.
+
+## Responsive behaviour
+
+<Canvas of={PinInputStories.InteractiveResponsive} />
+
+The row is `inline-flex`. For very narrow viewports, prefer shorter codes (4–6 cells) — longer codes won't wrap.
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				Set <code>type="number"</code> for digit-only codes — surfaces numeric keyboard on mobile.
+			</td>
+			<td>Allow letters in numeric codes — you'll waste a paste correction round-trip.</td>
+		</tr>
+		<tr>
+			<td>
+				Set <code>otp</code> for SMS / authenticator codes — enables autofill.
+			</td>
+			<td>
+				Use without <code>otp</code> for OTP fields — users have to type each digit.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Use the <code>error</code> prop and a referenced helper id for validation.
+			</td>
+			<td>
+				Toggle <code>variant="error"</code> by hand — it skips the <code>aria-invalid</code> hint.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Use <code>mask</code> for sensitive values (PINs).
+			</td>
+			<td>Mask OTP codes — users need to verify what they typed before submitting.</td>
+		</tr>
+	</tbody>
+</table>

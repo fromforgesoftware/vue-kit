@@ -1,0 +1,163 @@
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as IconStories from './Icon.stories';
+
+<Meta of={IconStories} />
+
+# Icon
+
+Thin wrapper around the [Lucide](https://lucide.dev) icon set that applies the design-system size scale and stroke width. Always pair with `aria-hidden="true"` when decorative — keep meaningful icons accessible by setting `role` and `aria-label` on the parent.
+
+## When to use
+
+- Inline glyphs in buttons, alerts, badges, list items.
+- Iconography in toolbars and menus.
+- Empty-state and forbidden-state illustrations.
+
+## When not to use
+
+- For brand glyphs that aren't in Lucide — use a dedicated SVG file.
+- For decorative imagery beyond inline icons — use a real image asset.
+
+## Anatomy
+
+<Canvas of={IconStories.Default} />
+
+A `<component :is="icon">` rendered with the size class, configurable stroke width, and your overrides via `class`.
+
+## Sizes
+
+<Canvas of={IconStories.Sizes} />
+
+<table>
+	<thead>
+		<tr>
+			<th>Size</th>
+			<th>Pixels</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>2xs</code>
+			</td>
+			<td>8 × 8</td>
+			<td>Inline-with-text dot indicators.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>xs</code>
+			</td>
+			<td>12 × 12</td>
+			<td>Icons in xs badges or super-dense tables.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>xs-sm</code>
+			</td>
+			<td>14 × 14</td>
+			<td>Inline alongside text-xs.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>sm</code>
+			</td>
+			<td>16 × 16</td>
+			<td>Buttons (default size), list rows.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>md</code>
+			</td>
+			<td>20 × 20</td>
+			<td>Slightly larger inline use.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>default</code>
+			</td>
+			<td>24 × 24</td>
+			<td>Page headers, prominent buttons.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>lg</code>
+			</td>
+			<td>32 × 32</td>
+			<td>Empty-state cards, section headers.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>xl</code>
+			</td>
+			<td>48 × 48</td>
+			<td>Hero / splash imagery.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>none</code>
+			</td>
+			<td>—</td>
+			<td>
+				Bring-your-own-size via the <code>class</code> prop.
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+## Stroke width
+
+<Canvas of={IconStories.StrokeWidth} />
+
+The default stroke width is `2`. Drop to `1.5` for delicate icons in dense layouts; raise to `2.5` or `3` for emphasis.
+
+## Colour
+
+<Canvas of={IconStories.Colored} />
+
+Icons inherit `currentColor`. Colour them via Tailwind text utilities on the wrapping element (`text-primary`, `text-muted-foreground`, …).
+
+## Props
+
+<Controls of={IconStories.Default} />
+
+## Accessibility (WCAG 2.2 AA)
+
+- **1.1.1 Non-text Content**: icons are decorative by default. When the icon conveys meaning (e.g. a close button), give the wrapping element an `aria-label`.
+- **1.4.3 Contrast**: when the icon carries meaning, ensure the colour meets ≥ 3 : 1 against the background.
+- **2.5.8 Target Size**: an icon by itself is not a target. When wrapped in a button, the button must meet 24 × 24 px.
+
+## Responsive behaviour
+
+<Canvas of={IconStories.InteractiveResponsive} />
+
+Icons use absolute pixel sizes that don't change across breakpoints. If your layout needs adaptive sizing, switch the `size` prop manually based on a breakpoint signal.
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>Pair size with the surrounding text size (sm icon next to text-sm)</td>
+			<td>Use a fixed default for every context</td>
+		</tr>
+		<tr>
+			<td>
+				Add <code>aria-label</code> on the parent when the icon carries meaning
+			</td>
+			<td>Leave icon-only buttons unlabelled</td>
+		</tr>
+		<tr>
+			<td>Use Tailwind text utilities to colour icons</td>
+			<td>
+				Inline <code>fill</code> / <code>stroke</code> colours via the <code>class</code> prop
+			</td>
+		</tr>
+	</tbody>
+</table>

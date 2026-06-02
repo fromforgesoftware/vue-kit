@@ -1,0 +1,206 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as MonthPickerStories from './MonthPicker.stories';
+
+<Meta of={MonthPickerStories} />
+
+# MonthPicker
+
+Composite month picker — button trigger that opens a popover with a 4 × 3 grid of month cells. Built on Reka UI's `MonthPicker` primitives.
+
+## When to use
+
+- Reports and analytics where the smallest meaningful unit is a calendar month.
+- Filters where the user picks a single month at a time (e.g. timesheets, payroll).
+- Inline scheduling layouts via the `inline` variant when the month grid should always be visible.
+
+## When not to use
+
+- Specific day selection — use [DatePicker](?path=/docs/dates-datepicker--docs).
+- Month _range_ selection — use [MonthRangePicker](?path=/docs/dates-monthrangepicker--docs).
+- Year-only granularity — use [YearPicker](?path=/docs/dates-yearpicker--docs).
+
+## Anatomy
+
+<Canvas of={MonthPickerStories.Default} />
+
+`MonthPickerRoot` wraps a `MonthPickerHeader` (year navigation + heading) and a `MonthPickerGrid` of 12 month cells. In the `button` variant the root lives inside a popover triggered by an outline button.
+
+## Variants
+
+<Canvas of={MonthPickerStories.Variants} />
+
+<table>
+	<thead>
+		<tr>
+			<th>Variant</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>button</code> (default)
+			</td>
+			<td>Filters and toolbars — single click opens the grid.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>inline</code>
+			</td>
+			<td>Always-visible scheduling layouts.</td>
+		</tr>
+	</tbody>
+</table>
+
+## Sizes
+
+<Canvas of={MonthPickerStories.Sizes} />
+
+<table>
+	<thead>
+		<tr>
+			<th>Size</th>
+			<th>Trigger height</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>sm</code>
+			</td>
+			<td>28 px</td>
+			<td>Compact toolbars</td>
+		</tr>
+		<tr>
+			<td>
+				<code>default</code>
+			</td>
+			<td>32 px</td>
+			<td>General use</td>
+		</tr>
+		<tr>
+			<td>
+				<code>lg</code>
+			</td>
+			<td>40 px</td>
+			<td>Hero filters</td>
+		</tr>
+	</tbody>
+</table>
+
+## States
+
+<Canvas of={MonthPickerStories.Disabled} />
+
+<Canvas of={MonthPickerStories.WithError} />
+
+`error` sets `aria-invalid="true"` on the trigger / inline root and tints the border.
+
+## Composition
+
+<Canvas of={MonthPickerStories.Inline} />
+
+<Canvas of={MonthPickerStories.WithMinMax} />
+
+`variant="inline"` renders the grid directly on the page in a card. `minValue` / `maxValue` constrain selectable months — out-of-range cells become muted and non-interactive.
+
+## Keyboard interaction
+
+<table>
+	<thead>
+		<tr>
+			<th>Key</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>Enter</code> / <code>Space</code> on trigger
+			</td>
+			<td>Open the popover</td>
+		</tr>
+		<tr>
+			<td>
+				<code>ArrowLeft</code> / <code>ArrowRight</code>
+			</td>
+			<td>Move focus one month</td>
+		</tr>
+		<tr>
+			<td>
+				<code>ArrowUp</code> / <code>ArrowDown</code>
+			</td>
+			<td>Move focus one row (3 months)</td>
+		</tr>
+		<tr>
+			<td>
+				<code>Enter</code> / <code>Space</code> on cell
+			</td>
+			<td>Select the focused month</td>
+		</tr>
+		<tr>
+			<td>
+				<code>Escape</code>
+			</td>
+			<td>Close the popover</td>
+		</tr>
+	</tbody>
+</table>
+
+## Props
+
+<Controls of={MonthPickerStories.Default} />
+
+<ArgTypes of={MonthPickerStories} />
+
+## Accessibility (WCAG 2.2 AA)
+
+- **2.4.6 Labels**: pair every picker with `<Label for="id">`.
+- **3.3.1 Error identification**: `error` + `describedBy` over colour alone.
+- **2.4.7 Focus visible**: 2 px ring on trigger, nav buttons, and cell triggers.
+- **2.5.8 Target size**: trigger and cells meet ≥ 24 × 24 px at every size.
+- **4.1.2 Name & state**: selected cell exposes `data-selected`; nav buttons carry `aria-label`s.
+
+## Responsive behaviour
+
+<Canvas of={MonthPickerStories.InteractiveResponsive} />
+
+The trigger is `w-fit`. The popover is portaled to `document.body` and Reka positions it collision-aware.
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				Use <code>error</code> + <code>describedBy</code> for validation.
+			</td>
+			<td>
+				Apply <code>border-destructive</code> manually.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Match <code>size</code> to neighbouring filter controls.
+			</td>
+			<td>
+				Override <code>class="h-..."</code>; use the <code>size</code> variant.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Use <code>inline</code> when the grid should always be visible.
+			</td>
+			<td>
+				Stack many <code>inline</code> grids in a row — switch to a list.
+			</td>
+		</tr>
+	</tbody>
+</table>

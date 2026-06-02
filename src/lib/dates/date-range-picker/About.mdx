@@ -1,0 +1,207 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as DateRangePickerStories from './DateRangePicker.stories';
+
+<Meta of={DateRangePickerStories} />
+
+# DateRangePicker
+
+Composite range picker — segmented start/end date field or button trigger paired with a popover dual-month Calendar. Built on Reka UI's `DateRangePicker` primitives.
+
+## When to use
+
+- Filters and reports requiring a contiguous date range (e.g. last 7 / 30 days).
+- Booking flows where check-in and check-out are visualised together.
+- Forms with optional preset shortcuts via the `presets` prop.
+
+## When not to use
+
+- Single-date selection — use [DatePicker](?path=/docs/dates-datepicker--docs).
+- Always-visible range — use [RangeCalendar](?path=/docs/dates-rangecalendar--docs).
+- Month- or year-level granularity — use [MonthRangePicker](?path=/docs/dates-monthrangepicker--docs) or [YearRangePicker](?path=/docs/dates-yearrangepicker--docs).
+
+## Anatomy
+
+<Canvas of={DateRangePickerStories.Default} />
+
+`DateRangePickerRoot` wraps either a single `DateRangePickerTrigger` (the default) or a segmented `DateRangePickerField` (start/end segment groups separated by `–`). The popover content hosts a dual-month `DateRangePickerCalendar` with optional `DateRangePresets` sidebar.
+
+## Variants
+
+<Canvas of={DateRangePickerStories.Variants} />
+
+<table>
+	<thead>
+		<tr>
+			<th>Variant</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>button</code> (default)
+			</td>
+			<td>
+				Forms, toolbars and report filters — one click opens the calendar. Matches the rest of the
+				design system's button surfaces.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>field</code>
+			</td>
+			<td>
+				Power-user surfaces where typing date segments is faster than picking from the calendar.
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+## Sizes
+
+<Canvas of={DateRangePickerStories.Sizes} />
+
+<table>
+	<thead>
+		<tr>
+			<th>Size</th>
+			<th>Trigger height</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>sm</code>
+			</td>
+			<td>28 px</td>
+			<td>Compact toolbars</td>
+		</tr>
+		<tr>
+			<td>
+				<code>default</code>
+			</td>
+			<td>32 px</td>
+			<td>General forms</td>
+		</tr>
+		<tr>
+			<td>
+				<code>lg</code>
+			</td>
+			<td>40 px</td>
+			<td>Hero forms</td>
+		</tr>
+	</tbody>
+</table>
+
+## States
+
+<Canvas of={DateRangePickerStories.Disabled} />
+
+<Canvas of={DateRangePickerStories.WithError} />
+
+`error` sets `aria-invalid="true"` on the field and tints the border. Pair with `describedBy` pointing to your error message id.
+
+## Composition
+
+<Canvas of={DateRangePickerStories.WithMonthYearSelect} />
+
+<Canvas of={DateRangePickerStories.WithPresets} />
+
+`monthYearSelect` swaps the heading for two `<select>` controls. `presets` adds a left sidebar of one-click range shortcuts (Last 7 Days, This Month, etc.).
+
+## Keyboard interaction
+
+<table>
+	<thead>
+		<tr>
+			<th>Key</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>Enter</code> / <code>Space</code> on trigger
+			</td>
+			<td>Open the calendar popover</td>
+		</tr>
+		<tr>
+			<td>
+				<code>ArrowLeft</code> / <code>ArrowRight</code>
+			</td>
+			<td>Move focus one day</td>
+		</tr>
+		<tr>
+			<td>
+				<code>ArrowUp</code> / <code>ArrowDown</code>
+			</td>
+			<td>Move focus one week</td>
+		</tr>
+		<tr>
+			<td>Click</td>
+			<td>First click sets range start, second click sets end</td>
+		</tr>
+		<tr>
+			<td>
+				<code>Escape</code>
+			</td>
+			<td>Close the popover</td>
+		</tr>
+	</tbody>
+</table>
+
+## Props
+
+<Controls of={DateRangePickerStories.Default} />
+
+<ArgTypes of={DateRangePickerStories} />
+
+## Accessibility (WCAG 2.2 AA)
+
+- **2.4.6 Labels**: pair every picker with `<Label for="id">`.
+- **3.3.1 Error identification**: use `error` + `describedBy` rather than colour alone.
+- **2.4.7 Focus visible**: 2 px ring on field/trigger and on every cell.
+- **2.5.8 Target size**: triggers and day cells meet ≥ 24 × 24 px at every size.
+- **4.1.2 Name & state**: range start / end and highlighted preview cells expose the appropriate Reka data attributes.
+
+## Responsive behaviour
+
+<Canvas of={DateRangePickerStories.InteractiveResponsive} />
+
+The trigger is `w-fit`. The popover is portaled to `document.body`; its dual-month layout collapses to a column at narrow viewports.
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				Use the <code>error</code> prop with a referenced helper-text id.
+			</td>
+			<td>
+				Apply <code>border-destructive</code> manually — it skips <code>aria-invalid</code>.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Provide <code>presets</code> for the most common ranges in reports.
+			</td>
+			<td>Build your own preset list with bare buttons.</td>
+		</tr>
+		<tr>
+			<td>
+				Match <code>size</code> to neighbouring inputs.
+			</td>
+			<td>
+				Override <code>class="h-..."</code> to change height — use <code>size</code>.
+			</td>
+		</tr>
+	</tbody>
+</table>

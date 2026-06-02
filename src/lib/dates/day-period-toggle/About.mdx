@@ -1,0 +1,179 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as DayPeriodToggleStories from './DayPeriodToggle.stories';
+
+<Meta of={DayPeriodToggleStories} />
+
+# DayPeriodToggle
+
+A **renderless** behaviour helper that drives the AM/PM segment of a [`TimeField`](?path=/docs/dates-timefield--docs) without going through Reka's built-in keydown handler.
+
+It exists to fix a subtle bug: Reka's default `dayPeriod` keydown handler applies a ±12-hour shift to a _null_ `hour` segment, which silently changes the displayed clock when the user just wants to flip AM/PM on an empty field. `DayPeriodToggle` writes `dayPeriod` directly onto `segmentValues` and only adjusts `hour` when it is already set.
+
+## When to use
+
+- Internally, by `TimeField`, to wire up its dayPeriod segment.
+- In any custom field that uses `TimeFieldRoot` and needs reliable AM/PM toggling — render the helper inside the root's slot and grab a template ref.
+
+## When not to use
+
+- For the range version (`TimeRangeFieldRoot`) — use [`DayPeriodRangeToggle`](?path=/docs/dates-dayperiodrangetoggle--docs) which targets `start` / `end` segments.
+- As a visual control — this component renders only its slot, no DOM, no styling.
+
+## Anatomy
+
+<Canvas of={DayPeriodToggleStories.Default} />
+
+The component renders only the default `<slot />`. It must be placed inside a `TimeFieldRoot` slot scope so `injectTimeFieldRootContext()` resolves.
+
+```vue
+<TimeFieldRoot>
+  <template #default="{ segments }">
+    <DayPeriodToggle ref="dayPeriodToggleRef" />
+    <!-- … segments … -->
+  </template>
+</TimeFieldRoot>
+
+<script setup lang="ts">
+import { ref } from 'vue';
+const dayPeriodToggleRef = ref<InstanceType<typeof DayPeriodToggle>>();
+
+function flip() {
+	dayPeriodToggleRef.value?.toggle();
+}
+</script>
+```
+
+## Exposed API
+
+<table>
+	<thead>
+		<tr>
+			<th>Method</th>
+			<th>Effect</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>toggle()</code>
+			</td>
+			<td>Flip the dayPeriod between AM and PM. No-op if the field has no dayPeriod segment.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>setDayPeriod('AM' | 'PM')</code>
+			</td>
+			<td>Set the dayPeriod to a specific value. Idempotent — no-op if already set.</td>
+		</tr>
+	</tbody>
+</table>
+
+Both methods preserve the current `hour` value when it is `null` and only adjust it (±12) when an explicit hour is already set.
+
+## Keyboard interaction
+
+Hosted by `TimeField`, the AM/PM segment responds to:
+
+<table>
+	<thead>
+		<tr>
+			<th>Key</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<kbd>ArrowUp</kbd> / <kbd>ArrowDown</kbd>
+			</td>
+			<td>Toggle between AM and PM</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>A</kbd>
+			</td>
+			<td>Set AM directly</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>P</kbd>
+			</td>
+			<td>Set PM directly</td>
+		</tr>
+		<tr>
+			<td>Click</td>
+			<td>Toggle between AM and PM</td>
+		</tr>
+	</tbody>
+</table>
+
+The `TimeField` host wires its `keydown.capture` and `click.prevent` handlers to call into `DayPeriodToggle` — see [`TimeField`](?path=/docs/dates-timefield--docs) for the full keyboard model on the rest of the field.
+
+## Props
+
+<Controls />
+
+<ArgTypes of={DayPeriodToggleStories} />
+
+DayPeriodToggle has no props — its API is exposed via `defineExpose`.
+
+## Accessibility (WCAG 2.2 AA)
+
+- **No DOM contribution**: the component renders only its slot, so it adds nothing to the accessibility tree on its own.
+- **Naming and state are the host's responsibility**: the dayPeriod segment in `TimeField` exposes `role="spinbutton"` with `aria-valuetext` reflecting AM / PM.
+- **2.1.1 Keyboard**: pairs with `TimeField`'s segment-level keyboard model — Arrow / A / P / click all work.
+- **Hour preservation**: critical correctness rule — toggling AM/PM on a field with `hour === null` must not silently shift the displayed hour. The `InteractiveHourPreserved` test asserts this.
+
+## Responsive behaviour
+
+<Canvas of={DayPeriodToggleStories.InteractiveResponsive} />
+
+Renders nothing of its own; layout is owned by the host `TimeField`, which is `w-fit` and never overflows horizontally at the standard viewports.
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				Use it inside any custom field built on <code>TimeFieldRoot</code>.
+			</td>
+			<td>
+				Use it outside a <code>TimeFieldRoot</code> slot — context injection will throw.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Grab a template ref typed as <code>InstanceType&lt;typeof DayPeriodToggle&gt;</code>.
+			</td>
+			<td>
+				Try to bind <code>v-model</code> or pass props — it has none.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Call <code>setDayPeriod('AM')</code> when you want an explicit value (e.g. resetting from a
+				button).
+			</td>
+			<td>
+				Try to render a visual button by passing classes — wrap a styled button around it instead.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				For range fields use{' '}
+				<a href="?path=/docs/dates-dayperiodrangetoggle--docs">
+					<code>DayPeriodRangeToggle</code>
+				</a>
+				.
+			</td>
+			<td>Mix the two — the wrong context injection will fail.</td>
+		</tr>
+	</tbody>
+</table>

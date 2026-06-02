@@ -1,0 +1,128 @@
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as DateNavToolbarStories from './DateNavToolbar.stories';
+
+<Meta of={DateNavToolbarStories} />
+
+# Date Nav Toolbar
+
+A standardised toolbar for calendar / timeline-style views. Combines a view toggle, a tightly-grouped prev / date-picker / next cluster, and an `actions` slot. Used by both `EventCalendar` and the app's `TimelineView` so navigation feels identical across surfaces.
+
+## When to use
+
+- Any page that lets the user switch between Day / Week / Month / Year views over a `ForgeDate`.
+- Surfaces that need a date-picker as the primary date control (clicking the label opens the picker, presets included).
+
+## When not to use
+
+- For a single fixed-period view (no view switcher) — drop in a plain `DatePicker` instead.
+- For mini calendars embedded inside cards — the toolbar's affordances are too heavy.
+
+## Default
+
+<Canvas of={DateNavToolbarStories.Default} />
+
+## Three-view variant (Timeline)
+
+<Canvas of={DateNavToolbarStories.ThreeViews} />
+
+## Picker types
+
+Picker auto-derives from the `view` value: `month` → `MonthPicker`, `year` → `YearPicker`, anything else → `DatePicker`. Override with the `picker-type` prop when your view name doesn't match.
+
+<Canvas of={DateNavToolbarStories.MonthPickerView} />
+<Canvas of={DateNavToolbarStories.YearPickerView} />
+
+## Right-side actions
+
+Use the `#actions` slot for filters, "New event" buttons, group selectors — anything page-specific.
+
+<Canvas of={DateNavToolbarStories.WithActions} />
+
+## Two-way binding
+
+Both `view` and `selectedDate` support `v-model`. `prev` / `next` are emitted as plain events so the parent decides the step size (a day, a week, a month — depends on the active view).
+
+<Canvas of={DateNavToolbarStories.TwoWayBinding} />
+
+## Anatomy
+
+<table>
+	<thead>
+		<tr>
+			<th>Slot</th>
+			<th>Purpose</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>date-nav-toolbar</code>
+			</td>
+			<td>Outer flex container</td>
+		</tr>
+		<tr>
+			<td>
+				<code>date-nav-toolbar-view</code>
+			</td>
+			<td>
+				Each view toggle item. Carries <code>data-view</code> for targeting
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>date-nav-toolbar-prev</code> / <code>-next</code>
+			</td>
+			<td>Previous / next period buttons</td>
+		</tr>
+	</tbody>
+</table>
+
+## Props
+
+<Controls of={DateNavToolbarStories.Default} />
+
+## Accessibility (WCAG 2.2 AA)
+
+<table>
+	<thead>
+		<tr>
+			<th>Concern</th>
+			<th>Behaviour</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>Name / role</td>
+			<td>
+				Prev / next are real <code>&lt;button&gt;</code>s with localised <code>aria-label</code>s
+				("Previous", "Next") and a wrapping <code>Tooltip</code>. The view toggle uses semantic{' '}
+				<code>radiogroup</code> via <code>ToggleGroup type="single"</code>.
+			</td>
+		</tr>
+		<tr>
+			<td>Target size</td>
+			<td>
+				All buttons (toggle items, prev / next, picker trigger) meet the 24 × 24 px minimum (SC
+				2.5.8).
+			</td>
+		</tr>
+		<tr>
+			<td>Keyboard</td>
+			<td>
+				Tab moves through toggle → prev → picker → next → actions. The picker is a real popover
+				trigger with arrow / Enter / Escape support inherited from <code>DatePicker</code>.
+			</td>
+		</tr>
+		<tr>
+			<td>Focus visible</td>
+			<td>
+				Standard focus rings inherited from <code>Button</code>, <code>ToggleGroupItem</code>, and
+				the picker components.
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+## Responsive behaviour
+
+The outer wrapper is `flex flex-wrap gap-3`. On narrow viewports the actions row drops below the navigation cluster naturally; both clusters keep their internal grouping.

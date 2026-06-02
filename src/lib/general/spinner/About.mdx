@@ -1,0 +1,178 @@
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as SpinnerStories from './Spinner.stories';
+
+<Meta of={SpinnerStories} />
+
+# Spinner
+
+Indeterminate progress indicator. Communicates that the system is working but cannot estimate completion.
+
+## When to use
+
+- Short waits inside a button or form (saving, verifying, fetching dropdown options).
+- Loading states where the layout is unknown — if you know the shape, prefer `Skeleton`.
+- Inline loading next to a label (`Spinner` + "Loading employees…").
+
+## When not to use
+
+- For long-running operations where progress can be measured — use `Progress`.
+- For full-page initial loads where structure is known — use `Skeleton`.
+- As a permanent part of the UI — spinners imply a transient state.
+
+## Anatomy
+
+<Canvas of={SpinnerStories.Default} />
+
+A `<svg>` with `role="status"` and an accessible label, animated via `animate-spin`.
+
+## Sizes
+
+<Canvas of={SpinnerStories.Sizes} />
+
+<table>
+	<thead>
+		<tr>
+			<th>Size</th>
+			<th>Pixels</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>xs</code>
+			</td>
+			<td>12 × 12</td>
+			<td>
+				Inline with <code>text-xs</code>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>sm</code>
+			</td>
+			<td>16 × 16</td>
+			<td>Inside buttons, compact lists</td>
+		</tr>
+		<tr>
+			<td>
+				<code>default</code>
+			</td>
+			<td>20 × 20</td>
+			<td>General use</td>
+		</tr>
+		<tr>
+			<td>
+				<code>lg</code>
+			</td>
+			<td>32 × 32</td>
+			<td>Section-level loading</td>
+		</tr>
+		<tr>
+			<td>
+				<code>xl</code>
+			</td>
+			<td>48 × 48</td>
+			<td>Full-page splash / hero</td>
+		</tr>
+	</tbody>
+</table>
+
+## Tones
+
+<Canvas of={SpinnerStories.Tones} />
+
+<table>
+	<thead>
+		<tr>
+			<th>Tone</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>default</code>
+			</td>
+			<td>Neutral context — sidebars, cards, list rows.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>primary</code>
+			</td>
+			<td>Branded full-page or hero loading.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>current</code>
+			</td>
+			<td>Inherits from the parent — use inside coloured buttons.</td>
+		</tr>
+	</tbody>
+</table>
+
+## With text
+
+<Canvas of={SpinnerStories.WithText} />
+
+Pair with a label for inline loading. The label can either repeat the spinner's `label` prop (visual) or carry richer context.
+
+## In a button
+
+<Canvas of={SpinnerStories.InButton} />
+
+Inside a button, use `tone="current"` so the spinner inherits the button text colour automatically — no per-variant overrides.
+
+```vue
+<Button :disabled="saving">
+  <Spinner v-if="saving" size="sm" tone="current" />
+  Save
+</Button>
+```
+
+## Props
+
+<Controls of={SpinnerStories.Default} />
+
+## Accessibility (WCAG 2.2 AA)
+
+- **1.1.1 Non-text Content**: the SVG carries `role="status"` and an `aria-label` (override via `label`). A `<title>` element backs the label for tools that read SVG titles.
+- **2.2.2 Pause, Stop, Hide**: the rotation is CSS-driven (`animate-spin`) and respects `prefers-reduced-motion` automatically.
+- **4.1.3 Status Messages**: `role="status"` triggers a polite live-region announcement when the spinner appears.
+
+## Responsive behaviour
+
+<Canvas of={SpinnerStories.InteractiveResponsive} />
+
+Spinners use absolute pixel sizes — they do not change across breakpoints. If your layout needs adaptive sizing, switch the `size` prop manually based on a breakpoint signal.
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				Pass a specific <code>label</code> describing what is loading
+			</td>
+			<td>
+				Default to <code>"Loading"</code> when context is available
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Use <code>tone="current"</code> inside buttons
+			</td>
+			<td>Override colour with custom classes — that's what tones are for</td>
+		</tr>
+		<tr>
+			<td>Show the spinner for at least 200 ms to avoid flicker</td>
+			<td>Render a spinner for sub-100 ms operations</td>
+		</tr>
+	</tbody>
+</table>

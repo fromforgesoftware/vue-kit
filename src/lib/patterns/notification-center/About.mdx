@@ -1,0 +1,128 @@
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as NotificationCenterStories from './NotificationCenter.stories';
+
+<Meta of={NotificationCenterStories} />
+
+# Notification Center
+
+A bell-trigger popover that lists notifications. Two variants: a compact `simple` list, and a `complex` panel with tabs and infinite scroll. Built on top of Reka UI Popover, so the panel renders in a portal and respects collision detection.
+
+## When to use
+
+- App headers — the canonical "bell with red dot" entry point for inbound activity.
+- A queue of action requests (approve/reject leave, accept shift offers, review swap requests) where each item carries inline buttons.
+- A surface where users skim recent activity without leaving the page.
+
+## When not to use
+
+- For toast-style transient feedback — use the [Toast](?path=/docs/general-toast--docs) primitive.
+- For a dedicated full-page inbox — link to the inbox route from the footer instead of cramming all data into the popover.
+- For modal-blocking critical alerts — use a [Dialog](?path=/docs/general-dialog--docs).
+
+## Variants
+
+<table>
+	<thead>
+		<tr>
+			<th>Variant</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>simple</code>
+			</td>
+			<td>Default. Single virtual-scrolling list of recent notifications.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>complex</code>
+			</td>
+			<td>Tabs (e.g. All / Unread / Action Required) with per-tab lists and infinite scroll.</td>
+		</tr>
+	</tbody>
+</table>
+
+<Canvas of={NotificationCenterStories.Default} />
+
+## With actions
+
+Items may carry an `actions` array — each action becomes a button row at the bottom of the item. Action click emits `action-click` with the item and the action key, so consumers wire approve/reject/etc. directly from store actions.
+
+<Canvas of={NotificationCenterStories.SimpleWithActions} />
+
+## High priority
+
+Set `accent: true` on an item to render a left destructive border. Use sparingly for items that genuinely need attention.
+
+<Canvas of={NotificationCenterStories.SimpleHighPriority} />
+
+## Complex with tabs and infinite scroll
+
+<Canvas of={NotificationCenterStories.Complex} />
+
+The list is virtualised — large unread queues stay smooth on low-end devices. `load-more` fires when the user scrolls near the bottom; consumers fetch the next page and append to `items`.
+
+## Empty + loading
+
+<Canvas of={NotificationCenterStories.SimpleEmpty} />
+<Canvas of={NotificationCenterStories.SimpleLoading} />
+
+## Props
+
+<Controls of={NotificationCenterStories.Default} />
+
+## Accessibility (WCAG 2.2 AA)
+
+<table>
+	<thead>
+		<tr>
+			<th>Concern</th>
+			<th>Behaviour</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>Trigger</td>
+			<td>
+				Bell button is a real <code>&lt;button&gt;</code> with a 24 px minimum target. The unread
+				count is rendered as a visible badge.
+			</td>
+		</tr>
+		<tr>
+			<td>Focus</td>
+			<td>
+				Reka UI Popover traps focus inside the panel while open; <code>Esc</code> closes and
+				restores focus to the trigger.
+			</td>
+		</tr>
+		<tr>
+			<td>Action buttons</td>
+			<td>
+				Each item-level action button meets the 24 × 24 px target. Click stops propagation so the
+				row click handler does not fire.
+			</td>
+		</tr>
+		<tr>
+			<td>Tabs</td>
+			<td>
+				The complex variant uses the underlying Tabs primitive — arrow-key navigation, roving
+				tab-index, and <code>aria-selected</code> are inherited.
+			</td>
+		</tr>
+		<tr>
+			<td>Mark all as read</td>
+			<td>
+				Plain link button in the header. Emits <code>markAllRead</code>.
+			</td>
+		</tr>
+		<tr>
+			<td>Live region</td>
+			<td>
+				Counts are visual; for screen-reader announcements of new notifications, the consumer should
+				announce via their global live region.
+			</td>
+		</tr>
+	</tbody>
+</table>

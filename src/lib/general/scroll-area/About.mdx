@@ -1,0 +1,228 @@
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as ScrollAreaStories from './ScrollArea.stories';
+
+<Meta of={ScrollAreaStories} />
+
+# Scroll Area
+
+A scrollable region with custom, OS-style scrollbars that follow the design tokens. Built on Reka UI — native keyboard scrolling, focusable viewport, and screen-reader semantics handled by the primitive. Use it whenever the browser's default scrollbar would clash with the surrounding chrome (cards, drawers, sidebars).
+
+## When to use
+
+- Long lists inside a fixed-height pane (sidebars, drawers, dialogs).
+- Wide tables or grids inside a fixed-width column.
+- Chat panels and message logs.
+
+## When not to use
+
+- Top-level page scroll — use the native browser scrollbar.
+- Single-axis content that fits in the viewport — no scrolling needed, no chrome needed.
+- Content with virtualised rendering — pair with [VirtualScrollArea](?path=/docs/general-virtual-scroll-area--docs) instead.
+
+## Anatomy
+
+<Canvas of={ScrollAreaStories.Default} />
+
+The component wraps a Reka `ScrollAreaRoot`, exposing a focusable `ScrollAreaViewport` (the scrolling element) and one or two `ScrollAreaScrollbar` tracks with `ScrollAreaThumb` handles. Native keyboard scroll keys (Arrow / Page / Home / End) work on the viewport.
+
+## Composition
+
+```vue
+<ScrollArea orientation="vertical" class="h-72 w-48">
+  <div class="p-4">
+    <div v-for="row in rows" :key="row.id">{{ row.label }}</div>
+  </div>
+</ScrollArea>
+```
+
+<table>
+	<thead>
+		<tr>
+			<th>Internal slot</th>
+			<th>Purpose</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>scroll-area</code>
+			</td>
+			<td>
+				Root container — sets <code>relative overflow-hidden</code>.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>scroll-area-viewport</code>
+			</td>
+			<td>The actual scrolling element. Receives keyboard focus.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>scroll-area-scrollbar</code>
+			</td>
+			<td>Track. One per active axis.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>scroll-area-thumb</code>
+			</td>
+			<td>The draggable handle.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>scroll-area-corner</code>
+			</td>
+			<td>Filler at the corner when both axes are visible.</td>
+		</tr>
+	</tbody>
+</table>
+
+## Orientation
+
+<Canvas of={ScrollAreaStories.Orientation} />
+
+<table>
+	<thead>
+		<tr>
+			<th>Value</th>
+			<th>Behaviour</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>vertical</code>
+			</td>
+			<td>Vertical scrollbar only. Default.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>horizontal</code>
+			</td>
+			<td>Horizontal scrollbar only.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>both</code>
+			</td>
+			<td>Renders both tracks; corner filler appears at the meeting point.</td>
+		</tr>
+	</tbody>
+</table>
+
+## Horizontal
+
+<Canvas of={ScrollAreaStories.Horizontal} />
+
+Use `orientation="horizontal"` for chip rails, image galleries, or wide single-row content. Wrap children in a `flex w-max` so they don't wrap to multiple lines.
+
+## Both axes
+
+<Canvas of={ScrollAreaStories.Both} />
+
+For content that overflows on both axes (wide tables inside narrow columns).
+
+## Hidden scrollbar
+
+<Canvas of={ScrollAreaStories.NoScrollbar} />
+
+`show-scrollbar="false"` hides the scrollbar but keeps native scroll. Use sparingly — the visible scrollbar is itself an affordance.
+
+## Real-world composition
+
+<Canvas of={ScrollAreaStories.ChatMessages} />
+
+## Props
+
+<Controls of={ScrollAreaStories.Default} />
+
+## Keyboard interaction
+
+<table>
+	<thead>
+		<tr>
+			<th>Key</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<kbd>Tab</kbd>
+			</td>
+			<td>Focuses the viewport (or the next focusable child if any).</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>ArrowUp</kbd> / <kbd>ArrowDown</kbd>
+			</td>
+			<td>Scrolls vertically.</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>ArrowLeft</kbd> / <kbd>ArrowRight</kbd>
+			</td>
+			<td>Scrolls horizontally.</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>PageUp</kbd> / <kbd>PageDown</kbd>
+			</td>
+			<td>Scrolls a viewport-height page.</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>Home</kbd> / <kbd>End</kbd>
+			</td>
+			<td>Jumps to the start/end.</td>
+		</tr>
+	</tbody>
+</table>
+
+## Accessibility (WCAG 2.2 AA)
+
+- **1.4.10 Reflow**: the viewport reflows to its container width — no fixed widths leaking out.
+- **1.4.11 Non-text contrast**: the thumb (`bg-border`) clears 3 : 1 against `bg-card`; on hover it intensifies to `bg-muted-foreground/60`.
+- **2.1.1 Keyboard**: standard scroll keys work on the focusable viewport.
+- **2.4.7 Focus visible**: a 3 px ring at `--ring` is applied to the viewport on `:focus-visible`.
+- **2.5.8 Target size**: thumb meets the 24 px height/width minimum at the typical content lengths used in app surfaces; for very small content where the thumb would shrink below 24 px, hide the scrollbar entirely (`show-scrollbar="false"`) and rely on native scroll.
+- **4.1.2 Name, Role, Value**: viewport exposes `role="region"` and the scrollbar primitives expose `role="scrollbar"` with `aria-orientation`, `aria-valuenow`, `aria-valuemin`, `aria-valuemax`.
+
+## Responsive behaviour
+
+<Canvas of={ScrollAreaStories.InteractiveResponsive} />
+
+The component is intrinsically sized — pass `h-*` and `w-*` from the consumer. It never causes horizontal overflow at the parent.
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				Constrain height/width on the consumer (<code>h-72 w-48</code>) — the component fills.
+			</td>
+			<td>Wrap full-page content in ScrollArea — let the browser handle root scroll.</td>
+		</tr>
+		<tr>
+			<td>
+				Use <code>orientation="horizontal"</code> with <code>whitespace-nowrap</code> on the inner
+				content for chip rails.
+			</td>
+			<td>Use ScrollArea around a virtualised list — use VirtualScrollArea instead.</td>
+		</tr>
+		<tr>
+			<td>
+				Hide the scrollbar only on visual-design surfaces (image carousels with explicit nav).
+			</td>
+			<td>Hide the scrollbar on long lists — users lose the position affordance.</td>
+		</tr>
+	</tbody>
+</table>

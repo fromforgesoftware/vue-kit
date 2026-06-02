@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 200" width="280" height="200" fill="none">
+  <defs>
+    <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#94a0aa" stroke-width="1.5"/>
+    </pattern>
+    <filter id="softblur" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="18"/>
+    </filter>
+    <mask id="gridMask">
+      <rect width="280" height="200" fill="black"/>
+      <rect x="60" y="45" width="160" height="110" rx="30" fill="white" filter="url(#softblur)"/>
+    </mask>
+  </defs>
+  <rect width="280" height="200" fill="url(#grid)" mask="url(#gridMask)"/>
+  <path d="M 124 102 L 124 82 Q 140 60 156 82 L 156 102" stroke="#9ca3af" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="106" y="98" width="68" height="52" rx="10" fill="#9ca3af"/>
+  <circle cx="140" cy="118" r="4" fill="#ee7626"/>
+  <rect x="138" y="120" width="4" height="11" rx="1.5" fill="#ee7626"/>
+</svg>

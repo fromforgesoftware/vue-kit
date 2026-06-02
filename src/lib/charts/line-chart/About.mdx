@@ -1,0 +1,130 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as LineChartStories from './LineChart.stories';
+
+<Meta of={LineChartStories} />
+
+# Line Chart
+
+Line chart for showing trends over an evenly-spaced index axis (days, weeks, months). Wraps Chart.js via vue-chartjs and exposes `role="img"` plus an accessible name so screen readers can announce what the chart represents.
+
+## When to use
+
+- Continuous metrics over time where trajectory or momentum matters (rolling averages, a measurement over a quarter).
+- Comparing two or three series that share the same Y scale.
+- Pairing a primary series with a dashed reference line (threshold, baseline, prior period).
+
+## When not to use
+
+- Discrete daily values where missing days are meaningful — use [Bar Chart](?path=/docs/charts-barchart--docs). Lines interpolate across gaps and create misleading slopes.
+- Part-to-whole at a single point in time — use [Donut Chart](?path=/docs/charts-donutchart--docs).
+- Categorical comparisons with no ordering — use Bar Chart.
+
+## Anatomy
+
+<Canvas of={LineChartStories.Default} />
+
+## Composition
+
+The `data` prop drives everything:
+
+```ts
+import { type LineChartData } from '@fromforgesoftware/vue-kit';
+
+const data: LineChartData = {
+	categories: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
+	datasets: [
+		{ label: 'Series A', color: 'var(--color-chart-1)', data: [88, 91, 94, 87, 92] },
+		{
+			label: 'Reference',
+			color: 'var(--color-muted-foreground)',
+			data: [90, 90, 90, 90, 90],
+			dashed: true,
+		},
+	],
+};
+```
+
+Use the `--color-chart-1` … `--color-chart-5` design tokens to keep colours theme-aware. `dashed: true` removes points and renders the line as `[6, 6]` dashes — handy for reference / threshold lines.
+
+## Multiple datasets
+
+<Canvas of={LineChartStories.MultipleDatasets} />
+
+The legend renders at the top (or below on mobile) and is suppressed automatically when only one dataset is present.
+
+## Pinned Y axis
+
+<Canvas of={LineChartStories.WithReferenceLine} />
+
+Pass `yMin` / `yMax` to anchor the Y scale — useful for fixed-range metrics (e.g. percentages, sensor ranges) so the chart looks consistent regardless of how flat or volatile the data happens to be in this slice.
+
+## Sizes
+
+<Canvas of={LineChartStories.Compact} />
+
+<Canvas of={LineChartStories.Tall} />
+
+Pass `height` (in pixels). Width fills the container.
+
+## In context
+
+<Canvas of={LineChartStories.InCard} />
+
+## Props
+
+<Controls of={LineChartStories.Default} />
+
+<ArgTypes of={LineChartStories} />
+
+## Accessibility (WCAG 2.2 AA)
+
+- **Role and name** (SC 1.1.1, 4.1.2): the inner `<canvas>` has `role="img"` and `aria-label`. When `ariaLabel` is omitted, a name is auto-derived from the dataset labels.
+- **Long description**: pass `ariaDescribedBy` pointing to a `<p id="chart-desc">` summarising the trend for users who can't see the visualisation.
+- **Colour contrast** (SC 1.4.11): chart-token colours meet ≥ 3 : 1 against the chart background. If you override colours, verify contrast manually — particularly when overlaying multiple lines.
+- **Dashed lines** (SC 1.4.1): when using a dashed reference line, the dash pattern carries non-redundant meaning. Always label it via the dataset `label` so the legend conveys the same info.
+- **Keyboard interaction**: Chart.js does not expose point-level keyboard navigation. Pair the chart with a sibling table (visually hidden if needed) when keyboard inspection of values is required.
+
+## Responsive behaviour
+
+<Canvas of={LineChartStories.InteractiveResponsive} />
+
+The chart fills its container width and uses the `height` prop for vertical sizing. Wrap in a `<div class="overflow-hidden">` when nesting in horizontally scrolling layouts to avoid resize loops.
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				Use chart-token colours (<code>var(--color-chart-N)</code>) for theme-aware lines
+			</td>
+			<td>Hard-code hex values that don't track light / dark themes</td>
+		</tr>
+		<tr>
+			<td>
+				Mark reference series with <code>dashed: true</code> and a clear label
+			</td>
+			<td>Overlay solid lines of the same colour as data series — the legend can't disambiguate</td>
+		</tr>
+		<tr>
+			<td>
+				Pin the Y axis with <code>yMin</code> / <code>yMax</code> for fixed-range metrics
+			</td>
+			<td>Let Chart.js auto-scale a fixed-range chart — flat data looks erratic</td>
+		</tr>
+		<tr>
+			<td>Pair the chart with a visually-hidden data table for screen-reader users</td>
+			<td>Rely on tooltip text to convey data — pointer-only by default</td>
+		</tr>
+		<tr>
+			<td>Use a line for continuous metrics; switch to Bar Chart for discrete daily values</td>
+			<td>Use a line over discrete data with gaps — interpolation distorts the picture</td>
+		</tr>
+	</tbody>
+</table>

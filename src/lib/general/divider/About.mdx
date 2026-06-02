@@ -1,0 +1,173 @@
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as DividerStories from './Divider.stories';
+
+<Meta of={DividerStories} />
+
+# Divider
+
+Thin rule that separates sections within a layout, list, or card. Decorative by default; pass `decorative={false}` to expose `role="separator"` to assistive tech.
+
+## When to use
+
+- Separate items in a stacked list (settings rows, comments).
+- Break a long form into sections without using a heading.
+- Combine with a label (`OR`) for auth-page choice points.
+
+## When not to use
+
+- For decorative whitespace — use spacing tokens instead.
+- For grouping content visually — use a Card or a heading rather than a hairline.
+- As a primary navigation cue — dividers are visual rest, not navigation.
+
+## Anatomy
+
+<Canvas of={DividerStories.Default} />
+
+A horizontal divider is a single 1 px line. With a `label`, it becomes two line segments around centred text.
+
+## Variants
+
+<Canvas of={DividerStories.Variants} />
+
+<table>
+	<thead>
+		<tr>
+			<th>Variant</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>solid</code>
+			</td>
+			<td>Default — most contexts.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>dashed</code>
+			</td>
+			<td>Soft section break inside a card.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>dotted</code>
+			</td>
+			<td>Very soft, low-emphasis break.</td>
+		</tr>
+	</tbody>
+</table>
+
+## Tones
+
+<Canvas of={DividerStories.Tones} />
+
+<table>
+	<thead>
+		<tr>
+			<th>Tone</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>default</code>
+			</td>
+			<td>
+				General use — matches the system <code>border</code> token.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>muted</code>
+			</td>
+			<td>Inside a card, where the contrast against the surface should be lower.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>strong</code>
+			</td>
+			<td>Layout-level dividers (between major page regions).</td>
+		</tr>
+	</tbody>
+</table>
+
+## Inset
+
+<Canvas of={DividerStories.Inset} />
+
+`inset` controls vertical (or horizontal, when vertical) spacing around the divider. Prefer this prop over `my-N` / `mx-N` classes at the consumer.
+
+## With label
+
+<Canvas of={DividerStories.WithLabel} />
+
+Pass `label` (or use the `label` slot) to render text between two line segments. Pair with `inset="default"` for the standard auth-page separator.
+
+```vue
+<Divider label="OR" inset="default" />
+```
+
+## Vertical
+
+<Canvas of={DividerStories.Vertical} />
+
+Vertical dividers stretch (`self-stretch`) to fill their flex/grid parent's cross axis. Use `inset` for horizontal margin.
+
+## In a list
+
+<Canvas of={DividerStories.InList} />
+
+Dividers are commonly placed between list items.
+
+## Props
+
+<Controls of={DividerStories.Default} />
+
+## Accessibility (WCAG 2.2 AA)
+
+- **1.3.1 Info and Relationships**: by default the divider is decorative — assistive tech ignores it. Set `decorative={false}` for dividers that convey structural meaning.
+- **1.4.3 Contrast**: dividers do not need to meet text-contrast minimums (they are non-text content), but `default` and `strong` tones meet 3 : 1 against the page background.
+- **4.1.2 Name, Role, Value**: when a label is provided, the divider is exposed as `role="separator"` with `aria-orientation`.
+
+## Responsive behaviour
+
+<Canvas of={DividerStories.InteractiveResponsive} />
+
+Dividers are full-width by default and scale to their container. Use `inset` for consistent rhythm across breakpoints.
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				Use <code>inset</code> for consistent spacing
+			</td>
+			<td>
+				Sprinkle <code>my-2</code>, <code>my-4</code> classes around dividers
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Use <code>tone="muted"</code> inside cards
+			</td>
+			<td>
+				Use <code>strong</code> tone for in-card separation — it competes with the card border
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Pair labels with <code>inset="default"</code> for breathing room
+			</td>
+			<td>Place a label divider in a tight inline layout — it needs vertical space</td>
+		</tr>
+	</tbody>
+</table>

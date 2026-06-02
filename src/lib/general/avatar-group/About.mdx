@@ -1,0 +1,177 @@
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as AvatarGroupStories from './AvatarGroup.stories';
+
+<Meta of={AvatarGroupStories} />
+
+# AvatarGroup
+
+Stack of overlapping avatars with a trailing overflow indicator. Use to represent a small group of people or entities inline — table cells, card chips, sidebar lists. Past three or four faces the overflow indicator takes over, and the count caps at `overflowCap` so the badge always fits the avatar circle.
+
+## When to use
+
+- Inline summary of who is assigned to / participating in something (employees on a contract, members of a team, attendees of an event).
+- Compact representation of a many-to-one relationship in a list cell.
+- Anywhere stacking a few faces is more scannable than rendering a list.
+
+## When not to use
+
+- For a single avatar — use [Avatar](?path=/docs/general-avatar--docs) directly.
+- When the consumer needs to _interact_ with each face individually (click to navigate). Stack avatars are non-interactive; render a list of buttons or a popover-revealed roster instead.
+- When the relationship is one-to-one (member ↔ status). Use a row with a single Avatar plus inline metadata.
+
+## Anatomy
+
+<Canvas of={AvatarGroupStories.Default} />
+
+A horizontal flex container holds N `Avatar` components followed by an overflow `Avatar`. Each face has a `ring-2 ring-background` so the negative inline-margin overlap reads as a stack rather than a smear.
+
+## Overflow
+
+<Canvas of={AvatarGroupStories.Overflow} />
+
+When `items.length > max`, the trailing avatar shows `+N` where `N = items.length - max`. The badge tooltip lists every overflowed name so nothing is permanently hidden.
+
+<Canvas of={AvatarGroupStories.OverflowCapped} />
+
+`overflowCap` (default `99`) caps the displayed number so a 10 005-strong list still fits inside the circle. The tooltip still enumerates every member — the cap is purely cosmetic.
+
+## Sizes
+
+<Canvas of={AvatarGroupStories.Sizes} />
+
+<table>
+	<thead>
+		<tr>
+			<th>Size</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>xs</code>
+			</td>
+			<td>
+				Dense table cells, inline next to <code>text-xs</code>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>sm</code>
+			</td>
+			<td>Comments, compact lists</td>
+		</tr>
+		<tr>
+			<td>
+				<code>default</code>
+			</td>
+			<td>General use — sidebars, headers</td>
+		</tr>
+		<tr>
+			<td>
+				<code>lg</code>
+			</td>
+			<td>Profile cards, prominent groups</td>
+		</tr>
+		<tr>
+			<td>
+				<code>xl</code>
+			</td>
+			<td>Hero / page-header groupings</td>
+		</tr>
+	</tbody>
+</table>
+
+## Shapes
+
+<Canvas of={AvatarGroupStories.Shapes} />
+
+Same shape semantics as [Avatar](?path=/docs/general-avatar--docs) — `circle` for people, `rounded` for teams or organisations, `square` for brand glyphs.
+
+## Mixing images and initials
+
+<Canvas of={AvatarGroupStories.WithImages} />
+
+Pass `src` per-item; faces without one fall through to the initials fallback derived from `name`.
+
+## Tooltips
+
+Each face renders a tooltip with the item's `name` and optional `description` (often an email or role). The overflow badge renders a scrollable list of every collapsed member.
+
+<Canvas of={AvatarGroupStories.CustomOverflowTooltip} />
+
+Override the `tooltip` and `overflow-tooltip` slots when the default text isn't enough — e.g. a counted heading, a sectioned list, or a richer card.
+
+```vue
+<AvatarGroup :items="members">
+  <template #tooltip="{ item }">
+    <RichMemberCard :member="item" />
+  </template>
+  <template #overflow-tooltip="{ items, count }">
+    <div class="text-xs">{{ count }} more</div>
+  </template>
+</AvatarGroup>
+```
+
+<Canvas of={AvatarGroupStories.TooltipsDisabled} />
+
+Set `tooltips="false"` when the parent already provides the same affordance (e.g. the row is a link to the underlying detail view).
+
+## Props
+
+<Controls of={AvatarGroupStories.Default} />
+
+## Accessibility (WCAG 2.2 AA)
+
+- **1.1.1 Non-text Content**: each avatar with `src` carries `alt` text; initial-only avatars expose their initials as readable text via `Avatar`.
+- **1.4.3 Contrast**: faces use `bg-secondary` + `text-foreground`; the overflow badge uses `bg-muted` + `text-muted-foreground`. Both meet ≥ 4.5 : 1.
+- **1.4.11 Non-text Contrast**: each face has a `ring-2 ring-background` separator so adjacent overlapping faces stay distinguishable at ≥ 3 : 1.
+- **2.1.1 Keyboard**: tooltips are reachable by keyboard via Reka UI's tooltip primitive (Tab onto the trigger, focus opens the tooltip).
+- **2.4.7 Focus Visible**: focus rings come from the inner `Avatar` / tooltip trigger — never overridden here.
+- **2.5.8 Target Size (Min)**: avatars are non-interactive by default. When a consumer wraps the group in a button or link, that wrapping element is responsible for meeting the 24 × 24 minimum.
+- **4.1.2 Name, Role, Value**: image faces announce themselves via `alt`; initials are presented as text. The overflow badge's full member list is accessible from its tooltip.
+
+## Responsive behaviour
+
+<Canvas of={AvatarGroupStories.InteractiveResponsive} />
+
+The group uses absolute pixel sizes that don't change across breakpoints — consistent visual size is intentional. If your layout needs adaptive sizing, switch the `size` prop manually on a breakpoint signal. The container uses `flex` so it shrinks to its content; place it in a parent that controls horizontal overflow if the available width is uncertain.
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				Pass <code>name</code> for screen readers and initials
+			</td>
+			<td>Render an empty face — pass "Unknown" or filter the item out</td>
+		</tr>
+		<tr>
+			<td>
+				Cap <code>max</code> at 3–5 — past that the stack stops being scannable
+			</td>
+			<td>Stack 10+ avatars to "show density" — switch to a count or a popover-revealed roster</td>
+		</tr>
+		<tr>
+			<td>
+				Lower <code>overflowCap</code> when the group sits in a tight cell
+			</td>
+			<td>
+				Render <code>+10005</code> verbatim — the badge will overflow the circle
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Use the <code>overflow-tooltip</code> slot for richer summaries
+			</td>
+			<td>Reimplement an overflow badge outside the component to hack in extra content</td>
+		</tr>
+	</tbody>
+</table>

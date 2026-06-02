@@ -1,0 +1,297 @@
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as MenubarStories from './Menubar.stories';
+
+<Meta of={MenubarStories} />
+
+# Menubar
+
+A horizontal application menu — File / Edit / View. Use sparingly: most modern apps prefer one Dropdown Menu plus an in-app command palette. Reach for Menubar in genuinely menu-driven editors (canvas, document, schedule editor) where users expect a top-of-app bar.
+
+## When to use
+
+- Editor surfaces with many keyboard shortcuts and a long-tail of actions.
+- Apps mirroring desktop conventions (drawing, video, IDE).
+
+## When not to use
+
+- General CRUD apps — use a single [Dropdown Menu](?path=/docs/general-dropdown-menu--docs) on the top bar.
+- Mobile-first surfaces — a Menubar at the top is rarely usable on small screens.
+- Right-click actions — use [Context Menu](?path=/docs/general-context-menu--docs).
+
+## Anatomy
+
+<Canvas of={MenubarStories.Default} />
+
+## Composition
+
+<table>
+	<thead>
+		<tr>
+			<th>Subcomponent</th>
+			<th>Purpose</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>Menubar</code>
+			</td>
+			<td>
+				Root horizontal bar. Owns <code>size</code> and <code>loop</code>.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>MenubarMenu</code>
+			</td>
+			<td>
+				One top-level menu (File, Edit, View…). May own a <code>value</code> when controlled by
+				parent.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>MenubarTrigger</code>
+			</td>
+			<td>The clickable label that opens its sibling content.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>MenubarContent</code>
+			</td>
+			<td>The portaled panel for the menu.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>MenubarItem</code>
+			</td>
+			<td>
+				A single action. Supports <code>variant="destructive"</code>.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>MenubarLabel</code>
+			</td>
+			<td>A non-interactive section label.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>MenubarSeparator</code>
+			</td>
+			<td>A horizontal divider.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>MenubarShortcut</code>
+			</td>
+			<td>Right-aligned hint for the keyboard shortcut.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>MenubarCheckboxItem</code>
+			</td>
+			<td>
+				Toggleable item; <code>v-model:checked</code>.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>MenubarRadioGroup</code>
+			</td>
+			<td>
+				Wraps a set of <code>MenubarRadioItem</code>; <code>v-model</code>.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>MenubarRadioItem</code>
+			</td>
+			<td>Single choice within a radio group.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>MenubarSub</code>
+			</td>
+			<td>Provider for a nested submenu.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>MenubarSubTrigger</code>
+			</td>
+			<td>
+				Item that opens its child <code>MenubarSubContent</code>.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>MenubarSubContent</code>
+			</td>
+			<td>The portaled submenu panel.</td>
+		</tr>
+	</tbody>
+</table>
+
+## Sizes
+
+<Canvas of={MenubarStories.Sizes} />
+
+<table>
+	<thead>
+		<tr>
+			<th>Size</th>
+			<th>Bar height</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>sm</code>
+			</td>
+			<td>2rem</td>
+			<td>Compact toolbars under a tighter header.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>default</code>
+			</td>
+			<td>2.25rem</td>
+			<td>Most cases.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>lg</code>
+			</td>
+			<td>2.5rem</td>
+			<td>Roomy editor headers.</td>
+		</tr>
+	</tbody>
+</table>
+
+## Props
+
+<Controls of={MenubarStories.Default} />
+
+## Keyboard interaction
+
+<table>
+	<thead>
+		<tr>
+			<th>Key / event</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<kbd>Tab</kbd>
+			</td>
+			<td>Moves focus into the menubar.</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>Arrow Left</kbd> / <kbd>Arrow Right</kbd>
+			</td>
+			<td>
+				Moves focus between top-level triggers, looping with <code>loop</code>.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>Arrow Down</kbd> / <kbd>Enter</kbd> / <kbd>Space</kbd>
+			</td>
+			<td>Opens the focused menu and focuses the first item.</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>Arrow Up</kbd> / <kbd>Arrow Down</kbd> (open menu)
+			</td>
+			<td>Moves focus between items.</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>Arrow Right</kbd> (open menu)
+			</td>
+			<td>
+				Opens a submenu; if focused on a top-level item without a submenu, moves to the next
+				top-level menu.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>Arrow Left</kbd> (open menu)
+			</td>
+			<td>Closes a submenu; if at the top level, moves to the previous top-level menu.</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>Home</kbd> / <kbd>End</kbd>
+			</td>
+			<td>Focuses the first / last item in the open menu.</td>
+		</tr>
+		<tr>
+			<td>Type a letter</td>
+			<td>Typeahead — focus jumps to the next item starting with that letter.</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>Escape</kbd>
+			</td>
+			<td>Closes the open menu and returns focus to its trigger.</td>
+		</tr>
+		<tr>
+			<td>Click outside</td>
+			<td>Closes the open menu.</td>
+		</tr>
+	</tbody>
+</table>
+
+## Accessibility (WCAG 2.2 AA)
+
+- **2.4.3 Focus order**: focus follows visual order along the bar; opening a menu moves focus into it; closing returns focus to the trigger.
+- **2.4.7 Focus visible**: every trigger and item keeps the standard `:focus-visible` ring.
+- **2.1.1 Keyboard**: full bar is operable from the keyboard with arrow navigation, type-ahead, Enter/Escape.
+- **4.1.2 Name, Role, Value**: triggers use `role="menuitem"`, content uses `role="menu"`, items inside use `role="menuitem"` / `menuitemcheckbox` / `menuitemradio` automatically.
+- **2.5.8 Target size**: items render at minimum 24 px tall.
+
+> Always pair Menubar with discoverable shortcuts in a Command palette — keyboard-only users shouldn't need to drill through three menus to reach an action.
+
+## Responsive behaviour
+
+<Canvas of={MenubarStories.InteractiveResponsive} />
+
+A Menubar is awkward on narrow viewports. Below `md`, prefer a single Dropdown Menu or in-app command palette.
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>Use Menubar for editor-style apps where users expect File / Edit / View at the top.</td>
+			<td>Use Menubar for general dashboards or settings pages.</td>
+		</tr>
+		<tr>
+			<td>Pair every menu item with a keyboard shortcut for power users.</td>
+			<td>Stuff 30+ items into a single menu — split with submenus.</td>
+		</tr>
+		<tr>
+			<td>
+				Use <code>variant="destructive"</code> for Exit / Delete.
+			</td>
+			<td>
+				Override colours via <code>class="text-destructive"</code>.
+			</td>
+		</tr>
+		<tr>
+			<td>Hide the bar on mobile and surface a single Dropdown Menu instead.</td>
+			<td>Force a long Menubar to wrap onto two lines on a phone.</td>
+		</tr>
+	</tbody>
+</table>

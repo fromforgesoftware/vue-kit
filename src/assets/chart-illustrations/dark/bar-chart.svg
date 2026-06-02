@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 200" width="280" height="200" fill="none">
+  <defs>
+    <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#5e5e68" stroke-width="1.5"/>
+    </pattern>
+    <filter id="softblur" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="18"/>
+    </filter>
+    <mask id="gridMask">
+      <rect width="280" height="200" fill="black"/>
+      <rect x="60" y="45" width="160" height="110" rx="30" fill="white" filter="url(#softblur)"/>
+    </mask>
+  </defs>
+  <rect width="280" height="200" fill="url(#grid)" mask="url(#gridMask)"/>
+  <line x1="60" y1="155" x2="220" y2="155" stroke="#3a3f48" stroke-width="1"/>
+  <path d="M 74 111 A 6 6 0 0 1 80 105 L 90 105 A 6 6 0 0 1 96 111 L 96 155 L 74 155 Z" fill="#5a6068"/>
+  <path d="M 106 81 A 6 6 0 0 1 112 75 L 122 75 A 6 6 0 0 1 128 81 L 128 155 L 106 155 Z" fill="#ee7626"/>
+  <path d="M 138 121 A 6 6 0 0 1 144 115 L 154 115 A 6 6 0 0 1 160 121 L 160 155 L 138 155 Z" fill="#5a6068"/>
+  <path d="M 170 131 A 6 6 0 0 1 176 125 L 186 125 A 6 6 0 0 1 192 131 L 192 155 L 170 155 Z" fill="none" stroke="#5a6068" stroke-width="1.2" stroke-dasharray="3 3"/>
+</svg>

@@ -1,0 +1,150 @@
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as ColoredStatCardStories from './ColoredStatCard.stories';
+
+<Meta of={ColoredStatCardStories} />
+
+# ColoredStatCard
+
+StatCard variant where the entire card surface is tinted with a semantic tone. Use to highlight a single hero metric, a CTA, or a small set of categorised KPIs. See <a href="?path=/docs/statistic-card-statcard--docs">StatCard</a> for the neutral surface, <a href="?path=/docs/statistic-card-iconstatcard--docs">IconStatCard</a> for a leading icon, <a href="?path=/docs/statistic-card-progressstatcard--docs">ProgressStatCard</a> for value-vs-target.
+
+## When to use
+
+- Highlight a single hero metric on a marketing or summary page.
+- Emphasise a metric whose meaning is itself coloured (e.g. revenue → success, refunds → destructive).
+- Build a coloured CTA card with `description` + `footer` link.
+
+## When not to use
+
+- For a row of generic dashboard KPIs — use <a href="?path=/docs/statistic-card-statcard--docs">StatCard</a>.
+- For a metric without semantic colour meaning — coloured surfaces should communicate something.
+
+## Anatomy
+
+<Canvas of={ColoredStatCardStories.Default} />
+
+A semantic `<article>` with a `data-tone` attribute, `aria-label` bound to the `label` prop, and the standard child `data-slot`s: `stat-card-label`, `stat-card-value`, `stat-card-unit`, `stat-card-description`, `stat-card-footer`. When the `icon` slot is used, the label moves below the value (showcase layout).
+
+## Tones
+
+<Canvas of={ColoredStatCardStories.Tones} />
+
+<table>
+	<thead>
+		<tr>
+			<th>Tone</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>dark</code>
+			</td>
+			<td>Hero metric — most prominent visual weight.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>primary</code>
+			</td>
+			<td>Brand-tied metric (NPS, growth).</td>
+		</tr>
+		<tr>
+			<td>
+				<code>success</code>
+			</td>
+			<td>Positive outcomes (revenue up, MAU peak).</td>
+		</tr>
+		<tr>
+			<td>
+				<code>warning</code>
+			</td>
+			<td>Watchlist metrics (pending, approaching limit).</td>
+		</tr>
+		<tr>
+			<td>
+				<code>destructive</code>
+			</td>
+			<td>Negative outcomes (refunds, errors, churn).</td>
+		</tr>
+		<tr>
+			<td>
+				<code>info</code>
+			</td>
+			<td>Informational (ARR breakdown, secondary highlights).</td>
+		</tr>
+	</tbody>
+</table>
+
+## Sizes
+
+<Canvas of={ColoredStatCardStories.Sizes} />
+
+`sm` (16 px padding), `default` (20 px), `lg` (24 px). Text size is fixed at `text-h2` for the value because coloured cards typically are emphasis points.
+
+## Showcase with CTA
+
+<Canvas of={ColoredStatCardStories.ShowcaseWithCTA} />
+
+Combine `icon`, `description`, and a footer CTA link to build a marketing-style metric card.
+
+## Interactive
+
+<Canvas of={ColoredStatCardStories.Interactive} />
+
+Set `interactive` to make the card clickable. Adds a focus ring (`outline-ring`), `role="button"`, `tabindex="0"`, and emits `click` on mouse, `Enter`, and `Space`.
+
+## Props
+
+<Controls of={ColoredStatCardStories.Default} />
+
+The legacy `color` prop is still accepted as an alias of `tone` for back-compat — prefer `tone` in new code.
+
+## Accessibility (WCAG 2.2 AA)
+
+- **1.4.3 Contrast**: each tone pairs the surface token with its matching `*-foreground` token at ≥ 4.5 : 1 — verified by axe.
+- **1.4.11 Non-text Contrast**: the focus ring uses `outline-ring`, with ≥ 3 : 1 contrast against every tone surface.
+- **2.1.1 Keyboard / 2.4.7 Focus Visible**: when `interactive`, the card is in the tab order and shows the focus ring.
+- **2.5.8 Target Size**: an interactive card spans far more than 24 × 24 px.
+- **4.1.2 Name, Role, Value**: when `interactive`, has `role="button"` plus `aria-label` from the prop.
+
+## Responsive behaviour
+
+<Canvas of={ColoredStatCardStories.InteractiveResponsive} />
+
+Cards expand to fit the parent grid. The icon slot stays decorative and inherits `currentColor`.
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>Match the tone to the metric meaning</td>
+			<td>Pick tones for visual variety — coloured cards must communicate</td>
+		</tr>
+		<tr>
+			<td>Use sparingly — typically one coloured card per page</td>
+			<td>Stack six coloured cards in a row; the page becomes shouty</td>
+		</tr>
+		<tr>
+			<td>
+				Pair with a <code>description</code> when the value alone isn't self-evident
+			</td>
+			<td>Hide the label inside the description text</td>
+		</tr>
+		<tr>
+			<td>
+				Use <code>tone="info"</code> for neutral-positive highlights when <code>primary</code> is
+				too brand-loud
+			</td>
+			<td>
+				Re-purpose <code>destructive</code> for non-negative emphasis
+			</td>
+		</tr>
+	</tbody>
+</table>

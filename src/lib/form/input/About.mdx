@@ -1,0 +1,156 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as InputStories from './Input.stories';
+
+<Meta of={InputStories} />
+
+# Input
+
+Single-line text field. Wraps a native `<input>` so the caret area covers the full surface — even when leading/trailing icon affixes are present.
+
+## When to use
+
+- Free-form short text entry: name, email, phone, search, currency.
+- One-line values inside a form, alongside a Label and optional helper/error text.
+
+## When not to use
+
+- Multi-line text — use [Textarea](?path=/docs/form-textarea--docs).
+- Choice from a fixed list — use [Select](?path=/docs/form-select--docs) or [Radio](?path=/docs/form-radio--docs).
+- Boolean — use [Checkbox](?path=/docs/form-checkbox--docs) or [Switch](?path=/docs/form-switch--docs).
+- Numeric values with stepper / units — use [NumberField](?path=/docs/form-numberfield--docs).
+
+## Anatomy
+
+<Canvas of={InputStories.Default} />
+
+The component renders a wrapper `<div>` (border, ring, slots) and a borderless native `<input>` inside. Optional `leading` / `trailing` slots render fixed-width affixes that share the wrapper's focus and error states.
+
+## Sizes
+
+<Canvas of={InputStories.Sizes} />
+
+<table>
+	<thead>
+		<tr>
+			<th>Size</th>
+			<th>Height</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>sm</code>
+			</td>
+			<td>28 px</td>
+			<td>Compact toolbars, inline filters</td>
+		</tr>
+		<tr>
+			<td>
+				<code>default</code>
+			</td>
+			<td>32 px</td>
+			<td>General forms</td>
+		</tr>
+		<tr>
+			<td>
+				<code>lg</code>
+			</td>
+			<td>40 px</td>
+			<td>Emphasised hero forms (login, signup)</td>
+		</tr>
+	</tbody>
+</table>
+
+All sizes use `text-sm` (12 px) — the minimum that prevents iOS Safari from auto-zooming on focus.
+
+## States
+
+<Canvas of={InputStories.Disabled} />
+
+<Canvas of={InputStories.Readonly} />
+
+<Canvas of={InputStories.Required} />
+
+<Canvas of={InputStories.WithError} />
+
+`error` is the canonical way to surface validation failure. It sets `aria-invalid="true"` and tints the wrapper border. Pair with `describedBy` pointing to your error message id.
+
+## With label
+
+<Canvas of={InputStories.WithLabel} />
+
+Compose [Label](?path=/docs/form-label--docs) with `for` matching the input's `id`. This is the only way to give the field an accessible name — placeholder text is _not_ a label.
+
+## Leading / trailing icons
+
+<Canvas of={InputStories.WithLeadingIcon} />
+
+<Canvas of={InputStories.WithTrailingIcon} />
+
+<Canvas of={InputStories.WithBothIcons} />
+
+The wrapper handles spacing — never apply `class="pl-10"` to work around an icon overlay. Pass icons through the `leading` / `trailing` slots instead.
+
+## Props
+
+<Controls of={InputStories.Default} />
+
+<ArgTypes of={InputStories} />
+
+## Accessibility (WCAG 2.2 AA)
+
+- **2.4.6 Labels**: every input must have a programmatic label — pair with `<Label for="...">` (or `aria-label` for icon-only search bars).
+- **3.3.1 Error identification**: pass `error` to set `aria-invalid="true"` and use `describedBy` to point to a helper / error message id.
+- **3.3.2 Labels or instructions**: helper text describing format expectations belongs in a `<p>` referenced via `aria-describedby`, not in `placeholder`.
+- **2.4.7 Focus visible**: focus draws a 2 px ring at ≥ 3 : 1 contrast.
+- **2.5.8 Target size**: every size's wrapper meets the 24 × 24 px minimum.
+- **1.4.4 Resize text**: text uses `text-sm`; layouts remain usable at 200 % zoom.
+- **iOS no-zoom**: `text-sm` (12 px Inter) is the minimum size that prevents iOS Safari from zooming the viewport on focus.
+
+## Responsive behaviour
+
+<Canvas of={InputStories.InteractiveResponsive} />
+
+The wrapper is `w-full` and shrinks to its parent. Place inputs inside a max-width container (typically `w-72` or `max-w-sm`) so very long entries don't dominate wide layouts.
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				Pair every input with a <code>&lt;Label for&gt;</code> or <code>aria-label</code>.
+			</td>
+			<td>Rely on placeholder as the label — it disappears on input.</td>
+		</tr>
+		<tr>
+			<td>
+				Use the <code>error</code> prop and a referenced helper text id for validation messages.
+			</td>
+			<td>
+				Toggle <code>variant="error"</code> manually — it skips the <code>aria-invalid</code> hint.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Use the <code>leading</code> / <code>trailing</code> slots for icons.
+			</td>
+			<td>
+				Add <code>class="pl-10"</code> overlays — the slot does it correctly.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Keep <code>text-sm</code> minimum for iOS no-zoom-on-focus.
+			</td>
+			<td>Drop input text below 12 px on mobile.</td>
+		</tr>
+	</tbody>
+</table>

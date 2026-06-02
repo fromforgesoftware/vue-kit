@@ -1,0 +1,108 @@
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as Stories from './OnboardingDialog.stories';
+
+<Meta of={Stories} />
+
+# OnboardingDialog
+
+A guided multi-step dialog for onboarding flows. Each step can include a media area (image, illustration, or custom content), a title, a description, and navigation via Next/Skip/Finish buttons. Step progress is shown via dot indicators.
+
+## When to use
+
+- When users first sign up or activate a feature, to walk them through key concepts step by step.
+- For product tours triggered manually by the user (e.g., a "Show me how" button).
+
+## Anatomy
+
+<Canvas of={Stories.Default} />
+
+## Variants
+
+### Single Step
+
+<Canvas of={Stories.SingleStep} />
+
+### Custom Finish Label
+
+<Canvas of={Stories.CustomFinishLabel} />
+
+### Hide Close Button
+
+<Canvas of={Stories.HideCloseButton} />
+
+## Props
+
+<Controls of={Stories.Default} />
+
+## Slots
+
+<table>
+	<thead>
+		<tr>
+			<th>Slot</th>
+			<th>Props</th>
+			<th>Description</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>media</code>
+			</td>
+			<td>
+				<code>{'{ step, index }'}</code>
+			</td>
+			<td>Rendered in the top colored area. Use for illustrations or images.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>content</code>
+			</td>
+			<td>
+				<code>{'{ step, index }'}</code>
+			</td>
+			<td>Replaces the default title + description layout with custom content.</td>
+		</tr>
+	</tbody>
+</table>
+
+## Accessibility (WCAG 2.2 AA)
+
+<table>
+	<thead>
+		<tr>
+			<th>Criterion</th>
+			<th>Coverage</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>1.3.1 Info and Relationships</td>
+			<td>
+				Dialog is labelled via its title; step indicators use <code>role="tablist"</code> with
+				per-dot <code>aria-label</code> and <code>aria-selected</code>.
+			</td>
+		</tr>
+		<tr>
+			<td>2.1.1 Keyboard</td>
+			<td>
+				All buttons (Next, Skip, step dots, close) are focusable and activatable with Enter/Space.
+			</td>
+		</tr>
+		<tr>
+			<td>2.1.2 No Keyboard Trap</td>
+			<td>
+				Escape closes the dialog via the Dialog primitive; focus is trapped while open and restored
+				on close.
+			</td>
+		</tr>
+		<tr>
+			<td>2.5.8 Target Size</td>
+			<td>All interactive elements are at minimum 24×24 px.</td>
+		</tr>
+		<tr>
+			<td>4.1.2 Name, Role, Value</td>
+			<td>Step dots carry accessible labels describing the step title and number.</td>
+		</tr>
+	</tbody>
+</table>

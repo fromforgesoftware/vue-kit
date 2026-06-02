@@ -1,0 +1,242 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as NumberFieldStories from './NumberField.stories';
+
+<Meta of={NumberFieldStories} />
+
+# NumberField
+
+Numeric input with inline +/- buttons. Built on Reka NumberField. Supports min/max/step bounds, `Intl.NumberFormat` display, and Home/End shortcuts to jump to bounds.
+
+## When to use
+
+- Capturing a numeric quantity, count, currency, or unit value where stepping by a fixed increment is useful (qty, capacity, amount).
+- Forms where users may prefer button-based adjustment over typing (touch, accessibility).
+
+## When not to use
+
+- Free-form numeric strings (phone, postcode) — use [Input](?path=/docs/form-input--docs) with `type="tel"`.
+- A range slider over a continuous numeric range — use [Slider](?path=/docs/form-slider--docs).
+- A choice from discrete numeric options — use [Select](?path=/docs/form-select--docs) or [Radio](?path=/docs/form-radio--docs).
+
+## Anatomy
+
+<Canvas of={NumberFieldStories.Default} />
+
+The component is compound: `<NumberField>` (root) wraps `<NumberFieldDecrement>`, `<NumberFieldInput>`, and `<NumberFieldIncrement>`. The buttons share the input's borders so all three render as a single visual segment with focus rings rising above siblings via z-index.
+
+## Sizes
+
+<Canvas of={NumberFieldStories.Sizes} />
+
+<table>
+	<thead>
+		<tr>
+			<th>Size</th>
+			<th>Height</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>sm</code>
+			</td>
+			<td>28 px</td>
+			<td>Compact toolbars, dense tables</td>
+		</tr>
+		<tr>
+			<td>
+				<code>default</code>
+			</td>
+			<td>32 px</td>
+			<td>General forms</td>
+		</tr>
+		<tr>
+			<td>
+				<code>lg</code>
+			</td>
+			<td>40 px</td>
+			<td>Emphasised settings / hero forms</td>
+		</tr>
+	</tbody>
+</table>
+
+All sizes meet WCAG 2.2 SC 2.5.8 (≥ 24×24 px) on the +/- buttons. Sub-components (`NumberFieldInput`, `NumberFieldDecrement`, `NumberFieldIncrement`) inherit `size` from the root via context — set it once on `<NumberField>`.
+
+## States
+
+<Canvas of={NumberFieldStories.Disabled} />
+
+<Canvas of={NumberFieldStories.WithError} />
+
+`error` is the canonical way to surface validation failure. It sets `aria-invalid="true"` on the input and tints the border. Pair with `describedBy` pointing to the error message id.
+
+## Composition
+
+<table>
+	<thead>
+		<tr>
+			<th>Sub-component</th>
+			<th>Role</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>NumberField</code>
+			</td>
+			<td>Root; owns model value, min/max/step, format options, size/variant context.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>NumberFieldDecrement</code>
+			</td>
+			<td>
+				Minus button. Disabled at <code>min</code>.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>NumberFieldInput</code>
+			</td>
+			<td>The native numeric input. Centre-aligned text.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>NumberFieldIncrement</code>
+			</td>
+			<td>
+				Plus button. Disabled at <code>max</code>.
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+## Variants
+
+<Canvas of={NumberFieldStories.WithMinMax} />
+
+<Canvas of={NumberFieldStories.WithStep} />
+
+<Canvas of={NumberFieldStories.Currency} />
+
+<Canvas of={NumberFieldStories.WithLabel} />
+
+## Keyboard interaction
+
+<table>
+	<thead>
+		<tr>
+			<th>Key</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<kbd>ArrowUp</kbd>
+			</td>
+			<td>
+				Increment by <code>step</code>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>ArrowDown</kbd>
+			</td>
+			<td>
+				Decrement by <code>step</code>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>Home</kbd>
+			</td>
+			<td>
+				Jump to <code>min</code> (when set)
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>End</kbd>
+			</td>
+			<td>
+				Jump to <code>max</code> (when set)
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>PageUp</kbd>
+			</td>
+			<td>Increment by larger step</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>PageDown</kbd>
+			</td>
+			<td>Decrement by larger step</td>
+		</tr>
+	</tbody>
+</table>
+
+## Props
+
+<Controls of={NumberFieldStories.Default} />
+
+<ArgTypes of={NumberFieldStories} />
+
+## Accessibility (WCAG 2.2 AA)
+
+- **2.4.6 Labels**: Pair the input with a `<Label for="...">` (place the `id` on `<NumberFieldInput>`). The +/- buttons are icon-only — `<NumberFieldIncrement>` and `<NumberFieldDecrement>` accept an `ariaLabel` prop (defaults to `"Increase value"` / `"Decrease value"`); their inner icons are marked `aria-hidden="true"`.
+- **3.3.1 Error identification**: Use the `error` prop to set `aria-invalid="true"` and `describedBy` to point to a message id.
+- **2.5.8 Target size**: +/- buttons are ≥ 24×24 at every size.
+- **2.4.7 Focus visible**: input and buttons each draw their own focus ring; focused element rises via z-index so the ring is fully visible.
+- **Keyboard**: Arrow keys, Home, End, PageUp, PageDown all supported (Reka primitive).
+- **iOS no-zoom**: input uses `text-sm` (12 px) — minimum that prevents auto-zoom on focus.
+
+## Responsive behaviour
+
+<Canvas of={NumberFieldStories.InteractiveResponsive} />
+
+The root is `inline-flex` so width is driven by the input width class (`w-36`, `w-40`, etc.). Place inside a max-width container so very long-formatted values don't dominate.
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				Set <code>size</code> on the root and let sub-components inherit it.
+			</td>
+			<td>
+				Override <code>size</code> per sub-component unless mixing densities is intentional.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Use the <code>error</code> prop and a referenced helper id for validation.
+			</td>
+			<td>
+				Toggle <code>variant="error"</code> by hand — it skips the <code>aria-invalid</code> hint.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Set <code>min</code> / <code>max</code> for bounded ranges.
+			</td>
+			<td>Allow values that the calling system will reject — bound them client-side.</td>
+		</tr>
+		<tr>
+			<td>
+				Use <code>formatOptions</code> for currency / percentage display.
+			</td>
+			<td>Manually format inside the input — Reka rounds and parses for you.</td>
+		</tr>
+	</tbody>
+</table>

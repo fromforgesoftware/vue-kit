@@ -1,0 +1,244 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as SelectStories from './Select.stories';
+
+<Meta of={SelectStories} />
+
+# Select
+
+Single- or multi-select dropdown built on Reka UI's `Select` primitive. The content portals to `document.body`, so it always escapes ancestors with `overflow: hidden`.
+
+## When to use
+
+- Choose one (or, with `multiple`, several) values from a fixed list of 5–50 options.
+- Field needs the chosen value visible at all times.
+- Form layouts where the trigger should match Input height for a tidy grid.
+
+## When not to use
+
+- Free-form text — use [Input](?path=/docs/form-input--docs) or [Autocomplete](?path=/docs/form-autocomplete--docs).
+- Two-way list with filter — use [Listbox](?path=/docs/form-listbox--docs).
+- Boolean toggle — use [Checkbox](?path=/docs/form-checkbox--docs) or [Switch](?path=/docs/form-switch--docs).
+
+## Anatomy
+
+<Canvas of={SelectStories.Default} />
+
+## Sizes
+
+<Canvas of={SelectStories.Sizes} />
+
+<table>
+	<thead>
+		<tr>
+			<th>Size</th>
+			<th>Trigger height</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>sm</code>
+			</td>
+			<td>28 px</td>
+			<td>Compact toolbars, inline filters</td>
+		</tr>
+		<tr>
+			<td>
+				<code>default</code>
+			</td>
+			<td>32 px</td>
+			<td>General forms (matches Input default)</td>
+		</tr>
+		<tr>
+			<td>
+				<code>lg</code>
+			</td>
+			<td>40 px</td>
+			<td>Emphasised hero forms</td>
+		</tr>
+	</tbody>
+</table>
+
+## States
+
+<Canvas of={SelectStories.Disabled} />
+
+<Canvas of={SelectStories.WithError} />
+
+`error` sets `aria-invalid="true"` on the trigger and tints the border destructive. Pair with a referenced helper text via `describedBy`.
+
+## With label
+
+<Canvas of={SelectStories.WithLabel} />
+
+Compose [Label](?path=/docs/form-label--docs) with `for` matching the trigger's `id`.
+
+## Multiple selection
+
+<Canvas of={SelectStories.Multiple} />
+
+When `multiple` is set on the root, modelValue is a `string[]` and the trigger renders selected values as removable chips with `+N` overflow when there are more than `maxChips`.
+
+## Composition
+
+<table>
+	<thead>
+		<tr>
+			<th>Sub-component</th>
+			<th>Purpose</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>Select</code>
+			</td>
+			<td>Root — owns modelValue, multiple, disabled.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>SelectTrigger</code>
+			</td>
+			<td>The clickable anchor. Owns size, error, describedBy.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>SelectValue</code>
+			</td>
+			<td>Renders the current value or placeholder; chips in multi mode.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>SelectContent</code>
+			</td>
+			<td>Portaled menu container.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>SelectViewport</code>
+			</td>
+			<td>Internal scroll viewport (used by SelectContent).</td>
+		</tr>
+		<tr>
+			<td>
+				<code>SelectItem</code>
+			</td>
+			<td>Selectable option with built-in check indicator.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>SelectGroup</code>
+			</td>
+			<td>Wraps a logical block of items.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>SelectLabel</code>
+			</td>
+			<td>Section header inside a Group.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>SelectSeparator</code>
+			</td>
+			<td>Horizontal divider between Groups.</td>
+		</tr>
+	</tbody>
+</table>
+
+## Keyboard interaction
+
+<table>
+	<thead>
+		<tr>
+			<th>Key</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>Space / Enter</td>
+			<td>Open the menu (when trigger focused). Select highlighted item.</td>
+		</tr>
+		<tr>
+			<td>ArrowDown / ArrowUp</td>
+			<td>Move highlight to next / previous item.</td>
+		</tr>
+		<tr>
+			<td>Home / End</td>
+			<td>Jump to first / last item.</td>
+		</tr>
+		<tr>
+			<td>Type-ahead</td>
+			<td>Jump to the first item matching the typed prefix.</td>
+		</tr>
+		<tr>
+			<td>Escape</td>
+			<td>Close the menu without selecting.</td>
+		</tr>
+		<tr>
+			<td>Tab</td>
+			<td>Move focus out of the menu (also closes it).</td>
+		</tr>
+	</tbody>
+</table>
+
+## Props
+
+<Controls of={SelectStories.Default} />
+
+<ArgTypes of={SelectStories} />
+
+## Accessibility (WCAG 2.2 AA)
+
+- **2.4.6 Labels**: pair the trigger with `<Label for>` matching the `id` you set on `SelectTrigger`.
+- **3.3.1 Error identification**: `error` sets `aria-invalid="true"`; reference helper text via `describedBy`.
+- **2.4.7 Focus visible**: trigger draws a 2 px ring; items show a clear `data-highlighted` background.
+- **2.5.8 Target size**: every trigger size meets the 24 × 24 px minimum; items are at least 24 px tall.
+- **4.1.2 Name, role, value**: built on Reka UI primitives that emit the correct ARIA combobox / listbox semantics.
+
+## Responsive behaviour
+
+<Canvas of={SelectStories.InteractiveResponsive} />
+
+The trigger is `w-full` and shrinks to its parent. Wrap in a sized container (`w-72`, `max-w-sm`) so very long values don't stretch wide layouts.
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				Pair every trigger with a <code>&lt;Label for&gt;</code>.
+			</td>
+			<td>Rely on placeholder as the only label.</td>
+		</tr>
+		<tr>
+			<td>
+				Use the <code>error</code> prop and a referenced helper text id for validation.
+			</td>
+			<td>
+				Apply <code>class="border-destructive"</code> directly — it skips <code>aria-invalid</code>.
+			</td>
+		</tr>
+		<tr>
+			<td>Pick a size that matches surrounding Input fields.</td>
+			<td>
+				Override height with <code>class="h-12"</code> — propose a new size variant instead.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Use <code>multiple</code> when the user can choose more than one value.
+			</td>
+			<td>Stack two single Selects when the answer is a set.</td>
+		</tr>
+	</tbody>
+</table>

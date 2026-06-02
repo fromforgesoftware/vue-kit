@@ -1,0 +1,206 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as ListboxStories from './Listbox.stories';
+
+<Meta of={ListboxStories} />
+
+# Listbox
+
+Visible, keyboard-navigable list of selectable options. Built on Reka UI's `Listbox` primitive. Inline (not portaled) — the items are always on screen.
+
+## When to use
+
+- The user benefits from seeing all (or most) options at once.
+- Option count is roughly 5–30 — small enough to scan, large enough to need a sized scroll container.
+- Multi-select where chips would clutter the trigger.
+
+## When not to use
+
+- Saving vertical space — use [Select](?path=/docs/form-select--docs) (collapses into a trigger).
+- Type-as-filter long catalogues — use [Autocomplete](?path=/docs/form-autocomplete--docs).
+- Small (≤ 5) fixed list of toggles — use [Checkbox](?path=/docs/form-checkbox--docs) or [Radio](?path=/docs/form-radio--docs).
+
+## Anatomy
+
+<Canvas of={ListboxStories.Default} />
+
+## Sizes
+
+<Canvas of={ListboxStories.Sizes} />
+
+<table>
+	<thead>
+		<tr>
+			<th>Size</th>
+			<th>Max height</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>sm</code>
+			</td>
+			<td>200 px</td>
+			<td>Sidebar pickers, condensed forms</td>
+		</tr>
+		<tr>
+			<td>
+				<code>default</code>
+			</td>
+			<td>300 px</td>
+			<td>General forms</td>
+		</tr>
+		<tr>
+			<td>
+				<code>lg</code>
+			</td>
+			<td>400 px</td>
+			<td>Long catalogues that benefit from scrolling</td>
+		</tr>
+	</tbody>
+</table>
+
+## States
+
+<Canvas of={ListboxStories.Multiple} />
+
+<Canvas of={ListboxStories.Disabled} />
+
+<Canvas of={ListboxStories.WithError} />
+
+`error` sets `aria-invalid="true"` on the root and tints the border destructive. Pair with referenced helper text via `describedBy`.
+
+## With groups
+
+<Canvas of={ListboxStories.WithGroups} />
+
+Compose `ListboxGroup` and `ListboxLabel` for sectioned content.
+
+## Composition
+
+<table>
+	<thead>
+		<tr>
+			<th>Sub-component</th>
+			<th>Purpose</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>Listbox</code>
+			</td>
+			<td>Root — owns modelValue, multiple, disabled, error.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>ListboxItem</code>
+			</td>
+			<td>Selectable option with built-in check indicator. ≥ 24 px tall.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>ListboxGroup</code>
+			</td>
+			<td>Wraps a logical block of items.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>ListboxLabel</code>
+			</td>
+			<td>Section header inside a Group.</td>
+		</tr>
+	</tbody>
+</table>
+
+## Keyboard interaction
+
+<table>
+	<thead>
+		<tr>
+			<th>Key</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>ArrowDown / ArrowUp</td>
+			<td>Move focus to next / previous item.</td>
+		</tr>
+		<tr>
+			<td>Home / End</td>
+			<td>Jump to first / last item.</td>
+		</tr>
+		<tr>
+			<td>Space / Enter</td>
+			<td>Toggle selection of the focused item.</td>
+		</tr>
+		<tr>
+			<td>Type-ahead</td>
+			<td>Jump to the first item matching the typed prefix.</td>
+		</tr>
+		<tr>
+			<td>Tab</td>
+			<td>Move focus out of the listbox.</td>
+		</tr>
+	</tbody>
+</table>
+
+## Props
+
+<Controls of={ListboxStories.Default} />
+
+<ArgTypes of={ListboxStories} />
+
+## Accessibility (WCAG 2.2 AA)
+
+- **2.4.6 Labels**: pair the listbox with a visible `<Label for>` matching the `id` you set, or wrap it in a labelled fieldset. When neither is practical, pass `ariaLabel` for an invisible accessible name.
+- **3.3.1 Error identification**: `error` sets `aria-invalid="true"`; reference helper text via `describedBy`.
+- **2.4.7 Focus visible**: focus draws a 2 px ring on the active item.
+- **2.5.8 Target size**: every item meets the 24 × 24 px minimum.
+- **4.1.2 Name, role, value**: built on Reka UI primitives that emit the correct ARIA listbox / option semantics with `aria-selected` reflecting state.
+
+## Responsive behaviour
+
+<Canvas of={ListboxStories.InteractiveResponsive} />
+
+The root is `w-full` and shrinks to its parent. Wrap in a sized container so very long item labels don't stretch wide layouts.
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				Pair the listbox with a <code>&lt;Label for&gt;</code>.
+			</td>
+			<td>Rely on placement alone for labelling.</td>
+		</tr>
+		<tr>
+			<td>
+				Use <code>multiple</code> for multi-select.
+			</td>
+			<td>Render two listboxes when the answer is a set.</td>
+		</tr>
+		<tr>
+			<td>
+				Use the <code>error</code> prop and a referenced helper text id.
+			</td>
+			<td>
+				Override border colour with classes — it skips <code>aria-invalid</code>.
+			</td>
+		</tr>
+		<tr>
+			<td>Pick a size that fits roughly 5–10 items without scrolling.</td>
+			<td>
+				Set <code>max-height</code> via <code>class</code> — propose a new size variant.
+			</td>
+		</tr>
+	</tbody>
+</table>

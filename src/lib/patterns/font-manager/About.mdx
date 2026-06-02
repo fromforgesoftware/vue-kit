@@ -1,0 +1,60 @@
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as Stories from './FontManager.stories';
+
+<Meta of={Stories} />
+
+# FontManager
+
+A font size selector that adjusts the global text scale of the application. The selected size is persisted to `localStorage` and applied to the root `<html>` element so the entire UI scales proportionally.
+
+## When to use
+
+- In appearance/accessibility settings panels.
+- When your application supports user-adjustable text density.
+
+## Anatomy
+
+<Canvas of={Stories.Default} />
+
+## Variants
+
+### Custom Options
+
+<Canvas of={Stories.CustomOptions} />
+
+## Props
+
+<Controls of={Stories.Default} />
+
+## Accessibility (WCAG 2.2 AA)
+
+<table>
+	<thead>
+		<tr>
+			<th>Criterion</th>
+			<th>Coverage</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>1.3.1 Info and Relationships</td>
+			<td>The select is associated with a visible "Font Size" label via the Label component.</td>
+		</tr>
+		<tr>
+			<td>1.4.4 Resize Text</td>
+			<td>The component itself enables user-controlled text resizing across the application.</td>
+		</tr>
+		<tr>
+			<td>2.1.1 Keyboard</td>
+			<td>Select opens with Enter/Space; options are navigable with arrow keys.</td>
+		</tr>
+		<tr>
+			<td>2.5.8 Target Size</td>
+			<td>Select trigger meets the 24×24 px minimum.</td>
+		</tr>
+		<tr>
+			<td>3.2.2 On Input</td>
+			<td>Font size is applied immediately on selection without requiring form submission.</td>
+		</tr>
+	</tbody>
+</table>

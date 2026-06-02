@@ -1,0 +1,111 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as LabelStories from './Label.stories';
+
+<Meta of={LabelStories} />
+
+# Label
+
+Programmatic label for form controls. The only way to give a form input an accessible name (placeholders are _not_ labels).
+
+## When to use
+
+- Always — every form input needs a `<Label for>` or an `aria-label`.
+- When you need a visible question or field name above the control.
+
+## When not to use
+
+- For purely decorative text inside a control container — use a regular `<span>` with no `for` attribute.
+
+## Anatomy
+
+<Canvas of={LabelStories.Default} />
+
+A native `<label>` with optional required indicator. Pair with the labelled control via `for` (matching the control's `id`).
+
+## Variants
+
+<Canvas of={LabelStories.Variants} />
+
+Two tones: `default` and `error`. Sync `error` when the labelled field is invalid so the colour matches the field border.
+
+## Sizes
+
+<Canvas of={LabelStories.Sizes} />
+
+`default` (text-sm) matches Input. Drop to `sm` for inline filter labels; `lg` for hero forms.
+
+## Required
+
+<Canvas of={LabelStories.Required} />
+
+Setting `required` renders a visible `*` and a `sr-only` `(required)` for assistive technology. Override the indicator with `requiredIndicator` and the announced text with `requiredLabel`.
+
+## Composition
+
+<Canvas of={LabelStories.WithInput} />
+
+Always pair `for` with the control's `id`. This makes:
+
+- Clicking the label focus the control.
+- `getByLabelText('Email')` find the control in tests.
+- Screen readers announce the label when the control receives focus.
+
+<Canvas of={LabelStories.RequiredWithError} />
+
+When the field is invalid, set `variant="error"` on the Label so the tone matches the field border and helper text.
+
+## Props
+
+<Controls of={LabelStories.Default} />
+
+<ArgTypes of={LabelStories} />
+
+## Accessibility (WCAG 2.2 AA)
+
+- **1.3.1 Info and relationships**: `for` ↔ `id` association is required for assistive tech to announce the label.
+- **2.4.6 Labels**: every input must have a programmatic label.
+- **3.3.2 Labels or instructions**: required state surfaces both visually (`*`) and audibly (`sr-only` `(required)`).
+- **1.4.3 Contrast**: both `default` and `error` tones meet 4.5 : 1 against `bg-background`.
+
+## Responsive behaviour
+
+<Canvas of={LabelStories.InteractiveResponsive} />
+
+Labels are inline-flex and wrap with their content. They never affect layout width.
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				Always pair <code>for</code> with the control's <code>id</code>.
+			</td>
+			<td>Use a placeholder as a substitute for a label.</td>
+		</tr>
+		<tr>
+			<td>
+				Sync <code>variant="error"</code> with the labelled field's error state.
+			</td>
+			<td>Re-colour labels manually with class overrides.</td>
+		</tr>
+		<tr>
+			<td>
+				Set <code>required</code> when the field is required.
+			</td>
+			<td>
+				Add a visual <code>*</code> in the slot text — it won't be announced as required.
+			</td>
+		</tr>
+		<tr>
+			<td>Keep label text concise (1–4 words, ≤ 30 chars).</td>
+			<td>Embed instructions in the label — put them in helper text below.</td>
+		</tr>
+	</tbody>
+</table>

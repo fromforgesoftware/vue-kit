@@ -1,0 +1,66 @@
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as Stories from './Sort.stories';
+
+<Meta of={Stories} />
+
+# Sort
+
+A popover-based multi-field sort control. Users can add multiple sort fields, pick a field from a select, toggle ASC/DESC direction, delete fields, and drag rows to reorder them. Closing the popover commits the sort state and emits `update:modelValue`.
+
+## When to use
+
+- Any list, table, or grid view where users need to sort by one or more fields.
+- Prefer Sort over inline column headers when the sort configuration is complex (multiple fields, custom direction labels).
+
+## Anatomy
+
+<Canvas of={Stories.Default} />
+
+## With active sort
+
+<Canvas of={Stories.WithActiveSort} />
+
+## Multiple sort fields
+
+<Canvas of={Stories.MultipleSortFields} />
+
+## Props
+
+<Controls of={Stories.Default} />
+
+## Accessibility (WCAG 2.2 AA)
+
+<table>
+	<thead>
+		<tr>
+			<th>Criterion</th>
+			<th>Coverage</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>2.1.1 Keyboard</td>
+			<td>
+				Trigger is a native button; Tab navigates selects, toggle buttons, and delete buttons;
+				Escape closes the popover.
+			</td>
+		</tr>
+		<tr>
+			<td>2.4.3 Focus Order</td>
+			<td>Focus moves into the popover when opened (managed by Reka UI Popover).</td>
+		</tr>
+		<tr>
+			<td>2.5.8 Target Size</td>
+			<td>
+				Trigger, delete, and "Add sort" buttons are ≥ 24×24 px. Delete button is 28×28 px (size-7).
+			</td>
+		</tr>
+		<tr>
+			<td>4.1.2 Name, Role, Value</td>
+			<td>
+				Delete buttons carry <code>aria-label="Remove sort by [field name]"</code>. ASC/DESC toggle
+				items carry <code>aria-label="Ascending"</code> and <code>aria-label="Descending"</code>.
+			</td>
+		</tr>
+	</tbody>
+</table>

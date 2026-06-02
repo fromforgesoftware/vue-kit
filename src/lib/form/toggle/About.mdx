@@ -1,0 +1,208 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as ToggleStories from './Toggle.stories';
+
+<Meta of={ToggleStories} />
+
+# Toggle
+
+A press-to-toggle button. Holds an on/off state and reflects it via `aria-pressed` and `data-state="on|off"`. Built on Reka `Toggle`.
+
+## When to use
+
+- Single-axis on/off in a toolbar (Bold, Italic, Mute, Pin).
+- A press button whose label stays visible (icon, short word) — distinct from a Switch which is a setting in a form.
+
+## When not to use
+
+- Boolean field inside a form — use [Switch](?path=/docs/form-switch--docs).
+- Mutually exclusive choice from a small set — use [ToggleGroup](?path=/docs/form-togglegroup--docs).
+- An action that triggers immediately on click without a persistent state — use [Button](?path=/docs/general-button--docs).
+
+## Anatomy
+
+<Canvas of={ToggleStories.Default} />
+
+A single `<button>` with `aria-pressed`. The default slot accepts an icon, text, or both.
+
+## Variants
+
+<Canvas of={ToggleStories.Variants} />
+
+<table>
+	<thead>
+		<tr>
+			<th>Variant</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>default</code>
+			</td>
+			<td>Toolbar density — borderless, lights up on hover and when pressed</td>
+		</tr>
+		<tr>
+			<td>
+				<code>outline</code>
+			</td>
+			<td>Standalone press button — keeps a border so unpressed buttons are still discoverable</td>
+		</tr>
+	</tbody>
+</table>
+
+## Sizes
+
+<Canvas of={ToggleStories.Sizes} />
+
+<table>
+	<thead>
+		<tr>
+			<th>Size</th>
+			<th>Height</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>sm</code>
+			</td>
+			<td>28 px</td>
+			<td>
+				Compact toolbars; matches Input <code>sm</code>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>default</code>
+			</td>
+			<td>32 px</td>
+			<td>
+				General use; matches Input <code>default</code>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>lg</code>
+			</td>
+			<td>40 px</td>
+			<td>
+				Hero affordances; matches Input <code>lg</code>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+## States
+
+<Canvas of={ToggleStories.Pressed} />
+
+<Canvas of={ToggleStories.Disabled} />
+
+The pressed state is communicated by `data-state="on"` and `aria-pressed="true"`. Disabled toggles ignore pointer / keyboard input and lower opacity.
+
+## With text
+
+<Canvas of={ToggleStories.WithText} />
+
+Compose icon + text via the default slot. Toggles use `whitespace-nowrap` so text never wraps.
+
+## Toolbar
+
+<Canvas of={ToggleStories.Toolbar} />
+
+For a row of independent press buttons use the `outline` variant inside a bordered container so unpressed buttons remain discoverable. For mutually exclusive choices, use [ToggleGroup](?path=/docs/form-togglegroup--docs).
+
+## Controlled
+
+<Canvas of={ToggleStories.Controlled} />
+
+Bind via `v-model`. The component emits `update:modelValue` on press, Space, or Enter.
+
+## Keyboard interaction
+
+<table>
+	<thead>
+		<tr>
+			<th>Key</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<kbd>Tab</kbd>
+			</td>
+			<td>Move focus to / away from the toggle</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>Space</kbd>
+			</td>
+			<td>Toggle pressed state</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>Enter</kbd>
+			</td>
+			<td>Toggle pressed state</td>
+		</tr>
+	</tbody>
+</table>
+
+## Props
+
+<Controls of={ToggleStories.Default} />
+
+<ArgTypes of={ToggleStories} />
+
+## Accessibility (WCAG 2.2 AA)
+
+- **4.1.2 Name, role, value**: rendered as a native `<button>` with `aria-pressed` reflecting the state. Always pass an `aria-label` (icon-only) or text content (icon + label).
+- **2.5.8 Target size**: every size's hit area is ≥ 24×24 CSS px on the painted button itself.
+- **2.4.7 Focus visible**: focus draws a 2 px ring offset from the button at ≥ 3 : 1 contrast against the surrounding surface.
+- **2.1.1 Keyboard**: Space and Enter activate; Tab moves focus.
+- **1.4.11 Non-text contrast**: pressed-state background (`bg-accent` / `bg-primary`) meets ≥ 3 : 1 against the page surface.
+
+## Responsive behaviour
+
+<Canvas of={ToggleStories.InteractiveResponsive} />
+
+Toggles are inline-flex with `whitespace-nowrap` and a fixed minimum width per size — they never break across lines. Wrap a toggle row in `flex flex-wrap` if you need multi-line behaviour at narrow viewports.
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				Always provide <code>aria-label</code> for icon-only toggles.
+			</td>
+			<td>Rely on tooltip text alone — assistive tech may not surface tooltips.</td>
+		</tr>
+		<tr>
+			<td>Use Toggle for actions whose state persists (Mute, Pin, Bold).</td>
+			<td>Use Toggle for one-shot actions — that's a Button.</td>
+		</tr>
+		<tr>
+			<td>
+				Use the <code>outline</code> variant for standalone press buttons.
+			</td>
+			<td>
+				Use the borderless <code>default</code> variant outside a clearly bounded toolbar — the
+				unpressed state is invisible.
+			</td>
+		</tr>
+		<tr>
+			<td>Use ToggleGroup when only one of N can be on.</td>
+			<td>Wire up multiple Toggles by hand to enforce single-select.</td>
+		</tr>
+	</tbody>
+</table>

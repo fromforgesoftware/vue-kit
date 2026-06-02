@@ -1,0 +1,166 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as ColorAreaStories from './ColorArea.stories';
+
+<Meta of={ColorAreaStories} />
+
+# Color Area
+
+Two-dimensional colour picker. By default the X axis controls hue (or saturation in HSB) and the Y axis controls saturation (or value). Built on Reka UI; pair with a hue [Color Slider](?path=/docs/color-color-slider--docs) for full HSB control.
+
+## When to use
+
+- Build a custom colour picker UI alongside hue/alpha sliders and a hex field.
+- Let users explore a 2D colour space directly (saturation × value).
+
+## When not to use
+
+- For one-channel adjustments (hue alone, alpha alone) — use [Color Slider](?path=/docs/color-color-slider--docs).
+- For predefined palettes — use [Color Swatch Picker](?path=/docs/color-color-swatch-picker--docs).
+
+## Anatomy
+
+<Canvas of={ColorAreaStories.Default} />
+
+The component renders a Reka root that holds the gradient, a focusable thumb that meets `aria-roledescription="Color thumb"`, and a hidden form input when used inside a form.
+
+## Color spaces
+
+<Canvas of={ColorAreaStories.HSB} />
+
+`hsl` (default) and `hsb` are supported. Choose the colour space that matches the rest of your picker — mixing `hsl` here with `hsb` on the slider produces unexpected drift on edge cases.
+
+## Sizes
+
+<Canvas of={ColorAreaStories.Sizes} />
+
+<table>
+	<thead>
+		<tr>
+			<th>Size</th>
+			<th>Pixels</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>sm</code>
+			</td>
+			<td>160 × 160</td>
+			<td>Compact pickers in a popover</td>
+		</tr>
+		<tr>
+			<td>
+				<code>default</code>
+			</td>
+			<td>200 × 200</td>
+			<td>Standalone picker</td>
+		</tr>
+		<tr>
+			<td>
+				<code>lg</code>
+			</td>
+			<td>240 × 240</td>
+			<td>Featured picker</td>
+		</tr>
+		<tr>
+			<td>
+				<code>full</code>
+			</td>
+			<td>fills container</td>
+			<td>Custom layouts where the parent dictates width</td>
+		</tr>
+	</tbody>
+</table>
+
+## Keyboard interaction
+
+<table>
+	<thead>
+		<tr>
+			<th>Key</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<kbd>ArrowRight</kbd> / <kbd>ArrowLeft</kbd>
+			</td>
+			<td>Adjust the X-axis channel by one step</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>ArrowUp</kbd> / <kbd>ArrowDown</kbd>
+			</td>
+			<td>Adjust the Y-axis channel by one step</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>PageUp</kbd> / <kbd>PageDown</kbd>
+			</td>
+			<td>Larger Y-axis step</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>Home</kbd> / <kbd>End</kbd>
+			</td>
+			<td>Jump to X-axis min / max</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>Tab</kbd>
+			</td>
+			<td>Move focus to the next control</td>
+		</tr>
+	</tbody>
+</table>
+
+## Props
+
+<Controls of={ColorAreaStories.Default} />
+
+<ArgTypes of={ColorAreaStories} />
+
+## Accessibility (WCAG 2.2 AA)
+
+- **Pointer alternatives** (SC 2.5.7): every drag interaction has a keyboard equivalent — arrows, Page keys, Home / End — so the picker is fully usable without a pointing device.
+- **Target size** (SC 2.5.8): the thumb's visible knob is 16 px, with an invisible expansion ring (`::before`) pushing the pointer hit-target to ≥ 24 × 24 px.
+- **Name** (SC 4.1.2): the thumb auto-derives an `aria-label` from the axis channel names. The root accepts an `ariaLabel` prop for higher-level context (e.g. `"Brand colour picker"`).
+- **Focus visible** (SC 2.4.7): the thumb shows a 4-px ring on `focus-visible`.
+- **Disabled state**: when `disabled` is true the root carries `data-disabled` and the thumb is not focusable; opacity drops to 50 %.
+
+## Responsive behaviour
+
+<Canvas of={ColorAreaStories.InteractiveResponsive} />
+
+Use `size="full"` when the picker should fill its parent — the inner area uses `size-full` with a `min-h-[160px]` floor so the gradient never collapses.
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>Pair the area with a hue Color Slider and a hex Color Field for full coverage</td>
+			<td>Ship the area alone — users can't change hue without a complementary control</td>
+		</tr>
+		<tr>
+			<td>
+				Match <code>colorSpace</code> across area, slider, and field to avoid round-trip drift
+			</td>
+			<td>Mix HSL on the area with HSB on the slider</td>
+		</tr>
+		<tr>
+			<td>
+				Pass an <code>ariaLabel</code> describing what the picker controls
+			</td>
+			<td>Default to the generic auto-label when context is available</td>
+		</tr>
+	</tbody>
+</table>

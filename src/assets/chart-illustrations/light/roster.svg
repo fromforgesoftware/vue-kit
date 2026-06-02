@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 200" width="280" height="200" fill="none">
+  <defs>
+    <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#94a0aa" stroke-width="1.5"/>
+    </pattern>
+    <filter id="softblur" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="18"/>
+    </filter>
+    <mask id="gridMask">
+      <rect width="280" height="200" fill="black"/>
+      <rect x="60" y="45" width="160" height="110" rx="30" fill="white" filter="url(#softblur)"/>
+    </mask>
+    <clipPath id="rosterClip"><rect x="50" y="42" width="180" height="120" rx="10"/></clipPath>
+  </defs>
+  <rect width="280" height="200" fill="url(#grid)" mask="url(#gridMask)"/>
+  <g transform="translate(42 30) scale(0.7)">
+  <rect x="50" y="42" width="180" height="120" rx="10" fill="#ffffff" stroke="#d1d5db"/>
+  <g clip-path="url(#rosterClip)">
+    <rect x="103" y="50" width="11" height="3" rx="1.5" fill="#9ca3af"/>
+    <rect x="120" y="50" width="11" height="3" rx="1.5" fill="#9ca3af"/>
+    <rect x="137" y="50" width="11" height="3" rx="1.5" fill="#9ca3af"/>
+    <rect x="154" y="50" width="11" height="3" rx="1.5" fill="#9ca3af"/>
+    <rect x="171" y="50" width="11" height="3" rx="1.5" fill="#9ca3af"/>
+    <rect x="188" y="50" width="11" height="3" rx="1.5" fill="#9ca3af"/>
+    <rect x="205" y="50" width="11" height="3" rx="1.5" fill="#9ca3af"/>
+    <line x1="50" y1="60" x2="230" y2="60" stroke="#e5e7eb"/>
+    <line x1="92" y1="42" x2="92" y2="162" stroke="#e5e7eb"/>
+    <circle cx="62" cy="73" r="5" fill="#9ca3af"/>
+    <rect x="72" y="72" width="16" height="3" rx="1.5" fill="#111827"/>
+    <rect x="100" y="67" width="51" height="12" rx="3" fill="#9ca3af"/>
+    <rect x="168" y="67" width="34" height="12" rx="3" fill="#9ca3af"/>
+    <line x1="50" y1="85" x2="230" y2="85" stroke="#e5e7eb"/>
+    <rect x="50" y="85" width="180" height="25" fill="#f3f4f6"/>
+    <circle cx="62" cy="98" r="5" fill="#ee7626"/>
+    <rect x="72" y="97" width="16" height="3" rx="1.5" fill="#111827"/>
+    <rect x="100" y="92" width="51" height="12" rx="3" fill="#ee7626"/>
+    <rect x="185" y="92" width="17" height="12" rx="3" fill="#9ca3af"/>
+    <line x1="50" y1="110" x2="230" y2="110" stroke="#e5e7eb"/>
+    <circle cx="62" cy="123" r="5" fill="#9ca3af"/>
+    <rect x="72" y="122" width="16" height="3" rx="1.5" fill="#111827"/>
+    <rect x="117" y="117" width="17" height="12" rx="3" fill="#9ca3af"/>
+    <rect x="151" y="117" width="68" height="12" rx="3" fill="#9ca3af"/>
+    <line x1="50" y1="135" x2="230" y2="135" stroke="#e5e7eb"/>
+    <circle cx="62" cy="148" r="5" fill="#9ca3af"/>
+    <rect x="72" y="147" width="16" height="3" rx="1.5" fill="#111827"/>
+    <rect x="100" y="142" width="34" height="12" rx="3" fill="#9ca3af"/>
+    <rect x="151" y="142" width="51" height="12" rx="3" fill="#9ca3af"/>
+  </g>
+  </g>
+</svg>

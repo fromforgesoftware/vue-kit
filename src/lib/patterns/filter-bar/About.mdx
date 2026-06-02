@@ -1,0 +1,100 @@
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as Stories from './FilterBar.stories';
+
+<Meta of={Stories} />
+
+# FilterBar
+
+An inline filter bar that lets users add, edit, and remove filters from a list or table view. A dropdown trigger exposes all filterable columns; selecting a value creates a chip. Each chip shows the column, operator, and value — all of which are editable in-place. Supports text, number, option, multi-option, date, and date-range column types.
+
+## When to use
+
+- Alongside a data table or list to let users narrow results by one or more columns.
+- Use the `default` variant for full-width toolbars; use `panel` when the filter control is embedded in a sidebar or card header.
+
+## Anatomy
+
+<Canvas of={Stories.Default} />
+
+## With active filters
+
+<Canvas of={Stories.WithActiveFilters} />
+
+## Date-range presets
+
+`daterange` columns can carry an optional `presets?: DateRangePreset[]` array. When provided, the picker renders preset shortcuts (Today / Last 7 / This Year / …) alongside the calendar in both the add-filter dropdown and the chip-edit popover, so common ranges are one click instead of two date selections.
+
+```ts
+import { defaultDateRangePresets } from '@fromforgesoftware/vue-kit';
+
+const columns: ColumnConfig[] = [
+	{
+		id: 'dateRange',
+		type: 'daterange',
+		displayName: 'Date Range',
+		presets: defaultDateRangePresets, // or a custom list per use-case
+	},
+];
+```
+
+Use `defaultDateRangePresets` for the standard set, or pass a domain-specific list (leave year, payroll period, fiscal quarter) — the prop accepts any `DateRangePreset[]`.
+
+<Canvas of={Stories.WithDateRangePresets} />
+
+## "is empty" / "is not empty"
+
+`text`, `date`, `option`, and `multiOption` columns support `is empty` and `is not empty` operators. The chip renders without a value editor — the column and operator are the entire predicate. Use `operatorTakesNoValue(op)` to detect this case when round-tripping to a backend.
+
+```ts
+import { operatorTakesNoValue } from '@fromforgesoftware/vue-kit';
+```
+
+<Canvas of={Stories.IsEmptyOperator} />
+
+`FilterModel` also carries an optional `orGroupIndex?: number` field that pairs with the backend's `filter[or][i][field][op]=value` DSL — filters sharing an index are OR'd. No UI affordance exposes this yet; it's set programmatically by consumers that need DNF (Disjunctive Normal Form) shapes.
+
+## Panel variant
+
+The `panel` variant renders a compact header row with a filter icon button on the right. Active filter chips appear in a second row below. Use the `#header` slot to place a title, search input, or other controls alongside the trigger.
+
+<Canvas of={Stories.PanelVariant} />
+
+<Canvas of={Stories.PanelWithFilters} />
+
+## Props
+
+<Controls of={Stories.Default} />
+
+## Accessibility (WCAG 2.2 AA)
+
+<table>
+	<thead>
+		<tr>
+			<th>Criterion</th>
+			<th>Coverage</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>2.1.1 Keyboard</td>
+			<td>
+				Filter trigger and chip remove buttons are native buttons reachable by Tab. Dropdown menus
+				support arrow-key navigation.
+			</td>
+		</tr>
+		<tr>
+			<td>2.5.8 Target Size</td>
+			<td>
+				Filter trigger is 32×32 px (size-8). Chip remove button carries{' '}
+				<code>aria-label="Remove filter"</code> and is ≥ 24×24 px.
+			</td>
+		</tr>
+		<tr>
+			<td>4.1.2 Name, Role, Value</td>
+			<td>
+				All interactive elements have accessible names. Chip remove buttons use{' '}
+				<code>aria-label</code>. Dropdown items use native menu roles.
+			</td>
+		</tr>
+	</tbody>
+</table>

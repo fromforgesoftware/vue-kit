@@ -1,0 +1,149 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as TextareaStories from './Textarea.stories';
+
+<Meta of={TextareaStories} />
+
+# Textarea
+
+Multi-line text field. Mirrors Input tokens (border, ring, error tones) and adds optional auto-resize that grows the field with content.
+
+## When to use
+
+- Free-form long-form text: bio, comments, descriptions, change-notes.
+- Form fields where the user needs more than one line.
+
+## When not to use
+
+- Single-line entry — use [Input](?path=/docs/form-input--docs).
+- Rich text or markdown — use a dedicated rich-text editor.
+
+## Anatomy
+
+<Canvas of={TextareaStories.Default} />
+
+A native `<textarea>` styled to match the Input component, so forms compose visually.
+
+## Sizes
+
+<Canvas of={TextareaStories.Sizes} />
+
+<table>
+	<thead>
+		<tr>
+			<th>Size</th>
+			<th>Min height</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>sm</code>
+			</td>
+			<td>64 px</td>
+			<td>Compact inline notes</td>
+		</tr>
+		<tr>
+			<td>
+				<code>default</code>
+			</td>
+			<td>80 px</td>
+			<td>General forms</td>
+		</tr>
+		<tr>
+			<td>
+				<code>lg</code>
+			</td>
+			<td>112 px</td>
+			<td>Long-form descriptions, change-notes</td>
+		</tr>
+	</tbody>
+</table>
+
+All sizes use `text-sm` (12 px) — the minimum that prevents iOS Safari from auto-zooming on focus.
+
+## States
+
+<Canvas of={TextareaStories.Disabled} />
+
+<Canvas of={TextareaStories.Readonly} />
+
+<Canvas of={TextareaStories.Required} />
+
+<Canvas of={TextareaStories.WithError} />
+
+## Auto-resize
+
+<Canvas of={TextareaStories.AutoResize} />
+
+Setting `autoResize` removes manual resize and grows the textarea to fit its content. Keep `rows` unset; auto-resize manages height.
+
+## With label
+
+<Canvas of={TextareaStories.WithLabel} />
+
+Pair with [Label](?path=/docs/form-label--docs) and reference helper / error text via `describedBy`.
+
+## Props
+
+<Controls of={TextareaStories.Default} />
+
+<ArgTypes of={TextareaStories} />
+
+## Accessibility (WCAG 2.2 AA)
+
+- **2.4.6 Labels**: pair every textarea with a `<Label for>` that matches its id.
+- **3.3.1 Error identification**: pass `error` to set `aria-invalid="true"` and use `describedBy` for the error message id.
+- **3.3.2 Labels or instructions**: use a referenced helper element rather than placeholder for instructions.
+- **2.4.7 Focus visible**: focus draws a 2 px ring at ≥ 3 : 1 contrast.
+- **2.5.8 Target size**: every size meets the 24 × 24 px minimum.
+- **iOS no-zoom**: `text-sm` (12 px Inter) prevents iOS Safari from zooming on focus.
+
+## Responsive behaviour
+
+<Canvas of={TextareaStories.InteractiveResponsive} />
+
+The textarea is `w-full` and shrinks to its parent. Place it inside a max-width container so very long entries don't dominate wide layouts.
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				Pair every textarea with a <code>&lt;Label for&gt;</code> or <code>aria-label</code>.
+			</td>
+			<td>Rely on placeholder as the label.</td>
+		</tr>
+		<tr>
+			<td>
+				Use the <code>error</code> prop and a referenced helper text id.
+			</td>
+			<td>
+				Toggle <code>variant="error"</code> manually — it skips <code>aria-invalid</code>.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Use <code>autoResize</code> for chat composers and free-form notes.
+			</td>
+			<td>
+				Combine <code>autoResize</code> with manual <code>rows</code> — pick one.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Pick a <code>size</code> that suggests how much content the user should write.
+			</td>
+			<td>
+				Default to <code>lg</code> for short fields — users will write more than necessary.
+			</td>
+		</tr>
+	</tbody>
+</table>

@@ -1,0 +1,181 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as DayPeriodRangeToggleStories from './DayPeriodRangeToggle.stories';
+
+<Meta of={DayPeriodRangeToggleStories} />
+
+# DayPeriodRangeToggle
+
+A **renderless** behaviour helper that drives the AM/PM segments on both sides of a [`TimeRangeField`](?path=/docs/dates-timerangefield--docs) without going through Reka's built-in keydown handler.
+
+It exists to fix a subtle bug: Reka's default `dayPeriod` keydown handler applies a ±12-hour shift to a _null_ `hour` segment, which silently changes the displayed clock when the user just wants to flip AM/PM on an empty side of the range. `DayPeriodRangeToggle` writes `dayPeriod` directly onto `segmentValues[side]` and only adjusts `hour` when it is already set.
+
+## When to use
+
+- Internally, by `TimeRangeField`, to wire up its start / end dayPeriod segments.
+- In any custom field that uses `TimeRangeFieldRoot` and needs reliable AM/PM toggling per range side — render the helper inside the root's slot and grab a template ref.
+
+## When not to use
+
+- For the single-time version (`TimeFieldRoot`) — use [`DayPeriodToggle`](?path=/docs/dates-dayperiodtoggle--docs) which targets a single segment with no `side` argument.
+- As a visual control — this component renders only its slot, no DOM, no styling.
+
+## Anatomy
+
+<Canvas of={DayPeriodRangeToggleStories.Default} />
+
+The component renders only the default `<slot />`. It must be placed inside a `TimeRangeFieldRoot` slot scope so `injectTimeRangeFieldRootContext()` resolves.
+
+```vue
+<TimeRangeFieldRoot>
+  <template #default="{ segments }">
+    <DayPeriodRangeToggle ref="dayPeriodToggleRef" />
+    <!-- … start + end segments … -->
+  </template>
+</TimeRangeFieldRoot>
+
+<script setup lang="ts">
+import { ref } from 'vue';
+const dayPeriodToggleRef = ref<InstanceType<typeof DayPeriodRangeToggle>>();
+
+function flipStart() {
+	dayPeriodToggleRef.value?.toggle('start');
+}
+</script>
+```
+
+## Exposed API
+
+<table>
+	<thead>
+		<tr>
+			<th>Method</th>
+			<th>Effect</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>toggle('start' | 'end')</code>
+			</td>
+			<td>Flip the dayPeriod for the given side. No-op if the field has no dayPeriod segment.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>setDayPeriod('start' | 'end', 'AM' | 'PM')</code>
+			</td>
+			<td>
+				Set the dayPeriod for the given side to a specific value. Idempotent — no-op if already set.
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+Both methods preserve the current `hour` value when it is `null` and only adjust it (±12) when an explicit hour is already set. Sides are always independent — toggling `start` never touches `end` and vice versa.
+
+## Keyboard interaction
+
+Hosted by `TimeRangeField`, each AM/PM segment responds to:
+
+<table>
+	<thead>
+		<tr>
+			<th>Key</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<kbd>ArrowUp</kbd> / <kbd>ArrowDown</kbd>
+			</td>
+			<td>Toggle the focused side between AM and PM</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>A</kbd>
+			</td>
+			<td>Set the focused side to AM</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>P</kbd>
+			</td>
+			<td>Set the focused side to PM</td>
+		</tr>
+		<tr>
+			<td>Click</td>
+			<td>Toggle the clicked side between AM and PM</td>
+		</tr>
+	</tbody>
+</table>
+
+The `TimeRangeField` host wires per-side `keydown.capture` and `click.prevent` handlers that call into `DayPeriodRangeToggle` with the matching `'start'` / `'end'` argument — see [`TimeRangeField`](?path=/docs/dates-timerangefield--docs) for the full keyboard model on the rest of the field.
+
+## Props
+
+<Controls />
+
+<ArgTypes of={DayPeriodRangeToggleStories} />
+
+DayPeriodRangeToggle has no props — its API is exposed via `defineExpose`.
+
+## Accessibility (WCAG 2.2 AA)
+
+- **No DOM contribution**: the component renders only its slot, so it adds nothing to the accessibility tree on its own.
+- **Naming and state are the host's responsibility**: each dayPeriod segment in `TimeRangeField` is a `role="spinbutton"` with `aria-valuetext` reflecting AM / PM, and carries `data-range-side="start" | "end"` for assistive-tech-aware pickers.
+- **2.1.1 Keyboard**: pairs with `TimeRangeField`'s segment-level keyboard model — Arrow / A / P / click all work for whichever side has focus.
+- **Side independence**: toggling one side must not affect the other; the `InteractiveSidesAreIndependent` test asserts this.
+- **Hour preservation**: critical correctness rule — toggling AM/PM on a side with `hour === null` must not silently shift the displayed hour. The `InteractiveHourPreserved` test asserts this.
+
+## Responsive behaviour
+
+<Canvas of={DayPeriodRangeToggleStories.InteractiveResponsive} />
+
+Renders nothing of its own; layout is owned by the host `TimeRangeField`, which is `w-fit` and never overflows horizontally at the standard viewports.
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				Use it inside any custom field built on <code>TimeRangeFieldRoot</code>.
+			</td>
+			<td>
+				Use it outside a <code>TimeRangeFieldRoot</code> slot — context injection will throw.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Always pass <code>'start'</code> or <code>'end'</code> to <code>toggle</code> /{' '}
+				<code>setDayPeriod</code>.
+			</td>
+			<td>
+				Call <code>toggle()</code> with no argument — the call needs a side to operate on.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				For single-time fields use{' '}
+				<a href="?path=/docs/dates-dayperiodtoggle--docs">
+					<code>DayPeriodToggle</code>
+				</a>
+				.
+			</td>
+			<td>Mix the two — the wrong context injection will fail.</td>
+		</tr>
+		<tr>
+			<td>Trust the helper to leave the opposite side alone.</td>
+			<td>
+				Manually mutate <code>segmentValues</code> in parallel — the helper already does the safe
+				minimum.
+			</td>
+		</tr>
+	</tbody>
+</table>

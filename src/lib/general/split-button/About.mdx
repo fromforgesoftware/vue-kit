@@ -1,0 +1,205 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as SplitButtonStories from './SplitButton.stories';
+
+<Meta of={SplitButtonStories} />
+
+# Split Button
+
+A primary action paired with a dropdown menu of secondary alternatives. Click the main button to fire the action; click the chevron (or press <kbd>ArrowDown</kbd> on the main button) to open the menu and pick a different one. Built on top of `Button` and `DropdownMenu`.
+
+## When to use
+
+- Confirming an action that has variants — _Merge / Squash and merge / Rebase_, _Save / Save as draft_, _Export CSV / PDF / XLSX_.
+- Defaulting to the most common path while keeping siblings one tap away.
+
+## When not to use
+
+- Two unrelated actions — use two buttons side by side.
+- More than ~4 alternatives — switch to a [DropdownMenu](?path=/docs/general-dropdown-menu--docs) attached to a single button.
+- Single-action confirmations — use a regular [Button](?path=/docs/general-button--docs).
+
+## Anatomy
+
+<Canvas of={SplitButtonStories.Default} />
+
+The control is composed of two halves:
+
+<table>
+	<thead>
+		<tr>
+			<th>Slot</th>
+			<th>Purpose</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>data-slot="split-button"</code>
+			</td>
+			<td>Root inline-flex container.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>data-slot="split-button-primary"</code>
+			</td>
+			<td>
+				The main action — clicking emits <code>click</code>.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>data-slot="split-button-trigger"</code>
+			</td>
+			<td>The chevron — opens the dropdown menu.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>data-slot="split-button-menu"</code>
+			</td>
+			<td>
+				Portaled menu content (lives on <code>document.body</code>).
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>data-slot="split-button-item"</code>
+			</td>
+			<td>One radio item inside the menu.</td>
+		</tr>
+	</tbody>
+</table>
+
+## Variants
+
+<Canvas of={SplitButtonStories.Variants} />
+
+The variant applies to both halves so the control reads as a single unit. The divider line uses `currentColor` at low opacity so it adapts to every variant automatically.
+
+## Sizes
+
+<Canvas of={SplitButtonStories.Sizes} />
+
+All Button sizes are supported: `xs`, `sm`, `default`, `lg`. Both halves clear the WCAG 2.5.8 24×24 minimum.
+
+## Loading
+
+<Canvas of={SplitButtonStories.Loading} />
+
+`loading` shows the spinner on the primary button and disables it. The chevron remains active so the user can switch to a different action mid-flight.
+
+## Disabled
+
+<Canvas of={SplitButtonStories.Disabled} />
+
+Set `disabled` on the root to disable the entire control. Set `disabled` on a single action to disable that menu item only — the primary button switches to disabled when the disabled action is selected.
+
+## Per-action disabled
+
+<Canvas of={SplitButtonStories.WithDisabledOption} />
+
+## Props
+
+<Controls of={SplitButtonStories.Default} />
+
+<ArgTypes of={SplitButtonStories} />
+
+## Keyboard interaction
+
+<table>
+	<thead>
+		<tr>
+			<th>Key</th>
+			<th>On the primary button</th>
+			<th>On the chevron / menu</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<kbd>Enter</kbd> / <kbd>Space</kbd>
+			</td>
+			<td>Activate the primary action.</td>
+			<td>Open the menu (chevron) / select item (menu).</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>ArrowDown</kbd>
+			</td>
+			<td>Open the dropdown menu (no need to tab to the chevron).</td>
+			<td>Move focus to the next item.</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>ArrowUp</kbd>
+			</td>
+			<td>—</td>
+			<td>Move focus to the previous item.</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>Home</kbd> / <kbd>End</kbd>
+			</td>
+			<td>—</td>
+			<td>Jump to first / last item.</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>Escape</kbd>
+			</td>
+			<td>—</td>
+			<td>Close the menu and return focus to the chevron.</td>
+		</tr>
+	</tbody>
+</table>
+
+## Accessibility (WCAG 2.2 AA)
+
+- **2.1.1 Keyboard**: every interaction reachable without a mouse. ArrowDown on the primary button opens the menu so the chevron isn't a required focus stop.
+- **2.4.7 Focus Visible**: 3 px focus ring on whichever half is focused. `focus-visible:z-10` keeps the ring above the divider.
+- **2.5.8 Target Size**: both halves clear 24×24 at every size. The chevron uses square padding to ensure the hit area is comfortably above the minimum.
+- **4.1.2 Name, Role, Value**: the chevron has an accessible name via `triggerAriaLabel` (default `"More options"` — please override with something specific). The menu has `role="menu"` and items have `role="menuitemradio"` (Reka).
+
+## Responsive behaviour
+
+<Canvas of={SplitButtonStories.InteractiveResponsive} />
+
+The control is `inline-flex` and never wraps. The dropdown content uses `max-w-[calc(100vw-1rem)] sm:max-w-xs` so it never overflows the viewport on phones.
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				Override <code>triggerAriaLabel</code> with something specific (e.g.{' '}
+				<code>"More export options"</code>).
+			</td>
+			<td>
+				Leave the default <code>"More options"</code> in production code — it's generic.
+			</td>
+		</tr>
+		<tr>
+			<td>Order actions by frequency — most-used first, sets the default.</td>
+			<td>List rare actions first.</td>
+		</tr>
+		<tr>
+			<td>Provide descriptions when actions are subtly different (Merge vs. Squash vs. Rebase).</td>
+			<td>Repeat the label as a description.</td>
+		</tr>
+		<tr>
+			<td>
+				Use <code>variant="destructive"</code> only when every action is destructive.
+			</td>
+			<td>
+				Mix destructive and non-destructive actions in the same SplitButton — split them into two
+				controls.
+			</td>
+		</tr>
+	</tbody>
+</table>

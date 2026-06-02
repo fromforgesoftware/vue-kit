@@ -1,0 +1,159 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as MonthRangePickerStories from './MonthRangePicker.stories';
+
+<Meta of={MonthRangePickerStories} />
+
+# MonthRangePicker
+
+Composite month-range picker — button trigger that opens a popover with a 4 × 3 grid of months for picking a contiguous range. Built on Reka UI's `MonthRangePicker` primitives.
+
+## When to use
+
+- Reports requiring a contiguous month range (year-to-date, last 6 months).
+- Filters where granularity below a month would be noise.
+- Inline scheduling layouts via the `inline` variant.
+
+## When not to use
+
+- Single-month selection — use [MonthPicker](?path=/docs/dates-monthpicker--docs).
+- Day-level ranges — use [DateRangePicker](?path=/docs/dates-daterangepicker--docs).
+- Year-only ranges — use [YearRangePicker](?path=/docs/dates-yearrangepicker--docs).
+
+## Anatomy
+
+<Canvas of={MonthRangePickerStories.Default} />
+
+`MonthRangePickerRoot` wraps a year-navigation header and a 12-cell grid that highlights the selected range and the in-progress preview.
+
+## Variants
+
+<Canvas of={MonthRangePickerStories.Variants} />
+
+<table>
+	<thead>
+		<tr>
+			<th>Variant</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>button</code> (default)
+			</td>
+			<td>Filters and report toolbars.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>inline</code>
+			</td>
+			<td>Always-visible scheduling layouts.</td>
+		</tr>
+	</tbody>
+</table>
+
+## Sizes
+
+<Canvas of={MonthRangePickerStories.Sizes} />
+
+`sm` / `default` / `lg` mirror MonthPicker — heights 28 / 32 / 40 px.
+
+## States
+
+<Canvas of={MonthRangePickerStories.Disabled} />
+
+<Canvas of={MonthRangePickerStories.WithError} />
+
+`error` sets `aria-invalid="true"` and tints the border. Pair with `describedBy`.
+
+## Composition
+
+<Canvas of={MonthRangePickerStories.Inline} />
+
+<Canvas of={MonthRangePickerStories.WithMinMax} />
+
+`variant="inline"` renders the grid directly; `minValue` / `maxValue` constrain selectable months.
+
+## Keyboard interaction
+
+<table>
+	<thead>
+		<tr>
+			<th>Key</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>Enter</code> / <code>Space</code> on trigger
+			</td>
+			<td>Open the popover</td>
+		</tr>
+		<tr>
+			<td>
+				<code>ArrowLeft</code> / <code>ArrowRight</code>
+			</td>
+			<td>Move focus one month</td>
+		</tr>
+		<tr>
+			<td>Click</td>
+			<td>First click sets range start, second click sets end</td>
+		</tr>
+		<tr>
+			<td>
+				<code>Escape</code>
+			</td>
+			<td>Close the popover</td>
+		</tr>
+	</tbody>
+</table>
+
+## Props
+
+<Controls of={MonthRangePickerStories.Default} />
+
+<ArgTypes of={MonthRangePickerStories} />
+
+## Accessibility (WCAG 2.2 AA)
+
+- **2.4.6 Labels**: pair every picker with `<Label for="id">`.
+- **3.3.1 Error identification**: `error` + `describedBy` over colour alone.
+- **2.4.7 Focus visible**: 2 px ring on trigger, nav buttons, and cells.
+- **2.5.8 Target size**: trigger and month cells meet ≥ 24 × 24 px at every size.
+- **4.1.2 Name & state**: range start / end and highlighted preview cells expose Reka data attributes.
+
+## Responsive behaviour
+
+<Canvas of={MonthRangePickerStories.InteractiveResponsive} />
+
+The trigger is `w-fit`. The popover is portaled to `document.body`.
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				Use <code>error</code> + <code>describedBy</code> for validation.
+			</td>
+			<td>
+				Apply <code>border-destructive</code> manually.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Match <code>size</code> to neighbouring filter controls.
+			</td>
+			<td>
+				Override <code>class="h-..."</code>; use <code>size</code>.
+			</td>
+		</tr>
+	</tbody>
+</table>

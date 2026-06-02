@@ -1,0 +1,238 @@
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as ToolbarStories from './Toolbar.stories';
+
+<Meta of={ToolbarStories} />
+
+# Toolbar
+
+A horizontal or vertical group of related actions with **roving focus** — one tab stop into the toolbar, then arrow keys move between items. Built on Reka UI, implementing the WAI-ARIA Toolbar pattern. Use it for editor formatting bars, view-switcher rows, or any cluster of equally-weighted controls.
+
+## When to use
+
+- Rich-text editor formatting bar (Bold, Italic, Underline, alignment).
+- A row of view-switcher actions on top of a list (filter / sort / refresh).
+- A group of equally-weighted icon buttons that should share a single tab stop.
+
+## When not to use
+
+- A single primary action — use a [Button](?path=/docs/general-button--docs).
+- Form controls — use the form layout patterns.
+- Navigation between routes — use [Tabs](?path=/docs/general-tabs--docs) or a Menu.
+
+## Anatomy
+
+<Canvas of={ToolbarStories.Default} />
+
+## Composition
+
+```vue
+<Toolbar variant="default" size="default" orientation="horizontal" aria-label="Formatting">
+  <ToolbarToggleGroup v-model="format" type="multiple">
+    <ToolbarToggleItem value="bold" aria-label="Bold">B</ToolbarToggleItem>
+    <ToolbarToggleItem value="italic" aria-label="Italic">I</ToolbarToggleItem>
+  </ToolbarToggleGroup>
+  <ToolbarSeparator />
+  <ToolbarButton>Share</ToolbarButton>
+</Toolbar>
+```
+
+<table>
+	<thead>
+		<tr>
+			<th>Subcomponent</th>
+			<th>Purpose</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>Toolbar</code>
+			</td>
+			<td>
+				Root provider. Defines <code>variant</code>, <code>size</code>, <code>orientation</code>;
+				propagates them to children via inject.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>ToolbarButton</code>
+			</td>
+			<td>A standalone action button.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>ToolbarLink</code>
+			</td>
+			<td>A link rendered as a toolbar item (e.g. "Edited 2 hours ago").</td>
+		</tr>
+		<tr>
+			<td>
+				<code>ToolbarSeparator</code>
+			</td>
+			<td>Decorative divider — non-focusable. Auto-rotates with toolbar orientation.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>ToolbarToggleGroup</code>
+			</td>
+			<td>Wraps related toggle items with single/multiple selection.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>ToolbarToggleItem</code>
+			</td>
+			<td>
+				A pressed/unpressed toggle within a group (uses <code>data-state="on" / "off"</code>).
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+## Variants
+
+<Canvas of={ToolbarStories.Variants} />
+
+- `default` — bordered card surface. The everyday toolbar.
+- `ghost` — borderless, no padding. Use inline (e.g. above a list, inside a card).
+
+## Sizes
+
+<Canvas of={ToolbarStories.Sizes} />
+
+<table>
+	<thead>
+		<tr>
+			<th>Size</th>
+			<th>Item height</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>sm</code>
+			</td>
+			<td>32 px</td>
+			<td>Dense editors, inline toolbars</td>
+		</tr>
+		<tr>
+			<td>
+				<code>default</code>
+			</td>
+			<td>36 px</td>
+			<td>General use — editor toolbars, list-action rows</td>
+		</tr>
+	</tbody>
+</table>
+
+## Orientation
+
+<Canvas of={ToolbarStories.Orientation} />
+
+`vertical` stacks items in a column; the separator switches axis automatically. Roving focus uses Up/Down arrows in vertical mode.
+
+## Props
+
+<Controls of={ToolbarStories.Default} />
+
+## Keyboard interaction
+
+<table>
+	<thead>
+		<tr>
+			<th>Key</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<kbd>Tab</kbd>
+			</td>
+			<td>Moves focus into the toolbar (single tab stop).</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>ArrowRight</kbd> / <kbd>ArrowLeft</kbd>
+			</td>
+			<td>Move between items (horizontal toolbar).</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>ArrowDown</kbd> / <kbd>ArrowUp</kbd>
+			</td>
+			<td>Move between items (vertical toolbar).</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>Home</kbd>
+			</td>
+			<td>Jumps to the first item.</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>End</kbd>
+			</td>
+			<td>Jumps to the last item.</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>Space</kbd> / <kbd>Enter</kbd>
+			</td>
+			<td>Activates the focused item; toggles a ToggleItem.</td>
+		</tr>
+	</tbody>
+</table>
+
+Separators are decorative and skipped during arrow navigation — they have no `tabindex`.
+
+## Accessibility (WCAG 2.2 AA)
+
+- **1.4.3 Contrast**: item text on `bg-card` clears 4.5 : 1; pressed `data-[state=on]` items use `bg-accent text-accent-foreground` which clears 4.5 : 1.
+- **1.4.11 Non-text contrast**: borders, separators, and the focus ring clear 3 : 1.
+- **2.1.1 Keyboard**: every interactive item is a real `<button>` or `<a>` — Space, Enter, and arrow keys all work.
+- **2.4.3 Focus order**: roving focus — only one item is in the tab order at any moment.
+- **2.4.7 Focus visible**: a 3 px ring at `--ring` is applied on `:focus-visible`.
+- **2.5.8 Target size**: every item meets the 24×24 px minimum at every size and viewport (default = 36 px, `sm` = 32 px).
+- **4.1.2 Name, Role, Value**: the root has `role="toolbar"` (provided by Reka). Always pass an `aria-label` so screen readers can announce the toolbar's purpose. Toggle items expose `aria-pressed` mirroring `data-state`.
+
+## Responsive behaviour
+
+<Canvas of={ToolbarStories.InteractiveResponsive} />
+
+The toolbar uses `min-w-max` so it can scroll horizontally inside an `overflow-x-auto` container on narrow viewports. The container itself never causes layout overflow at the parent level.
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				Pass an <code>aria-label</code> on the root toolbar describing its purpose.
+			</td>
+			<td>Wrap unrelated actions in one Toolbar — group only related controls.</td>
+		</tr>
+		<tr>
+			<td>
+				Pair icon-only items with <code>aria-label</code>.
+			</td>
+			<td>Rely on the icon alone — screen-reader users hear nothing.</td>
+		</tr>
+		<tr>
+			<td>
+				Use <code>ToolbarToggleGroup</code> for mutually related toggles (alignment, list type).
+			</td>
+			<td>Mix toggle and one-shot actions inside the same toggle group.</td>
+		</tr>
+		<tr>
+			<td>Add a separator between unrelated item clusters.</td>
+			<td>Add separators decoratively between every item — that's just visual noise.</td>
+		</tr>
+	</tbody>
+</table>

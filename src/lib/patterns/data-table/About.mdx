@@ -1,0 +1,291 @@
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as DataTableStories from './DataTable.stories';
+
+<Meta of={DataTableStories} />
+
+# Data Table
+
+A composed table built on top of [TanStack Table](https://tanstack.com/table) with our toolbar, filter bar, pagination, column visibility, row selection, and empty state. Renders in three table variants plus a card-row variant, and supports server-side pagination, sorting, and filtering out of the box.
+
+## When to use
+
+- Lists of records where users need to scan, sort, paginate, filter, or select multiple at once.
+- Resource pages (employees, leave requests, audit log) where the row count exceeds a screenful.
+- Workflows that require bulk actions on selected rows — the sticky selection panel exposes consumer-defined buttons.
+- Per-entity sub-views with multi-line rows (notes, descriptions) — use the `card` variant.
+
+## When not to use
+
+- Read-only summaries of less than ~10 rows — render a simple list or stat group instead.
+- Hierarchical data (treegrids) — use a different primitive that supports indentation and expansion.
+- Cards with rich media (images, large CTAs) — those belong in a grid, not a row-stacked list.
+
+## Variants
+
+<table>
+	<thead>
+		<tr>
+			<th>Variant</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>default</code> / <code>primary</code>
+			</td>
+			<td>Standard table with rounded sidebar headers — the default in most pages.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>outline</code>
+			</td>
+			<td>Bordered table contained inside a card — best when nested in a panel.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>card</code>
+			</td>
+			<td>
+				Card-row layout instead of a <code>&lt;table&gt;</code>. Each row renders the consumer's{' '}
+				<code>#row</code> slot at every breakpoint. Pick this when rows carry multi-line content
+				(notes, descriptions) or column alignment isn't useful — common for per-entity detail tabs
+				(e.g. an employee's leave history).
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+<Canvas of={DataTableStories.Default} />
+<Canvas of={DataTableStories.Primary} />
+<Canvas of={DataTableStories.Outline} />
+<Canvas of={DataTableStories.Card} />
+
+### Card variant
+
+Provide a `#row` slot — it receives `{ row, selected }` and renders once per data row. Toolbar (search, filters, chips), pagination, sorting, and column-visibility plumbing are all shared with the table variants — pick the variant for layout, not for behaviour.
+
+```vue
+<DataTable
+	variant="card"
+	:columns="columns"
+	:data-source="dataSource"
+	:pagination="pagination"
+	:filter-columns="filterColumns"
+	:filters="filters"
+	:show-column-visibility="false"
+	@update:pagination="pagination = $event"
+	@update:filters="filters = $event"
+>
+  <template #row="{ row }">
+    <Card class="p-3 flex items-start justify-between gap-3">
+      <!-- consumer owns the row layout -->
+    </Card>
+  </template>
+</DataTable>
+```
+
+### Layout: `default` vs `fill`
+
+Orthogonal to `variant`. Picks how the table claims vertical space:
+
+<table>
+	<thead>
+		<tr>
+			<th>Layout</th>
+			<th>Behaviour</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>default</code>
+			</td>
+			<td>
+				Natural height — the whole table flows in document order. The surrounding page handles any
+				scrolling. This is the default and matches every existing usage.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>fill</code>
+			</td>
+			<td>
+				The table claims its parent's full height. The toolbar (search, filters) and pagination
+				footer stay pinned, and only the rows region scrolls. Use inside a height-constrained parent
+				(dialog body, side panel) where filters and pagination must stay visible while the user
+				scrolls a long list.
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+<Canvas of={DataTableStories.CardFillLayout} />
+
+`fill` requires a height-constrained ancestor — typically `flex flex-col` with a fixed `h-` or `max-h-` on a parent, plus `overflow-hidden` so the rows area is the only scroller. Without that, the table has no bound to fill against and the prop is a no-op.
+
+```vue
+<div class="h-[480px] flex flex-col overflow-hidden">
+  <DataTable
+    variant="card"
+    layout="fill"
+    :columns="columns"
+    :data-source="dataSource"
+    :pagination="pagination"
+    :filter-columns="filterColumns"
+    :filters="filters"
+    @update:pagination="pagination = $event"
+    @update:filters="filters = $event"
+  >
+    <template #row="{ row }">…</template>
+  </DataTable>
+</div>
+```
+
+`fill` works with every `variant` — for `primary` / `outline` the inner table scroll container becomes the flex-1 region; for `card` the rows wrapper does.
+
+### Responsive behaviour
+
+Each variant owns its own responsive strategy and they don't cross-fade:
+
+- `default` / `primary` / `outline` — horizontal scroll on narrow viewports, with `meta.priority` columns staying visible and the first priority column sticking to the left edge. The `#row` slot is **not** consumed by these variants; mark important columns as `priority` instead.
+- `card` — card rows at every breakpoint. The consumer's `#row` template owns its own internal layout (and its own responsiveness within a row).
+
+Picking between table-with-priority-columns and card-rows is an explicit choice via the `variant` prop, not something the component does automatically.
+
+## Toolbar
+
+The toolbar above the table is rendered by `DataTable` itself — there is no need to add a separate `<FilterBar>` next to it. It composes:
+
+- **Search input** — by default, filters `dataSource.data` in-memory across every visible column via TanStack's global filter — drop in any small admin list and search Just Works. Set `:server-search="true"` when you re-fetch from an API on `@search` (Employees, Shifts, Rotas, SpecialDays) so the table emits the event and skips its own filter, avoiding double-filtering. Customise the placeholder with `search-placeholder`. Toggle off with `:show-search="false"`.
+- **Filters** — pass `:filter-columns` to expose a `FilterBar` trigger; bind `:filters` + `@update:filters` to a v-model. Active filters render as chips below the toolbar with an enter / leave transition.
+- **Column visibility** — built-in "Edit columns" dropdown listing every `enableHiding` column. Toggle off with `:show-column-visibility="false"`.
+- **Slots** — `#toolbar-start` and `#toolbar-end` accept any content (Create button, bulk actions, etc.). The whole toolbar can be disabled with `:show-toolbar="false"`.
+
+<Canvas of={DataTableStories.WithToolbarActions} />
+<Canvas of={DataTableStories.WithFilters} />
+<Canvas of={DataTableStories.MinimalToolbar} />
+
+```vue
+<DataTable
+	:columns="columns"
+	:data-source="dataSource"
+	search-placeholder="Search employees..."
+	:filter-columns="filterColumns"
+	:filters="filters"
+	@update:filters="filters = $event"
+	@search="onSearch"
+>
+  <template #toolbar-end>
+    <Button><Icon :icon="Plus" /> Create</Button>
+  </template>
+</DataTable>
+```
+
+`filter-columns` accepts the same `ColumnConfig[]` shape as the standalone `FilterBar` (`id`, `type`, `displayName`, `options`). Use the standalone `FilterBar` only when there is no table to attach to — feature views like the timeline or the people search.
+
+## Empty state
+
+Pass an `#empty` slot to override the default. The default shows an `EmptyState` with "No results found".
+
+<Canvas of={DataTableStories.EmptyCustom} />
+
+## Server-side flow
+
+Pagination and sorting are always server-driven (consumer pushes fresh `dataSource.data` and `dataSource.totalCount` in response to `@update:pagination` / `@update:sorting`). Search defaults to client-side global filter; pass `:server-search="true"` and listen to `@search` when you want the API to do the filtering instead.
+
+## Cross-page selection (Gmail-style)
+
+When every row on the current page is selected and there are unseen matching rows on other pages, DataTable can show a banner offering to extend selection to every matching row.
+
+<Canvas of={DataTableStories.CrossPageSelection} />
+
+Opt in by passing two props:
+
+```ts
+<DataTable
+  :get-row-id="(r) => r.id"
+  :fetch-all-matching-ids="async () => myService.getAllMatchingIds(filterParams)"
+  …
+/>
+```
+
+- **`getRowId`** is required: without it, `rowSelection` keys would be tanstack row indices instead of entity IDs, and the resolved id list would be wrong.
+- **`fetchAllMatchingIds`** is invoked lazily — only when the bulk action runs in `all-matching` mode. Page through your list endpoint until you've collected `dataSource.totalCount` IDs. Apply your own soft cap (e.g. abort over 2000 and ask the user to filter further); this lives in the consumer, not DataTable.
+
+The `selection-actions` slot scope grows two new fields when this is enabled:
+
+| field                  | meaning                                                                                                                                                                                                                  |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `selectionMode`        | `'page'` or `'all-matching'`.                                                                                                                                                                                            |
+| `effectiveCount`       | `selectedCount` in page mode, `dataSource.totalCount` in all-matching. Use this for the button label.                                                                                                                    |
+| `resolveSelectedIds()` | Returns the IDs to act on. Synchronous-ish in page mode (current `rowSelection` keys); calls your `fetchAllMatchingIds` in all-matching. Always `await` it — keep the action button in a loading state during the await. |
+
+Mode automatically reverts to `page` when:
+
+- the user deselects an individual row (no exclusion semantics — the user clearly changed intent);
+- filters, search, sort, or pageSize change (the IDs no longer match the new query);
+- `clearSelection()` is called via the component ref.
+
+A page-index change alone does **not** revert — page selection persists across pages.
+
+## Props
+
+<Controls of={DataTableStories.Default} />
+
+## Accessibility (WCAG 2.2 AA)
+
+<table>
+	<thead>
+		<tr>
+			<th>Concern</th>
+			<th>Behaviour</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>Semantics</td>
+			<td>
+				Uses real <code>&lt;table&gt;</code>, <code>&lt;thead&gt;</code>, <code>&lt;tbody&gt;</code>
+				, <code>&lt;th&gt;</code>, <code>&lt;tr&gt;</code>, <code>&lt;td&gt;</code> — assistive tech
+				navigates the data grid natively.
+			</td>
+		</tr>
+		<tr>
+			<td>Sortable headers</td>
+			<td>
+				Headers with <code>enableSorting</code> are clickable and indicate state with an arrow icon.
+				Consumers may add explicit <code>aria-sort</code> at the column level.
+			</td>
+		</tr>
+		<tr>
+			<td>Row selection</td>
+			<td>
+				Each checkbox is a real, labelled <code>Checkbox</code> with{' '}
+				<code>aria-label="Select row"</code>; the header <code>aria-label="Select all"</code>.
+				Indeterminate state announced by the underlying primitive.
+			</td>
+		</tr>
+		<tr>
+			<td>Target size</td>
+			<td>
+				All toolbar buttons, pagination arrows, and per-row controls meet the 24 × 24 px minimum (SC
+				2.5.8).
+			</td>
+		</tr>
+		<tr>
+			<td>Selection panel</td>
+			<td>
+				Sticky bottom panel uses a separate <code>tabindex</code>-able close button and inherits
+				focus from selection actions.
+			</td>
+		</tr>
+		<tr>
+			<td>Responsive</td>
+			<td>
+				Wrapper applies <code>overflow-auto</code>; the table itself does not break layout. The
+				toolbar wraps to multiple rows on narrow viewports.
+			</td>
+		</tr>
+	</tbody>
+</table>

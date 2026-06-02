@@ -1,0 +1,230 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as DatePickerStories from './DatePicker.stories';
+
+<Meta of={DatePickerStories} />
+
+# DatePicker
+
+Composite single-date picker — segmented date field or button trigger paired with a popover Calendar. Built on Reka UI's `DatePicker` primitives. Use it whenever the user needs both keyboard date entry and visual month browsing.
+
+## When to use
+
+- Forms requiring a single date with optional preset shortcuts.
+- Filters or scheduling panels where the calendar opens on demand instead of staying inline.
+- Date + time entry via `granularity="minute"` (segmented field variant).
+
+## When not to use
+
+- Always-visible calendar — use [Calendar](?path=/docs/dates-calendar--docs).
+- Pure keyboard date entry without a popover — use [DateField](?path=/docs/dates-datefield--docs).
+- Date _range_ selection — use [DateRangePicker](?path=/docs/dates-daterangepicker--docs).
+
+## Anatomy
+
+<Canvas of={DatePickerStories.Default} />
+
+`DatePickerRoot` wraps either a segmented `DatePickerField` (with calendar-icon `DatePickerTrigger`) or a single `DatePickerTrigger` button. The popover content (`DatePickerContent`) hosts a `DatePickerCalendar` and an optional preset sidebar.
+
+## Variants
+
+<Canvas of={DatePickerStories.Variants} />
+
+<table>
+	<thead>
+		<tr>
+			<th>Variant</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>field</code> (default)
+			</td>
+			<td>Forms — fast keyboard entry plus calendar fallback.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>button</code>
+			</td>
+			<td>Toolbars, filters, navigation rails — single click opens the calendar.</td>
+		</tr>
+	</tbody>
+</table>
+
+## Sizes
+
+<Canvas of={DatePickerStories.Sizes} />
+
+<table>
+	<thead>
+		<tr>
+			<th>Size</th>
+			<th>Trigger height</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>sm</code>
+			</td>
+			<td>28 px</td>
+			<td>Compact toolbars and inline filters</td>
+		</tr>
+		<tr>
+			<td>
+				<code>default</code>
+			</td>
+			<td>32 px</td>
+			<td>General forms</td>
+		</tr>
+		<tr>
+			<td>
+				<code>lg</code>
+			</td>
+			<td>40 px</td>
+			<td>Hero forms and booking flows</td>
+		</tr>
+	</tbody>
+</table>
+
+Heights mirror [DateField](?path=/docs/dates-datefield--docs) and [Input](?path=/docs/form-input--docs) so date pickers align with neighbouring fields.
+
+## States
+
+<Canvas of={DatePickerStories.Disabled} />
+
+<Canvas of={DatePickerStories.Readonly} />
+
+<Canvas of={DatePickerStories.WithError} />
+
+`error` is the canonical way to surface validation failure — it sets `aria-invalid="true"` on the trigger and tints the border. Pair with `describedBy` pointing to your error message id.
+
+## Composition
+
+<Canvas of={DatePickerStories.WithMonthYearSelect} />
+
+<Canvas of={DatePickerStories.TwoMonths} />
+
+<Canvas of={DatePickerStories.WithDayPresets} />
+
+`monthYearSelect` swaps the heading for two `<select>` controls. `numberOfMonths={2}` shows two months side by side. `presets` adds a sidebar of one-click shortcuts (e.g. Today, Yesterday, Start of Week) — selecting one updates the model and highlights the active preset.
+
+`<DatePickerPresets>` is exported separately so consumers can build custom preset components.
+
+## Keyboard interaction
+
+<table>
+	<thead>
+		<tr>
+			<th>Key</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>Enter</code> / <code>Space</code> on trigger
+			</td>
+			<td>Open the calendar popover</td>
+		</tr>
+		<tr>
+			<td>
+				<code>ArrowLeft</code> / <code>ArrowRight</code>
+			</td>
+			<td>Move focus one day backward / forward</td>
+		</tr>
+		<tr>
+			<td>
+				<code>ArrowUp</code> / <code>ArrowDown</code>
+			</td>
+			<td>Move focus one week earlier / later</td>
+		</tr>
+		<tr>
+			<td>
+				<code>PageUp</code> / <code>PageDown</code>
+			</td>
+			<td>Move to the previous / next month</td>
+		</tr>
+		<tr>
+			<td>
+				<code>Enter</code> / <code>Space</code> on cell
+			</td>
+			<td>Select the focused date</td>
+		</tr>
+		<tr>
+			<td>
+				<code>Escape</code>
+			</td>
+			<td>Close the popover and return focus to the trigger</td>
+		</tr>
+	</tbody>
+</table>
+
+## Props
+
+<Controls of={DatePickerStories.Default} />
+
+<ArgTypes of={DatePickerStories} />
+
+## Accessibility (WCAG 2.2 AA)
+
+- **2.4.6 Labels**: pair every picker with `<Label for="id">` and pass `placeholder` for screen-reader context on the button variant.
+- **3.3.1 Error identification**: use the `error` prop to set `aria-invalid="true"`; reference helper text via `describedBy`.
+- **2.4.7 Focus visible**: trigger renders a 2 px ring on focus; nav buttons and day cells render their own rings inside the popover.
+- **2.5.8 Target size**: every size's trigger and day cells meet ≥ 24 × 24 px.
+- **4.1.2 Name & state**: the popover dialog announces correctly; selected cells expose `aria-selected="true"` and today carries `aria-current="date"` (Reka).
+
+## Responsive behaviour
+
+<Canvas of={DatePickerStories.InteractiveResponsive} />
+
+The trigger is `w-fit` — it shrinks to its content. The popover is portaled to `document.body` and positioned by Reka's collision-aware logic. Two-month layouts stack to a column at narrow widths.
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				Use the <code>error</code> prop with a referenced helper-text id for validation.
+			</td>
+			<td>
+				Override <code>class</code> with <code>border-destructive</code> manually — it skips the{' '}
+				<code>aria-invalid</code> hint.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Match <code>size</code> to neighbouring inputs for vertical alignment.
+			</td>
+			<td>
+				Override <code>class="h-..."</code> to change height — use the <code>size</code> variant.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Provide <code>presets</code> for common shortcuts in filters and reports.
+			</td>
+			<td>
+				Build your own preset list with bare buttons — the included <code>presets</code> prop
+				already handles active state.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Switch to <code>monthYearSelect</code> for date-of-birth and far-historic pickers.
+			</td>
+			<td>
+				Force users to click prev / next dozens of times — use <code>monthYearSelect</code> instead.
+			</td>
+		</tr>
+	</tbody>
+</table>

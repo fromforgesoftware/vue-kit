@@ -1,0 +1,96 @@
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as DialogStories from './UnsavedChangesDialog.stories';
+import * as BannerStories from './UnsavedChangesBanner.stories';
+
+<Meta of={DialogStories} />
+
+# UnsavedChanges
+
+Two complementary components for protecting users from accidentally losing unsaved work:
+
+- **UnsavedChangesDialog** — a modal alert dialog that blocks navigation with Leave/Stay actions.
+- **UnsavedChangesBanner** — a floating bottom bar with Save/Discard actions, optionally animated with a jiggle on blocked navigation.
+
+## When to use
+
+- Show the **Dialog** when the user tries to navigate away (route change, browser tab close) while a form has pending changes.
+- Show the **Banner** as a persistent inline cue that unsaved changes exist, giving the user easy access to save or discard.
+
+---
+
+## UnsavedChangesDialog
+
+<Canvas of={DialogStories.Default} />
+
+### Custom Labels
+
+<Canvas of={DialogStories.CustomLabels} />
+
+### Destructive Variant
+
+<Canvas of={DialogStories.DestructiveVariant} />
+
+### Props
+
+<Controls of={DialogStories.Default} />
+
+---
+
+## UnsavedChangesBanner
+
+<Canvas of={BannerStories.Default} />
+
+### Jiggling State
+
+<Canvas of={BannerStories.JigglingState} />
+
+### Props
+
+<Controls of={BannerStories.Default} />
+
+---
+
+## Accessibility (WCAG 2.2 AA)
+
+<table>
+	<thead>
+		<tr>
+			<th>Criterion</th>
+			<th>Component</th>
+			<th>Coverage</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>1.3.1 Info and Relationships</td>
+			<td>Dialog</td>
+			<td>
+				AlertDialog provides <code>role="alertdialog"</code> with linked title and description.
+			</td>
+		</tr>
+		<tr>
+			<td>2.1.1 Keyboard</td>
+			<td>Both</td>
+			<td>All buttons are focusable and activatable via Enter/Space.</td>
+		</tr>
+		<tr>
+			<td>2.1.2 No Keyboard Trap</td>
+			<td>Dialog</td>
+			<td>
+				Focus is trapped while the dialog is open; Escape is handled by the AlertDialog primitive.
+			</td>
+		</tr>
+		<tr>
+			<td>2.5.8 Target Size</td>
+			<td>Both</td>
+			<td>All action buttons are at minimum 24×24 px.</td>
+		</tr>
+		<tr>
+			<td>4.1.2 Name, Role, Value</td>
+			<td>Banner</td>
+			<td>
+				Buttons have visible text labels; the banner uses semantic <code>button</code> elements.
+			</td>
+		</tr>
+	</tbody>
+</table>

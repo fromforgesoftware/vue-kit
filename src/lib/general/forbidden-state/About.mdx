@@ -1,0 +1,133 @@
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as ForbiddenStateStories from './ForbiddenState.stories';
+
+<Meta of={ForbiddenStateStories} />
+
+# ForbiddenState
+
+Full-page placeholder shown when access is denied or content is missing. Built on top of `EmptyState` with permission-domain presets.
+
+## When to use
+
+- A user lands on a page their role can't access (`403 Forbidden`).
+- A resource has been deleted or never existed (`404 Not Found`).
+- An unrecoverable error blocks the current view.
+- A feature is gated behind an admin-only toggle.
+
+## When not to use
+
+- For zero-data placeholders — use [EmptyState](?path=/docs/general-emptystate--docs).
+- For inline form errors — use the field's error slot.
+- For transient errors — use [Alert](?path=/docs/general-alert--docs) or [Toast](?path=/docs/general-toast--docs).
+
+## Anatomy
+
+<Canvas of={ForbiddenStateStories.Default} />
+
+A `<section>` with a centred icon, title, description, and an optional action slot. Inherits `aria-label` from the title.
+
+## Variants
+
+<Canvas of={ForbiddenStateStories.Variants} />
+
+<table>
+	<thead>
+		<tr>
+			<th>Variant</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>forbidden</code>
+			</td>
+			<td>403 — user lacks permission.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>not-found</code>
+			</td>
+			<td>404 — resource missing.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>error</code>
+			</td>
+			<td>500 / unexpected failure.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>locked</code>
+			</td>
+			<td>Feature gated by configuration or plan.</td>
+		</tr>
+	</tbody>
+</table>
+
+Each preset ships its own icon, title, and description. Override any of those props to localise the copy.
+
+## With a back button
+
+<Canvas of={ForbiddenStateStories.WithBackButton} />
+
+Pair with a single recovery action — usually "Go back" or "Return to homepage".
+
+## With multiple actions
+
+<Canvas of={ForbiddenStateStories.WithMultipleActions} />
+
+Two actions: a primary recovery path and a secondary fallback (often "Log out" or "Contact admin").
+
+## Custom message
+
+<Canvas of={ForbiddenStateStories.CustomMessage} />
+
+Override `title` and `description` for context-specific copy. The icon stays consistent unless you also pass an `icon` prop.
+
+## Props
+
+<Controls of={ForbiddenStateStories.Default} />
+
+## Accessibility (WCAG 2.2 AA)
+
+- **1.3.1 Info and Relationships**: rendered as `<section aria-label="…">` with the title as `<h3>`.
+- **1.4.3 Contrast**: title `text-foreground`, description `text-muted-foreground`, both ≥ 4.5 : 1.
+- **2.4.7 Focus Visible**: action buttons inherit the system focus ring.
+- **3.3.1 Error Identification**: title and description describe the error in plain language; consumers should pair with logging at the route layer.
+
+## Responsive behaviour
+
+<Canvas of={ForbiddenStateStories.InteractiveResponsive} />
+
+ForbiddenState reflows the action row from horizontal to wrapping at narrow widths.
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>Choose the variant that matches the actual cause of the error</td>
+			<td>
+				Use <code>forbidden</code> for a 404 — users will hunt for permission settings that don't
+				exist
+			</td>
+		</tr>
+		<tr>
+			<td>Always provide a clear recovery action</td>
+			<td>Leave the user stranded with no way out</td>
+		</tr>
+		<tr>
+			<td>
+				Set <code>title</code> / <code>description</code> from the consumer
+			</td>
+			<td>Hard-code English copy across the app</td>
+		</tr>
+	</tbody>
+</table>

@@ -1,0 +1,607 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as ScheduleTimelineStories from './ScheduleTimeline.stories';
+
+<Meta of={ScheduleTimelineStories} />
+
+# ScheduleTimeline
+
+A multi-employee schedule grid for visualising shift assignments across day, week, and month views. Read-only by design — editing UX is composed in the app layer per-shift via the `#shift-wrapper` slot.
+
+## When to use
+
+- Displaying who works when — one row per employee, one column per day or hour.
+- Drilling into a single day at hour-level resolution with overlapping shift lanes.
+
+## When not to use
+
+- Browsing scheduled events for a single calendar — use [`EventCalendar`](?path=/docs/patterns-eventcalendar--docs).
+- Editing a single shift's break structure — use [`TimeRangeBar`](?path=/docs/patterns-timerangebar--docs).
+
+## Anatomy
+
+<Canvas of={ScheduleTimelineStories.WeekView} />
+
+<table>
+	<thead>
+		<tr>
+			<th>Element</th>
+			<th>Purpose</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>[data-slot="schedule-timeline"]</code>
+			</td>
+			<td>
+				Outer wrapper. Owns the rounded border and the <code>overflow-hidden</code> boundary that
+				keeps the timeline from pushing its parent wider.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>[data-slot="schedule-timeline-header"]</code>
+			</td>
+			<td>
+				Sticky top header row, shared across all three views. Columns carry{' '}
+				<code>[data-slot="schedule-timeline-header-day"]</code> + <code>data-date</code> (week /
+				month) or <code>data-date="hour-{`<n>`}"</code> (day). Week and month columns are real{' '}
+				<code>&lt;button&gt;</code> elements and emit <code>day-click</code> on click / Enter /
+				Space; today's column carries <code>aria-current="date"</code>. Day view columns are
+				non-interactive (the hour grid is a static ruler).
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>[data-slot="schedule-timeline-employee-header"]</code>
+			</td>
+			<td>
+				Top-left header cell (flat mode). Replace via <code>#employee-header</code>; trailing icons
+				via <code>#header-actions</code>.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>[data-slot="schedule-timeline-department-header"]</code>
+			</td>
+			<td>
+				Per-department header (grouped mode). Right-side actions via{' '}
+				<code>#department-actions</code>.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>[data-slot="schedule-timeline-employee-row"]</code>
+			</td>
+			<td>
+				One row per employee. Carries <code>data-employee-id</code>. The same slot is used by day,
+				week, and month rows. Not a click target — see the employee cell below.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>[data-slot="schedule-timeline-employee-cell"]</code>
+			</td>
+			<td>
+				Sticky-left cell inside each row that hosts the avatar + name + meta. The <em>only</em>{' '}
+				element that emits <code>employee-click</code> — clicks on day columns or shift blocks do
+				not navigate. Rendered as a <code>role="button"</code> with keyboard activation (Enter /
+				Space).
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>[data-slot="schedule-timeline-month-cell"]</code>
+			</td>
+			<td>One cell per day in month view. Multiple shifts collapse into a "+N more" pill.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>[data-slot="schedule-day-shift-card"]</code> (day) /{' '}
+				<code>[data-slot="time-range-bar-card"]</code> (week) / month-cell shift bar
+			</td>
+			<td>
+				Per-shift content. Each carries <code>data-shift-id</code> at the wrapper layer. Override
+				entirely via the <code>#shift-wrapper</code> scoped slot.
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+## Views
+
+<Canvas of={ScheduleTimelineStories.DayView} />
+
+The day view positions shifts absolutely within an hour grid. The visible window is controlled by `startTime` / `endTime` (partial-hour values are supported). When `stackOverlaps` is enabled, time-overlapping shifts are placed in separate vertical lanes.
+
+<Canvas of={ScheduleTimelineStories.WeekView} />
+
+The week view is a 7-column grid. Off-days render an "OFF" placeholder; multiple shifts on the same day stack vertically as `TimeRangeBar` cards.
+
+<Canvas of={ScheduleTimelineStories.MonthView} />
+
+The month view is a dense calendar grid driven from `selectedDate`'s month (or `dateRange` if provided).
+
+## Grouped vs flat
+
+<Canvas of={ScheduleTimelineStories.WeekView} />
+
+Pass either `departments` (grouped, with collapsible headers) or `rows` (flat). When both are passed, `departments` wins.
+
+<Canvas of={ScheduleTimelineStories.WeekViewGroup} />
+
+The grouped story renders departments with collapsible headers; pass `defaultCollapsed` to start every group collapsed.
+
+## Overlapping shifts
+
+<Canvas of={ScheduleTimelineStories.DayViewBarOverlapping} />
+
+By default, time-overlapping shifts on the same day collapse onto a single lane and render on top of each other. Set `stackOverlaps` (day view only) to spread them into separate vertical lanes using a greedy lane-assignment by start time — the lowest free lane wins.
+
+<Canvas of={ScheduleTimelineStories.DayViewBarOverlappingStacked} />
+
+There is no automatic per-category lane assignment. The previous "schedule / activity / deviation" lane layout has been removed; if you need that grouping, pre-bucket the shifts per row in the consumer and render them via the `#shift-wrapper` slot.
+
+## Props
+
+<Controls of={ScheduleTimelineStories.WeekView} />
+
+<ArgTypes of={ScheduleTimelineStories} />
+
+A few props worth calling out explicitly:
+
+- **`selectedDate: ForgeDate`** — required. Drives the visible week or month, and acts as "today's column" for the day view.
+- **`dateRange: { from: ForgeDate; to: ForgeDate }`** — overrides the auto-derived week / month range. Use it to pin a fixed window across navigations.
+- **`startTime: string`** — day view only. HH:mm format. Defaults to `'00:00'`. Partial-hour values (e.g. `'06:30'`) are supported.
+- **`endTime: string`** — day view only. HH:mm. `'00:00'` is the sentinel for "full 24 hours" (i.e. wraps around to midnight the next day). Defaults to `'00:00'`.
+- **`minColumnWidth: number`** — minimum width per column before horizontal scroll kicks in. Default varies by view (day: 80 / mobile 48, week: 140 / mobile 80, month: 36 / mobile 28).
+- **`employeeColumnWidth: number`** — width of the sticky employee column. Defaults to 200.
+- **`stackOverlaps: boolean`** — day view only. Stacks time-overlapping shifts into separate vertical lanes. Other views ignore this flag.
+- **`selectedIds: string[]`** — highlights the matching shift blocks with a primary ring in all three views (day / week / month). Consumers maintain selection state.
+- **`rowClass: (row) => ClassValue`** — returns extra classes for each employee row's outer container. All three views honour this (the previous day-view-only restriction has been lifted).
+- **`loadMoreThreshold: number`** — opts the timeline into infinite scroll. When set, `load-more` fires once the last virtual row is within this many rows of the end. Omit to disable.
+- **`loadKey: string | number`** — opaque token that re-arms the `load-more` latch when the dataset is logically replaced (filter change, sort change, tab swap). Without it, a swap that happens to yield the same `rows.length` won't re-fire `load-more`. Bump this value whenever the underlying dataset's identity changes.
+- **`editable: boolean`** — day view only. Enables drag-to-move, edge-resize, and segment drag on each shift card. Emits `shift-resize`, `shift-move`, `shift-segment-update`, and `shift-segment-select` with the shift / employee / date context. Default `false`. See [Edit mode](#edit-mode-day-view) below.
+- **`activeSegmentId: string | null`** — forwarded to every editable shift card so an external toolbar can drive segment selection. Pair with `shift-segment-select` to keep the parent-owned state in sync.
+- **`selectionMode: 'open' | 'toggle'`** — controls what a plain click on a shift emits. `'open'` (default) fires `shift-click` for the legacy "open detail surface" path; `'toggle'` fires `shift-select(id)` as a single-select replacement. Cmd/Ctrl-click always fires `shift-select` regardless of mode.
+
+## Events
+
+<table>
+	<thead>
+		<tr>
+			<th>Event</th>
+			<th>Payload</th>
+			<th>When</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>shift-click</code>
+			</td>
+			<td>
+				<code>ShiftClickEvent</code>
+			</td>
+			<td>
+				Plain click on a shift block. Fires from day, week, and month views — but{' '}
+				<strong>
+					only when <code>selectionMode === 'open'</code>
+				</strong>{' '}
+				(the default). In <code>'toggle'</code> mode the same gesture fires{' '}
+				<code>shift-select</code> instead.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>shift-contextmenu</code>
+			</td>
+			<td>
+				<code>ShiftContextMenuEvent</code>
+			</td>
+			<td>Right-click on a shift block. Fires from all three views.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>shift-select</code>
+			</td>
+			<td>
+				<code>shiftId</code>
+			</td>
+			<td>
+				Cmd/Ctrl-click on a shift block (multi-toggle), or a plain click when{' '}
+				<code>selectionMode === 'toggle'</code>. Fires from all three views.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>shift-resize</code>
+			</td>
+			<td>
+				<code>ShiftResizeEvent</code>
+			</td>
+			<td>
+				<strong>Edit mode, day view only.</strong> A shift's left/right edge was dragged. Payload
+				includes wall-clock <code>startTimeSec</code> + new <code>durationSec</code>.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>shift-move</code>
+			</td>
+			<td>
+				<code>ShiftMoveEvent</code>
+			</td>
+			<td>
+				<strong>Edit mode, day view only.</strong> A shift's body was dragged along the hour axis.
+				Payload includes the new wall-clock <code>startTimeSec</code>; duration unchanged.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>shift-segment-update</code>
+			</td>
+			<td>
+				<code>ShiftSegmentUpdateEvent</code>
+			</td>
+			<td>
+				<strong>Edit mode, day view only.</strong> A child segment (break / lunch / sub-status) was
+				moved or resized inside a shift.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>shift-segment-select</code>
+			</td>
+			<td>
+				<code>ShiftSegmentSelectEvent</code>
+			</td>
+			<td>
+				<strong>Edit mode, day view only.</strong> A child segment was clicked (selection
+				candidate). <code>segmentId</code> is <code>null</code> when the active segment is cleared.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>employee-click</code>
+			</td>
+			<td>
+				<code>employeeId</code>, <code>event?</code>
+			</td>
+			<td>
+				Click or Enter / Space on the sticky-left employee info cell (
+				<code>[data-slot="schedule-timeline-employee-cell"]</code>). Clicks on the rest of the row
+				(day columns, shift blocks) do <strong>not</strong> fire this event. <code>event</code> is a{' '}
+				<code>MouseEvent | KeyboardEvent</code>.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>day-click</code>
+			</td>
+			<td>
+				<code>dateStr</code>
+			</td>
+			<td>Click on a date column header (week/month) or the day view's date label.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>child-hover</code>
+			</td>
+			<td>
+				<code>ChildHoverEvent | null</code>
+			</td>
+			<td>
+				Pointer-enter on a shift's child segment (lunches, breaks). Fires <code>null</code> on
+				pointer-leave. <strong>Day view only</strong> — week and month render shifts via{' '}
+				<code>TimeRangeBar</code> which doesn't expose a per-child hover event.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>load-more</code>
+			</td>
+			<td>none</td>
+			<td>
+				Infinite-scroll signal. Fires when the user scrolls within <code>loadMoreThreshold</code>{' '}
+				rows of the end of the virtualised list. Only fires when <code>loadMoreThreshold</code> is
+				set, and fires{' '}
+				<strong>
+					once per <code>rows.length</code>
+				</strong>{' '}
+				— the next emission waits for the parent to append new rows. Bump <code>loadKey</code> to
+				re-arm the latch when the dataset identity changes without changing length (filter / sort /
+				tab swap).
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+## Infinite scroll
+
+<Canvas of={ScheduleTimelineStories.DayViewInfiniteScroll} />
+<Canvas of={ScheduleTimelineStories.WeekViewInfiniteScroll} />
+<Canvas of={ScheduleTimelineStories.MonthViewInfiniteScroll} />
+
+Set `loadMoreThreshold` to opt in. The timeline emits `load-more` once the user scrolls within that many rows of the end; the parent fetches the next page and appends to `rows`. The component dedupes by tracking the array length at last emission, so a single emission can't fire twice for the same page. The same wiring works across day, week, and month views.
+
+```vue
+<ScheduleTimeline
+	:rows="rows"
+	:selected-date="date"
+	view="week"
+	:load-more-threshold="hasMore ? 5 : undefined"
+	@load-more="fetchNextPage"
+/>
+```
+
+Disable by omitting `loadMoreThreshold` (or setting it to `undefined`) once `hasMore` is false — that keeps the virtualizer's watcher cheap and prevents a redundant emission at the very end of the list.
+
+```vue
+<!-- Reset the latch when the filter changes by bumping loadKey. -->
+<ScheduleTimeline
+	:rows="rows"
+	:selected-date="date"
+	view="week"
+	:load-more-threshold="hasMore ? 5 : undefined"
+	:load-key="`${filterId}|${sortKey}`"
+	@load-more="fetchNextPage"
+/>
+```
+
+## Slots
+
+<table>
+	<thead>
+		<tr>
+			<th>Slot</th>
+			<th>Scope</th>
+			<th>Purpose</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>shift-wrapper</code>
+			</td>
+			<td>
+				<code>{`{ shift, shifts, idx, employeeId, dateStr, style, dataAttrs, ariaLabel, selected }`}</code>
+			</td>
+			<td>
+				Replace the default read-only shift card per-shift. The same scope is exposed in all three
+				views — day, week, and month — so a single slot template renders consistently across views.{' '}
+				<code>style</code> contains absolute-positioning rules in day view and an empty object in
+				week/month (those views use flow layout). Compose with <code>TimeRangeBar</code> (editable),{' '}
+				<code>ShiftBar</code>, or a popover trigger to layer app-level editing on top of the
+				layout-only timeline.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>employee-header</code>
+			</td>
+			<td>none</td>
+			<td>Content of the top-left header cell (flat mode).</td>
+		</tr>
+		<tr>
+			<td>
+				<code>header-actions</code>
+			</td>
+			<td>none</td>
+			<td>Right-aligned icons on the flat-mode header (e.g. add / filter buttons).</td>
+		</tr>
+		<tr>
+			<td>
+				<code>employee-actions</code>
+			</td>
+			<td>none</td>
+			<td>Per-department sub-header actions (grouped mode).</td>
+		</tr>
+		<tr>
+			<td>
+				<code>department-actions</code>
+			</td>
+			<td>
+				<code>{`{ department }`}</code>
+			</td>
+			<td>Per-department header actions (grouped mode).</td>
+		</tr>
+		<tr>
+			<td>
+				<code>empty</code>
+			</td>
+			<td>none</td>
+			<td>
+				Rendered inline below the sticky header when <code>rows</code> / <code>departments</code> is
+				empty. The date / hour header stays visible — only the rows area is replaced. Distinguish
+				"no data" from "filter excluded everything" by branching on the caller's own filter state.
+				Without the slot, the rows area is simply blank (header still renders).
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+## Edit mode (day view)
+
+<Canvas of={ScheduleTimelineStories.DayViewEditable} />
+
+Set `editable` to put the day-view shift cards into edit mode. Three gestures become available on each card:
+
+- **Drag the card body along the hour axis → `shift-move`.** The move is implemented at the day-shift wrapper level (not inside the inner `TimeRangeBar`) so the drag math uses the parent timeline's `columnWidth` — the hour-grid px-per-hour — and the card visually translates along the day's hour columns during drag. On commit, the wrapper emits `shift-move` with the new wall-clock `startTimeSec`; the duration is unchanged. `TimeRangeBar` deliberately has no "move whole bar" gesture — see its docs for the rationale.
+- **Drag the left or right edge → `shift-resize`.** The inner `TimeRangeBar` handles this via its `resizable` mode and emits `RangeResizeEvent`; the wrapper translates the bar's zero-anchored `startTimeSec` to wall-clock seconds before re-emitting.
+- **Drag a child segment (break / lunch / sub-status) → `shift-segment-update`.** Plain-click a segment → `shift-segment-select` (parent-owned selection). Pass `activeSegmentId` on `ScheduleTimeline` to drive it from an external toolbar.
+
+Each of the four edit events carries `{ shiftId, employeeId, dateStr, … }` so a flat handler on the page can route mutations into the right draft without re-deriving context.
+
+Week and month views ignore `editable` — those densities have no time axis for drag-resize. Use `selectionMode` (below) to enable selection in those views.
+
+The `#shift-wrapper` slot scope exposes `editable` and `activeSegmentId`, so consumers that render their own shift content can branch on edit state without re-reading the timeline's props.
+
+## Selection mode
+
+`selectionMode` decouples "click a shift" from "open a detail surface":
+
+- **`'open'`** (default) — plain click emits `shift-click(payload)`; Cmd/Ctrl-click emits `shift-select(id)` for multi-toggle. Matches the legacy behaviour of the read-only timeline.
+- **`'toggle'`** — plain click emits `shift-select(id)` as a single-select replacement; Cmd/Ctrl-click still emits `shift-select` for multi-toggle. `shift-click` is not emitted in this mode.
+
+The Cmd/Ctrl chord is preserved across modes — the keyboard idiom for "extend my selection" should never change shape. Use `'toggle'` on edit pages so a click selects a shift for an external toolbar instead of opening a detail panel.
+
+<Canvas of={ScheduleTimelineStories.InteractiveSelectionModeToggle} />
+
+## Empty state
+
+<Canvas of={ScheduleTimelineStories.EmptyStateWithSlot} />
+
+Pass `#empty` whenever the rows array can be empty for reasons the user can act on (a filter that excluded everyone, a group with no members, a search miss). The slot's container fills the rows area, so a centred message reads naturally inside the timeline frame. The sticky header keeps the date or hour scale on screen so the user retains spatial context.
+
+Compose with the shared [`EmptyState`](?path=/docs/general-emptystate--docs) component — the same one [`DataTable`](?path=/docs/patterns-datatable--docs) uses for "no results" — so the visual language stays consistent across the app. Add `class="h-full"` so it fills the available rows area.
+
+```vue
+<ScheduleTimeline :rows="rows" :selected-date="date" view="week">
+  <template #empty>
+    <EmptyState
+      :icon="UsersRound"
+      title="No employees match the current filter"
+      description="Adjust the filter to show employees."
+      size="sm"
+      class="h-full"
+    />
+  </template>
+</ScheduleTimeline>
+```
+
+## Employee status
+
+Pass `employee.status` to render the small dot on the avatar:
+
+- `'online'` — success green
+- `'offline'` — muted neutral
+- omit — no dot
+
+The previous `statusColor: string` field has been replaced by this typed union — callers that were passing `'green'` should switch to `'online'`.
+
+## How to compose editing
+
+The timeline is intentionally read-only — it owns layout and selection visuals, not edit semantics. To add editing, use the `#shift-wrapper` scoped slot: the slot scope exposes the shift, its sibling shifts, the row's `employeeId`, and the cell's `dateStr` (plus the layout payload — `style`, `dataAttrs`, `ariaLabel`, `selected`). Inside the slot, render whatever editing UI the page needs. The timeline keeps positioning the wrapper for you; you keep ownership of the per-shift content.
+
+A typical pattern wraps each shift in an editable `<TimeRangeBar>` (for break / lunch authoring) or a `<ShiftBar>` (for shift-level move / resize):
+
+```vue
+<ScheduleTimeline :rows="rows" :selected-date="date" view="week">
+  <template #shift-wrapper="{ shift, employeeId, dateStr, style, dataAttrs }">
+    <div :style="style" v-bind="dataAttrs">
+      <TimeRangeBar
+        editable
+        :duration-sec="shift.durationSec"
+        :start-time-sec="parseHHMMToSec(shift.time)"
+        :segments="toSegments(shift.children)"
+        @segment-update="onChildUpdate(shift.id, $event)"
+        @range-resize="onShiftResize(shift.id, employeeId, dateStr, $event)"
+      />
+    </div>
+  </template>
+</ScheduleTimeline>
+```
+
+The slot fires for every shift in every view, so the same composition reads consistently across day, week, and month.
+
+## Accessibility (WCAG 2.2 AA)
+
+<table>
+	<thead>
+		<tr>
+			<th>SC</th>
+			<th>Title</th>
+			<th>How ScheduleTimeline conforms</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>1.3.1</td>
+			<td>Info and Relationships</td>
+			<td>
+				Each view (day / week / month) is wrapped in a generic <code>role="region"</code> with an{' '}
+				<code>aria-label</code> describing the view. ARIA grid roles (<code>row</code>,{' '}
+				<code>columnheader</code>, <code>gridcell</code>) are intentionally <strong>not</strong>{' '}
+				applied — they cascade <code>aria-required-children</code> failures on the dense,
+				multi-level layout — so screen readers fall back to landmark + label semantics. Today's
+				column header carries <code>aria-current="date"</code>.
+			</td>
+		</tr>
+		<tr>
+			<td>2.1.1</td>
+			<td>Keyboard</td>
+			<td>
+				Day-column headers in week / month views are rendered as native <code>&lt;button&gt;</code>{' '}
+				elements and can be activated with Enter or Space, firing <code>day-click</code>. Shifts are
+				keyboard-activatable via Enter (open) and Cmd/Ctrl/Shift + Enter (select). The virtual
+				scroller exposes a focusable <code>tabindex="0"</code> region so Tab can enter the timeline.
+			</td>
+		</tr>
+		<tr>
+			<td>2.4.7</td>
+			<td>Focus Visible</td>
+			<td>
+				Selected shifts render a primary ring (via <code>selectedIds</code>); clickable cells
+				inherit the design-system focus ring.
+			</td>
+		</tr>
+		<tr>
+			<td>2.5.8</td>
+			<td>Target Size (Minimum)</td>
+			<td>Shift blocks have a 28&nbsp;px minimum height (≥ 24&nbsp;×&nbsp;24 CSS px).</td>
+		</tr>
+	</tbody>
+</table>
+
+<Canvas of={ScheduleTimelineStories.InteractiveTargetSize} />
+<Canvas of={ScheduleTimelineStories.InteractiveDayClick} />
+<Canvas of={ScheduleTimelineStories.InteractiveShiftClick} />
+
+## Responsive behaviour
+
+The timeline root never overflows the viewport horizontally — internal horizontal scroll lives on the inner scroller (day view) or the column grid (week / month). The employee column and date header are sticky.
+
+<Canvas of={ScheduleTimelineStories.InteractiveResponsive} />
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				Pass stable <code>shift.id</code> values so selection survives re-renders
+			</td>
+			<td>
+				Mutate <code>shift.children</code> directly — replace the row's data and let the parent
+				re-render
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Use <code>stackOverlaps</code> on the day view when shifts on the same employee can overlap
+				in time
+			</td>
+			<td>
+				Rely on a removed <code>shift.meta.category</code> lane system — that mapping no longer
+				exists
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Compose editing in the app layer via the <code>#shift-wrapper</code> slot (e.g. wrap each
+				shift in <code>TimeRangeBar editable</code> or <code>ShiftBar</code>)
+			</td>
+			<td>
+				Add edit-domain logic (break / lunch / sub-status types, drag-to-create, drag-to-resize)
+				into this component — it is read-only by design
+			</td>
+		</tr>
+	</tbody>
+</table>

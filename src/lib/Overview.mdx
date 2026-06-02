@@ -1,0 +1,144 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Overview/Introduction" />
+
+# Trading Bot UI
+
+A Vue 3 component library built on [Reka UI](https://reka-ui.com) primitives, styled with Tailwind CSS and [CVA](https://cva.style) variants.
+
+## Categories
+
+<table>
+	<thead>
+		<tr>
+			<th>Category</th>
+			<th>Description</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<strong>Foundation</strong>
+			</td>
+			<td>Design tokens: colors, typography, spacing, iconography</td>
+		</tr>
+		<tr>
+			<td>
+				<strong>General</strong>
+			</td>
+			<td>UI building blocks: badges, buttons, cards, dialogs, menus, tabs, tooltips</td>
+		</tr>
+		<tr>
+			<td>
+				<strong>Form</strong>
+			</td>
+			<td>Input controls: checkboxes, selects, sliders, text inputs, switches, toggles</td>
+		</tr>
+		<tr>
+			<td>
+				<strong>Color</strong>
+			</td>
+			<td>Color picker primitives</td>
+		</tr>
+		<tr>
+			<td>
+				<strong>Dates</strong>
+			</td>
+			<td>Calendars, date pickers, range pickers, time fields</td>
+		</tr>
+		<tr>
+			<td>
+				<strong>Charts</strong>
+			</td>
+			<td>Bar and donut charts</td>
+		</tr>
+		<tr>
+			<td>
+				<strong>Patterns</strong>
+			</td>
+			<td>Composite app-level components: data tables, sidebars, drawers, timelines</td>
+		</tr>
+	</tbody>
+</table>
+
+## How to read a component page
+
+Every component has an **About** page with the same shape:
+
+<table>
+	<thead>
+		<tr>
+			<th>Section</th>
+			<th>What it covers</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<strong>When / when not to use</strong>
+			</td>
+			<td>Decision guidance, alternatives</td>
+		</tr>
+		<tr>
+			<td>
+				<strong>Anatomy</strong>
+			</td>
+			<td>Default rendering with the canonical example</td>
+		</tr>
+		<tr>
+			<td>
+				<strong>Variants / Sizes / Shapes</strong>
+			</td>
+			<td>Every visual permutation reachable via props</td>
+		</tr>
+		<tr>
+			<td>
+				<strong>Composition</strong>
+			</td>
+			<td>Slot patterns (with icon, with count, etc.)</td>
+		</tr>
+		<tr>
+			<td>
+				<strong>Props</strong>
+			</td>
+			<td>Live controls + auto-generated argTypes</td>
+		</tr>
+		<tr>
+			<td>
+				<strong>Accessibility</strong>
+			</td>
+			<td>WCAG 2.2 AA mapping per criterion</td>
+		</tr>
+		<tr>
+			<td>
+				<strong>Responsive behaviour</strong>
+			</td>
+			<td>How the component behaves at 320 / 375 / 768 / 1024 / 1440</td>
+		</tr>
+		<tr>
+			<td>
+				<strong>Do / Don't</strong>
+			</td>
+			<td>Side-by-side rules of thumb</td>
+		</tr>
+	</tbody>
+</table>
+
+## Design principles
+
+- **Composable** — components follow the compound component pattern, exposing sub-components (e.g. `DropdownMenu`, `DropdownMenuTrigger`, `DropdownMenuContent`)
+- **Headless primitives** — built on Reka UI for accessible, unstyled behaviour
+- **CVA variants** — all styling is driven by `class-variance-authority` variant definitions in `{component}.ts` files
+- **Tailwind CSS** — utility-first styling with design tokens via CSS variables
+
+## Usage
+
+```ts
+import {
+	Button,
+	DropdownMenu,
+	DropdownMenuTrigger,
+	DropdownMenuContent,
+	DropdownMenuItem,
+} from '@fromforgesoftware/vue-kit';
+```

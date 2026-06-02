@@ -1,0 +1,126 @@
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as BreadcrumbStories from './Breadcrumb.stories';
+
+<Meta of={BreadcrumbStories} />
+
+# Breadcrumb
+
+Hierarchical navigation showing the path from the application root to the current page. Renders semantic `<nav>` + `<ol>` so assistive tech can announce position in the hierarchy.
+
+## When to use
+
+- Navigation paths longer than two levels deep, where users benefit from seeing their location and jumping back.
+- Dynamic content with filterable categories (Catalog → Electronics → Audio → Headphones).
+- Inside a header bar where vertical space is limited.
+
+## When not to use
+
+- For a flat application with only one or two pages — breadcrumbs add visual clutter without value.
+- For step-by-step flows — use [Stepper](?path=/docs/general-stepper--docs) so progress is conveyed.
+- For tabs or in-page navigation — use [Tabs](?path=/docs/general-tabs--docs).
+
+## Anatomy
+
+<Canvas of={BreadcrumbStories.Default} />
+
+A breadcrumb composes:
+
+- `Breadcrumb` — `<nav aria-label="Breadcrumb">`.
+- `BreadcrumbList` — `<ol>` row.
+- `BreadcrumbItem` — `<li>` wrapper for one segment.
+- `BreadcrumbLink` — navigational segment. Wraps an `<a>` when given `href`, or use `asChild` to wrap a router link.
+- `BreadcrumbPage` — current page segment. Renders `<span aria-current="page">` and is not a link.
+- `BreadcrumbSeparator` — visual divider between segments. Hidden from assistive tech (`aria-hidden`).
+- `BreadcrumbEllipsis` — collapsed mid-path indicator.
+
+## Composition
+
+```vue
+<Breadcrumb>
+  <BreadcrumbList>
+    <BreadcrumbItem>
+      <BreadcrumbLink as-child>
+        <RouterLink :to="{ name: 'home' }">Home</RouterLink>
+      </BreadcrumbLink>
+    </BreadcrumbItem>
+    <BreadcrumbSeparator />
+    <BreadcrumbItem>
+      <BreadcrumbPage>Settings</BreadcrumbPage>
+    </BreadcrumbItem>
+  </BreadcrumbList>
+</Breadcrumb>
+```
+
+## Long paths
+
+<Canvas of={BreadcrumbStories.Long} />
+
+The list wraps with `flex-wrap` once the total width exceeds the parent. For very deep hierarchies, prefer the ellipsis pattern below to keep a single line.
+
+## Ellipsis
+
+<Canvas of={BreadcrumbStories.WithEllipsis} />
+
+`BreadcrumbEllipsis` renders an inert "more" indicator. Pair it with a [DropdownMenu](?path=/docs/general-dropdownmenu--docs) at the consumer to expose the collapsed levels — keep the implementation in the consumer so the menu can know its own routes.
+
+## Custom separator
+
+<Canvas of={BreadcrumbStories.CustomSeparator} />
+
+Override the `BreadcrumbSeparator` slot for a different glyph. The separator stays `aria-hidden`, so assistive tech reads "Home, Library, Data" without separator noise.
+
+## Props
+
+<Controls of={BreadcrumbStories.Default} />
+
+## Accessibility (WCAG 2.2 AA)
+
+- **1.3.1 Info and Relationships**: `<nav aria-label="Breadcrumb">` + `<ol>` makes the hierarchy programmatic.
+- **1.4.3 Contrast**: links use `text-muted-foreground` until hovered/focused → `text-foreground`. Both states meet 4.5 : 1.
+- **2.4.7 Focus visible**: links show the standard 3 px ring on `:focus-visible`.
+- **2.4.8 Location**: the current page is announced via `aria-current="page"` on `BreadcrumbPage`.
+- **2.5.8 Target size**: links have inline padding to ensure ≥ 24 × 24 CSS px hit area at every text size.
+- **4.1.2 Name, Role, Value**: every link has its label as accessible name; the current page announces its state via `aria-current`.
+
+## Responsive behaviour
+
+<Canvas of={BreadcrumbStories.InteractiveResponsive} />
+
+Breadcrumbs wrap onto multiple lines on narrow viewports. For very long paths on small screens, prefer the ellipsis pattern.
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				Use <code>BreadcrumbPage</code> for the current page — it sets <code>aria-current</code>.
+			</td>
+			<td>Make the current page a real link — users can't navigate to where they already are.</td>
+		</tr>
+		<tr>
+			<td>
+				Wrap a <code>RouterLink</code> with <code>as-child</code> for SPA navigation.
+			</td>
+			<td>
+				Hard-code <code>href</code> values in a Vue Router app — the SPA loses scroll restoration.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Use <code>BreadcrumbEllipsis</code> when the path is too long for one row.
+			</td>
+			<td>Render five-plus segments inline on small viewports — collapse them.</td>
+		</tr>
+		<tr>
+			<td>Keep labels short (1–2 words).</td>
+			<td>Use full sentences inside a segment.</td>
+		</tr>
+	</tbody>
+</table>

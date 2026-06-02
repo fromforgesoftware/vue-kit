@@ -1,0 +1,191 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as DateFieldStories from './DateField.stories';
+
+<Meta of={DateFieldStories} />
+
+# DateField
+
+Segmented date input — each part (day, month, year) is independently focusable and keyboard-driven. Built on Reka UI's `DateField` primitive. Use this for date entry without a popover calendar; pair with [DatePicker](?path=/docs/dates-datepicker--docs) when users also need to browse a month grid.
+
+## When to use
+
+- Fast keyboard date entry inside a form (booking, filters, search).
+- Free-typing a known date — segments accept digits and snap on overflow (e.g. "32" → "03").
+- Date + time entry via `granularity="minute"` or `"second"`.
+
+## When not to use
+
+- Full visual month browsing — use [Calendar](?path=/docs/dates-calendar--docs) or [DatePicker](?path=/docs/dates-datepicker--docs).
+- Date _range_ entry — use [DateRangeField](?path=/docs/dates-daterangefield--docs).
+- Time-only entry — use [TimeField](?path=/docs/dates-timefield--docs).
+
+## Anatomy
+
+<Canvas of={DateFieldStories.Default} />
+
+`DateFieldRoot` wraps a series of `DateFieldInput` segments. Literal segments (separators like `/` or `-`) are non-interactive; data segments (day, month, year, hour, minute, second) are individually focusable.
+
+## Sizes
+
+<Canvas of={DateFieldStories.Sizes} />
+
+<table>
+	<thead>
+		<tr>
+			<th>Size</th>
+			<th>Height</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>sm</code>
+			</td>
+			<td>28 px</td>
+			<td>Compact toolbars, inline filters</td>
+		</tr>
+		<tr>
+			<td>
+				<code>default</code>
+			</td>
+			<td>32 px</td>
+			<td>General forms</td>
+		</tr>
+		<tr>
+			<td>
+				<code>lg</code>
+			</td>
+			<td>40 px</td>
+			<td>Hero forms (booking flows)</td>
+		</tr>
+	</tbody>
+</table>
+
+Heights mirror [Input](?path=/docs/form-input--docs) so date and text fields align in mixed forms.
+
+## States
+
+<Canvas of={DateFieldStories.Disabled} />
+
+<Canvas of={DateFieldStories.Readonly} />
+
+<Canvas of={DateFieldStories.WithError} />
+
+`error` is the canonical way to surface validation failure — it sets `aria-invalid="true"` on the field root and tints the border. Pair with `describedBy` pointing to your error message id.
+
+## Composition
+
+<Canvas of={DateFieldStories.MinMax} />
+
+<Canvas of={DateFieldStories.WithGranularity} />
+
+`minValue` / `maxValue` flag out-of-range values via Reka's `data-invalid` state. `granularity="minute"` adds hour and minute segments alongside day / month / year — use it for date-time fields without a popover.
+
+## Keyboard interaction
+
+<table>
+	<thead>
+		<tr>
+			<th>Key</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>digit</td>
+			<td>Type a digit into the focused segment; advances on overflow</td>
+		</tr>
+		<tr>
+			<td>
+				<code>ArrowLeft</code> / <code>ArrowRight</code>
+			</td>
+			<td>Move focus to previous / next segment</td>
+		</tr>
+		<tr>
+			<td>
+				<code>ArrowUp</code> / <code>ArrowDown</code>
+			</td>
+			<td>Increment / decrement the focused segment</td>
+		</tr>
+		<tr>
+			<td>
+				<code>Backspace</code>
+			</td>
+			<td>Clear the focused segment, then move backward</td>
+		</tr>
+		<tr>
+			<td>
+				<code>Tab</code> / <code>Shift+Tab</code>
+			</td>
+			<td>Move focus across all segments at once</td>
+		</tr>
+	</tbody>
+</table>
+
+## Props
+
+<Controls of={DateFieldStories.Default} />
+
+<ArgTypes of={DateFieldStories} />
+
+## Accessibility (WCAG 2.2 AA)
+
+- **2.4.6 Labels**: pair every field with `<Label for="id">` (or `aria-label` for icon-only contexts).
+- **3.3.1 Error identification**: pass `error` to set `aria-invalid="true"` on the root; use `describedBy` to reference helper text.
+- **2.4.7 Focus visible**: focused segments highlight with `bg-accent`; the wrapper renders a 2 px ring when any segment has focus.
+- **2.5.8 Target size**: every size's wrapper meets ≥ 24 × 24 px. Individual segments inherit the wrapper's height — together they form a target of 28 / 32 / 40 px.
+- **4.1.2 Name & state**: each segment exposes `role="spinbutton"` with min / max bounds via Reka.
+
+## Responsive behaviour
+
+<Canvas of={DateFieldStories.InteractiveResponsive} />
+
+The root is `w-fit` — it shrinks to its segments. Wrap in a sized container if you need it to align with siblings (`w-72`, `max-w-sm`).
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				Use the <code>error</code> prop and a referenced helper text id for validation messages.
+			</td>
+			<td>
+				Toggle <code>variant="error"</code> manually — it skips the <code>aria-invalid</code> hint.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Match <code>size</code> to neighbouring [Input](?path=/docs/form-input--docs)s for visual
+				alignment.
+			</td>
+			<td>
+				Override <code>class="h-..."</code> to change height — use the <code>size</code> variant.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Use <code>granularity="minute"</code> when both date and time are required.
+			</td>
+			<td>
+				Compose two separate <code>DateField</code> + <code>TimeField</code> when one would do.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Pair <code>minValue</code>/<code>maxValue</code> with the <code>error</code> prop driven by
+				your validation logic.
+			</td>
+			<td>
+				Trust client-side <code>min</code>/<code>max</code> alone — also validate on submit.
+			</td>
+		</tr>
+	</tbody>
+</table>

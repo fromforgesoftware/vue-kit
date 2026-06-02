@@ -1,0 +1,165 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as ColorSwatchPickerStories from './ColorSwatchPicker.stories';
+
+<Meta of={ColorSwatchPickerStories} />
+
+# Color Swatch Picker
+
+A grid of selectable colour swatches built on Reka UI's listbox primitive. Use this when the choice is constrained to a predefined palette — theme tokens, brand colours, label colours, status colours.
+
+## When to use
+
+- Predefined palettes (theme tokens, brand colours).
+- Quick selection in a popover where a full picker would be overkill.
+- Multi-select chips for tag colour assignment.
+
+## When not to use
+
+- For arbitrary colour input — use [Color Picker](?path=/docs/color-color-picker--docs).
+- For displaying a single colour — use [Color Swatch](?path=/docs/color-color-swatch--docs).
+
+## Anatomy
+
+<Canvas of={ColorSwatchPickerStories.Default} />
+
+## Composition
+
+`ColorSwatchPickerRoot` provides arrow-key navigation, selection state, and the `aria-label`. Each swatch is a `ColorSwatchPickerItem` containing:
+
+- `ColorSwatchPickerItemSwatch` — the visible colour chip.
+- `ColorSwatchPickerItemIndicator` — a check icon shown when selected.
+
+## Multi-select
+
+<Canvas of={ColorSwatchPickerStories.Multiple} />
+
+Pass `multiple` and bind to a `string[]`. Each click toggles a value.
+
+## Layouts
+
+<Canvas of={ColorSwatchPickerStories.GridLayout} />
+
+`flow` (default) wraps swatches naturally; `grid` enforces a 6-column grid for tightly packed palettes.
+
+## Sizes
+
+<Canvas of={ColorSwatchPickerStories.Sizes} />
+
+<table>
+	<thead>
+		<tr>
+			<th>Size</th>
+			<th>Pixels</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>sm</code>
+			</td>
+			<td>28 × 28</td>
+			<td>Compact rows in a popover</td>
+		</tr>
+		<tr>
+			<td>
+				<code>default</code>
+			</td>
+			<td>36 × 36</td>
+			<td>General use</td>
+		</tr>
+		<tr>
+			<td>
+				<code>lg</code>
+			</td>
+			<td>44 × 44</td>
+			<td>Featured palettes</td>
+		</tr>
+	</tbody>
+</table>
+
+## Keyboard interaction
+
+<table>
+	<thead>
+		<tr>
+			<th>Key</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<kbd>ArrowRight</kbd> / <kbd>ArrowLeft</kbd>
+			</td>
+			<td>Move focus to the next / previous swatch (wraps if `loop`)</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>ArrowDown</kbd> / <kbd>ArrowUp</kbd>
+			</td>
+			<td>Same as Right / Left in a wrap layout (Reka roving tabindex)</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>Space</kbd> / <kbd>Enter</kbd>
+			</td>
+			<td>Select the focused swatch</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>Home</kbd> / <kbd>End</kbd>
+			</td>
+			<td>Focus the first / last swatch</td>
+		</tr>
+	</tbody>
+</table>
+
+## Props
+
+<Controls of={ColorSwatchPickerStories.Default} />
+
+<ArgTypes of={ColorSwatchPickerStories} />
+
+## Accessibility (WCAG 2.2 AA)
+
+- **Group name** (SC 4.1.2): the root accepts `ariaLabel`. Default is `"Color palette"` — override with something specific (e.g. `"Label colour"`).
+- **Swatch name**: each item carries an auto-derived `aria-label` from the colour value (e.g. `"red"`).
+- **Selection state** (SC 4.1.2): selected items have `aria-selected="true"` and `data-state="checked"`. The check indicator is purely visual; the selection state is announced via the `aria-selected` attribute.
+- **Target size** (SC 2.5.8): every size meets ≥ 24 × 24 px.
+- **Focus visible** (SC 2.4.7): focus shows a ring with offset against the background.
+
+## Responsive behaviour
+
+<Canvas of={ColorSwatchPickerStories.InteractiveResponsive} />
+
+The default `flow` layout wraps cleanly on narrow viewports. Use `grid` only when you control the parent width.
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				Pass a meaningful <code>ariaLabel</code> describing the palette's purpose
+			</td>
+			<td>
+				Default to the generic <code>"Color palette"</code> when context is available
+			</td>
+		</tr>
+		<tr>
+			<td>Use 6–12 swatches per row max — long palettes overwhelm</td>
+			<td>Dump 60+ colours in a single picker — group them or use a Color Picker</td>
+		</tr>
+		<tr>
+			<td>Combine with a Color Picker fallback for "custom colour" entry</td>
+			<td>Restrict users to the palette when they need precise control</td>
+		</tr>
+	</tbody>
+</table>

@@ -1,0 +1,288 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as RadioStories from './Radio.stories';
+
+<Meta of={RadioStories} />
+
+# Radio
+
+Mutually exclusive single-choice control. Built on Reka UI's `RadioGroupRoot` + `RadioGroupItem` primitives. Compose a `RadioGroup` with one `RadioGroupItem` per option and pair each item with a `Label`.
+
+## When to use
+
+- Pick one option from a small, fixed set (2–7 options).
+- Show all options inline so the user can compare.
+
+## When not to use
+
+- Single boolean (yes/no, on/off) — use [Switch](?path=/docs/form-switch--docs) or [Checkbox](?path=/docs/form-checkbox--docs).
+- More than ~7 options — use [Select](?path=/docs/form-select--docs).
+- Multi-select — use [Checkbox](?path=/docs/form-checkbox--docs).
+
+## Anatomy
+
+<Canvas of={RadioStories.Default} />
+
+A `RadioGroup` lays out one or more `RadioGroupItem`s along a vertical or horizontal axis. Each item is a circular button with a centred dot when selected. An invisible padding ring expands the click target to ≥ 24 × 24 px.
+
+## Composition
+
+`RadioGroup` is the container; `RadioGroupItem` is a single option. Items inherit `size` and `error` from the group via Vue provide/inject, but can override per item. Always pair each item with a `<Label for>` matching the item's `id`.
+
+```vue
+<RadioGroup v-model="plan">
+  <Label for="plan-free" class="flex items-center gap-2 cursor-pointer">
+    <RadioGroupItem id="plan-free" value="free" />
+    Free
+  </Label>
+  <Label for="plan-pro" class="flex items-center gap-2 cursor-pointer">
+    <RadioGroupItem id="plan-pro" value="pro" />
+    Pro
+  </Label>
+</RadioGroup>
+```
+
+## Orientations
+
+<Canvas of={RadioStories.Default} />
+
+<Canvas of={RadioStories.Horizontal} />
+
+`vertical` (default) is best when option labels are long or numerous. `horizontal` works for two or three short options that fit on a single row.
+
+## Sizes
+
+<Canvas of={RadioStories.Sizes} />
+
+<table>
+	<thead>
+		<tr>
+			<th>Size</th>
+			<th>Painted</th>
+			<th>Hit area</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>sm</code>
+			</td>
+			<td>14 px</td>
+			<td>≥ 24 px (via padding ring)</td>
+			<td>Dense forms, settings panels</td>
+		</tr>
+		<tr>
+			<td>
+				<code>default</code>
+			</td>
+			<td>16 px</td>
+			<td>≥ 24 px (via padding ring)</td>
+			<td>General forms</td>
+		</tr>
+	</tbody>
+</table>
+
+## States
+
+<Canvas of={RadioStories.PreSelected} />
+
+<Canvas of={RadioStories.Disabled} />
+
+<Canvas of={RadioStories.WithError} />
+
+<Canvas of={RadioStories.Required} />
+
+## Keyboard interaction
+
+<table>
+	<thead>
+		<tr>
+			<th>Key / event</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<kbd>Tab</kbd>
+			</td>
+			<td>
+				Moves focus into / out of the group. Tab focuses the selected item, or the first selectable
+				item if none is selected.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>↓</kbd> / <kbd>→</kbd>
+			</td>
+			<td>
+				Moves selection to the next item; loops at the end when <code>loop</code> is true.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>↑</kbd> / <kbd>←</kbd>
+			</td>
+			<td>
+				Moves selection to the previous item; loops at the start when <code>loop</code> is true.
+			</td>
+		</tr>
+		<tr>
+			<td>Click item</td>
+			<td>Selects that item.</td>
+		</tr>
+		<tr>
+			<td>Click associated label</td>
+			<td>Selects the linked item via id↔for.</td>
+		</tr>
+	</tbody>
+</table>
+
+## Props
+
+### RadioGroup
+
+<Controls of={RadioStories.Default} />
+
+<ArgTypes of={RadioStories} />
+
+### RadioGroupItem
+
+<table>
+	<thead>
+		<tr>
+			<th>Prop</th>
+			<th>Type</th>
+			<th>Description</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>value</code>
+			</td>
+			<td>
+				<code>string</code>
+			</td>
+			<td>
+				The value of this item — selected when it matches the group's <code>modelValue</code>.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>id</code>
+			</td>
+			<td>
+				<code>string</code>
+			</td>
+			<td>
+				Element id matching a Label's <code>for</code>.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>disabled</code>
+			</td>
+			<td>
+				<code>boolean</code>
+			</td>
+			<td>Disable just this item.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>required</code>
+			</td>
+			<td>
+				<code>boolean</code>
+			</td>
+			<td>Required attribute (native form validation).</td>
+		</tr>
+		<tr>
+			<td>
+				<code>size</code>
+			</td>
+			<td>
+				<code>'sm' | 'default'</code>
+			</td>
+			<td>Override the group's size for this item.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>error</code>
+			</td>
+			<td>
+				<code>boolean</code>
+			</td>
+			<td>Override the group's error for this item.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>describedBy</code>
+			</td>
+			<td>
+				<code>string</code>
+			</td>
+			<td>id of helper / error text describing this item.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>class</code>
+			</td>
+			<td>
+				<code>string</code>
+			</td>
+			<td>Extra classes (layout only).</td>
+		</tr>
+	</tbody>
+</table>
+
+## Accessibility (WCAG 2.2 AA)
+
+- **2.5.8 Target size**: visible circle is < 24 px to keep dense forms tidy, but the `::before` ring expands the click target to ≥ 24 × 24 px. Composing each item inside a Label inside a `flex` row gives a row-wide hit area that always meets the minimum.
+- **4.1.2 Name, role, value**: Reka exposes `role="radiogroup"` on the group and `role="radio"` on each item. Always pair each item with a Label — the Label is the accessible name.
+- **3.3.1 Error identification**: pass `error` on the group to set `aria-invalid="true"` on the group root and propagate to all items. Use `describedBy` on the group for the error message id.
+- **2.1.1 Keyboard**: arrow keys move selection within the group; Tab moves focus in / out. Disabled items are skipped during arrow nav.
+- **2.4.7 Focus visible**: each item draws a 2 px ring + 2 px offset against the surrounding surface.
+- **1.4.11 Non-text contrast**: the selected item's border + dot use `text-primary` against `bg-background` — meets 3 : 1 against the surrounding surface.
+
+## Responsive behaviour
+
+<Canvas of={RadioStories.InteractiveResponsive} />
+
+Radios don't change layout across breakpoints. The hit area is constant at every viewport. Long labels wrap inside the Label.
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				Pair every item with a <code>&lt;Label for&gt;</code>.
+			</td>
+			<td>Place text next to an item without a Label — it won't be the accessible name.</td>
+		</tr>
+		<tr>
+			<td>Use Radio for 2–7 options that fit on one screen.</td>
+			<td>Use Radio for more than 7 options — use Select instead.</td>
+		</tr>
+		<tr>
+			<td>
+				Use <code>error</code> + a referenced helper text id for validation.
+			</td>
+			<td>Hide the error message and only colour borders red.</td>
+		</tr>
+		<tr>
+			<td>
+				Pre-select a sensible default with <code>defaultValue</code> when there's a clear best
+				choice.
+			</td>
+			<td>Force the user to pick from a list with no default if you can infer one.</td>
+		</tr>
+	</tbody>
+</table>

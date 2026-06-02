@@ -1,0 +1,178 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as TimeFieldStories from './TimeField.stories';
+
+<Meta of={TimeFieldStories} />
+
+# TimeField
+
+Segmented time input — hour, minute (and optional second + AM/PM) segments are independently focusable. Built on Reka UI's `TimeField` primitive.
+
+## When to use
+
+- Fast keyboard time entry inside a form (start/end time, duration).
+- Free-typing a known time — segments accept digits and snap on overflow.
+
+## When not to use
+
+- Date entry — use [DateField](?path=/docs/dates-datefield--docs).
+- Time-range entry — use [TimeRangeField](?path=/docs/dates-timerangefield--docs).
+- Combined date + time entry — use [DateField](?path=/docs/dates-datefield--docs) with `granularity="minute"`.
+
+## Anatomy
+
+<Canvas of={TimeFieldStories.Default} />
+
+`TimeFieldRoot` wraps hour and minute segments separated by literals (`:`). When `hourCycle={12}` an additional AM/PM toggle segment appears.
+
+## Sizes
+
+<Canvas of={TimeFieldStories.Sizes} />
+
+<table>
+	<thead>
+		<tr>
+			<th>Size</th>
+			<th>Height</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>sm</code>
+			</td>
+			<td>28 px</td>
+			<td>Compact toolbars (timesheet rows)</td>
+		</tr>
+		<tr>
+			<td>
+				<code>default</code>
+			</td>
+			<td>32 px</td>
+			<td>General forms</td>
+		</tr>
+		<tr>
+			<td>
+				<code>lg</code>
+			</td>
+			<td>40 px</td>
+			<td>Hero booking flows</td>
+		</tr>
+	</tbody>
+</table>
+
+## States
+
+<Canvas of={TimeFieldStories.Disabled} />
+
+<Canvas of={TimeFieldStories.Readonly} />
+
+<Canvas of={TimeFieldStories.WithError} />
+
+`error` sets `aria-invalid="true"` on the field root. Pair with `describedBy` pointing to your error message id.
+
+## Composition
+
+<Canvas of={TimeFieldStories.WithSeconds} />
+
+<Canvas of={TimeFieldStories.TwelveHour} />
+
+<Canvas of={TimeFieldStories.TwentyFourHour} />
+
+`granularity="second"` adds a second segment. `hourCycle` switches between 12-hour (with AM/PM) and 24-hour clocks. When omitted the user's locale preference is used.
+
+## Keyboard interaction
+
+<table>
+	<thead>
+		<tr>
+			<th>Key</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>digit</td>
+			<td>Type into focused segment; advances on overflow</td>
+		</tr>
+		<tr>
+			<td>
+				<code>ArrowLeft</code> / <code>ArrowRight</code>
+			</td>
+			<td>Move focus to previous / next segment</td>
+		</tr>
+		<tr>
+			<td>
+				<code>ArrowUp</code> / <code>ArrowDown</code>
+			</td>
+			<td>Increment / decrement the focused segment (or toggle AM/PM)</td>
+		</tr>
+		<tr>
+			<td>
+				<code>A</code> / <code>P</code>
+			</td>
+			<td>Set AM / PM directly when the dayPeriod segment has focus</td>
+		</tr>
+		<tr>
+			<td>
+				<code>Backspace</code>
+			</td>
+			<td>Clear the focused segment</td>
+		</tr>
+	</tbody>
+</table>
+
+## Props
+
+<Controls of={TimeFieldStories.Default} />
+
+<ArgTypes of={TimeFieldStories} />
+
+## Accessibility (WCAG 2.2 AA)
+
+- **2.4.6 Labels**: pair every field with `<Label>`.
+- **3.3.1 Error identification**: pass `error` and `describedBy`.
+- **2.4.7 Focus visible**: focused segments highlight with `bg-accent`; the wrapper renders a 2 px ring.
+- **2.5.8 Target size**: every size's wrapper meets ≥ 24 × 24 px.
+- **4.1.2 Name & state**: each segment exposes `role="spinbutton"` with min / max bounds.
+
+## Responsive behaviour
+
+<Canvas of={TimeFieldStories.InteractiveResponsive} />
+
+The root is `w-fit`. Pair with a labelled wrapper sized for your form column.
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				Use <code>error</code> + <code>describedBy</code> for validation messages.
+			</td>
+			<td>
+				Toggle <code>variant="error"</code> manually.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Match <code>size</code> to the surrounding form fields.
+			</td>
+			<td>
+				Override <code>class="h-..."</code> — use the <code>size</code> variant.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Let <code>hourCycle</code> default — it follows the user's locale preference.
+			</td>
+			<td>Force a 12-hour clock for users in 24-hour locales.</td>
+		</tr>
+	</tbody>
+</table>

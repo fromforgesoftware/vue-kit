@@ -1,0 +1,197 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as ToggleGroupStories from './ToggleGroup.stories';
+
+<Meta of={ToggleGroupStories} />
+
+# ToggleGroup
+
+A connected row (or column) of [Toggle](?path=/docs/form-toggle--docs) items with single- or multi-select semantics. Items inherit the Toggle CVA so density and variants stay consistent. Built on Reka `ToggleGroup` — roving focus, arrow-key navigation, and `aria-pressed` are handled for you.
+
+## When to use
+
+- Mutually exclusive choice from a small visual set (text alignment, view mode).
+- Multi-select formatting toolbar where each toggle stands on its own (Bold / Italic / Underline).
+
+## When not to use
+
+- More than ~5 options — use a [Select](?path=/docs/form-select--docs).
+- Long text labels — use [RadioGroup](?path=/docs/form-radio--docs) for radios, [Tabs](?path=/docs/general-tabs--docs) for tabbed views.
+- A single toggle — use [Toggle](?path=/docs/form-toggle--docs).
+
+## Anatomy
+
+<Canvas of={ToggleGroupStories.Default} />
+
+## Composition
+
+ToggleGroup is a compound component:
+
+<table>
+	<thead>
+		<tr>
+			<th>Component</th>
+			<th>Role</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>ToggleGroup</code>
+			</td>
+			<td>The bordered container; owns selection state, orientation, and disabled.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>ToggleGroupItem</code>
+			</td>
+			<td>
+				An individual toggle. Carries a unique <code>value</code> used by the group to track
+				selection.
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+```vue
+<ToggleGroup v-model="value" type="single" aria-label="View mode">
+  <ToggleGroupItem value="list" aria-label="List view"><Icon :icon="List" /></ToggleGroupItem>
+  <ToggleGroupItem value="grid" aria-label="Grid view"><Icon :icon="Grid" /></ToggleGroupItem>
+</ToggleGroup>
+```
+
+## Selection modes
+
+<Canvas of={ToggleGroupStories.Single} />
+
+<Canvas of={ToggleGroupStories.Multiple} />
+
+`type="single"` enforces at most one active item. `type="multiple"` allows any combination — the value is `string[]`.
+
+## Sizes
+
+<Canvas of={ToggleGroupStories.Sizes} />
+
+Apply the same `size` to every item in a group. Heights match the Input ramp (`sm` 28 px, `default` 32 px, `lg` 40 px).
+
+## Orientation
+
+<Canvas of={ToggleGroupStories.Vertical} />
+
+Vertical layout swaps the divider from a left-border to a top-border and re-rounds the first/last items along the long axis. Arrow keys navigate along the chosen orientation.
+
+## States
+
+<Canvas of={ToggleGroupStories.Disabled} />
+
+<Canvas of={ToggleGroupStories.ItemDisabled} />
+
+Disable the whole group via `disabled` on `ToggleGroup`. Disable a single item via `disabled` on `ToggleGroupItem` — the rest stay interactive.
+
+## Keyboard interaction
+
+<table>
+	<thead>
+		<tr>
+			<th>Key</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<kbd>Tab</kbd>
+			</td>
+			<td>Move focus into the group (lands on the active item)</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>ArrowRight</kbd> / <kbd>ArrowDown</kbd>
+			</td>
+			<td>Move focus to the next item</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>ArrowLeft</kbd> / <kbd>ArrowUp</kbd>
+			</td>
+			<td>Move focus to the previous item</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>Home</kbd>
+			</td>
+			<td>Move focus to the first item</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>End</kbd>
+			</td>
+			<td>Move focus to the last item</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>Space</kbd> / <kbd>Enter</kbd>
+			</td>
+			<td>Toggle the focused item</td>
+		</tr>
+	</tbody>
+</table>
+
+When `loop` (default `true`), arrow navigation wraps from the last item back to the first.
+
+## Props
+
+<Controls of={ToggleGroupStories.Default} />
+
+<ArgTypes of={ToggleGroupStories} />
+
+## Accessibility (WCAG 2.2 AA)
+
+- **4.1.2 Name, role, value**: each item is a native `<button>` with `aria-pressed`. Always pass an `aria-label` (icon-only) or text content.
+- **2.4.6 Headings and labels**: pass a descriptive `aria-label` on `ToggleGroup` (e.g. "View mode", "Text alignment").
+- **2.5.8 Target size**: every size meets the 24×24 minimum on each item.
+- **2.4.7 Focus visible**: focus draws a 2 px ring on the focused item.
+- **2.1.1 Keyboard**: complete arrow / Home / End / Space / Enter keyboard model managed by the underlying roving-focus group.
+
+## Responsive behaviour
+
+<Canvas of={ToggleGroupStories.InteractiveResponsive} />
+
+Groups are inline-flex; wrap them in `flex flex-wrap` if you stack multiple groups on the same row.
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				Pass a descriptive <code>aria-label</code> to <code>ToggleGroup</code>.
+			</td>
+			<td>Rely on a visual heading alone — the group needs its own programmatic name.</td>
+		</tr>
+		<tr>
+			<td>
+				Use the same <code>size</code> on every item.
+			</td>
+			<td>Mix sizes — the row will look uneven.</td>
+		</tr>
+		<tr>
+			<td>Use ToggleGroup for ≤ 5 options.</td>
+			<td>Use ToggleGroup for many options — switch to a Select.</td>
+		</tr>
+		<tr>
+			<td>
+				Use <code>type="single"</code> when exactly one option must be active.
+			</td>
+			<td>
+				Use <code>type="multiple"</code> just to allow zero — single-select can also be cleared by
+				clicking the active item.
+			</td>
+		</tr>
+	</tbody>
+</table>

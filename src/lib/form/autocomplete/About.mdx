@@ -1,0 +1,265 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as AutocompleteStories from './Autocomplete.stories';
+
+<Meta of={AutocompleteStories} />
+
+# Autocomplete
+
+Searchable input with a filtered dropdown. Built on Reka UI's `Combobox` primitive — typing filters items, arrow keys navigate, Enter selects.
+
+## When to use
+
+- 50+ options where typing-as-filter is faster than scrolling.
+- Server-side search (use `loading` + `@search` to show a spinner during fetches).
+- Single-value selection from a long catalogue (countries, employees, products).
+
+## When not to use
+
+- Free-form text — use [Input](?path=/docs/form-input--docs).
+- Short fixed list (≤ 10) — use [Select](?path=/docs/form-select--docs) for less typing overhead.
+- Multi-select with chips — use [Select](?path=/docs/form-select--docs) with `multiple`.
+
+## Anatomy
+
+<Canvas of={AutocompleteStories.Default} />
+
+## Sizes
+
+<Canvas of={AutocompleteStories.Sizes} />
+
+<table>
+	<thead>
+		<tr>
+			<th>Size</th>
+			<th>Anchor height</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>sm</code>
+			</td>
+			<td>28 px</td>
+			<td>Compact toolbars, inline filters</td>
+		</tr>
+		<tr>
+			<td>
+				<code>default</code>
+			</td>
+			<td>32 px</td>
+			<td>General forms (matches Input default)</td>
+		</tr>
+		<tr>
+			<td>
+				<code>lg</code>
+			</td>
+			<td>40 px</td>
+			<td>Emphasised hero forms</td>
+		</tr>
+	</tbody>
+</table>
+
+## States
+
+<Canvas of={AutocompleteStories.Disabled} />
+
+<Canvas of={AutocompleteStories.Loading} />
+
+<Canvas of={AutocompleteStories.WithError} />
+
+`error` sets `aria-invalid="true"` on the anchor and tints the border destructive. Pair with a referenced helper text via `describedBy`.
+
+## With label
+
+<Canvas of={AutocompleteStories.WithLabel} />
+
+Compose [Label](?path=/docs/form-label--docs) with `for` matching the `id` you set on `Autocomplete`. The id forwards to the inner native `<input>`.
+
+## Grouping
+
+<Canvas of={AutocompleteStories.Grouped} />
+
+Pass `groups` instead of `options` to render section headers and separators between them.
+
+## Server-side search
+
+<Canvas of={AutocompleteStories.ServerSideSearch} />
+
+Listen to `@search` and update `:options` from your fetch. Toggle `loading` while a request is in flight.
+
+## Composition
+
+<table>
+	<thead>
+		<tr>
+			<th>Sub-element (data-slot)</th>
+			<th>Purpose</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>autocomplete</code>
+			</td>
+			<td>Reka root.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>autocomplete-anchor</code>
+			</td>
+			<td>The visible input container — owns size, error, focus ring.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>autocomplete-input</code>
+			</td>
+			<td>The native &lt;input&gt; — receives the id and aria-describedby.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>autocomplete-clear</code>
+			</td>
+			<td>Clear button (only when clearable + value).</td>
+		</tr>
+		<tr>
+			<td>
+				<code>autocomplete-trigger</code>
+			</td>
+			<td>Chevron trigger that opens the menu.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>autocomplete-content</code>
+			</td>
+			<td>Menu container (positioned beneath the anchor).</td>
+		</tr>
+		<tr>
+			<td>
+				<code>autocomplete-viewport</code>
+			</td>
+			<td>Internal scroll viewport.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>autocomplete-item</code>
+			</td>
+			<td>Selectable option, ≥ 24 px tall.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>autocomplete-empty</code>
+			</td>
+			<td>Shown automatically when no items match.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>autocomplete-loading</code>
+			</td>
+			<td>Spinner shown while loading.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>autocomplete-group</code> / <code>autocomplete-label</code> /{' '}
+				<code>autocomplete-separator</code>
+			</td>
+			<td>Section structure (groups mode only).</td>
+		</tr>
+	</tbody>
+</table>
+
+## Keyboard interaction
+
+<table>
+	<thead>
+		<tr>
+			<th>Key</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>Letters / digits</td>
+			<td>Filter the list as you type.</td>
+		</tr>
+		<tr>
+			<td>ArrowDown / ArrowUp</td>
+			<td>Move highlight to next / previous filtered item.</td>
+		</tr>
+		<tr>
+			<td>Home / End</td>
+			<td>Jump to first / last item.</td>
+		</tr>
+		<tr>
+			<td>Enter</td>
+			<td>Select the highlighted item.</td>
+		</tr>
+		<tr>
+			<td>Escape</td>
+			<td>Close the dropdown without selecting.</td>
+		</tr>
+		<tr>
+			<td>Tab</td>
+			<td>Move focus out (also closes the dropdown).</td>
+		</tr>
+	</tbody>
+</table>
+
+## Props
+
+<Controls of={AutocompleteStories.Default} />
+
+<ArgTypes of={AutocompleteStories} />
+
+## Accessibility (WCAG 2.2 AA)
+
+- **2.4.6 Labels**: pair the input with `<Label for>` matching the `id` you set, or pass `aria-label`.
+- **3.3.1 Error identification**: `error` sets `aria-invalid="true"`; reference helper text via `describedBy`.
+- **2.4.7 Focus visible**: anchor draws a 2 px ring on focus-within.
+- **2.5.8 Target size**: anchor and items meet the 24 × 24 px minimum at every size.
+- **4.1.2 Name, role, value**: built on Reka UI primitives that emit the correct combobox / listbox / option semantics with `aria-expanded` / `aria-controls`. The clear and trigger buttons are icon-only — accessible names come from `clearLabel` (default `"Clear"`) and `triggerLabel` (default `"Open options"`).
+
+## Responsive behaviour
+
+<Canvas of={AutocompleteStories.InteractiveResponsive} />
+
+The anchor is `w-full` and shrinks to its parent. Wrap in a sized container (`w-72`, `max-w-sm`) so very long values don't stretch wide layouts.
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				Pair every input with <code>&lt;Label for&gt;</code> or <code>aria-label</code>.
+			</td>
+			<td>Rely on placeholder as the only label.</td>
+		</tr>
+		<tr>
+			<td>
+				Use <code>error</code> + <code>describedBy</code> for validation.
+			</td>
+			<td>
+				Toggle border colour with classes — it skips <code>aria-invalid</code>.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Use <code>@search</code> for server-side filtering with <code>loading</code>.
+			</td>
+			<td>
+				Block UI while fetching — set <code>loading</code> instead.
+			</td>
+		</tr>
+		<tr>
+			<td>Reach for Select when there are fewer than ten options.</td>
+			<td>Force users to type when scrolling is faster.</td>
+		</tr>
+	</tbody>
+</table>

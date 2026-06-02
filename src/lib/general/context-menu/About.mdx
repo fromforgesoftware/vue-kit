@@ -1,0 +1,315 @@
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as ContextMenuStories from './ContextMenu.stories';
+
+<Meta of={ContextMenuStories} />
+
+# Context Menu
+
+A right-click (or long-press on touch) menu anchored to a region. Same composition as Dropdown Menu, but the trigger is the area itself instead of a button. Built on Reka UI — content portals to `document.body`. Supports submenus, checkbox items, radio groups, and a destructive variant.
+
+## When to use
+
+- Schedule cells, calendar events, table rows where a right-click is expected.
+- Power-user shortcuts complementing existing visible buttons.
+- Editor surfaces (canvas, document) where the context menu mirrors keyboard actions.
+
+## When not to use
+
+- The menu is the only way to perform an action — non-power users won't discover it. Pair with a visible [Dropdown Menu](?path=/docs/general-dropdown-menu--docs).
+- Toolbar-style top-of-app navigation — use [Menubar](?path=/docs/general-menubar--docs).
+- Hover-only previews — use [Hover Card](?path=/docs/general-hover-card--docs).
+
+## Anatomy
+
+<Canvas of={ContextMenuStories.Default} />
+
+## Composition
+
+<table>
+	<thead>
+		<tr>
+			<th>Subcomponent</th>
+			<th>Purpose</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>ContextMenu</code>
+			</td>
+			<td>
+				Root provider. Owns <code>modal</code> and emits <code>update:open</code>.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>ContextMenuTrigger</code>
+			</td>
+			<td>
+				The region that responds to right-click / long-press. Uses <code>as-child</code>.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>ContextMenuContent</code>
+			</td>
+			<td>
+				The portaled panel anchored at the cursor. Owns <code>size</code> and <code>loop</code>.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>ContextMenuItem</code>
+			</td>
+			<td>
+				A single action. Supports <code>variant="destructive"</code>, <code>inset</code>,{' '}
+				<code>disabled</code>.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>ContextMenuLabel</code>
+			</td>
+			<td>A non-interactive section label.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>ContextMenuSeparator</code>
+			</td>
+			<td>A horizontal divider between groups.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>ContextMenuShortcut</code>
+			</td>
+			<td>Right-aligned hint for the keyboard shortcut associated with an item.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>ContextMenuCheckboxItem</code>
+			</td>
+			<td>
+				Toggleable item. Two-way binds via <code>v-model:checked</code>.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>ContextMenuRadioGroup</code>
+			</td>
+			<td>
+				Wraps a set of <code>ContextMenuRadioItem</code> children. Two-way binds via{' '}
+				<code>v-model</code>.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>ContextMenuRadioItem</code>
+			</td>
+			<td>Single choice within a radio group.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>ContextMenuSub</code>
+			</td>
+			<td>Provider for a nested submenu.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>ContextMenuSubTrigger</code>
+			</td>
+			<td>
+				Item that opens its child <code>ContextMenuSubContent</code>.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>ContextMenuSubContent</code>
+			</td>
+			<td>The portaled submenu panel.</td>
+		</tr>
+	</tbody>
+</table>
+
+## Sizes
+
+<Canvas of={ContextMenuStories.Sizes} />
+
+<table>
+	<thead>
+		<tr>
+			<th>Size</th>
+			<th>Min width</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>sm</code>
+			</td>
+			<td>10rem</td>
+			<td>Compact menus on dense rows.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>default</code>
+			</td>
+			<td>14rem</td>
+			<td>Most context menus.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>lg</code>
+			</td>
+			<td>18rem</td>
+			<td>Menus with longer labels or descriptions.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>auto</code>
+			</td>
+			<td>fit-content</td>
+			<td>Items determine the width.</td>
+		</tr>
+	</tbody>
+</table>
+
+## Variants
+
+<Canvas of={ContextMenuStories.Variants} />
+
+`ContextMenuItem` accepts `variant="destructive"` for delete or remove actions — never override the colour with `class`.
+
+## Submenus, checkboxes, radio groups
+
+<Canvas of={ContextMenuStories.WithSubmenuAndChecks} />
+
+## Props
+
+<Controls of={ContextMenuStories.Default} />
+
+## Keyboard interaction
+
+<table>
+	<thead>
+		<tr>
+			<th>Key / event</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>Right click trigger</td>
+			<td>Opens the menu at the cursor.</td>
+		</tr>
+		<tr>
+			<td>Long-press trigger (touch)</td>
+			<td>Opens the menu.</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>Arrow Down</kbd>
+			</td>
+			<td>Moves focus to next item, wrapping to first.</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>Arrow Up</kbd>
+			</td>
+			<td>Moves focus to previous item, wrapping to last.</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>Arrow Right</kbd>
+			</td>
+			<td>Opens a submenu when focused on a sub-trigger.</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>Arrow Left</kbd>
+			</td>
+			<td>Closes the current submenu.</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>Home</kbd> / <kbd>End</kbd>
+			</td>
+			<td>Focuses the first or last item.</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>Enter</kbd> / <kbd>Space</kbd>
+			</td>
+			<td>Activates the focused item.</td>
+		</tr>
+		<tr>
+			<td>Type a letter</td>
+			<td>Focus jumps to the next item starting with that letter (typeahead).</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>Escape</kbd>
+			</td>
+			<td>Closes the menu.</td>
+		</tr>
+		<tr>
+			<td>Click outside</td>
+			<td>Closes the menu.</td>
+		</tr>
+	</tbody>
+</table>
+
+## Accessibility (WCAG 2.2 AA)
+
+- **2.4.3 Focus order**: focus moves into the menu on open and returns to the page after close.
+- **2.4.7 Focus visible**: items keep the standard `:focus-visible` ring.
+- **2.1.1 Keyboard**: a context menu is **discoverable only by mouse** — always provide an alternative path (a visible button, a Dropdown Menu) so keyboard-only users can reach the same actions.
+- **4.1.2 Name, Role, Value**: items use `role="menuitem"` automatically.
+- **2.5.8 Target size**: items render at minimum 24 px tall.
+
+> A context menu is a power-user shortcut, not a discoverable affordance. Never make it the _only_ path to an action.
+
+## Responsive behaviour
+
+<Canvas of={ContextMenuStories.InteractiveResponsive} />
+
+The menu is portaled to `document.body` and never affects parent layout. On touch, long-press triggers the menu — keep targets large enough to long-press accurately.
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>Mirror visible actions in the context menu so power users can right-click.</td>
+			<td>
+				Make the context menu the only way to delete or rename — keyboard users will be stuck.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Use <code>variant="destructive"</code> for delete and remove actions.
+			</td>
+			<td>
+				Override colours with <code>class="text-destructive"</code>.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Group related items with <code>ContextMenuLabel</code> + <code>ContextMenuSeparator</code>.
+			</td>
+			<td>Stuff a 20-item list into one context menu.</td>
+		</tr>
+		<tr>
+			<td>Test long-press behaviour on touch — many users discover context menus there.</td>
+			<td>
+				Use a <code>div</code> with no role as the trigger — wrap an interactive region.
+			</td>
+		</tr>
+	</tbody>
+</table>

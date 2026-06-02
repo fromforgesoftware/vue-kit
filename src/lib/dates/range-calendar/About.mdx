@@ -1,0 +1,186 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as RangeCalendarStories from './RangeCalendar.stories';
+
+<Meta of={RangeCalendarStories} />
+
+# RangeCalendar
+
+Always-visible date-range picker built on Reka UI's RangeCalendar primitive. Selecting a start day then an end day creates a range. For a popover-triggered version compose [DateRangePicker](?path=/docs/dates-daterangepicker--docs).
+
+## When to use
+
+- The user must always see the range calendar (filters, scheduling layouts, dashboards).
+- A start _and_ end day must be picked from a continuous range.
+- Preset shortcuts (Today, This Week, Last Month) help users select common ranges fast.
+
+## When not to use
+
+- Popover-triggered range entry — use [DateRangePicker](?path=/docs/dates-daterangepicker--docs).
+- Single date selection — use [Calendar](?path=/docs/dates-calendar--docs).
+- Time-of-day or date-time entry — combine with [DateField](?path=/docs/dates-datefield--docs) / [TimeField](?path=/docs/dates-timefield--docs).
+
+## Anatomy
+
+<Canvas of={RangeCalendarStories.Default} />
+
+`RangeCalendarRoot` wraps a header (`RangeCalendarPrev`, `RangeCalendarHeading` or month/year `<select>`s, `RangeCalendarNext`) and one or more `RangeCalendarGrid` blocks. Cells inside the selected range carry `data-selected`; bookends carry `data-selection-start` / `data-selection-end`.
+
+## Sizes
+
+<Canvas of={RangeCalendarStories.Sizes} />
+
+<table>
+	<thead>
+		<tr>
+			<th>Size</th>
+			<th>Cell size</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>sm</code>
+			</td>
+			<td>28 × 28 px</td>
+			<td>Compact filter sidebars</td>
+		</tr>
+		<tr>
+			<td>
+				<code>default</code>
+			</td>
+			<td>32 × 32 px</td>
+			<td>General use</td>
+		</tr>
+		<tr>
+			<td>
+				<code>lg</code>
+			</td>
+			<td>36 × 36 px</td>
+			<td>Hero scheduling layouts</td>
+		</tr>
+	</tbody>
+</table>
+
+All sizes meet WCAG 2.2 SC 2.5.8 (≥ 24 × 24 px) for day cells.
+
+## States
+
+<Canvas of={RangeCalendarStories.Disabled} />
+
+<Canvas of={RangeCalendarStories.WithMinMax} />
+
+`disabled` blocks all interaction. `minValue` / `maxValue` softly disable cells outside the bound.
+
+## Composition
+
+<Canvas of={RangeCalendarStories.WithMonthYearSelect} />
+
+<Canvas of={RangeCalendarStories.TwoMonths} />
+
+<Canvas of={RangeCalendarStories.WithPresets} />
+
+`monthYearSelect` swaps the heading text for two `<select>` controls. `numberOfMonths={2}` shows two months side by side. `presets` renders a sidebar of preset buttons; selecting one emits the preset range immediately.
+
+## Keyboard interaction
+
+<table>
+	<thead>
+		<tr>
+			<th>Key</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>ArrowLeft</code> / <code>ArrowRight</code>
+			</td>
+			<td>Move focus one day backward / forward</td>
+		</tr>
+		<tr>
+			<td>
+				<code>ArrowUp</code> / <code>ArrowDown</code>
+			</td>
+			<td>Move focus one week earlier / later</td>
+		</tr>
+		<tr>
+			<td>
+				<code>Home</code> / <code>End</code>
+			</td>
+			<td>Jump to start / end of the focused row</td>
+		</tr>
+		<tr>
+			<td>
+				<code>PageUp</code> / <code>PageDown</code>
+			</td>
+			<td>Move to previous / next month</td>
+		</tr>
+		<tr>
+			<td>
+				<code>Enter</code> / <code>Space</code>
+			</td>
+			<td>Select start or end of the range</td>
+		</tr>
+		<tr>
+			<td>
+				<code>Escape</code>
+			</td>
+			<td>Clear in-flight selection</td>
+		</tr>
+	</tbody>
+</table>
+
+## Props
+
+<Controls of={RangeCalendarStories.Default} />
+
+<ArgTypes of={RangeCalendarStories} />
+
+## Accessibility (WCAG 2.2 AA)
+
+- **1.4.3 Contrast**: range bookends use primary tokens (≥ 4.5 : 1 contrast); in-range cells use accent tokens.
+- **2.1.1 Keyboard**: full grid navigation; in-flight selection tracked via Reka's `data-highlighted` state.
+- **2.4.7 Focus visible**: nav buttons and day cells render a 2 px ring at ≥ 3 : 1 contrast.
+- **2.5.8 Target size**: every day cell is ≥ 24 × 24 px at all sizes.
+- **4.1.2 Name & state**: `RangeCalendarRoot` exposes a labelled grid; selected cells carry `aria-selected="true"`, today carries `aria-current="date"` (Reka).
+
+## Responsive behaviour
+
+<Canvas of={RangeCalendarStories.InteractiveResponsive} />
+
+The root is `w-fit`. Multi-month layouts wrap to a column on `< sm` viewports.
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>Provide presets when users routinely pick the same ranges (e.g. "Last 30 days").</td>
+			<td>Force users to pick start + end manually for common ranges — give them presets.</td>
+		</tr>
+		<tr>
+			<td>
+				Use <code>numberOfMonths={2}</code> when ranges typically cross month boundaries.
+			</td>
+			<td>
+				Stretch the calendar to fill wide layouts — keep it <code>w-fit</code>.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Use <code>size="sm"</code> in compact filter sidebars.
+			</td>
+			<td>
+				Override <code>class</code> to shrink cells — the size variant keeps target sizes
+				WCAG-compliant.
+			</td>
+		</tr>
+	</tbody>
+</table>

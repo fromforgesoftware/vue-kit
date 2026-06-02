@@ -1,0 +1,183 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Foundation/Typography" />
+
+# Typography
+
+The library uses one font family (Inter, with a system fallback stack) and a tightened type ramp: every step is intentionally smaller than typical Tailwind defaults to allow dense, information-rich UIs without crowding. The base body size is **13 px** (Tailwind's `text-base`) — not the CSS default of 16 px.
+
+```css
+font-family:
+	'Inter',
+	-apple-system,
+	BlinkMacSystemFont,
+	'Segoe UI',
+	Roboto,
+	sans-serif;
+letter-spacing: -0.025em;
+```
+
+Letter-spacing is set globally to `-0.025em` to make Inter feel slightly tighter and match the design language.
+
+## Type ramp
+
+<table>
+	<thead>
+		<tr>
+			<th>Utility</th>
+			<th>Size</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>text-3xs</code>
+			</td>
+			<td>9 px</td>
+			<td>Edge cases — hover-only metadata, dense data labels. Avoid in body content.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>text-2xs</code>
+			</td>
+			<td>10 px</td>
+			<td>Counts inside small badges, secondary metadata in dense rows</td>
+		</tr>
+		<tr>
+			<td>
+				<code>text-xs</code>
+			</td>
+			<td>11 px</td>
+			<td>Default badge text, helper labels, tooltips</td>
+		</tr>
+		<tr>
+			<td>
+				<code>text-sm</code>
+			</td>
+			<td>12 px</td>
+			<td>Compact UI text — toolbars, table cells, secondary buttons</td>
+		</tr>
+		<tr>
+			<td>
+				<code>text-base</code>
+			</td>
+			<td>13 px</td>
+			<td>
+				Body text. Default <code>html</code>/<code>body</code> size.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>text-lg</code>
+			</td>
+			<td>15 px</td>
+			<td>Section intros, dialog descriptions</td>
+		</tr>
+		<tr>
+			<td>
+				<code>text-xl</code>
+			</td>
+			<td>18 px</td>
+			<td>Card titles, dialog titles</td>
+		</tr>
+		<tr>
+			<td>
+				<code>text-h3</code>
+			</td>
+			<td>20 px</td>
+			<td>Subsection headings</td>
+		</tr>
+		<tr>
+			<td>
+				<code>text-h2</code>
+			</td>
+			<td>24 px</td>
+			<td>Section headings</td>
+		</tr>
+		<tr>
+			<td>
+				<code>text-h1</code>
+			</td>
+			<td>36 px</td>
+			<td>Page titles. Use sparingly — usually one per page.</td>
+		</tr>
+	</tbody>
+</table>
+
+## Font weight
+
+<table>
+	<thead>
+		<tr>
+			<th>Utility</th>
+			<th>Weight</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>font-light</code>
+			</td>
+			<td>300</td>
+			<td>Display-style numbers; rare</td>
+		</tr>
+		<tr>
+			<td>
+				<code>font-normal</code>
+			</td>
+			<td>400</td>
+			<td>Body text, descriptions</td>
+		</tr>
+		<tr>
+			<td>
+				<code>font-medium</code>
+			</td>
+			<td>500</td>
+			<td>Default for buttons, links, navigation</td>
+		</tr>
+		<tr>
+			<td>
+				<code>font-semibold</code>
+			</td>
+			<td>600</td>
+			<td>Headings, emphasis</td>
+		</tr>
+		<tr>
+			<td>
+				<code>font-bold</code>
+			</td>
+			<td>700</td>
+			<td>High-emphasis headings, callouts</td>
+		</tr>
+	</tbody>
+</table>
+
+## Mobile considerations
+
+The 13 px body baseline is below the conventional 16 px mobile minimum. We accept this trade-off because the UI is information-dense workforce-management tooling primarily used on tablet and laptop screens. Two safeguards:
+
+- **Body content** (`text-base`, `text-sm`, `text-lg`) is set on system text — never below `text-xs` for any user-readable content.
+- **Form input fields specifically** keep `text-sm` minimum at every breakpoint to satisfy iOS's "no zoom on focus" 16 px equivalent (Inter at 12 px reads ≈ 16 px in browser zoom factors). Verify per-form-component.
+
+## Semantic guidance
+
+- **One `text-h1` per page**, set by the consuming app — not by a library component.
+- **Headings nest sequentially**: `h1` → `h2` → `h3`. Skip levels for visual reasons via the size utilities (`text-h2` on an `<h3>`), never via the heading element itself — that breaks screen-reader navigation.
+- **Captions and metadata** use `text-muted-foreground` to recede; they should be the same size as their parent paragraph.
+- **Numbers in dense layouts** (counts, money, percentages): pair `font-medium` or `font-semibold` with `tabular-nums` for fixed-width digits.
+
+## Accessibility (WCAG 2.2 AA)
+
+- **1.4.3 Contrast (Minimum)**: every text token meets 4.5 : 1 against its background — verified by axe per story.
+- **1.4.4 Resize Text**: layouts must remain usable at 200 % browser zoom. Components rely on relative units (`rem`) end-to-end; don't introduce fixed `px` for sizing inside text-bearing elements.
+- **1.4.12 Text Spacing**: components don't apply `!important` to line-height, paragraph-spacing, or word-spacing — users can override via assistive tooling.
+- **2.4.6 Headings and Labels**: heading text describes the section. Don't use generic ("Details") when specific is available ("Holiday details").
+
+## Don't
+
+- Use raw `text-[14px]` arbitrary values. Use the type ramp; if a size is missing, propose adding it to `globals.css`.
+- Set `font-family` on individual components. Inter is global.
+- Mix font-weight and italic to indicate state. Use color tokens (`text-destructive`) and ARIA attributes.
+- Skip heading levels visually. Use `text-h2` class on an `<h2>`, not on a `<div>`.

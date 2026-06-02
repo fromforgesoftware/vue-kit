@@ -1,0 +1,177 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as ColorSliderStories from './ColorSlider.stories';
+
+<Meta of={ColorSliderStories} />
+
+# Color Slider
+
+Single-channel colour slider built on Reka UI. Behaves like the standard [Slider](?path=/docs/form-slider--docs) but the track auto-paints a gradient that visualises the channel being edited.
+
+## When to use
+
+- Hue, saturation, lightness, brightness, alpha, or RGB channel editors inside a custom picker.
+- Pair with a [Color Area](?path=/docs/color-color-area--docs) for full HSB control.
+
+## When not to use
+
+- For numeric ranges with no colour meaning — use [Slider](?path=/docs/form-slider--docs).
+- For predefined palettes — use [Color Swatch Picker](?path=/docs/color-color-swatch-picker--docs).
+
+## Anatomy
+
+<Canvas of={ColorSliderStories.Default} />
+
+`ColorSliderRoot` &raquo; `ColorSliderTrack` (gradient) &raquo; `ColorSliderThumb` (focusable knob).
+
+## Channels
+
+<Canvas of={ColorSliderStories.HSLChannels} />
+
+<table>
+	<thead>
+		<tr>
+			<th>Channel</th>
+			<th>Range</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>hue</code>
+			</td>
+			<td>0–360°</td>
+			<td>Rainbow track for HSL/HSB pickers</td>
+		</tr>
+		<tr>
+			<td>
+				<code>saturation</code>
+			</td>
+			<td>0–100 %</td>
+			<td>Greyscale → vivid track</td>
+		</tr>
+		<tr>
+			<td>
+				<code>lightness</code>
+			</td>
+			<td>0–100 %</td>
+			<td>Black → colour → white track (HSL)</td>
+		</tr>
+		<tr>
+			<td>
+				<code>brightness</code>
+			</td>
+			<td>0–100 %</td>
+			<td>Black → colour track (HSB)</td>
+		</tr>
+		<tr>
+			<td>
+				<code>alpha</code>
+			</td>
+			<td>0–1</td>
+			<td>Transparency selector — pair with chequerboard background at the consumer</td>
+		</tr>
+		<tr>
+			<td>
+				<code>red</code> / <code>green</code> / <code>blue</code>
+			</td>
+			<td>0–255</td>
+			<td>Direct RGB editing</td>
+		</tr>
+	</tbody>
+</table>
+
+## Sizes
+
+<Canvas of={ColorSliderStories.Sizes} />
+
+`default` paints a 16 px thumb on a 12 px track; `sm` paints a 14 px thumb on an 8 px track. Both meet WCAG 2.5.8 hit-area on the thumb via the invisible expansion ring.
+
+## Keyboard interaction
+
+<table>
+	<thead>
+		<tr>
+			<th>Key</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<kbd>ArrowRight</kbd> / <kbd>ArrowUp</kbd>
+			</td>
+			<td>Increase by one step</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>ArrowLeft</kbd> / <kbd>ArrowDown</kbd>
+			</td>
+			<td>Decrease by one step</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>PageUp</kbd> / <kbd>PageDown</kbd>
+			</td>
+			<td>Larger step (Reka default 10 × step)</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>Home</kbd> / <kbd>End</kbd>
+			</td>
+			<td>Jump to min / max</td>
+		</tr>
+	</tbody>
+</table>
+
+## Props
+
+<Controls of={ColorSliderStories.Default} />
+
+<ArgTypes of={ColorSliderStories} />
+
+## Accessibility (WCAG 2.2 AA)
+
+- **Pointer alternatives** (SC 2.5.7): every drag interaction has a keyboard equivalent.
+- **Target size** (SC 2.5.8): visible thumb stays compact for clean visuals; an invisible `::before` ring delivers ≥ 24 × 24 px hit area.
+- **Name** (SC 4.1.2): the thumb auto-derives an `aria-label` from the channel (e.g. `"Hue"`, `"Saturation"`). Override at the root via `ariaLabel` for higher-level context.
+- **Value** (SC 4.1.2): `aria-valuenow` and `aria-valuetext` are populated by Reka — `aria-valuetext` reads `"45"` for hue, `"60%"` for percent channels, etc.
+
+## Responsive behaviour
+
+<Canvas of={ColorSliderStories.InteractiveResponsive} />
+
+Sliders collapse to fill their parent. Stack vertically inside a `grid gap-3` container in narrow popovers; switch to `orientation="vertical"` for tall sidebars.
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>Use a hue slider alongside a Color Area for the full picker</td>
+			<td>Ship lightness/brightness alone — users can't change hue</td>
+		</tr>
+		<tr>
+			<td>
+				Pair each slider with a <code>&lt;Label&gt;</code> for clear identification
+			</td>
+			<td>
+				Rely on the auto-derived <code>aria-label</code> when several sliders share a parent
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Match <code>colorSpace</code> across all sliders in a picker
+			</td>
+			<td>
+				Mix HSL <code>lightness</code> with HSB <code>brightness</code> in the same picker
+			</td>
+		</tr>
+	</tbody>
+</table>

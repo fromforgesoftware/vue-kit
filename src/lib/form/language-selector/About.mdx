@@ -1,0 +1,187 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as LanguageSelectorStories from './LanguageSelector.stories';
+
+<Meta of={LanguageSelectorStories} />
+
+# LanguageSelector
+
+Composite locale picker with two visual variants. Resolves bare base codes (e.g. `en`) to their first regional variant (e.g. `en_GB`) automatically.
+
+## When to use
+
+- Letting the user choose a locale in nav, footer, login screens, or settings.
+- The list of locales comes from the backend as a string array.
+
+## When not to use
+
+- Selecting a single value from a non-locale list — use [Select](?path=/docs/form-select--docs) directly.
+
+## Anatomy
+
+<Canvas of={LanguageSelectorStories.Default} />
+
+## Variants
+
+<table>
+	<thead>
+		<tr>
+			<th>Variant</th>
+			<th>Built on</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>inline</code> (default)
+			</td>
+			<td>DropdownMenu</td>
+			<td>Nav / footer — compact globe button.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>select</code>
+			</td>
+			<td>Select</td>
+			<td>Settings forms — full bordered trigger that lines up with other inputs.</td>
+		</tr>
+	</tbody>
+</table>
+
+<Canvas of={LanguageSelectorStories.SelectVariant} />
+
+## Inline tones
+
+<Canvas of={LanguageSelectorStories.InlineTones} />
+
+`tone="muted"` (default) suits footers; `tone="foreground"` suits dark headers where the higher contrast keeps the trigger readable.
+
+## States
+
+<Canvas of={LanguageSelectorStories.Disabled} />
+
+<Canvas of={LanguageSelectorStories.FewLocales} />
+
+When fewer than three locales are configured the dropdown still works — there's no special UI for the small case.
+
+## Composition
+
+<table>
+	<thead>
+		<tr>
+			<th>Sub-element (data-slot)</th>
+			<th>Purpose</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>language-selector</code> (with <code>data-variant</code>)
+			</td>
+			<td>Root element — the wrapping DropdownMenu or Select.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>language-selector-trigger</code>
+			</td>
+			<td>Visible button or Select trigger.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>language-selector-content</code> (inline only)
+			</td>
+			<td>Portaled DropdownMenu content.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>language-selector-item</code>
+			</td>
+			<td>One locale option (radio item or SelectItem).</td>
+		</tr>
+	</tbody>
+</table>
+
+## Keyboard interaction
+
+<table>
+	<thead>
+		<tr>
+			<th>Key</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>Enter / Space (trigger focused)</td>
+			<td>Open the menu.</td>
+		</tr>
+		<tr>
+			<td>ArrowDown / ArrowUp</td>
+			<td>Move highlight to next / previous locale.</td>
+		</tr>
+		<tr>
+			<td>Enter (item highlighted)</td>
+			<td>
+				Select the locale and emit <code>update:modelValue</code>.
+			</td>
+		</tr>
+		<tr>
+			<td>Escape</td>
+			<td>Close the menu.</td>
+		</tr>
+	</tbody>
+</table>
+
+## Props
+
+<Controls of={LanguageSelectorStories.Default} />
+
+<ArgTypes of={LanguageSelectorStories} />
+
+## Accessibility (WCAG 2.2 AA)
+
+- **2.4.6 Labels**: the inline trigger sets `aria-label="Select language"` by default — override with the `ariaLabel` prop if your context calls for a different word.
+- **2.4.7 Focus visible**: trigger draws a 2 px ring with offset.
+- **2.5.8 Target size**: every trigger size meets the 24 × 24 px minimum.
+- **4.1.2 Name, role, value**: built on Reka UI primitives that emit the correct combobox / menu / radio semantics.
+
+## Responsive behaviour
+
+<Canvas of={LanguageSelectorStories.InteractiveResponsive} />
+
+The inline trigger is fixed-width to its content and never overflows. The select variant is `w-56` by default — wrap in a sized container if you need it narrower.
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				Pick <code>variant="inline"</code> for nav / footer.
+			</td>
+			<td>Use the inline variant inside a settings form — it doesn't line up with other Inputs.</td>
+		</tr>
+		<tr>
+			<td>
+				Pick <code>variant="select"</code> for forms.
+			</td>
+			<td>
+				Override the trigger height with classes — pass <code>size</code> instead.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Pass the full <code>locales</code> array as supplied by your backend.
+			</td>
+			<td>
+				Filter out base codes manually — <code>getLocaleOptions()</code> already does it.
+			</td>
+		</tr>
+	</tbody>
+</table>

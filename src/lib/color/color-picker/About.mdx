@@ -1,0 +1,130 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as ColorPickerStories from './ColorPicker.stories';
+
+<Meta of={ColorPickerStories} />
+
+# Color Picker
+
+Composite colour picker built from the lower-level Color primitives. A trigger button shows the current colour; clicking it opens a popover with a Color Area, hue slider, swatch preview, and hex field.
+
+## When to use
+
+- A self-contained colour picker on a settings page or form.
+- Toolbars where a square trigger fits next to other icon buttons.
+
+## When not to use
+
+- For predefined palettes — use [Color Swatch Picker](?path=/docs/color-color-swatch-picker--docs).
+- For inline colour previews — use [Color Swatch](?path=/docs/color-color-swatch--docs).
+- For text-only hex entry — use [Color Field](?path=/docs/color-color-field--docs).
+
+## Anatomy
+
+<Canvas of={ColorPickerStories.Default} />
+
+## Composition
+
+The picker assembles four primitives:
+
+- [Popover](?path=/docs/general-popover--docs) — trigger + portaled content.
+- [Color Area](?path=/docs/color-color-area--docs) — saturation × value gradient.
+- [Color Slider](?path=/docs/color-color-slider--docs) — hue track.
+- [Color Swatch](?path=/docs/color-color-swatch--docs) — preview chip.
+- [Color Field](?path=/docs/color-color-field--docs) — hex input.
+
+If you need a different layout (e.g. RGB sliders instead of HSB area), build a custom composition from the same primitives at the consumer.
+
+## Sizes / shapes
+
+<Canvas of={ColorPickerStories.Sizes} />
+
+<Canvas of={ColorPickerStories.Square} />
+
+`default` shape renders a wide preview tile; `square` renders an icon-button-sized tile. All sizes meet ≥ 24 × 24 hit area.
+
+## Keyboard interaction
+
+<table>
+	<thead>
+		<tr>
+			<th>Key</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<kbd>Enter</kbd> / <kbd>Space</kbd> on trigger
+			</td>
+			<td>Open the popover</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>Escape</kbd> in popover
+			</td>
+			<td>Close the popover, focus returns to trigger</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>Tab</kbd> in popover
+			</td>
+			<td>Move between Color Area, Hue Slider, and Hex Field</td>
+		</tr>
+		<tr>
+			<td>Arrows in Color Area / Slider</td>
+			<td>Adjust the colour without a pointer (WCAG SC 2.5.7)</td>
+		</tr>
+	</tbody>
+</table>
+
+## Props
+
+<Controls of={ColorPickerStories.Default} />
+
+<ArgTypes of={ColorPickerStories} />
+
+## Accessibility (WCAG 2.2 AA)
+
+- **Trigger name** (SC 4.1.2): the trigger has an `aria-label` defaulting to `"Pick color: <value>"`. Override via `ariaLabel` for higher-level context.
+- **Popover name**: the portaled content has `aria-label="Color picker"` so screen readers announce it on open.
+- **Sub-control names**: each child control has its own accessible name (`"Saturation and brightness"`, `"Hue"`, `"Hex value"`).
+- **Pointer alternatives** (SC 2.5.7): every drag interaction in the area and sliders has an arrow-key fallback.
+- **Target size** (SC 2.5.8): the trigger meets ≥ 24 × 24 at every size; the picker thumbs use invisible expansion rings to deliver the same hit area.
+- **Focus management**: opening the popover moves focus into the area; closing returns focus to the trigger (Reka default).
+
+## Responsive behaviour
+
+<Canvas of={ColorPickerStories.InteractiveResponsive} />
+
+The popover portals to `document.body`, so it can escape `overflow: hidden` ancestors. The Color Area inside uses `size="full"` to fit the popover width on narrow viewports.
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				Pass <code>ariaLabel</code> describing the colour purpose (e.g. <code>"Brand colour"</code>)
+			</td>
+			<td>Default to the auto label when context matters</td>
+		</tr>
+		<tr>
+			<td>
+				Use <code>shape="square"</code> in toolbars for visual parity with icon buttons
+			</td>
+			<td>
+				Use <code>shape="default"</code> in dense toolbars — the wide tile dominates
+			</td>
+		</tr>
+		<tr>
+			<td>Pair with a Color Swatch Picker fallback for "common colours"</td>
+			<td>Force users through the popover for the same handful of brand colours</td>
+		</tr>
+	</tbody>
+</table>

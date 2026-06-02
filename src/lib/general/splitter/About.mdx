@@ -1,0 +1,270 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as SplitterStories from './Splitter.stories';
+
+<Meta of={SplitterStories} />
+
+# Splitter
+
+Drag-to-resize panel divider for two-or-three-pane layouts (sidebars, master/detail, IDE-style consoles). Built on Reka UI's `SplitterGroup` — keyboard navigation and ARIA semantics are wired internally.
+
+## When to use
+
+- Master/detail layouts where the user benefits from controlling the relative sizes (lists vs. preview).
+- Sidebar + main content where the sidebar may be wider on desktops.
+- IDE-style three-panel layouts (sidebar, main, console) — compose by nesting.
+
+## When not to use
+
+- Fixed layouts where the user does not need to resize — use a plain flex container.
+- Modal-style overlays — use [Dialog](?path=/docs/general-dialog--docs) or [Drawer](?path=/docs/general-drawer--docs).
+- Stacked card lists — use a regular column layout with consistent gaps.
+
+## Anatomy
+
+<Canvas of={SplitterStories.Default} />
+
+A splitter is composed of `Splitter` (root), one or more `SplitterPanel` regions, and `SplitterResizeHandle` separators between adjacent panels.
+
+## Composition
+
+```vue
+<Splitter direction="horizontal">
+  <SplitterPanel :default-size="30" :min-size="20" surface="card">Sidebar</SplitterPanel>
+  <SplitterResizeHandle />
+  <SplitterPanel :default-size="70" :min-size="40" surface="card">Main</SplitterPanel>
+</Splitter>
+```
+
+<table>
+	<thead>
+		<tr>
+			<th>Subcomponent</th>
+			<th>Purpose</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>Splitter</code>
+			</td>
+			<td>
+				Root container. Defines <code>direction</code> and provides it to children via inject.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>SplitterPanel</code>
+			</td>
+			<td>
+				One resizable region. Configure <code>defaultSize</code>, <code>minSize</code>,{' '}
+				<code>maxSize</code>, <code>collapsible</code>, and visual <code>surface</code>.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>SplitterResizeHandle</code>
+			</td>
+			<td>Separator between two panels. Drag with pointer or resize with arrow keys.</td>
+		</tr>
+	</tbody>
+</table>
+
+## Directions
+
+<Canvas of={SplitterStories.Directions} />
+
+`horizontal` arranges panels left-to-right; `vertical` stacks them top-to-bottom. The handle changes cursor and orientation automatically.
+
+## Handle thickness
+
+<Canvas of={SplitterStories.HandleThickness} />
+
+<table>
+	<thead>
+		<tr>
+			<th>Thickness</th>
+			<th>Visible rule</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>hairline</code> (default)
+			</td>
+			<td>1 px</td>
+			<td>Calmest visual — most layouts</td>
+		</tr>
+		<tr>
+			<td>
+				<code>default</code>
+			</td>
+			<td>2 px</td>
+			<td>When the rule should read clearly without dominating</td>
+		</tr>
+		<tr>
+			<td>
+				<code>thick</code>
+			</td>
+			<td>4 px</td>
+			<td>Complex multi-pane layouts where a clear gutter is wanted</td>
+		</tr>
+	</tbody>
+</table>
+
+The 24×24 hit area is identical across all thicknesses — implemented with an invisible `::before` expansion zone on the handle.
+
+## Panel surfaces
+
+<Canvas of={SplitterStories.PanelSurfaces} />
+
+<table>
+	<thead>
+		<tr>
+			<th>Surface</th>
+			<th>Visual</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>none</code> (default)
+			</td>
+			<td>No chrome</td>
+			<td>When the panel content provides its own surface (cards, lists)</td>
+		</tr>
+		<tr>
+			<td>
+				<code>card</code>
+			</td>
+			<td>Bordered card with rounded corners</td>
+			<td>Self-contained regions like preview / detail</td>
+		</tr>
+		<tr>
+			<td>
+				<code>muted</code>
+			</td>
+			<td>Subtle muted fill</td>
+			<td>Auxiliary panels (sidebars, console)</td>
+		</tr>
+	</tbody>
+</table>
+
+## Nested splitters
+
+<Canvas of={SplitterStories.NestedSplitters} />
+
+Compose horizontally and vertically by nesting. The most common shape — sidebar + main + console — is built by placing a vertical splitter inside the right panel of a horizontal splitter.
+
+## Collapsible panels
+
+<Canvas of={SplitterStories.Collapsible} />
+
+Set `collapsible` on a `SplitterPanel` to allow it to snap closed when dragged below `min-size`. The component emits `collapse` and `expand` so the consumer can update icons or persist state.
+
+## Props
+
+<Controls of={SplitterStories.Default} />
+
+<ArgTypes of={SplitterStories} />
+
+## Keyboard interaction
+
+The resize handle is the WCAG 2.5.7 keyboard alternative for the drag interaction.
+
+<table>
+	<thead>
+		<tr>
+			<th>Key</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<kbd>Tab</kbd>
+			</td>
+			<td>Move focus to the resize handle.</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>ArrowLeft</kbd> / <kbd>ArrowRight</kbd>
+			</td>
+			<td>On a horizontal splitter, decrease / increase the leading panel's size.</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>ArrowUp</kbd> / <kbd>ArrowDown</kbd>
+			</td>
+			<td>On a vertical splitter, decrease / increase the leading panel's size.</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>Home</kbd> / <kbd>End</kbd>
+			</td>
+			<td>Jump the leading panel to its minimum / maximum size.</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>F6</kbd>
+			</td>
+			<td>Cycle focus between panels (Reka built-in).</td>
+		</tr>
+	</tbody>
+</table>
+
+## Accessibility (WCAG 2.2 AA)
+
+- **2.5.7 Dragging Movements**: every drag interaction has a keyboard alternative — the handle accepts arrow keys to nudge the boundary in single-percent steps.
+- **2.5.8 Target Size**: the handle's hit area is ≥ 24×24 px via a transparent `::before` expansion zone, regardless of which `thickness` is set.
+- **4.1.2 Name, Role, Value**: the handle has `role="separator"` (Reka), an explicit `aria-label` (default `"Resize panels"` — override via the `aria-label` prop), and `aria-valuenow` reflecting the current percentage of the leading panel.
+- **2.4.7 Focus Visible**: a 2 px focus ring is applied to the handle on `:focus-visible`. The visible rule also tints to the ring colour while focused or being dragged.
+- **1.4.11 Non-text Contrast**: the rule uses `bg-border`, which clears 3:1 against `bg-background` and `bg-card`.
+
+## Responsive behaviour
+
+<Canvas of={SplitterStories.InteractiveResponsive} />
+
+The Splitter itself fills its parent container and never exceeds it. Consumers should switch to a stacked layout on narrow viewports (`v-if="isDesktop"`) — Splitter is a desktop-class control and dragging on touch viewports requires a larger hit area than the WCAG minimum.
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				Pair <code>Splitter</code> with a stacked-layout fallback on mobile.
+			</td>
+			<td>Use Splitter on phones — drag handles are awkward at touch sizes.</td>
+		</tr>
+		<tr>
+			<td>
+				Set sensible <code>min-size</code> values so panels don't disappear.
+			</td>
+			<td>
+				Omit <code>min-size</code> — users can lose a panel entirely.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Persist sizes with <code>auto-save-id</code> for power users who tune their layouts.
+			</td>
+			<td>Save panel sizes manually with watchers — Reka does this for you.</td>
+		</tr>
+		<tr>
+			<td>
+				Use <code>surface="card"</code> when the panel does not provide its own chrome.
+			</td>
+			<td>
+				Stack <code>surface="card"</code> panels inside a card — doubled borders.
+			</td>
+		</tr>
+	</tbody>
+</table>

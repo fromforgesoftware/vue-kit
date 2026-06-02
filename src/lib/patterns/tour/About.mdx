@@ -1,0 +1,96 @@
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as TourStories from './Tour.stories';
+
+<Meta of={TourStories} />
+
+# Tour
+
+A guided walkthrough that highlights one UI element at a time with a spotlight overlay and a popover card describing the step. Built on top of Reka UI Popover for placement and a custom SVG mask for the spotlight cutout.
+
+## When to use
+
+- First-run onboarding for net-new users.
+- Re-introducing a feature after a redesign.
+- Self-service product tours triggered from a "Take the tour" link in help menus.
+
+## When not to use
+
+- For required workflows (use a wizard / multi-step form instead).
+- For one-off hints — use a [Tooltip](?path=/docs/general-tooltip--docs) or inline help text.
+- For long-form documentation — link to a help-centre article.
+
+## Anatomy
+
+<Canvas of={TourStories.Default} />
+
+A tour consists of an array of `TourStep` objects. Each step targets a CSS selector on the page, a placement for the popover, and a title/description.
+
+## Auto-start
+
+Pass `autoStart` to begin the tour as soon as the component mounts — typical for a first-run experience.
+
+<Canvas of={TourStories.AutoStart} />
+
+## Placement
+
+Each step's `placement` controls which side the card appears on. Reka UI's collision detection flips the placement automatically when there is no room.
+
+<Canvas of={TourStories.TopPlacement} />
+
+## Props
+
+<Controls of={TourStories.Default} />
+
+## Accessibility (WCAG 2.2 AA)
+
+<table>
+	<thead>
+		<tr>
+			<th>Concern</th>
+			<th>Behaviour</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>Keyboard</td>
+			<td>
+				The tour card is reachable via Tab while open. Skip / Back / Next / Done are real{' '}
+				<code>&lt;button&gt;</code> elements with 24 × 24 px minimum targets.
+			</td>
+		</tr>
+		<tr>
+			<td>Skip path</td>
+			<td>
+				Every non-final step has a Skip button. Clicking the dimmed overlay also skips, mirroring
+				the dialog "click outside to dismiss" pattern.
+			</td>
+		</tr>
+		<tr>
+			<td>Focus</td>
+			<td>
+				The tour deliberately does <em>not</em> trap focus — users can still interact with the
+				highlighted element while the tour is active. Auto-focus on open / close is suppressed.
+			</td>
+		</tr>
+		<tr>
+			<td>Spotlight</td>
+			<td>
+				The SVG mask uses <code>transition-all</code> with a 300 ms ease-in-out for the cutout. Step
+				changes are visually smooth without prefers-reduced-motion overrides.
+			</td>
+		</tr>
+		<tr>
+			<td>Counter</td>
+			<td>
+				"<code>1/4</code>" is purely visual. Consumers can announce step changes via a polite live
+				region if needed.
+			</td>
+		</tr>
+		<tr>
+			<td>Z-index</td>
+			<td>
+				Overlay is <code>z-50</code> and the card is <code>z-[51]</code> — both above app dialogs.
+			</td>
+		</tr>
+	</tbody>
+</table>

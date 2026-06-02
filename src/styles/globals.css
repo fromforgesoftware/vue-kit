@@ -1,0 +1,408 @@
+@import 'tailwindcss';
+@import './_colors.css';
+
+@theme {
+	/* Colors using OKLCH */
+	--color-background: oklch(var(--background));
+	--color-foreground: oklch(var(--foreground));
+
+	--color-primary: oklch(var(--primary));
+	--color-primary-foreground: oklch(var(--primary-foreground));
+	--color-primary-text: oklch(var(--primary-text));
+
+	--color-secondary: oklch(var(--secondary));
+	--color-secondary-foreground: oklch(var(--secondary-foreground));
+
+	--color-destructive: oklch(var(--destructive));
+	--color-destructive-foreground: oklch(var(--destructive-foreground));
+
+	--color-muted: oklch(var(--muted));
+	--color-muted-foreground: oklch(var(--muted-foreground));
+
+	--color-accent: oklch(var(--accent));
+	--color-accent-foreground: oklch(var(--accent-foreground));
+
+	--color-success: oklch(var(--success));
+	--color-success-foreground: oklch(var(--success-foreground));
+
+	--color-warning: oklch(var(--warning));
+	--color-warning-foreground: oklch(var(--warning-foreground));
+
+	--color-info: oklch(var(--info));
+	--color-info-foreground: oklch(var(--info-foreground));
+
+	--color-card: oklch(var(--card));
+	--color-card-foreground: oklch(var(--card-foreground));
+
+	--color-popover: oklch(var(--popover));
+	--color-popover-foreground: oklch(var(--popover-foreground));
+
+	--color-border: oklch(var(--border));
+	--color-input: oklch(var(--input));
+	--color-ring: oklch(var(--ring));
+
+	/* Sidebar colors */
+	--color-sidebar: oklch(var(--sidebar));
+	--color-sidebar-foreground: oklch(var(--sidebar-foreground));
+	--color-sidebar-primary: oklch(var(--sidebar-primary));
+	--color-sidebar-primary-foreground: oklch(var(--sidebar-primary-foreground));
+	--color-sidebar-accent: oklch(var(--sidebar-accent));
+	--color-sidebar-accent-foreground: oklch(var(--sidebar-accent-foreground));
+	--color-sidebar-border: oklch(var(--sidebar-border));
+	--color-sidebar-ring: oklch(var(--sidebar-ring));
+
+	/* Chart colors */
+	--color-chart-1: oklch(var(--chart-1));
+	--color-chart-2: oklch(var(--chart-2));
+	--color-chart-3: oklch(var(--chart-3));
+	--color-chart-4: oklch(var(--chart-4));
+	--color-chart-5: oklch(var(--chart-5));
+
+	/* Schedule Timeline colors */
+	--color-st-work: oklch(var(--schedule-timeline-work));
+	--color-st-work-foreground: oklch(var(--schedule-timeline-work-foreground));
+	--color-st-work-subtle: oklch(var(--schedule-timeline-work-subtle));
+
+	--color-st-activity: oklch(var(--schedule-timeline-activity));
+	--color-st-activity-foreground: oklch(var(--schedule-timeline-activity-foreground));
+	--color-st-activity-subtle: oklch(var(--schedule-timeline-activity-subtle));
+
+	--color-st-adherence: oklch(var(--schedule-timeline-adherence));
+	--color-st-adherence-foreground: oklch(var(--schedule-timeline-adherence-foreground));
+	--color-st-adherence-subtle: oklch(var(--schedule-timeline-adherence-subtle));
+
+	--color-st-leave: oklch(var(--schedule-timeline-leave));
+	--color-st-leave-foreground: oklch(var(--schedule-timeline-leave-foreground));
+	--color-st-leave-subtle: oklch(var(--schedule-timeline-leave-subtle));
+
+	--color-st-break: oklch(var(--schedule-timeline-break));
+	--color-st-break-foreground: oklch(var(--schedule-timeline-break-foreground));
+	--color-st-break-subtle: oklch(var(--schedule-timeline-break-subtle));
+
+	--color-st-meeting: oklch(var(--schedule-timeline-meeting));
+	--color-st-meeting-foreground: oklch(var(--schedule-timeline-meeting-foreground));
+	--color-st-meeting-subtle: oklch(var(--schedule-timeline-meeting-subtle));
+
+	--color-st-post-process: oklch(var(--schedule-timeline-post-process));
+	--color-st-post-process-foreground: oklch(var(--schedule-timeline-post-process-foreground));
+	--color-st-post-process-subtle: oklch(var(--schedule-timeline-post-process-subtle));
+
+	--color-st-logged-in: oklch(var(--schedule-timeline-logged-in));
+	--color-st-logged-in-foreground: oklch(var(--schedule-timeline-logged-in-foreground));
+	--color-st-logged-in-subtle: oklch(var(--schedule-timeline-logged-in-subtle));
+
+	--color-st-logged-out: oklch(var(--schedule-timeline-logged-out));
+	--color-st-logged-out-foreground: oklch(var(--schedule-timeline-logged-out-foreground));
+	--color-st-logged-out-subtle: oklch(var(--schedule-timeline-logged-out-subtle));
+
+	--color-st-exception: oklch(var(--schedule-timeline-exception));
+	--color-st-exception-foreground: oklch(var(--schedule-timeline-exception-foreground));
+	--color-st-exception-subtle: oklch(var(--schedule-timeline-exception-subtle));
+
+	--color-st-grid-line: oklch(var(--schedule-timeline-grid-line));
+	--color-st-now-line: oklch(var(--schedule-timeline-now-line));
+	--color-st-row-hover: oklch(var(--schedule-timeline-row-hover));
+	--color-st-header-bg: oklch(var(--schedule-timeline-header-bg));
+	--color-st-employee-bg: oklch(var(--schedule-timeline-employee-bg));
+	--color-st-today-bg: oklch(var(--schedule-timeline-today-bg));
+
+	/* Event Calendar colors */
+	--color-ec-primary: oklch(var(--event-calendar-primary));
+	--color-ec-primary-foreground: oklch(var(--event-calendar-primary-foreground));
+	--color-ec-primary-subtle: oklch(var(--event-calendar-primary-subtle));
+
+	--color-ec-secondary: oklch(var(--event-calendar-secondary));
+	--color-ec-secondary-foreground: oklch(var(--event-calendar-secondary-foreground));
+	--color-ec-secondary-subtle: oklch(var(--event-calendar-secondary-subtle));
+
+	--color-ec-success: oklch(var(--event-calendar-success));
+	--color-ec-success-foreground: oklch(var(--event-calendar-success-foreground));
+	--color-ec-success-subtle: oklch(var(--event-calendar-success-subtle));
+
+	--color-ec-warning: oklch(var(--event-calendar-warning));
+	--color-ec-warning-foreground: oklch(var(--event-calendar-warning-foreground));
+	--color-ec-warning-subtle: oklch(var(--event-calendar-warning-subtle));
+
+	--color-ec-danger: oklch(var(--event-calendar-danger));
+	--color-ec-danger-foreground: oklch(var(--event-calendar-danger-foreground));
+	--color-ec-danger-subtle: oklch(var(--event-calendar-danger-subtle));
+
+	--color-ec-info: oklch(var(--event-calendar-info));
+	--color-ec-info-foreground: oklch(var(--event-calendar-info-foreground));
+	--color-ec-info-subtle: oklch(var(--event-calendar-info-subtle));
+
+	--color-ec-neutral: oklch(var(--event-calendar-neutral));
+	--color-ec-neutral-foreground: oklch(var(--event-calendar-neutral-foreground));
+	--color-ec-neutral-subtle: oklch(var(--event-calendar-neutral-subtle));
+
+	/* Time Range Bar colors */
+	--color-trb-green: oklch(var(--time-range-bar-green));
+	--color-trb-green-foreground: oklch(var(--time-range-bar-green-foreground));
+	--color-trb-green-subtle: oklch(var(--time-range-bar-green-subtle));
+
+	--color-trb-purple: oklch(var(--time-range-bar-purple));
+	--color-trb-purple-foreground: oklch(var(--time-range-bar-purple-foreground));
+	--color-trb-purple-subtle: oklch(var(--time-range-bar-purple-subtle));
+
+	--color-trb-blue: oklch(var(--time-range-bar-blue));
+	--color-trb-blue-foreground: oklch(var(--time-range-bar-blue-foreground));
+	--color-trb-blue-subtle: oklch(var(--time-range-bar-blue-subtle));
+
+	--color-trb-amber: oklch(var(--time-range-bar-amber));
+	--color-trb-amber-foreground: oklch(var(--time-range-bar-amber-foreground));
+	--color-trb-amber-subtle: oklch(var(--time-range-bar-amber-subtle));
+
+	--color-trb-red: oklch(var(--time-range-bar-red));
+	--color-trb-red-foreground: oklch(var(--time-range-bar-red-foreground));
+	--color-trb-red-subtle: oklch(var(--time-range-bar-red-subtle));
+
+	--color-trb-gray: oklch(var(--time-range-bar-gray));
+	--color-trb-gray-foreground: oklch(var(--time-range-bar-gray-foreground));
+	--color-trb-gray-subtle: oklch(var(--time-range-bar-gray-subtle));
+
+	/* Border radius */
+	--radius-lg: var(--radius);
+	--radius-md: calc(var(--radius) - 2px);
+	--radius-sm: calc(var(--radius) - 4px);
+
+	/* Typography — Tailwind v4 uses --text-* namespace for font sizes */
+	--text-3xs: 0.5625rem; /* 9px */
+	--text-2xs: 0.625rem; /* 10px */
+	--text-xs: 0.6875rem; /* 11px */
+	--text-sm: 0.75rem; /* 12px */
+	--text-base: 0.8125rem; /* 13px */
+	--text-lg: 0.9375rem; /* 15px */
+	--text-xl: 1.125rem; /* 18px */
+	--text-h1: 2.25rem; /* 36px */
+	--text-h2: 1.5rem; /* 24px */
+	--text-h3: 1.25rem; /* 20px */
+
+	--font-weight-light: 300;
+	--font-weight-normal: 400;
+	--font-weight-medium: 500;
+	--font-weight-semibold: 600;
+	--font-weight-bold: 700;
+
+	--leading: 1.625rem;
+
+	/* Accordion animations */
+	--animate-accordion-down: accordion-down 0.2s ease-out;
+	--animate-accordion-up: accordion-up 0.2s ease-out;
+
+	@keyframes accordion-down {
+		from {
+			height: 0;
+		}
+		to {
+			height: var(--reka-accordion-content-height);
+		}
+	}
+
+	@keyframes accordion-up {
+		from {
+			height: var(--reka-accordion-content-height);
+		}
+		to {
+			height: 0;
+		}
+	}
+
+	/* Collapsible animations */
+	--animate-collapsible-down: collapsible-down 0.2s ease-out;
+	--animate-collapsible-up: collapsible-up 0.2s ease-out;
+
+	@keyframes collapsible-down {
+		from {
+			height: 0;
+		}
+		to {
+			height: var(--reka-collapsible-content-height);
+		}
+	}
+
+	@keyframes collapsible-up {
+		from {
+			height: var(--reka-collapsible-content-height);
+		}
+		to {
+			height: 0;
+		}
+	}
+}
+
+/*
+ * Enter/exit animations
+ *
+ * Usage: combine `animate-in` or `animate-out` with modifier utilities.
+ * Each modifier sets a CSS variable consumed by the enter/exit keyframes.
+ *
+ * Example: `animate-in fade-in-0 zoom-in-95 slide-in-from-top-2`
+ */
+
+@keyframes enter {
+	from {
+		opacity: var(--tw-enter-opacity, 1);
+		transform: translate3d(var(--tw-enter-translate-x, 0), var(--tw-enter-translate-y, 0), 0)
+			scale3d(var(--tw-enter-scale, 1), var(--tw-enter-scale, 1), var(--tw-enter-scale, 1));
+	}
+}
+
+@keyframes exit {
+	to {
+		opacity: var(--tw-exit-opacity, 1);
+		transform: translate3d(var(--tw-exit-translate-x, 0), var(--tw-exit-translate-y, 0), 0)
+			scale3d(var(--tw-exit-scale, 1), var(--tw-exit-scale, 1), var(--tw-exit-scale, 1));
+	}
+}
+
+/*
+  Subtle row-hover background — opaque equivalent of `accent` painted at 50%
+  alpha over the page background. Used by patterns like DataTable so a sticky
+  cell can `bg-inherit` from its row and render the same colour as the rest
+  of the row, with no alpha-compositing differences between the sticky
+  group and the scrolled cells behind it.
+*/
+@utility bg-row-hover {
+	background-color: color-mix(in oklch, var(--color-accent), var(--color-background));
+}
+
+/* Base triggers */
+@utility animate-in {
+	animation: enter var(--tw-duration, 200ms) ease-out;
+	--tw-enter-opacity: initial;
+	--tw-enter-scale: initial;
+	--tw-enter-translate-x: initial;
+	--tw-enter-translate-y: initial;
+}
+
+@utility animate-out {
+	animation: exit var(--tw-duration, 150ms) ease-in;
+	--tw-exit-opacity: initial;
+	--tw-exit-scale: initial;
+	--tw-exit-translate-x: initial;
+	--tw-exit-translate-y: initial;
+}
+
+/* Fade */
+@utility fade-in-0 {
+	--tw-enter-opacity: 0;
+}
+@utility fade-out-0 {
+	--tw-exit-opacity: 0;
+}
+
+/* Zoom */
+@utility zoom-in-95 {
+	--tw-enter-scale: 0.95;
+}
+@utility zoom-out-95 {
+	--tw-exit-scale: 0.95;
+}
+
+/* Slide in (enter) — full distance */
+@utility slide-in-from-top {
+	--tw-enter-translate-y: -100%;
+}
+@utility slide-in-from-bottom {
+	--tw-enter-translate-y: 100%;
+}
+@utility slide-in-from-left {
+	--tw-enter-translate-x: -100%;
+}
+@utility slide-in-from-right {
+	--tw-enter-translate-x: 100%;
+}
+
+/* Slide in — small offsets */
+@utility slide-in-from-top-2 {
+	--tw-enter-translate-y: -0.5rem;
+}
+@utility slide-in-from-bottom-2 {
+	--tw-enter-translate-y: 0.5rem;
+}
+@utility slide-in-from-left-2 {
+	--tw-enter-translate-x: -0.5rem;
+}
+@utility slide-in-from-right-2 {
+	--tw-enter-translate-x: 0.5rem;
+}
+@utility slide-in-from-bottom-4 {
+	--tw-enter-translate-y: 1rem;
+}
+
+/* Slide out (exit) — full distance */
+@utility slide-out-to-top {
+	--tw-exit-translate-y: -100%;
+}
+@utility slide-out-to-bottom {
+	--tw-exit-translate-y: 100%;
+}
+@utility slide-out-to-left {
+	--tw-exit-translate-x: -100%;
+}
+@utility slide-out-to-right {
+	--tw-exit-translate-x: 100%;
+}
+
+/* Base styles */
+@layer base {
+	html,
+	body {
+		height: 100%;
+		width: 100%;
+		margin: 0;
+		padding: 0;
+		background-color: var(--color-background);
+		color: var(--color-foreground);
+		letter-spacing: -0.025em;
+		font-family:
+			'Inter',
+			-apple-system,
+			BlinkMacSystemFont,
+			'Segoe UI',
+			Roboto,
+			sans-serif;
+		-webkit-tap-highlight-color: transparent;
+	}
+
+	body {
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+		text-rendering: optimizelegibility;
+		text-size-adjust: 100%;
+		scrollbar-width: thin;
+		scrollbar-color: oklch(var(--muted-foreground)) transparent;
+	}
+
+	* {
+		box-sizing: border-box;
+		border-color: var(--color-border);
+	}
+
+	*,
+	::after,
+	::before,
+	::backdrop {
+		border-color: var(--color-border);
+	}
+
+	* {
+		outline-color: oklch(var(--ring) / 0.5);
+	}
+
+	/* Scrollbar styles for pre elements */
+	pre::-webkit-scrollbar {
+		width: 5px;
+	}
+	pre::-webkit-scrollbar-track {
+		background: transparent;
+	}
+	pre::-webkit-scrollbar-thumb {
+		background: oklch(var(--border));
+		border-radius: 5px;
+	}
+	pre {
+		scrollbar-width: thin;
+		scrollbar-color: oklch(var(--border)) transparent;
+	}
+}

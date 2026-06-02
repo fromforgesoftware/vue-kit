@@ -1,0 +1,250 @@
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as StepperStories from './Stepper.stories';
+
+<Meta of={StepperStories} />
+
+# Stepper
+
+Visual progress indicator for multi-step flows. Shows completed, active, and upcoming steps; optionally lets users jump to past steps; ships with built-in Previous / Next navigation.
+
+## When to use
+
+- Form wizards split into bite-sized panels (account setup, scenario forms, onboarding).
+- Long checkout flows where users want to see their progress.
+- Linear processes that benefit from clear "you are here" feedback.
+
+## When not to use
+
+- For non-linear navigation between equal sections — use [Tabs](?path=/docs/general-tabs--docs).
+- For checklists where each item is independent — use a list with checkboxes.
+- For a one-screen process — just render the form.
+
+## Anatomy
+
+<Canvas of={StepperStories.Default} />
+
+A row of circular indicators connected by separators, with a content slot below and optional Previous / Next buttons.
+
+## Composition
+
+```vue
+<Stepper v-model="current" :steps="steps" interactive>
+  <template #default="{ currentStep, stepIndex }">
+    <!-- panel for the active step -->
+  </template>
+</Stepper>
+```
+
+The default scoped slot exposes `currentStep` (the `Step` object) and `stepIndex` (the active index) so the consumer can render the panel for the current step. Each step is `{ id, title, description?, disabled?, completed?, optional? }`.
+
+## States
+
+The indicator state is computed automatically:
+
+<table>
+	<thead>
+		<tr>
+			<th>State</th>
+			<th>Trigger</th>
+			<th>Visual</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>active</code>
+			</td>
+			<td>
+				Index matches <code>modelValue</code>
+			</td>
+			<td>Primary fill, step number visible.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>completed</code>
+			</td>
+			<td>
+				Index &lt; <code>modelValue</code> or <code>step.completed === true</code>
+			</td>
+			<td>Primary fill, check icon.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>loading</code>
+			</td>
+			<td>
+				<code>loading</code> prop and active step
+			</td>
+			<td>Primary fill, spinner replaces the number.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>inactive</code>
+			</td>
+			<td>Future, non-active step</td>
+			<td>Muted fill, step number visible.</td>
+		</tr>
+	</tbody>
+</table>
+
+Optional steps have a dashed border in the inactive state and a small "Optional" hint underneath until they become active or completed.
+
+## Loading
+
+<Canvas of={StepperStories.Loading} />
+
+Set `loading` while a step submits. The active indicator swaps to a spinner; both Previous and Next buttons disable.
+
+## Completed
+
+<Canvas of={StepperStories.Completed} />
+
+When every step has `completed: true`, all indicators show a check.
+
+## Interactive
+
+<Canvas of={StepperStories.Interactive} />
+
+`interactive` controls whether the indicators are clickable:
+
+<table>
+	<thead>
+		<tr>
+			<th>Value</th>
+			<th>Behaviour</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>false</code> (default)
+			</td>
+			<td>
+				Indicators are non-interactive <code>div</code>s. Navigate via the Previous / Next buttons.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>true</code>
+			</td>
+			<td>
+				Past / completed steps become buttons; users can jump back. Future steps stay
+				non-interactive.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>'any'</code>
+			</td>
+			<td>
+				Every non-disabled step is a button — including future ones. Use only when steps are
+				independent.
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+## Orientations
+
+<Canvas of={StepperStories.Orientations} />
+
+`vertical` lays steps top-to-bottom and pairs the title and description to the right of each indicator. Use in narrow side-panels or when descriptions are long enough to wrap.
+
+## Optional steps
+
+<Canvas of={StepperStories.WithOptionalStep} />
+
+Pass `optional: true` on a step to render a dashed indicator and an "Optional" hint. The separator entering an optional step also renders dashed.
+
+## Props
+
+<Controls of={StepperStories.Default} />
+
+## Keyboard interaction
+
+When `interactive` is `false`, only the Previous / Next buttons are in the tab order. With `interactive` enabled, indicators become real buttons:
+
+<table>
+	<thead>
+		<tr>
+			<th>Key</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<kbd>Tab</kbd>
+			</td>
+			<td>Move focus to the next clickable indicator or button.</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>Enter</kbd> / <kbd>Space</kbd>
+			</td>
+			<td>Activate the focused indicator (jump to step) or button.</td>
+		</tr>
+	</tbody>
+</table>
+
+## Events
+
+- `update:modelValue(index)` — fired when the user navigates (clicks an interactive step, or presses Previous / Next).
+- `stepComplete({ step, index })` — fired when Next is pressed; gives the consumer a chance to validate.
+- `finish()` — fired when Next is pressed on the last step.
+
+## Accessibility (WCAG 2.2 AA)
+
+- **1.4.3 Contrast**: indicator backgrounds and labels clear 4.5 : 1 in every state.
+- **2.1.1 Keyboard**: Previous / Next buttons are real `<button>`s. Interactive indicators are real `<button>`s. Non-interactive indicators are `<div>`s — no fake roles.
+- **2.4.3 Focus order**: indicators participate in natural tab order only when interactive. Non-interactive steppers add zero tab stops.
+- **2.4.7 Focus visible**: every focusable indicator gets a 3 px ring at `--ring` on `:focus-visible`.
+- **2.5.8 Target size**: indicators are 32 × 32 px, well above the 24 × 24 minimum.
+- **4.1.2 Name, Role, Value**: the active indicator carries `aria-current="step"`. Each indicator has an `aria-label` of `"Step {n}: {title}"` so screen readers announce position and label even when only the number is visible.
+
+## Responsive behaviour
+
+<Canvas of={StepperStories.InteractiveResponsive} />
+
+The horizontal stepper compresses separators (using `flex-1`) so it always fits its parent. For very narrow viewports (mobile) with long titles, prefer `orientation="vertical"`.
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>Use Stepper for linear flows where progress is meaningful.</td>
+			<td>Use Stepper for non-linear views — that's what Tabs are for.</td>
+		</tr>
+		<tr>
+			<td>
+				Set <code>interactive</code> only when each step has independent validation.
+			</td>
+			<td>
+				Use <code>interactive="any"</code> when steps depend on each other — users will skip
+				required input.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Show <code>loading</code> while submitting a step.
+			</td>
+			<td>Disable Next silently — users won't know whether the action registered.</td>
+		</tr>
+		<tr>
+			<td>
+				Switch to <code>orientation="vertical"</code> when titles are long or screens are narrow.
+			</td>
+			<td>
+				Use horizontal with five-plus long titles on mobile — they will overflow or truncate
+				awkwardly.
+			</td>
+		</tr>
+	</tbody>
+</table>

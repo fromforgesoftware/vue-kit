@@ -1,0 +1,253 @@
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as AccordionStories from './Accordion.stories';
+
+<Meta of={AccordionStories} />
+
+# Accordion
+
+Vertically stacked sections that expand to reveal content. Built on Reka UI primitives — keyboard, ARIA, and focus management are handled internally. Use it to chunk dense content (FAQ, settings groups, sidebar filters) into scannable disclosure panels.
+
+## When to use
+
+- FAQs and help sections where users skim headings and expand only what they need.
+- Settings groupings where each section is independent.
+- Sidebar filter panels (with `variant="ghost"` and `chevronPosition="left"`).
+
+## When not to use
+
+- For navigation between routes — use [Tabs](?path=/docs/general-tabs--docs).
+- When all content must be visible at once — use plain headings.
+- For modal-style disclosure (one item only, blocks the surface) — use a [Dialog](?path=/docs/general-dialog--docs) or [Drawer](?path=/docs/general-drawer--docs).
+
+## Anatomy
+
+<Canvas of={AccordionStories.Default} />
+
+A trigger row is a real `<button>` with `aria-expanded`. The chevron rotates on open. The content region animates open/closed via the `accordion-down` and `accordion-up` keyframes.
+
+## Composition
+
+```vue
+<Accordion type="single" collapsible>
+  <AccordionItem value="a">
+    <AccordionTrigger>Heading</AccordionTrigger>
+    <AccordionContent>Body content.</AccordionContent>
+  </AccordionItem>
+</Accordion>
+```
+
+<table>
+	<thead>
+		<tr>
+			<th>Subcomponent</th>
+			<th>Purpose</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>Accordion</code>
+			</td>
+			<td>
+				Root provider. Defines <code>type</code>, <code>variant</code>, <code>size</code>,{' '}
+				<code>chevronPosition</code> for all children via inject.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>AccordionItem</code>
+			</td>
+			<td>
+				Single section keyed by <code>value</code>. Pass <code>disabled</code> to skip in keyboard
+				nav.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>AccordionTrigger</code>
+			</td>
+			<td>The clickable heading row. Renders a chevron at the configured position.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>AccordionContent</code>
+			</td>
+			<td>The collapsible body. Animated open/close.</td>
+		</tr>
+	</tbody>
+</table>
+
+## Variants
+
+<Canvas of={AccordionStories.Variants} />
+
+- `default` — bordered card surface. Use for FAQs and standalone disclosure groups.
+- `ghost` — borderless. Use inside sidebars, filter panels, or anywhere chrome already provides separation.
+
+## Sizes
+
+<Canvas of={AccordionStories.Sizes} />
+
+<table>
+	<thead>
+		<tr>
+			<th>Size</th>
+			<th>Trigger text</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>sm</code>
+			</td>
+			<td>
+				<code>text-xs</code> (11 px)
+			</td>
+			<td>Sidebars, filter panels, nested groups</td>
+		</tr>
+		<tr>
+			<td>
+				<code>default</code>
+			</td>
+			<td>
+				<code>text-sm</code> (12 px)
+			</td>
+			<td>General use — FAQ pages, settings sections</td>
+		</tr>
+	</tbody>
+</table>
+
+## Chevron position
+
+<Canvas of={AccordionStories.ChevronPositions} />
+
+`right` is the default and reads as a "more here" hint. `left` rotates 90° on open and pairs well with file-browser or tree-style layouts.
+
+## Multiple
+
+<Canvas of={AccordionStories.Multiple} />
+
+Set `type="multiple"` to allow several open simultaneously. The model becomes an array of values.
+
+## Default open
+
+<Canvas of={AccordionStories.WithDefaultValue} />
+
+Pass `default-value` (string for `single`, array for `multiple`) to open one or more items on first render.
+
+## Controlled
+
+<Canvas of={AccordionStories.Controlled} />
+
+Drive open state with `v-model` when the parent owns the source of truth (e.g. URL query, store).
+
+## Disabled
+
+<Canvas of={AccordionStories.WithDisabledItem} />
+
+Per-item `disabled` skips the trigger during arrow-key navigation and prevents click toggling.
+
+## Props
+
+<Controls of={AccordionStories.Default} />
+
+## Keyboard interaction
+
+<table>
+	<thead>
+		<tr>
+			<th>Key</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<kbd>Tab</kbd>
+			</td>
+			<td>Move focus to the first trigger.</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>Space</kbd> / <kbd>Enter</kbd>
+			</td>
+			<td>Toggle the focused item open/closed.</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>ArrowDown</kbd> / <kbd>ArrowUp</kbd>
+			</td>
+			<td>Move focus to the next/previous trigger (skipping disabled items).</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>Home</kbd>
+			</td>
+			<td>Move focus to the first trigger.</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>End</kbd>
+			</td>
+			<td>Move focus to the last trigger.</td>
+		</tr>
+	</tbody>
+</table>
+
+## Accessibility (WCAG 2.2 AA)
+
+- **1.4.3 Contrast**: trigger and content text use `text-foreground` / `text-muted-foreground` — both clear 4.5 : 1 against `bg-card`.
+- **1.4.11 Non-text contrast**: borders and the focus ring clear 3 : 1 against the surrounding surface.
+- **2.1.1 Keyboard**: every trigger is a real `<button>` — Space and Enter toggle, arrows navigate.
+- **2.4.3 Focus order**: triggers participate in the natural tab order; only one tab stop per accordion (Reka manages roving focus internally).
+- **2.4.7 Focus visible**: a 3 px inset ring at `--ring` is applied on `:focus-visible`.
+- **2.5.8 Target size**: each trigger meets the 24×24 px minimum at every size and viewport (default size is 44 px tall; `sm` is 36 px).
+- **4.1.2 Name, Role, Value**: triggers expose `role="button"`, `aria-expanded`, and `aria-controls` pointing at their content region. Content has `role="region"` and `aria-labelledby` pointing at its trigger.
+
+## Responsive behaviour
+
+<Canvas of={AccordionStories.InteractiveResponsive} />
+
+The accordion is `w-full` and never causes horizontal overflow. Trigger labels wrap; long unbreakable strings (URLs, IDs) need `break-all` or `truncate` at the consumer.
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				Use <code>variant="ghost"</code> inside sidebars and filter panels.
+			</td>
+			<td>
+				Nest <code>variant="default"</code> accordions inside another bordered card — doubled
+				borders.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Use <code>chevronPosition="left"</code> for tree-style or file-browser disclosure.
+			</td>
+			<td>Mix chevron positions across siblings — pick one and stay consistent.</td>
+		</tr>
+		<tr>
+			<td>Pass clear, scannable trigger labels (1 short sentence).</td>
+			<td>Put paragraphs of text in the trigger — that defeats the purpose.</td>
+		</tr>
+		<tr>
+			<td>
+				Use <code>type="multiple"</code> when items are independent.
+			</td>
+			<td>
+				Use <code>type="single"</code> with <code>collapsible=false</code> when only one item ever
+				opens — that traps the user with no way to close.
+			</td>
+		</tr>
+	</tbody>
+</table>

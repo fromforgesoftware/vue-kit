@@ -1,0 +1,255 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as InputChipStories from './InputChip.stories';
+
+<Meta of={InputChipStories} />
+
+# InputChip
+
+Multi-value chip input. Type a value and press <kbd>Enter</kbd> (or comma) to add it as a chip; press <kbd>Backspace</kbd> on an empty input to remove the last chip.
+
+## When to use
+
+- Free-form lists of strings: tags, labels, email recipients, skills, keywords.
+- Where each entry should be visually separable and individually removable.
+
+## When not to use
+
+- Selecting from a known set of options — use [Select](?path=/docs/form-select--docs) (multiple) or [Autocomplete](?path=/docs/form-autocomplete--docs).
+- A single value — use [Input](?path=/docs/form-input--docs).
+- Read-only display of tags — use [Badge](?path=/docs/general-badge--docs).
+
+## Anatomy
+
+<Canvas of={InputChipStories.Default} />
+
+A wrapper hosts the existing chips, a free-form text input, and an optional clear-all button. Each chip carries a remove button. The wrapper auto-grows in height as chips wrap.
+
+## Sizes
+
+<Canvas of={InputChipStories.Sizes} />
+
+<table>
+	<thead>
+		<tr>
+			<th>Size</th>
+			<th>Min height</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>sm</code>
+			</td>
+			<td>28 px</td>
+			<td>Compact filters, sidebars</td>
+		</tr>
+		<tr>
+			<td>
+				<code>default</code>
+			</td>
+			<td>32 px</td>
+			<td>General forms</td>
+		</tr>
+		<tr>
+			<td>
+				<code>lg</code>
+			</td>
+			<td>40 px</td>
+			<td>Hero forms with prominent tag entry</td>
+		</tr>
+	</tbody>
+</table>
+
+## Chip variants
+
+<Canvas of={InputChipStories.ChipVariants} />
+
+`chipVariant` accepts a subset of Badge variants: `default`, `secondary`, `destructive`, `outline`, `soft-destructive`. Pick the variant that matches the kind of value being collected — `secondary` for neutral tags, `destructive` for blocked / blacklisted entries, `outline` for low-emphasis lists.
+
+## States
+
+<Canvas of={InputChipStories.Disabled} />
+
+<Canvas of={InputChipStories.WithError} />
+
+`error` sets `aria-invalid="true"` on the wrapper and the input, and tints the wrapper border. Pair with `describedBy` pointing to a helper / error message id.
+
+## Variants
+
+<Canvas of={InputChipStories.WithClearAll} />
+
+<Canvas of={InputChipStories.NonRemovable} />
+
+<Canvas of={InputChipStories.WithMaxChips} />
+
+<Canvas of={InputChipStories.WithLabel} />
+
+## Composition
+
+<table>
+	<thead>
+		<tr>
+			<th>Sub-element</th>
+			<th>Role</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>data-slot="input-chip-wrapper"</code>
+			</td>
+			<td>Outer border + ring + chip flex container.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>data-slot="input-chip"</code>
+			</td>
+			<td>Each chip / tag.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>data-slot="input-chip-remove"</code>
+			</td>
+			<td>Per-chip remove button.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>data-slot="input-chip-input"</code>
+			</td>
+			<td>The native text input for new entries.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>data-slot="input-chip-clear"</code>
+			</td>
+			<td>
+				Trailing clear-all button (when <code>clearable</code>).
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+## Events
+
+<table>
+	<thead>
+		<tr>
+			<th>Event</th>
+			<th>Fires when</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>update:modelValue</code>
+			</td>
+			<td>Chip array changes (add, remove, clear).</td>
+		</tr>
+		<tr>
+			<td>
+				<code>add</code>
+			</td>
+			<td>A chip is added (Enter / comma). Payload: the chip value.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>remove</code>
+			</td>
+			<td>
+				A chip is removed. Payload: <code>(value, index)</code>.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>clear</code>
+			</td>
+			<td>The clear-all button is clicked.</td>
+		</tr>
+	</tbody>
+</table>
+
+## Keyboard interaction
+
+<table>
+	<thead>
+		<tr>
+			<th>Key</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<kbd>Enter</kbd> / <kbd>,</kbd>
+			</td>
+			<td>Adds the trimmed input value as a chip (no duplicates)</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>Backspace</kbd>
+			</td>
+			<td>When input is empty, removes the last chip</td>
+		</tr>
+	</tbody>
+</table>
+
+## Props
+
+<Controls of={InputChipStories.Default} />
+
+<ArgTypes of={InputChipStories} />
+
+## Accessibility (WCAG 2.2 AA)
+
+- **2.4.6 Labels**: Pair with a `<Label>` describing the collection ("Tags", "Recipients").
+- **3.3.1 Error identification**: Use `error` + `describedBy` to surface validation. Both wrapper and input receive `aria-invalid="true"`.
+- **2.5.8 Target size**: Per-chip remove buttons are square ≥ 24 × 24 px at every size.
+- **2.4.7 Focus visible**: Wrapper draws a ring on focus-within; remove buttons draw their own ring.
+- **iOS no-zoom**: input uses `text-sm` minimum (12 px) — prevents iOS Safari auto-zoom on focus.
+- **Bounded entry**: `maxChips` disables the input once the limit is reached.
+
+## Responsive behaviour
+
+<Canvas of={InputChipStories.InteractiveResponsive} />
+
+The wrapper is `w-full` and chips wrap onto new rows automatically. For mobile-first layouts, prefer shorter chip text (≤ 16 chars).
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				Set <code>chipVariant</code> to convey value type (neutral, blocked, etc.).
+			</td>
+			<td>Vary chip variants per chip — chips in one input share a meaning.</td>
+		</tr>
+		<tr>
+			<td>
+				Use the <code>error</code> prop and a referenced helper id for validation.
+			</td>
+			<td>
+				Rely on chip colour alone to indicate error — set <code>error</code> on the wrapper.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Use <code>maxChips</code> for bounded sets (e.g. up to 5 skills).
+			</td>
+			<td>Allow unlimited entries when downstream systems will reject extras.</td>
+		</tr>
+		<tr>
+			<td>
+				Pair with <code>&lt;Label&gt;</code> describing the collection.
+			</td>
+			<td>Rely on the placeholder alone — it disappears on input.</td>
+		</tr>
+	</tbody>
+</table>

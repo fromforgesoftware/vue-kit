@@ -1,0 +1,284 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as TreeViewStories from './TreeView.stories';
+
+<Meta of={TreeViewStories} />
+
+# Tree View
+
+Hierarchical disclosure (folders / files / nested groups) built on Reka UI's `TreeRoot` and `TreeItem`. Roving focus, arrow-key navigation, type-ahead, and selection are wired internally.
+
+## When to use
+
+- File or folder browsers.
+- Nested categories (taxonomies, settings panels with grouped sections).
+- Sidebar navigation with depth (subnav inside subnav).
+
+## When not to use
+
+- Flat lists with no nesting — use a list or [Menubar](?path=/docs/general-menubar--docs).
+- Two-pane master/detail — use [Splitter](?path=/docs/general-splitter--docs) with a list on one side.
+- Single-level filters — use [Accordion](?path=/docs/general-accordion--docs) with `chevronPosition="left"`.
+
+## Anatomy
+
+<Canvas of={TreeViewStories.Default} />
+
+Each row is a `TreeItem` containing (in order) a chevron toggle (when the node has children), a folder/file icon, and the label. Indentation is applied via inline `padding-left` derived from `item.level`.
+
+## Composition
+
+```vue
+<script setup lang="ts">
+import { ref } from 'vue';
+import { TreeView, type TreeNode } from '@fromforgesoftware/vue-kit';
+
+const selected = ref<TreeNode>();
+const data: TreeNode[] = [
+	{
+		id: '1',
+		name: 'Documents',
+		children: [
+			{ id: '1-1', name: 'Project A' },
+			{ id: '1-2', name: 'Project B' },
+		],
+	},
+];
+</script>
+
+<template>
+	<TreeView
+		v-model:model-value="selected"
+		:data="data"
+		:default-expanded="['1']"
+		aria-label="File tree"
+	/>
+</template>
+```
+
+<table>
+	<thead>
+		<tr>
+			<th>Slot</th>
+			<th>Purpose</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>data-slot="tree-view"</code>
+			</td>
+			<td>
+				Root node — receives the consumer's <code>aria-label</code>.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>data-slot="tree-view-item"</code>
+			</td>
+			<td>
+				One row. Carries <code>data-selected</code> and <code>aria-selected</code>.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>data-slot="tree-view-chevron"</code>
+			</td>
+			<td>Expand / collapse toggle. 24×24 hit area.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>data-slot="tree-view-icon"</code>
+			</td>
+			<td>
+				File / folder icon (omit with <code>hideIcons</code>).
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>data-slot="tree-view-label"</code>
+			</td>
+			<td>The node's display name.</td>
+		</tr>
+	</tbody>
+</table>
+
+## Sizes
+
+<Canvas of={TreeViewStories.Sizes} />
+
+<table>
+	<thead>
+		<tr>
+			<th>Size</th>
+			<th>Row height</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>sm</code>
+			</td>
+			<td>≥ 24 px</td>
+			<td>Sidebars, dense filter panels</td>
+		</tr>
+		<tr>
+			<td>
+				<code>default</code>
+			</td>
+			<td>≥ 28 px</td>
+			<td>General use</td>
+		</tr>
+	</tbody>
+</table>
+
+## Selection
+
+<Canvas of={TreeViewStories.WithSelection} />
+
+Click or press Enter / Space on a focused row to select it. Selected rows expose `aria-selected="true"` and the `data-selected` attribute for styling.
+
+## Multiple selection
+
+<Canvas of={TreeViewStories.MultipleSelection} />
+
+Set `multiple` to allow several rows selected simultaneously. The model becomes an array of `TreeNode`.
+
+## Hide icons
+
+<Canvas of={TreeViewStories.HideIcons} />
+
+Pass `hideIcons` to drop the file/folder glyphs — useful for navigation-style trees where the labels are self-evident.
+
+## Custom indent
+
+<Canvas of={TreeViewStories.CustomIndent} />
+
+Tune `indentStep` (px) when the default 16 px is too large or too small for the surface.
+
+## Props
+
+<Controls of={TreeViewStories.Default} />
+
+<ArgTypes of={TreeViewStories} />
+
+## Keyboard interaction
+
+<table>
+	<thead>
+		<tr>
+			<th>Key</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<kbd>Tab</kbd>
+			</td>
+			<td>Move focus into the tree (single tab stop — roving focus inside).</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>ArrowDown</kbd>
+			</td>
+			<td>Move focus to the next visible row.</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>ArrowUp</kbd>
+			</td>
+			<td>Move focus to the previous visible row.</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>ArrowRight</kbd>
+			</td>
+			<td>Expand a collapsed node, or move to first child if already expanded.</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>ArrowLeft</kbd>
+			</td>
+			<td>Collapse an expanded node, or move to parent if already collapsed.</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>Home</kbd> / <kbd>End</kbd>
+			</td>
+			<td>Jump to first / last visible row.</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>Space</kbd> / <kbd>Enter</kbd>
+			</td>
+			<td>Toggle the focused row's selection.</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>*</kbd>
+			</td>
+			<td>Expand all siblings of the focused row.</td>
+		</tr>
+		<tr>
+			<td>Type-ahead</td>
+			<td>Type letters to jump to the next row whose label starts with the typed string.</td>
+		</tr>
+	</tbody>
+</table>
+
+## Accessibility (WCAG 2.2 AA)
+
+- **2.1.1 Keyboard**: full WAI-ARIA Tree pattern via Reka UI — every node reachable without a mouse.
+- **2.4.3 Focus Order**: roving focus — only one tab stop per tree, internal navigation by arrow keys.
+- **2.4.7 Focus Visible**: a 2 px focus ring is applied on `:focus-visible`. The ring sits inside the row's rounded background.
+- **2.5.8 Target Size**: chevron toggles are 24 × 24 px. Whole rows meet the minimum at every size.
+- **4.1.2 Name, Role, Value**: rows expose `role="treeitem"`, `aria-expanded`, `aria-selected`, and `aria-level` (Reka). The root has `role="tree"` and accepts an `aria-label` via the prop.
+- **1.4.3 Contrast**: row text uses `text-foreground` on `bg-card`; selected text uses `text-accent-foreground` on `bg-accent`. Both clear 4.5 : 1.
+
+## Responsive behaviour
+
+<Canvas of={TreeViewStories.InteractiveResponsive} />
+
+The tree is `w-full` and never causes horizontal overflow. Long labels truncate via `truncate` on the label element.
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				Pass <code>ariaLabel</code> describing what the tree contains (e.g.{' '}
+				<code>"File explorer"</code>).
+			</td>
+			<td>Leave the root unlabelled — assistive tech announces only "tree".</td>
+		</tr>
+		<tr>
+			<td>
+				Use <code>defaultExpanded</code> to open the root nodes the user is likely to interact with
+				first.
+			</td>
+			<td>Render every level expanded by default — let the user opt in.</td>
+		</tr>
+		<tr>
+			<td>
+				Use <code>size="sm"</code> in sidebars and filter panels.
+			</td>
+			<td>Mix sizes in the same surface.</td>
+		</tr>
+		<tr>
+			<td>
+				Use <code>multiple</code> only when the consumer truly supports multi-selection.
+			</td>
+			<td>
+				Enable <code>multiple</code> by default — it complicates keyboard interaction.
+			</td>
+		</tr>
+	</tbody>
+</table>

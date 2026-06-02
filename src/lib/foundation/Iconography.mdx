@@ -1,0 +1,150 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Foundation/Iconography" />
+
+# Iconography
+
+The library uses [Lucide](https://lucide.dev) icons exclusively, via `lucide-vue-next`. Every icon in the codebase is imported by name and rendered through the [`Icon`](?path=/docs/general-icon--docs) component.
+
+```vue
+<script setup>
+import { Zap, Trash2, Check } from 'lucide-vue-next';
+import { Icon } from '@fromforgesoftware/vue-kit';
+</script>
+
+<template>
+	<Icon :icon="Zap" size="sm" />
+</template>
+```
+
+## Why Lucide
+
+- **Open-source, maintained**, MIT-licensed, no vendor lock-in.
+- **Tree-shakable** — each icon is a separate ES module, only imported icons end up in the bundle.
+- **Consistent grid** (24 × 24 viewBox) and stroke style (1.5 px default) across the entire set.
+- **Vue-native bindings** via `lucide-vue-next` — props pass through to the underlying SVG.
+
+## Sizes
+
+The `Icon` component standardises sizing so consumers don't pick arbitrary widths:
+
+<table>
+	<thead>
+		<tr>
+			<th>Size</th>
+			<th>Pixels</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>xs</code>
+			</td>
+			<td>12 px</td>
+			<td>
+				Inline with <code>text-xs</code> — badges, dense table rows
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>sm</code>
+			</td>
+			<td>14 px</td>
+			<td>
+				Inline with <code>text-sm</code> — toolbars, buttons (sm)
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>default</code>
+			</td>
+			<td>16 px</td>
+			<td>Inline with body text — buttons (default), menu items</td>
+		</tr>
+		<tr>
+			<td>
+				<code>lg</code>
+			</td>
+			<td>20 px</td>
+			<td>Section headers, large buttons</td>
+		</tr>
+		<tr>
+			<td>
+				<code>xl</code>
+			</td>
+			<td>24 px</td>
+			<td>Standalone iconography in empty states, headers</td>
+		</tr>
+		<tr>
+			<td>
+				<code>2xl</code>
+			</td>
+			<td>32 px</td>
+			<td>Hero / landing icons</td>
+		</tr>
+	</tbody>
+</table>
+
+## Stroke and colour
+
+- **Stroke width** defaults to 1.75 px (slightly heavier than Lucide's 1.5 default for visual weight at small sizes). Override per-instance with `:stroke-width` only when there is a concrete design reason.
+- **Colour** is always `currentColor` — icons inherit `text-*` from their parent. Don't set `:color` on the icon directly; set `text-muted-foreground` (or whatever) on a wrapping element instead.
+
+## Decorative vs informative
+
+<table>
+	<thead>
+		<tr>
+			<th>Kind</th>
+			<th>aria</th>
+			<th>Example</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<strong>Decorative</strong>
+			</td>
+			<td>
+				<code>aria-hidden="true"</code>
+			</td>
+			<td>Leading icon next to a labelled button (the label tells the screen reader what to do)</td>
+		</tr>
+		<tr>
+			<td>
+				<strong>Informative</strong>
+			</td>
+			<td>
+				<code>aria-label="…"</code> on the icon (or its parent button)
+			</td>
+			<td>
+				Icon-only button — the icon <em>is</em> the label
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+The `Icon` component sets `aria-hidden="true"` by default — pass `:aria-label` (or wrap in a `Button` with an accessible name) when the icon stands alone.
+
+## Choosing icons
+
+- **Use Lucide first.** If a needed icon isn't in Lucide, confirm with design before introducing a custom SVG.
+- **Stick to one icon per concept.** Don't mix `Trash2` and `XCircle` for "delete" in different parts of the same app.
+- **Pair icons with text** wherever possible. Icon-only controls demand higher recognisability and tighter labelling — see WCAG 2.5.3 Label in Name.
+
+## Custom SVGs
+
+When a custom SVG is unavoidable (logos, brand glyphs, illustrative vectors):
+
+1. Place it under `src/lib/<feature>/<name>.svg.ts` as a Vue component (or inline-SVG in a `.vue` file).
+2. Match Lucide's 24 × 24 viewBox so it composes with the `Icon` size system.
+3. Use `currentColor` for fills/strokes — never hard-code hex.
+4. Run it through axe — decorative SVGs need `aria-hidden="true"`, informative ones need `aria-label`.
+
+## Don't
+
+- Import icons from `@heroicons/vue`, `@iconify/vue`, or other libraries. Stay on Lucide.
+- Set arbitrary `width` / `height` on an icon. Use `size` on the `Icon` wrapper.
+- Animate icon transforms in components without a corresponding `prefers-reduced-motion` opt-out.
+- Use coloured SVG icons (with embedded fills). Icons must be monochromatic and inherit `currentColor`.

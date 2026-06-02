@@ -1,0 +1,144 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as ColorFieldStories from './ColorField.stories';
+
+<Meta of={ColorFieldStories} />
+
+# Color Field
+
+Text input for hex or single-channel colour values, with a leading swatch preview. Mirrors the standard [Input](?path=/docs/form-input--docs) visually so it stacks cleanly alongside other form fields.
+
+## When to use
+
+- A precise text entry alongside a Color Area / Color Slider in a custom picker.
+- A standalone hex input on a form (brand colour token, label colour, etc.).
+
+## When not to use
+
+- For purely visual selection — use [Color Area](?path=/docs/color-color-area--docs) or [Color Swatch Picker](?path=/docs/color-color-swatch-picker--docs).
+- For a one-line "open the picker" affordance — use [Color Picker](?path=/docs/color-color-picker--docs).
+
+## Anatomy
+
+<Canvas of={ColorFieldStories.Default} />
+
+A Reka `ColorFieldRoot` wraps a 5 × 5 px swatch and the `ColorFieldInput`. The wrapper carries border/ring/focus state; the input is borderless.
+
+## Sizes
+
+<Canvas of={ColorFieldStories.Sizes} />
+
+`sm` 28 px / `default` 32 px / `lg` 40 px — matches Input.
+
+## Channel mode
+
+<Canvas of={ColorFieldStories.ChannelMode} />
+
+Set `channel` to edit a single component (e.g. hue 0–360). The input switches to numeric mode automatically.
+
+## Hide swatch
+
+<Canvas of={ColorFieldStories.HideSwatch} />
+
+Pass `hideSwatch` when an external preview already shows the colour.
+
+## Error state
+
+<Canvas of={ColorFieldStories.WithError} />
+
+Setting `error` (or `variant="error"`) flips the border and ring to destructive tones and applies `aria-invalid="true"`. Pair with a `describedBy` pointing to a sibling error message.
+
+## Keyboard interaction
+
+<table>
+	<thead>
+		<tr>
+			<th>Key</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<kbd>ArrowUp</kbd> / <kbd>ArrowDown</kbd>
+			</td>
+			<td>Increment / decrement by one step</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>PageUp</kbd> / <kbd>PageDown</kbd>
+			</td>
+			<td>Larger step (10 ×)</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>Home</kbd> / <kbd>End</kbd>
+			</td>
+			<td>Jump to min / max</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>Enter</kbd>
+			</td>
+			<td>Commit the typed value</td>
+		</tr>
+		<tr>
+			<td>Mouse wheel (when focused)</td>
+			<td>
+				Adjust by step (set <code>disableWheelChange</code> on the root to opt out — pass via
+				attribute fallthrough)
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+## Props
+
+<Controls of={ColorFieldStories.Default} />
+
+<ArgTypes of={ColorFieldStories} />
+
+## Accessibility (WCAG 2.2 AA)
+
+- **Name** (SC 4.1.2): pair the field with a `<Label>` that has a matching `for`/`id`. When no label is available, set `ariaLabel`.
+- **Error** (SC 3.3.1): set `error` to flip the visual style and apply `aria-invalid`. Provide an error message and link via `describedBy`.
+- **Disabled / read-only**: the inner input mirrors `disabled` and `readonly` natively; the wrapper greys out and blocks pointer interaction via the `[data-disabled]` selector.
+- **Target size** (SC 2.5.8): the input itself is 32 px tall (`default`). When stacked with a label, the row exceeds the 24 × 24 minimum.
+
+## Responsive behaviour
+
+<Canvas of={ColorFieldStories.InteractiveResponsive} />
+
+The field stretches to fill its container. The leading swatch is `shrink-0` so the colour preview never collapses on narrow screens.
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				Pair with a <code>&lt;Label&gt;</code> using <code>for</code>/<code>id</code>
+			</td>
+			<td>Rely on placeholder text as the label</td>
+		</tr>
+		<tr>
+			<td>
+				Use <code>error</code> + <code>describedBy</code> for invalid input
+			</td>
+			<td>
+				Set <code>variant="error"</code> without an associated error message
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Hide the swatch with <code>hideSwatch</code> when an external preview exists
+			</td>
+			<td>Show two adjacent swatches for the same value</td>
+		</tr>
+	</tbody>
+</table>

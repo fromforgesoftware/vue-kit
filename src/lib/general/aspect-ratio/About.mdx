@@ -1,0 +1,124 @@
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as AspectRatioStories from './AspectRatio.stories';
+
+<Meta of={AspectRatioStories} />
+
+# AspectRatio
+
+Locks a child element to a fixed aspect ratio regardless of its width. Wraps Reka UI's `AspectRatio` primitive — useful for media (images, embeds, video), card thumbnails, and chart placeholders.
+
+## When to use
+
+- Image / video tiles in a responsive grid where every cell should be the same shape.
+- Reserving space for an asset that hasn't loaded yet (avoids layout shift).
+- Keeping chart or map placeholders at a known shape.
+
+## When not to use
+
+- For elements whose height should follow their content (text blocks, lists).
+- For tiny inline elements — use Tailwind utilities (`aspect-square`) instead.
+
+## Anatomy
+
+<Canvas of={AspectRatioStories.Default} />
+
+A wrapper element scaled by `padding-bottom` that holds its child via absolute positioning.
+
+## Common ratios
+
+<Canvas of={AspectRatioStories.CommonRatios} />
+
+<table>
+	<thead>
+		<tr>
+			<th>Ratio</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>1</code> (1:1)
+			</td>
+			<td>Avatars, profile cards.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>4 / 3</code>
+			</td>
+			<td>Classic photography, document previews.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>16 / 9</code>
+			</td>
+			<td>Video, charts, hero imagery.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>21 / 9</code>
+			</td>
+			<td>Cinema, ultra-wide banners.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>3 / 4</code>
+			</td>
+			<td>Portrait media (mobile screenshots, posters).</td>
+		</tr>
+	</tbody>
+</table>
+
+## With an image
+
+<Canvas of={AspectRatioStories.WithImage} />
+
+Pair with an `<img>` and `object-cover` / `object-contain` to crop or fit.
+
+## Portrait
+
+<Canvas of={AspectRatioStories.Portrait} />
+
+Ratios less than 1 produce portrait shapes.
+
+## Props
+
+<Controls of={AspectRatioStories.Default} />
+
+## Accessibility (WCAG 2.2 AA)
+
+- **1.1.1 Non-text Content**: AspectRatio is a layout helper — accessibility is delegated to the child. Always pass meaningful `alt` to wrapped images and proper labels to embeds.
+- **1.4.10 Reflow**: percentage-based padding ensures the child reflows smoothly without horizontal scroll.
+
+## Responsive behaviour
+
+<Canvas of={AspectRatioStories.InteractiveResponsive} />
+
+The wrapper inherits its width from its parent and recomputes height from the ratio. The aspect ratio is preserved at every breakpoint.
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>Use to reserve space for media that hasn't loaded yet</td>
+			<td>Wrap text blocks — they need to grow with content</td>
+		</tr>
+		<tr>
+			<td>
+				Pair with <code>object-cover</code> for image cropping
+			</td>
+			<td>Stretch images by removing aspect ratio</td>
+		</tr>
+		<tr>
+			<td>Use a parent with a fixed or constrained width</td>
+			<td>Place an AspectRatio inside an unbounded flex parent — it will collapse</td>
+		</tr>
+	</tbody>
+</table>

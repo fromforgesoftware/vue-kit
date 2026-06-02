@@ -1,0 +1,91 @@
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as InlineClarificationStories from './InlineClarification.stories';
+
+<Meta of={InlineClarificationStories} />
+
+# InlineClarification
+
+Inline option picker rendered in an AI chat stream when the model needs the
+user to disambiguate something before it can continue. In Trading Bot today
+that's the workspace picker (the same account can belong to multiple
+workspaces); future use cases are broker / strategy / instrument disambiguation.
+
+## When to use
+
+- AI chats with multi-target tools (e.g. an action that can apply to
+  one of several workspaces the user belongs to).
+- Anywhere a workflow paused and needs one of N choices to resume.
+
+## When not to use
+
+- Free-form text input — the chat composer already handles that.
+- Modal-blocking selections — use a [Dialog](?path=/docs/general-dialog--docs)
+  instead.
+
+## Anatomy
+
+<Canvas of={InlineClarificationStories.Default} />
+
+```vue
+<InlineClarification
+	:prompt="msg.prompt"
+	:options="msg.options"
+	:selected="msg.selected"
+	:busy="store.clarifyInFlight"
+	tool-name="list_schedules"
+	@submit="store.clarifyToolCall(msg.toolCallID, msg.argName, $event)"
+/>
+```
+
+The component is **uncontrolled** — it emits `submit` with the chosen
+option's `value`. The parent owns the API call to
+`POST /api/ai/conversations/{id}/tool-calls/{toolCallID}/clarify`.
+
+Setting `selected` locks the picker and renders a resolved badge with the
+matching label.
+
+## Backend wiring
+
+Triggered by an `ai.clarification` WebSocket broadcast. Payload shape
+([conversation.go](../internal/ai/app/conversation.go#L1316)):
+
+```json
+{
+	"broadcastType": "ai.clarification",
+	"data": {
+		"conversationID": "…",
+		"messageID": "…",
+		"toolCallID": "…",
+		"toolName": "list_schedules",
+		"kind": "tenant",
+		"argName": "tenant",
+		"prompt": "Which tenant?",
+		"options": [{ "value": "…", "label": "Acme Madrid", "description": "Europe/Madrid" }]
+	}
+}
+```
+
+Submit response posts back `{ argName, value }` to
+`/tool-calls/{toolCallID}/clarify`. The Temporal workflow resumes on the
+`ai-clarification` signal and pins the resolved value to the conversation.
+
+## States
+
+| State                                               | UI                                     |
+| --------------------------------------------------- | -------------------------------------- |
+| Pending (`selected = null`)                         | Radio list + disabled Continue         |
+| Picked (`localSelected != null`, `selected = null`) | Radio list + enabled Continue          |
+| Submitting (`busy = true`)                          | Fieldset disabled, Continue spinning   |
+| Resolved (`selected != null`)                       | Picker hidden, "✓ &lt;label&gt;" badge |
+
+## Single-option case
+
+If the workflow happens to surface a single option (rare — usually
+auto-resolved server-side), the picker still renders so the user has an
+explicit action point:
+
+<Canvas of={InlineClarificationStories.SingleOption} />
+
+## Controls
+
+<Controls of={InlineClarificationStories.Default} />

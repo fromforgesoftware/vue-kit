@@ -1,0 +1,173 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as KbdStories from './Kbd.stories';
+
+<Meta of={KbdStories} />
+
+# Kbd
+
+Keyboard key chip used to represent keyboard shortcuts and hotkeys inline with text, in tooltips, command palette footers, and help documentation. Use `Kbd` for a single key and `KbdGroup` to compose a multi-key shortcut with collapsed borders between adjacent keys.
+
+## When to use
+
+- Document keyboard shortcuts in tooltips, empty states, and onboarding flows.
+- Show shortcut hints in command palette items and footers.
+- Label keyboard navigation controls (arrow keys, Enter, Escape).
+
+## When not to use
+
+- For status labels or categories — use [Badge](?path=/docs/general-badge--docs).
+- For machine-generated code strings — use an inline `<code>` element.
+
+## Anatomy
+
+<Canvas of={KbdStories.Default} />
+
+A `Kbd` renders a native `<kbd>` element styled as a chip with a muted background, subtle border, and monospace font. A `KbdGroup` wraps multiple `Kbd` elements and collapses the shared border so they read as a single shortcut unit.
+
+## Sizes
+
+<Canvas of={KbdStories.Sizes} />
+
+<table>
+	<thead>
+		<tr>
+			<th>Size</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>sm</code>
+			</td>
+			<td>Compact UI contexts — command palette footer, toolbar hints, inline badges</td>
+		</tr>
+		<tr>
+			<td>
+				<code>default</code>
+			</td>
+			<td>Prose, tooltips, docs pages</td>
+		</tr>
+		<tr>
+			<td>
+				<code>lg</code>
+			</td>
+			<td>Prominent callouts — onboarding cards, empty state hints</td>
+		</tr>
+	</tbody>
+</table>
+
+## Variants
+
+<Canvas of={KbdStories.Ghost} />
+
+<table>
+	<thead>
+		<tr>
+			<th>Variant</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>default</code>
+			</td>
+			<td>
+				Bordered key chip with a soft surface — shortcut overlays, help affordances, tooltips, and
+				standalone callouts.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>ghost</code>
+			</td>
+			<td>
+				Borderless and transparent — inline shortcut hints next to menu items, list rows, or
+				dropdown options where the bordered chip would compete with the surrounding rows.
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+`KbdGroup` accepts the same `variant` prop and provides it to every nested `Kbd` via inject/provide, so you only declare it once:
+
+```vue
+<KbdGroup variant="ghost" size="sm">
+  <Kbd>⌘</Kbd>
+  <Kbd>1</Kbd>
+</KbdGroup>
+```
+
+## Group
+
+<Canvas of={KbdStories.Group} />
+
+Wrap multiple `Kbd` components in `KbdGroup` to collapse adjacent borders. The group also accepts a `size` prop that is provided to all child `Kbd` components via Vue's inject/provide, so you only declare the size once:
+
+```vue
+<KbdGroup size="sm">
+  <Kbd>⌘</Kbd>
+  <Kbd>K</Kbd>
+</KbdGroup>
+```
+
+## Common shortcuts
+
+<Canvas of={KbdStories.CommonShortcuts} />
+
+## Props
+
+<Controls of={KbdStories.Default} />
+
+<ArgTypes of={KbdStories} />
+
+## Accessibility (WCAG 2.2 AA)
+
+- **Semantics** (SC 4.1.2): uses the native `<kbd>` HTML element, which assistive technologies announce as keyboard input. No extra `role` or `aria-label` needed.
+- **Non-text contrast** (SC 1.4.11): the border and background meet ≥ 3:1 contrast against the surrounding surface via CSS variable tokens.
+- **Not interactive**: `Kbd` and `KbdGroup` are purely presentational — they are not in the tab order and do not respond to pointer or keyboard events.
+
+## Responsive behaviour
+
+- Both `Kbd` and `KbdGroup` are `inline-flex` and scale with their content — they do not reflow across breakpoints.
+- The chip's size is governed by the `size` prop; the surrounding layout is the consumer's responsibility.
+- All three sizes render without horizontal overflow at the minimum supported viewport (320 px).
+
+<Canvas of={KbdStories.InteractiveResponsive} />
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>✅ Do</th>
+			<th>❌ Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				Use <code>KbdGroup</code> for multi-key shortcuts (<code>⌘ K</code>)
+			</td>
+			<td>
+				Place multiple standalone <code>Kbd</code> elements next to each other — borders won't
+				collapse
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Set <code>size</code> once on <code>KbdGroup</code> for uniform density
+			</td>
+			<td>Mix sizes within one group — it looks inconsistent</td>
+		</tr>
+		<tr>
+			<td>
+				Use <code>size="sm"</code> in compact UI chrome (command palette, toolbar)
+			</td>
+			<td>
+				Use <code>size="lg"</code> inline in dense prose — it disrupts line height
+			</td>
+		</tr>
+	</tbody>
+</table>

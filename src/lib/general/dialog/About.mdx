@@ -1,0 +1,272 @@
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as DialogStories from './Dialog.stories';
+
+<Meta of={DialogStories} />
+
+# Dialog
+
+A modal dialog for focused tasks — forms, confirmations, rich previews. Built on Reka UI; content portals to `document.body`. At viewports under 640 px the dialog collapses into a bottom sheet with a drag-to-dismiss handle.
+
+## When to use
+
+- Edit a single object (profile, settings entry, calendar event).
+- Walk a user through a short, focused flow that benefits from blocking the page.
+- Show rich, scrollable content that doesn't warrant a route change.
+
+## When not to use
+
+- For irreversible destructive actions — use [AlertDialog](?path=/docs/general-alert-dialog--docs) which forces a deliberate Action / Cancel choice and ignores Escape.
+- For peripheral help text — use [Tooltip](?path=/docs/general-tooltip--docs) or [Popover](?path=/docs/general-popover--docs).
+- For long, multi-step forms — use a route or a [Drawer](?path=/docs/general-drawer--docs).
+- For navigation lists — use a Drawer or a side panel.
+
+## Anatomy
+
+<Canvas of={DialogStories.Default} />
+
+## Composition
+
+<table>
+	<thead>
+		<tr>
+			<th>Subcomponent</th>
+			<th>Purpose</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>Dialog</code>
+			</td>
+			<td>
+				Root provider. Owns <code>open</code> / <code>defaultOpen</code> / <code>modal</code>.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>DialogTrigger</code>
+			</td>
+			<td>
+				The element that opens the dialog. Uses <code>as-child</code> to merge into a real button.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>DialogContent</code>
+			</td>
+			<td>
+				The portaled panel. Owns <code>size</code>, the close button, the mobile drag handle, and
+				ARIA wiring.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>DialogOverlay</code>
+			</td>
+			<td>Auto-rendered backdrop — click closes (in default modal mode).</td>
+		</tr>
+		<tr>
+			<td>
+				<code>DialogHeader</code>
+			</td>
+			<td>
+				Title + description block. Optional <code>icon</code> slot for a leading badge.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>DialogTitle</code>
+			</td>
+			<td>
+				The accessible name (wires up <code>aria-labelledby</code>).
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>DialogDescription</code>
+			</td>
+			<td>
+				Sub-headline (wires up <code>aria-describedby</code>).
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>DialogBody</code>
+			</td>
+			<td>Scrollable content region. Use it for forms or long content.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>DialogFooter</code>
+			</td>
+			<td>Right-aligned action bar with muted background.</td>
+		</tr>
+		<tr>
+			<td>
+				<code>DialogClose</code>
+			</td>
+			<td>Wraps any element to close the dialog on click.</td>
+		</tr>
+	</tbody>
+</table>
+
+## Sizes
+
+<Canvas of={DialogStories.Sizes} />
+
+<table>
+	<thead>
+		<tr>
+			<th>Size</th>
+			<th>sm: max-width</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>sm</code>
+			</td>
+			<td>24rem</td>
+			<td>Confirmations, soft destructive prompts</td>
+		</tr>
+		<tr>
+			<td>
+				<code>default</code>
+			</td>
+			<td>32rem</td>
+			<td>Most edit forms</td>
+		</tr>
+		<tr>
+			<td>
+				<code>lg</code>
+			</td>
+			<td>42rem</td>
+			<td>Two-column forms, detail panes</td>
+		</tr>
+		<tr>
+			<td>
+				<code>xl</code>
+			</td>
+			<td>56rem</td>
+			<td>Rich content, image previews</td>
+		</tr>
+		<tr>
+			<td>
+				<code>full</code>
+			</td>
+			<td>viewport - 4rem</td>
+			<td>Near-full takeover, tables</td>
+		</tr>
+	</tbody>
+</table>
+
+Below 640 px every size renders as a full-width bottom sheet — desktop sizing only kicks in at the `sm:` breakpoint.
+
+## Destructive variant
+
+<Canvas of={DialogStories.Destructive} />
+
+For truly irreversible actions, prefer [AlertDialog](?path=/docs/general-alert-dialog--docs) — it has the right ARIA role, ignores Escape, and the type-to-confirm pattern is built in.
+
+## Props
+
+<Controls of={DialogStories.Default} />
+
+## Keyboard interaction
+
+<table>
+	<thead>
+		<tr>
+			<th>Key / event</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>Click trigger</td>
+			<td>Opens the dialog and moves focus inside.</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>Tab</kbd> / <kbd>Shift</kbd>+<kbd>Tab</kbd>
+			</td>
+			<td>Cycles through focusable elements inside (focus trap).</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>Escape</kbd>
+			</td>
+			<td>Closes the dialog and returns focus to the trigger.</td>
+		</tr>
+		<tr>
+			<td>Click overlay</td>
+			<td>
+				Closes the dialog (unless the consumer handles <code>pointer-down-outside</code>).
+			</td>
+		</tr>
+		<tr>
+			<td>Click close (X) button</td>
+			<td>Closes the dialog.</td>
+		</tr>
+		<tr>
+			<td>Drag the mobile handle down</td>
+			<td>Dismisses the bottom sheet at &lt; 640 px.</td>
+		</tr>
+	</tbody>
+</table>
+
+## Accessibility (WCAG 2.2 AA)
+
+- **2.4.3 Focus order**: focus moves into the dialog on open and is trapped while it is open.
+- **2.4.7 Focus visible**: the close button has a visible `:focus-visible` ring.
+- **3.2.2 On input**: the dialog only closes on explicit user actions (Escape, overlay click, close button, action button).
+- **4.1.2 Name, Role, Value**: the panel has `role="dialog"`, with `aria-labelledby` and `aria-describedby` wired automatically by `DialogTitle` and `DialogDescription`.
+- **2.1.2 No keyboard trap**: the focus trap is dismissible via Escape — users are never stuck.
+- **2.5.8 Target size**: the close (X) button is 24×24 px (size-6) — meets SC 2.5.8.
+
+> When omitting `DialogTitle` (rare — e.g. a fully visual preview), pass an `aria-label` on `DialogContent` so screen-reader users still hear the dialog name.
+
+## Responsive behaviour
+
+<Canvas of={DialogStories.InteractiveResponsive} />
+
+On screens under 640 px, the dialog renders as a bottom sheet with a drag handle. Dragging the handle down by ≥ 100 px dismisses the sheet.
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				Use a clear, action-oriented <code>DialogTitle</code> ("Edit profile", not "Profile").
+			</td>
+			<td>Open a Dialog from another Dialog — stack thrash and focus chaos.</td>
+		</tr>
+		<tr>
+			<td>Pair every Dialog with a primary action button in the footer.</td>
+			<td>Hide essential primary actions inside the body — users scan the footer.</td>
+		</tr>
+		<tr>
+			<td>
+				Pick the smallest <code>size</code> that fits the content.
+			</td>
+			<td>
+				Use <code>full</code> as a default — it feels like a bad route.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Use <a href="?path=/docs/general-alert-dialog--docs">AlertDialog</a> for irreversible
+				destructive actions.
+			</td>
+			<td>Rely on a Dialog for "are you sure?" — it can be dismissed too easily.</td>
+		</tr>
+	</tbody>
+</table>

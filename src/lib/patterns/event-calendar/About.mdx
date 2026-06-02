@@ -1,0 +1,185 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as EventCalendarStories from './EventCalendar.stories';
+
+<Meta of={EventCalendarStories} />
+
+# EventCalendar
+
+A multi-view calendar surface (day, week, month, year) for displaying time-bound events. Renders an internal navigation header that mirrors the timeline view: a view-switcher on the left, a tightly-grouped previous / date-picker / next cluster, and an `actions` slot on the right. The date label is an interactive `DatePicker` (or `MonthPicker` / `YearPicker` depending on view) — clicking it opens a calendar with presets, including "Today".
+
+## When to use
+
+- Browsing scheduled events across day, week, month, or year.
+- Building a consumer-controlled calendar where the parent owns `view` and `selectedDate` via `v-model`.
+- Surfacing event hover popovers or click-to-edit affordances against a date grid.
+
+## When not to use
+
+- Editing shift schedules per employee — use [`ScheduleTimeline`](?path=/docs/patterns-scheduletimeline--docs).
+- Pure date-picking — use a date input or calendar picker primitive.
+
+## Anatomy
+
+<Canvas of={EventCalendarStories.WeekView} />
+
+<table>
+	<thead>
+		<tr>
+			<th>Slot</th>
+			<th>Purpose</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>event-calendar</code>
+			</td>
+			<td>Outer wrapper</td>
+		</tr>
+		<tr>
+			<td>
+				<code>event-calendar-header</code>
+			</td>
+			<td>Navigation + view switcher row</td>
+		</tr>
+		<tr>
+			<td>
+				<code>date-nav-toolbar-prev</code> / <code>-next</code>
+			</td>
+			<td>
+				Period navigation buttons (provided by the shared <code>DateNavToolbar</code>)
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>date-nav-toolbar-view</code>
+			</td>
+			<td>
+				View switcher items (day/week/month/year). Carries <code>data-view</code>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>event-calendar-day</code>
+			</td>
+			<td>Day-grid surface (timed events column)</td>
+		</tr>
+		<tr>
+			<td>
+				<code>event-calendar-event</code>
+			</td>
+			<td>
+				Each event card. Carries <code>data-event-id</code>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+## Views
+
+<Canvas of={EventCalendarStories.DayView} />
+<Canvas of={EventCalendarStories.WeekView} />
+<Canvas of={EventCalendarStories.MonthView} />
+<Canvas of={EventCalendarStories.YearView} />
+
+## Overlapping events
+
+<Canvas of={EventCalendarStories.OverlappingEvents} />
+
+The day view lays overlapping timed events in side-by-side columns based on collision detection.
+
+## Empty state
+
+<Canvas of={EventCalendarStories.Empty} />
+
+## Week start
+
+<Canvas of={EventCalendarStories.SundayStart} />
+
+`weekStartsOn` accepts ISO weekday numbers (1 = Monday, 7 = Sunday). When omitted, the user's preference is read via `getWeekStart()`.
+
+## Props
+
+<Controls of={EventCalendarStories.WeekView} />
+
+<ArgTypes of={EventCalendarStories} />
+
+## Accessibility (WCAG 2.2 AA)
+
+<table>
+	<thead>
+		<tr>
+			<th>SC</th>
+			<th>Title</th>
+			<th>How EventCalendar conforms</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>1.3.1</td>
+			<td>Info and Relationships</td>
+			<td>
+				Header buttons carry <code>aria-label</code>; events render as semantic clickable cards
+			</td>
+		</tr>
+		<tr>
+			<td>2.1.1</td>
+			<td>Keyboard</td>
+			<td>All header controls are buttons reachable by Tab; events are clickable elements</td>
+		</tr>
+		<tr>
+			<td>2.4.7</td>
+			<td>Focus Visible</td>
+			<td>Inherits the design system Button focus ring</td>
+		</tr>
+		<tr>
+			<td>2.5.8</td>
+			<td>Target Size (Minimum)</td>
+			<td>All header buttons are at least 24 × 24 CSS px</td>
+		</tr>
+	</tbody>
+</table>
+
+<Canvas of={EventCalendarStories.InteractiveTargetSize} />
+<Canvas of={EventCalendarStories.InteractiveNavigateNext} />
+<Canvas of={EventCalendarStories.InteractiveSwitchView} />
+
+## Responsive behaviour
+
+The calendar root never overflows its container horizontally. The day/week grid scrolls vertically inside its own scroll area; the month/year layouts shrink columns to fit.
+
+<Canvas of={EventCalendarStories.InteractiveResponsive} />
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				Drive <code>view</code> and <code>selectedDate</code> with <code>v-model</code> from the
+				consumer
+			</td>
+			<td>Mutate the events array directly — pass a new array</td>
+		</tr>
+		<tr>
+			<td>
+				Listen to <code>event-hover</code> and <code>event-leave</code> to position custom popovers
+				using the provided <code>rect</code>
+			</td>
+			<td>Render the popover inside the event itself — the calendar clips overflow</td>
+		</tr>
+		<tr>
+			<td>
+				Provide stable <code>id</code>s on events so overlap layout and selection are consistent
+				across renders
+			</td>
+			<td>Use array indices as event ids</td>
+		</tr>
+	</tbody>
+</table>

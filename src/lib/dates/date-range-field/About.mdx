@@ -1,0 +1,174 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as DateRangeFieldStories from './DateRangeField.stories';
+
+<Meta of={DateRangeFieldStories} />
+
+# DateRangeField
+
+Segmented date-range input — start and end dates each have their own focusable segments separated by an en-dash. Built on Reka UI's `DateRangeField` primitive.
+
+## When to use
+
+- Fast keyboard date-range entry inside a form (filters, reports, exports).
+- Free-typing a known range — segments accept digits and snap on overflow.
+- Range with optional time portion via `granularity`.
+
+## When not to use
+
+- Visual range browsing — use [RangeCalendar](?path=/docs/dates-rangecalendar--docs) or [DateRangePicker](?path=/docs/dates-daterangepicker--docs).
+- Single date entry — use [DateField](?path=/docs/dates-datefield--docs).
+
+## Anatomy
+
+<Canvas of={DateRangeFieldStories.Default} />
+
+`DateRangeFieldRoot` wraps two segment groups (start, end) and an en-dash separator. Each data segment is `role="spinbutton"` with min / max bounds.
+
+## Sizes
+
+<Canvas of={DateRangeFieldStories.Sizes} />
+
+<table>
+	<thead>
+		<tr>
+			<th>Size</th>
+			<th>Height</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>sm</code>
+			</td>
+			<td>28 px</td>
+			<td>Compact toolbars and inline filters</td>
+		</tr>
+		<tr>
+			<td>
+				<code>default</code>
+			</td>
+			<td>32 px</td>
+			<td>General forms</td>
+		</tr>
+		<tr>
+			<td>
+				<code>lg</code>
+			</td>
+			<td>40 px</td>
+			<td>Hero forms (booking flows)</td>
+		</tr>
+	</tbody>
+</table>
+
+## States
+
+<Canvas of={DateRangeFieldStories.Disabled} />
+
+<Canvas of={DateRangeFieldStories.Readonly} />
+
+<Canvas of={DateRangeFieldStories.WithError} />
+
+`error` sets `aria-invalid="true"` on the field root and tints the border. Pair with `describedBy` pointing to your error message id.
+
+## Composition
+
+<Canvas of={DateRangeFieldStories.MinMax} />
+
+`minValue` / `maxValue` flag out-of-range values via Reka's `data-invalid` state.
+
+## Keyboard interaction
+
+<table>
+	<thead>
+		<tr>
+			<th>Key</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>digit</td>
+			<td>Type into focused segment; advances on overflow</td>
+		</tr>
+		<tr>
+			<td>
+				<code>ArrowLeft</code> / <code>ArrowRight</code>
+			</td>
+			<td>Move focus across all segments — including across start → end boundary</td>
+		</tr>
+		<tr>
+			<td>
+				<code>ArrowUp</code> / <code>ArrowDown</code>
+			</td>
+			<td>Increment / decrement focused segment</td>
+		</tr>
+		<tr>
+			<td>
+				<code>Backspace</code>
+			</td>
+			<td>Clear focused segment, then move backward</td>
+		</tr>
+		<tr>
+			<td>
+				<code>Tab</code> / <code>Shift+Tab</code>
+			</td>
+			<td>Move focus across all segments</td>
+		</tr>
+	</tbody>
+</table>
+
+## Props
+
+<Controls of={DateRangeFieldStories.Default} />
+
+<ArgTypes of={DateRangeFieldStories} />
+
+## Accessibility (WCAG 2.2 AA)
+
+- **2.4.6 Labels**: pair every field with `<Label>`.
+- **3.3.1 Error identification**: pass `error` to set `aria-invalid="true"` and use `describedBy` to reference helper text.
+- **2.4.7 Focus visible**: focused segments highlight with `bg-accent`; the wrapper renders a 2 px ring.
+- **2.5.8 Target size**: every size's wrapper meets ≥ 24 × 24 px.
+- **4.1.2 Name & state**: each segment exposes `role="spinbutton"`. The end-segment group is announced separately from start.
+
+## Responsive behaviour
+
+<Canvas of={DateRangeFieldStories.InteractiveResponsive} />
+
+The root is `w-fit`. On narrow viewports (`< sm`) consider stacking the field below its label.
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				Use <code>error</code> + <code>describedBy</code> for validation messages.
+			</td>
+			<td>
+				Toggle <code>variant="error"</code> manually.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Match <code>size</code> to the surrounding form fields.
+			</td>
+			<td>
+				Override <code>class="h-..."</code> — use the <code>size</code> variant.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Validate <em>start ≤ end</em> in your form schema.
+			</td>
+			<td>Trust client-side ordering — also validate on submit.</td>
+		</tr>
+	</tbody>
+</table>

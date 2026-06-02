@@ -1,0 +1,209 @@
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as CollapsibleStories from './Collapsible.stories';
+
+<Meta of={CollapsibleStories} />
+
+# Collapsible
+
+A single open/closed disclosure section. Built on Reka UI primitives — keyboard, ARIA, and animation handled internally. Use it to hide secondary content (advanced settings, an inline help block, a long detail) behind a single toggle. For multiple sections, reach for [Accordion](?path=/docs/general-accordion--docs) instead.
+
+## When to use
+
+- "Show advanced options" toggles inside a form.
+- A single inline help block that defaults closed.
+- A details/summary block where only one trigger exists.
+
+## When not to use
+
+- Several stacked disclosures — use [Accordion](?path=/docs/general-accordion--docs).
+- Modal-style disclosure that blocks the surface — use a [Dialog](?path=/docs/general-dialog--docs) or [Drawer](?path=/docs/general-drawer--docs).
+- Hover-revealed help — use a [Tooltip](?path=/docs/general-tooltip--docs).
+
+## Anatomy
+
+<Canvas of={CollapsibleStories.Default} />
+
+The trigger is a real `<button>` exposing `aria-expanded`. Content is animated open/close via the `collapsible-down` and `collapsible-up` keyframes.
+
+## Composition
+
+```vue
+<Collapsible variant="default" size="default">
+  <CollapsibleTrigger>Show advanced options</CollapsibleTrigger>
+  <CollapsibleContent>Body content.</CollapsibleContent>
+</Collapsible>
+```
+
+<table>
+	<thead>
+		<tr>
+			<th>Subcomponent</th>
+			<th>Purpose</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>Collapsible</code>
+			</td>
+			<td>
+				Root provider. Defines <code>variant</code> and <code>size</code> for trigger and content
+				via inject.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>CollapsibleTrigger</code>
+			</td>
+			<td>
+				The clickable heading. Renders its own <code>&lt;button&gt;</code> by default; pass{' '}
+				<code>as-child</code> to merge into a custom child element.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>CollapsibleContent</code>
+			</td>
+			<td>
+				The collapsible body. Animated open/close. Inner padding driven by <code>variant</code>+
+				<code>size</code>.
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+## Variants
+
+<Canvas of={CollapsibleStories.Variants} />
+
+- `default` — bordered card surface. Use for inline disclosure blocks inside flat regions.
+- `ghost` — borderless. Use inside sidebars, filter panels, or anywhere chrome already provides separation.
+
+## Sizes
+
+<Canvas of={CollapsibleStories.Sizes} />
+
+<table>
+	<thead>
+		<tr>
+			<th>Size</th>
+			<th>Trigger text</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>sm</code>
+			</td>
+			<td>
+				<code>text-xs</code>
+			</td>
+			<td>Sidebars, filter panels, nested groups</td>
+		</tr>
+		<tr>
+			<td>
+				<code>default</code>
+			</td>
+			<td>
+				<code>text-sm</code>
+			</td>
+			<td>General use — inline form sections, detail blocks</td>
+		</tr>
+	</tbody>
+</table>
+
+## Controlled
+
+<Canvas of={CollapsibleStories.Controlled} />
+
+Bind `v-model:open` when the parent owns the source of truth (URL query, store, sibling component).
+
+## Default open
+
+<Canvas of={CollapsibleStories.DefaultOpen} />
+
+Pass `default-open` to render the content expanded on first paint.
+
+## Disabled
+
+<Canvas of={CollapsibleStories.Disabled} />
+
+`disabled` blocks the trigger entirely — pointer events ignored, focus skipped.
+
+## Props
+
+<Controls of={CollapsibleStories.Default} />
+
+## Keyboard interaction
+
+<table>
+	<thead>
+		<tr>
+			<th>Key</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<kbd>Tab</kbd>
+			</td>
+			<td>Move focus to the trigger.</td>
+		</tr>
+		<tr>
+			<td>
+				<kbd>Space</kbd> / <kbd>Enter</kbd>
+			</td>
+			<td>Toggle the content open/closed.</td>
+		</tr>
+	</tbody>
+</table>
+
+## Accessibility (WCAG 2.2 AA)
+
+- **1.4.3 Contrast**: trigger and content text use `text-foreground` / `text-muted-foreground` — both clear 4.5 : 1 against `bg-card`.
+- **1.4.11 Non-text contrast**: borders and the focus ring clear 3 : 1 against the surrounding surface.
+- **2.1.1 Keyboard**: the trigger is a real `<button>` — Space and Enter toggle, focus follows natural tab order.
+- **2.4.7 Focus visible**: a 3 px inset ring at `--ring` is applied on `:focus-visible`.
+- **2.5.8 Target size**: trigger meets the 24×24 px minimum at every size and viewport (default size is 44 px tall; `sm` is 36 px).
+- **4.1.2 Name, Role, Value**: trigger exposes `role="button"`, `aria-expanded`, and `aria-controls` pointing at the content region.
+
+## Responsive behaviour
+
+<Canvas of={CollapsibleStories.InteractiveResponsive} />
+
+The collapsible is `w-full` and never causes horizontal overflow. Trigger labels wrap; long unbreakable strings (URLs, IDs) need `break-all` or `truncate` at the consumer.
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				Use <code>variant="ghost"</code> inside sidebars and filter panels.
+			</td>
+			<td>
+				Nest a <code>variant="default"</code> Collapsible inside another bordered card — doubled
+				borders.
+			</td>
+		</tr>
+		<tr>
+			<td>Use Collapsible for a single disclosure.</td>
+			<td>Stack several Collapsibles for related sections — use Accordion instead.</td>
+		</tr>
+		<tr>
+			<td>Pass clear, scannable trigger labels (one short sentence).</td>
+			<td>
+				Hide essential content behind a closed Collapsible — keyboard and assistive-tech users will
+				miss it.
+			</td>
+		</tr>
+	</tbody>
+</table>

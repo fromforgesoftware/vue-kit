@@ -1,0 +1,242 @@
+import { Meta, Canvas, Controls, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as BentoGridStories from './BentoGrid.stories';
+
+<Meta of={BentoGridStories} />
+
+# Bento Grid
+
+A modular grid for laying out heterogeneously-sized cards — the "bento box" pattern popularised by Apple and adopted across modern dashboards. Cards declare a span (`sm`, `md`, `wide`, `tall`, `hero`); the grid uses CSS `grid-auto-flow: dense` to backfill holes left by larger cards with smaller ones that come later, producing a tightly packed visual rhythm without manual line math.
+
+## When to use
+
+- Overview / summary screens with **mixed-importance content** (a hero metric next to many smaller stats).
+- Dashboards where **some cards need more horizontal room** (lists, charts) than others (single counts).
+- A small-to-medium number of cards (~3–20) with **deterministic order** that matters for accessibility.
+
+## When not to use
+
+- **Variable-height image galleries** — reach for a true masonry instead (CSS `column-count` or a JS library). Bento expects authored sizes, not measured content.
+- **Drag-and-drop dashboards** with persistent layouts — use `WidgetGrid`, which adds resize handles and drag affordances.
+- **Long uniform feeds** — a regular list or table is simpler and more predictable.
+
+## Anatomy
+
+<Canvas of={BentoGridStories.Default} />
+
+A bento layout is two components:
+
+<table>
+	<thead>
+		<tr>
+			<th>data-slot</th>
+			<th>Element</th>
+			<th>Purpose</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>bento-grid</code>
+			</td>
+			<td>
+				<code>&lt;div&gt;</code>
+			</td>
+			<td>
+				Outer container. Owns column count, gap, and <code>grid-auto-flow: dense</code>.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<code>bento-card</code>
+			</td>
+			<td>
+				<code>&lt;Card&gt;</code> (with <code>data-bento-size</code>)
+			</td>
+			<td>
+				A single tile spanning <code>col-span-N row-span-N</code> as declared.
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+## Sizes
+
+<table>
+	<thead>
+		<tr>
+			<th>data-bento-size</th>
+			<th>Span</th>
+			<th>Use for</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>
+				<code>sm</code>
+			</td>
+			<td>1×1 (default)</td>
+			<td>Single-stat cards, counts, badges</td>
+		</tr>
+		<tr>
+			<td>
+				<code>md</code>
+			</td>
+			<td>2×1</td>
+			<td>Cards with a label + secondary line, progress bars, short lists</td>
+		</tr>
+		<tr>
+			<td>
+				<code>wide</code>
+			</td>
+			<td>full × 1</td>
+			<td>Full-row banner / lead card</td>
+		</tr>
+		<tr>
+			<td>
+				<code>tall</code>
+			</td>
+			<td>1×2</td>
+			<td>Vertical lists, mini timelines, tall charts</td>
+		</tr>
+		<tr>
+			<td>
+				<code>hero</code>
+			</td>
+			<td>2×2</td>
+			<td>The headline metric or featured tile</td>
+		</tr>
+	</tbody>
+</table>
+
+All sizes collapse responsively at narrow breakpoints — at `<sm` (mobile) every card becomes 1 col regardless of declared size, so layouts don't break on phones.
+
+## Dense packing
+
+<Canvas of={BentoGridStories.TallAndDense} />
+
+The grid sets `grid-auto-flow: dense`, which lets the browser **backfill holes** left by larger cards with smaller cards that come later in the DOM. In the "Tall and Dense" story above, a `tall` card followed by `sm`/`md` cards produces a tight layout without any explicit line numbers.
+
+> **A11y note**: `dense` packing changes _visual_ order but **not** DOM / focus order. That's fine when the cards are independent (stats, summaries). Avoid using `dense` when the visual order conveys meaning — e.g. a sequence of steps — because the visual order can diverge from the reading order.
+
+## Hero card
+
+<Canvas of={BentoGridStories.Hero} />
+
+Use `size="hero"` (2×2) sparingly — at most one per grid — for the single most important card on the page.
+
+## Container queries inside cards
+
+`BentoCard` adds the `@container` class so consumers can use Tailwind's container query utilities (`@sm:`, `@md:`) **inside the card** to re-flow content based on the card's actual width. This is the canonical "card adapts to its width" pattern: the grid decides the _card's_ size; the card decides its _interior_ layout.
+
+```vue
+<BentoCard size="md">
+  <!-- 1 column when narrow, 2 columns when the card is wide -->
+  <div class="grid grid-cols-1 @sm:grid-cols-2 gap-2">
+    <!-- content -->
+  </div>
+</BentoCard>
+```
+
+## Caller-driven dynamic sizes
+
+When a card's content varies with data (e.g. a Skills card with 2 vs 20 badges), let the **caller** pick the size from props rather than measuring content:
+
+```vue
+<BentoCard :size="skills.length > 6 ? 'md' : 'sm'">
+  <!-- skill badges -->
+</BentoCard>
+```
+
+This is deterministic, predictable, and avoids layout flicker. Mature design systems (shadcn, Magic UI, Aceternity) all follow this pattern; none auto-measure content.
+
+## Props
+
+### `BentoGrid`
+
+<Controls of={BentoGridStories.Default} />
+
+### `BentoCard`
+
+`size`, `padding`, `variant`, `interactive`, and `class` — `padding`/`variant`/`interactive` pass through to the underlying `Card` component.
+
+## Accessibility (WCAG 2.2 AA)
+
+<table>
+	<thead>
+		<tr>
+			<th>SC</th>
+			<th>Title</th>
+			<th>How BentoGrid conforms</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>1.3.1</td>
+			<td>Info and Relationships</td>
+			<td>
+				Cards render as siblings in document order. <code>data-bento-size</code> exposes the
+				declared span for tooling but isn't relied on for semantics.
+			</td>
+		</tr>
+		<tr>
+			<td>1.3.2</td>
+			<td>Meaningful Sequence</td>
+			<td>
+				DOM order is preserved regardless of <code>dense</code> packing. Authors should keep card
+				order semantically meaningful — visually-rearranged cards still read in DOM order to
+				assistive tech.
+			</td>
+		</tr>
+		<tr>
+			<td>1.4.10</td>
+			<td>Reflow</td>
+			<td>
+				Column counts collapse at narrow breakpoints (<code>sm:</code> / <code>lg:</code>) so
+				content reflows to a single column on phones without horizontal scrolling.
+			</td>
+		</tr>
+		<tr>
+			<td>4.1.2</td>
+			<td>Name, Role, Value</td>
+			<td>
+				Card surface comes from <code>Card</code> which already exposes appropriate roles.
+				Interactive cards (<code>interactive</code> prop) inherit the <code>Card</code> focus ring.
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+## Do / Don't
+
+<table>
+	<thead>
+		<tr>
+			<th>Do</th>
+			<th>Don't</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>Pick a card size that matches its content's natural shape</td>
+			<td>
+				Use <code>hero</code> on every card to "make it stand out"
+			</td>
+		</tr>
+		<tr>
+			<td>Order cards by importance — the grid preserves DOM order</td>
+			<td>
+				Rely on <code>dense</code> packing to convey ordering
+			</td>
+		</tr>
+		<tr>
+			<td>Use container queries inside cards for interior re-flow</td>
+			<td>Try to JS-measure content to auto-resize the card</td>
+		</tr>
+		<tr>
+			<td>
+				Drive dynamic sizes from props (<code>:size="n &gt; 6 ? 'md' : 'sm'"</code>)
+			</td>
+			<td>Mutate the size in a watcher after measuring children</td>
+		</tr>
+	</tbody>
+</table>

@@ -1,4 +1,4 @@
-import type { AutocompleteFetcher, AutocompleteOption, AutocompleteResolver } from './autocomplete';
+import type { AutocompleteFetcher, AutocompleteOption, AutocompleteResolver } from './autocomplete.js';
 
 /**
  * Wires a service into the {@link Autocomplete}'s `fetch` + `resolve` shape so consumers

@@ -18,8 +18,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { TooltipPortal, TooltipContent } from 'reka-ui';
-import { cn } from '../../../helpers/cn';
-import { tooltipContentVariants } from './tooltip';
+import { cn } from '../../../helpers/cn.js';
+import { tooltipContentVariants } from './tooltip.js';
 
 type TooltipSide = 'top' | 'right' | 'bottom' | 'left';
 type TooltipAlign = 'start' | 'center' | 'end';

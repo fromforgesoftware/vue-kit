@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { expect, userEvent, within } from 'storybook/test';
 import ToolCallStep from './ToolCallStep.vue';
-import type { ToolCallStepStatus } from './tool-call-step';
+import type { ToolCallStepStatus } from './tool-call-step.js';
 
 const ALL_STATUS: ToolCallStepStatus[] = [
 	'running',

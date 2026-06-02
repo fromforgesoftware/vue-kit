@@ -12,8 +12,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { ToggleGroupRoot } from 'reka-ui';
-import { cn } from '../../../helpers/cn';
-import { toggleGroupVariants, type ToggleGroupVariants } from './toggle-group';
+import { cn } from '../../../helpers/cn.js';
+import { toggleGroupVariants, type ToggleGroupVariants } from './toggle-group.js';
 
 interface ToggleGroupProps {
 	/**

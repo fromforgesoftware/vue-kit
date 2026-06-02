@@ -1,5 +1,5 @@
 import type { ComputedRef, InjectionKey } from 'vue';
-import type { NumberFieldSize, NumberFieldVariant } from './number-field';
+import type { NumberFieldSize, NumberFieldVariant } from './number-field.js';
 
 export interface NumberFieldContext {
 	size: ComputedRef<NumberFieldSize>;

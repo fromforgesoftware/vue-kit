@@ -24,7 +24,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import type { ScheduleTimelineEmployee } from '../schedule-timeline';
+import type { ScheduleTimelineEmployee } from '../schedule-timeline.js';
 
 const props = defineProps<{
 	employee: ScheduleTimelineEmployee;

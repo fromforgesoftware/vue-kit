@@ -7,8 +7,8 @@ export type {
 	SegmentClickEvent,
 	RangeClickEvent,
 	RangeResizeEvent,
-} from './time-range-bar';
+} from './time-range-bar.js';
 
-export { segmentVariantClasses, generateHourTicks, computeSegmentLanes } from './time-range-bar';
+export { segmentVariantClasses, generateHourTicks, computeSegmentLanes } from './time-range-bar.js';
 
-export { useSegmentDrag, type UseSegmentDragOptions, type DragPreview } from './useSegmentDrag';
+export { useSegmentDrag, type UseSegmentDragOptions, type DragPreview } from './useSegmentDrag.js';

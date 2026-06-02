@@ -7,7 +7,7 @@ import {
 	expectMinTargetSize,
 	expectNoHorizontalOverflow,
 	forEachViewport,
-} from '../../../test-utils/playHelpers';
+} from '../../../test-utils/playHelpers.js';
 
 // Reka's Splitter wires up native mouse events (mousedown/mousemove/mouseup
 // on document.body) rather than PointerEvents — so we dispatch matching

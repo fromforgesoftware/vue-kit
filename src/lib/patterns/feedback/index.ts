@@ -5,4 +5,4 @@ export {
 	feedbackPopoverSuccessVariants,
 	type FeedbackPopoverProps,
 	type FeedbackPopoverEmits,
-} from './feedback-popover';
+} from './feedback-popover.js';

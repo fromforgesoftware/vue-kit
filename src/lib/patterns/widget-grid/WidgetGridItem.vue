@@ -31,13 +31,13 @@
 
 <script setup lang="ts">
 import { computed, inject, ref, onMounted, onUnmounted, watch } from 'vue';
-import { cn } from '../../../helpers/cn';
+import { cn } from '../../../helpers/cn.js';
 import Button from '../../general/button/Button.vue';
 import {
 	widgetGridItemVariants,
 	type GridLayoutConfig,
 	type GridItemPosition,
-} from './widget-grid';
+} from './widget-grid.js';
 
 interface Props {
 	i: string | number;

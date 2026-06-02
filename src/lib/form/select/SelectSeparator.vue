@@ -5,8 +5,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { SelectSeparator } from 'reka-ui';
-import { cn } from '../../../helpers/cn';
-import { selectSeparatorVariants } from './select';
+import { cn } from '../../../helpers/cn.js';
+import { selectSeparatorVariants } from './select.js';
 
 interface SelectSeparatorProps {
 	class?: string;

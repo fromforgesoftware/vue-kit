@@ -5,9 +5,9 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import Divider from '../../general/divider/Divider.vue';
-import { cn } from '../../../helpers/cn';
-import { useSidebar } from './useSidebar';
-import { sidebarSeparatorVariants } from './sidebar';
+import { cn } from '../../../helpers/cn.js';
+import { useSidebar } from './useSidebar.js';
+import { sidebarSeparatorVariants } from './sidebar.js';
 
 interface SidebarSeparatorProps {
 	class?: string;

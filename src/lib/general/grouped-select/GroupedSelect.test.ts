@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { mount } from '@vue/test-utils';
 import GroupedSelectPanel from './GroupedSelectPanel.vue';
-import type { GroupedItem, GroupedCategory } from './grouped-select';
+import type { GroupedItem, GroupedCategory } from './grouped-select.js';
 
 const categories: GroupedCategory[] = [
 	{ id: 'account', label: 'Account', section: 'General' },

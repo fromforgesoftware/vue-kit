@@ -10,7 +10,7 @@ import {
 	expectNoHorizontalOverflow,
 	forEachViewport,
 	inBody,
-} from '../../../test-utils/playHelpers';
+} from '../../../test-utils/playHelpers.js';
 
 // ── Module-level fixtures ──────────────────────────────────────────────
 

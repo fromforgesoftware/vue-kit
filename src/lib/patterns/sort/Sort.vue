@@ -128,7 +128,7 @@ import {
 	X,
 } from '@lucide/vue';
 import Icon from '../../general/icon/Icon.vue';
-import { cn } from '../../../helpers/cn';
+import { cn } from '../../../helpers/cn.js';
 import Button from '../../general/button/Button.vue';
 import Badge from '../../general/badge/Badge.vue';
 import Popover from '../../general/popover/Popover.vue';
@@ -141,7 +141,7 @@ import SelectContent from '../../form/select/SelectContent.vue';
 import SelectItem from '../../form/select/SelectItem.vue';
 import ToggleGroup from '../../form/toggle-group/ToggleGroup.vue';
 import ToggleGroupItem from '../../form/toggle-group/ToggleGroupItem.vue';
-import { sortRowVariants, type SortFieldOption, type SortField, type SortDirection } from './sort';
+import { sortRowVariants, type SortFieldOption, type SortField, type SortDirection } from './sort.js';
 
 interface SortProps {
 	/**

@@ -6,8 +6,8 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import { cn } from '../../../helpers/cn';
-import { cardTitleVariants, type CardTitleVariants } from './card';
+import { cn } from '../../../helpers/cn.js';
+import { cardTitleVariants, type CardTitleVariants } from './card.js';
 
 interface CardTitleProps {
 	size?: CardTitleVariants['size'];

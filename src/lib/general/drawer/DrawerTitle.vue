@@ -6,8 +6,8 @@
 
 <script setup lang="ts">
 import { computed, inject, onMounted, onBeforeUnmount } from 'vue';
-import { cn } from '../../../helpers/cn';
-import { drawerTitleVariants, drawerPanelKey } from './drawer';
+import { cn } from '../../../helpers/cn.js';
+import { drawerTitleVariants, drawerPanelKey } from './drawer.js';
 
 interface Props {
 	class?: string;

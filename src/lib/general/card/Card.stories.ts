@@ -6,7 +6,7 @@ import CardTitle from './CardTitle.vue';
 import CardDescription from './CardDescription.vue';
 import CardContent from './CardContent.vue';
 import CardFooter from './CardFooter.vue';
-import { expectNoHorizontalOverflow, forEachViewport } from '../../../test-utils/playHelpers';
+import { expectNoHorizontalOverflow, forEachViewport } from '../../../test-utils/playHelpers.js';
 
 const ALL_VARIANTS = ['default', 'muted', 'ghost', 'accent'] as const;
 const ALL_PADDINGS = ['none', 'sm', 'default', 'lg'] as const;

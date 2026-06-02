@@ -1,5 +1,5 @@
 export { default as FontManager } from './FontManager.vue';
-export { useFontManager } from './useFontManager';
+export { useFontManager } from './useFontManager.js';
 export {
 	FONT_SIZE_LOCAL_STORAGE_KEY,
 	FONT_SIZE_MAP,
@@ -9,4 +9,4 @@ export {
 	fontManagerItemLabelVariants,
 	type FontSize,
 	type FontSizeOption,
-} from './font-manager';
+} from './font-manager.js';

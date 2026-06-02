@@ -6,8 +6,8 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import { cn } from '../../../helpers/cn';
-import { tableCaptionVariants } from './table';
+import { cn } from '../../../helpers/cn.js';
+import { tableCaptionVariants } from './table.js';
 
 interface TableCaptionProps {
 	class?: string;

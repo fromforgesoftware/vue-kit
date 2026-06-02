@@ -123,7 +123,7 @@ import {
 	Briefcase,
 } from '@lucide/vue';
 import Icon from '../../general/icon/Icon.vue';
-import { cn } from '../../../helpers/cn';
+import { cn } from '../../../helpers/cn.js';
 import Avatar from '../../general/avatar/Avatar.vue';
 import Button from '../../general/button/Button.vue';
 import Spinner from '../../general/spinner/Spinner.vue';
@@ -135,7 +135,7 @@ import {
 	type ActivityItem,
 	type ActivityGroup,
 	type ActivityType,
-} from './activity-timeline';
+} from './activity-timeline.js';
 
 interface ActivityTimelineProps {
 	/** Grouped activity items. */

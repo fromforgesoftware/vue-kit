@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { expect } from 'storybook/test';
 import AspectRatio from './AspectRatio.vue';
-import { expectNoHorizontalOverflow, forEachViewport } from '../../../test-utils/playHelpers';
+import { expectNoHorizontalOverflow, forEachViewport } from '../../../test-utils/playHelpers.js';
 
 const meta = {
 	title: 'General/AspectRatio',

@@ -29,9 +29,9 @@ import { computed } from 'vue';
 import { Ellipsis } from '@lucide/vue';
 import Icon from '../../general/icon/Icon.vue';
 import { Primitive } from 'reka-ui';
-import { cn } from '../../../helpers/cn';
-import { useSidebar } from './useSidebar';
-import { sidebarGroupLabelVariants } from './sidebar';
+import { cn } from '../../../helpers/cn.js';
+import { useSidebar } from './useSidebar.js';
+import { sidebarGroupLabelVariants } from './sidebar.js';
 
 interface SidebarGroupLabelProps {
 	asChild?: boolean;

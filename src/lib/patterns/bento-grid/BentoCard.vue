@@ -14,9 +14,9 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import Card from '../../general/card/Card.vue';
-import type { CardVariants, CardVariant } from '../../general/card/card';
-import { cn } from '../../../helpers/cn';
-import { bentoCardVariants, type BentoSize } from './bento-grid';
+import type { CardVariants, CardVariant } from '../../general/card/card.js';
+import { cn } from '../../../helpers/cn.js';
+import { bentoCardVariants, type BentoSize } from './bento-grid.js';
 
 interface BentoCardProps {
 	/**

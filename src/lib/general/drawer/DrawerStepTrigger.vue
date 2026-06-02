@@ -12,7 +12,7 @@
 
 <script setup lang="ts">
 import { inject } from 'vue';
-import { drawerKey } from './drawer';
+import { drawerKey } from './drawer.js';
 
 interface Props {
 	/** The name of the panel to push onto the stack */

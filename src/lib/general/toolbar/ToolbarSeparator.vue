@@ -5,12 +5,12 @@
 <script setup lang="ts">
 import { computed, inject } from 'vue';
 import { ToolbarSeparator } from 'reka-ui';
-import { cn } from '../../../helpers/cn';
+import { cn } from '../../../helpers/cn.js';
 import {
 	toolbarSeparatorVariants,
 	TOOLBAR_ORIENTATION_KEY,
 	type ToolbarOrientation,
-} from './toolbar';
+} from './toolbar.js';
 
 interface ToolbarSeparatorProps {
 	class?: string;

@@ -6,8 +6,8 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import { cn } from '../../../helpers/cn';
-import { drawerFooterVariants } from './drawer';
+import { cn } from '../../../helpers/cn.js';
+import { drawerFooterVariants } from './drawer.js';
 
 interface Props {
 	class?: string;

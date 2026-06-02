@@ -27,8 +27,8 @@
 
 <script setup lang="ts">
 import { inject, computed } from 'vue';
-import { cn } from '../../../helpers/cn';
-import { drawerKey, drawerCloseVariants } from './drawer';
+import { cn } from '../../../helpers/cn.js';
+import { drawerKey, drawerCloseVariants } from './drawer.js';
 
 interface Props {
 	class?: string;

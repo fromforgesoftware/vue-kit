@@ -11,7 +11,7 @@
 </template>
 
 <script setup lang="ts">
-import { useModal } from './useModal';
+import { useModal } from './useModal.js';
 
 const { stack, resolve, dismiss, close } = useModal();
 </script>

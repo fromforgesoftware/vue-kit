@@ -139,10 +139,10 @@ import {
 } from 'reka-ui';
 import { CalendarDate, type DateValue } from '@internationalized/date';
 import { type ForgeDate, getWeekStartForCalendar } from '@fromforgesoftware/ts-kit';
-import { cn } from '../../../helpers/cn';
-import { toRekaDate, toRekaRange, rekaRangeToForgeDateRange } from '../_adapter';
+import { cn } from '../../../helpers/cn.js';
+import { toRekaDate, toRekaRange, rekaRangeToForgeDateRange } from '../_adapter.js';
 import DateRangePresets from '../date-range-picker/DateRangePresets.vue';
-import type { DateRangePreset } from '../date-range-picker/date-range-picker';
+import type { DateRangePreset } from '../date-range-picker/date-range-picker.js';
 import {
 	rangeCalendarRootVariants,
 	rangeCalendarPanelVariants,
@@ -156,7 +156,7 @@ import {
 	rangeCalendarCellVariants,
 	rangeCalendarCellTriggerVariants,
 	type RangeCalendarVariants,
-} from './range-calendar';
+} from './range-calendar.js';
 
 interface Props {
 	/** Selected range (start + end). */

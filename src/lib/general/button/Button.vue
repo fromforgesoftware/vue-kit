@@ -24,8 +24,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { Primitive, type PrimitiveProps } from 'reka-ui';
-import { cn } from '../../../helpers/cn';
-import { buttonVariants, type ButtonVariants } from './button';
+import { cn } from '../../../helpers/cn.js';
+import { buttonVariants, type ButtonVariants } from './button.js';
 import Spinner from '../spinner/Spinner.vue';
 
 interface ButtonProps extends /* @vue-ignore */ PrimitiveProps {

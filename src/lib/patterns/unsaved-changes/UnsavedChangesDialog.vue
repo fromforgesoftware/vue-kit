@@ -32,7 +32,7 @@ import AlertDialogTitle from '../../general/alert-dialog/AlertDialogTitle.vue';
 import AlertDialogDescription from '../../general/alert-dialog/AlertDialogDescription.vue';
 import AlertDialogAction from '../../general/alert-dialog/AlertDialogAction.vue';
 import AlertDialogCancel from '../../general/alert-dialog/AlertDialogCancel.vue';
-import type { ButtonVariants } from '../../general/button/button';
+import type { ButtonVariants } from '../../general/button/button.js';
 
 interface Props {
 	/** Controlled open state. Bind to the composable's isDialogOpen. */

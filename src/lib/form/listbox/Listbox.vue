@@ -34,13 +34,13 @@
 <script setup lang="ts">
 import { computed, provide } from 'vue';
 import { ListboxRoot, ListboxContent } from 'reka-ui';
-import { cn } from '../../../helpers/cn';
+import { cn } from '../../../helpers/cn.js';
 import {
 	listboxVariants,
 	listboxContentVariants,
 	type ListboxSize,
 	LISTBOX_SIZE_KEY,
-} from './listbox';
+} from './listbox.js';
 
 interface ListboxProps {
 	/** v-model — string for single-select, string[] for multi. */

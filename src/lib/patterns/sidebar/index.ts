@@ -22,7 +22,7 @@ export { default as SidebarTrigger } from './SidebarTrigger.vue';
 export { default as SidebarRail } from './SidebarRail.vue';
 export { default as SidebarInput } from './SidebarInput.vue';
 
-export { useSidebar } from './useSidebar';
+export { useSidebar } from './useSidebar.js';
 
 export {
 	// Types
@@ -64,4 +64,4 @@ export {
 	sidebarTriggerVariants,
 	sidebarRailVariants,
 	sidebarInputVariants,
-} from './sidebar';
+} from './sidebar.js';

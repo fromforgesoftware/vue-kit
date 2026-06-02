@@ -7,8 +7,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { ContextMenuLabel } from 'reka-ui';
-import { cn } from '../../../helpers/cn';
-import { contextMenuLabelVariants } from './context-menu';
+import { cn } from '../../../helpers/cn.js';
+import { contextMenuLabelVariants } from './context-menu.js';
 
 interface ContextMenuLabelProps {
 	/** When true, the label is visually indented. */

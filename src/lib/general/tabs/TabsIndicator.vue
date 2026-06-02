@@ -7,8 +7,8 @@
 <script setup lang="ts">
 import { computed, inject, ref } from 'vue';
 import { TabsIndicator } from 'reka-ui';
-import { cn } from '../../../helpers/cn';
-import { tabsIndicatorVariants, TABS_VARIANT_KEY, type TabsVariant } from './tabs';
+import { cn } from '../../../helpers/cn.js';
+import { tabsIndicatorVariants, TABS_VARIANT_KEY, type TabsVariant } from './tabs.js';
 
 interface Props {
 	variant?: TabsVariant;

@@ -65,14 +65,14 @@ import { computed } from 'vue';
 import { DateRangeFieldRoot, DateRangeFieldInput } from 'reka-ui';
 import type { DateValue } from '@internationalized/date';
 import { type ForgeDate } from '@fromforgesoftware/ts-kit';
-import { cn } from '../../../helpers/cn';
-import { toRekaDate, toRekaRange, rekaRangeToForgeDateRange } from '../_adapter';
+import { cn } from '../../../helpers/cn.js';
+import { toRekaDate, toRekaRange, rekaRangeToForgeDateRange } from '../_adapter.js';
 import {
 	dateRangeFieldRootVariants,
 	dateRangeFieldInputVariants,
 	dateRangeFieldSeparatorVariants,
 	type DateRangeFieldVariants,
-} from './date-range-field';
+} from './date-range-field.js';
 
 interface Props {
 	/** Selected range. */

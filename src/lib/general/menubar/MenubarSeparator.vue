@@ -5,8 +5,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { MenubarSeparator } from 'reka-ui';
-import { cn } from '../../../helpers/cn';
-import { menubarSeparatorVariants } from './menubar';
+import { cn } from '../../../helpers/cn.js';
+import { menubarSeparatorVariants } from './menubar.js';
 
 interface MenubarSeparatorProps {
 	class?: string;

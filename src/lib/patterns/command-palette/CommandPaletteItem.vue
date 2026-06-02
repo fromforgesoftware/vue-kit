@@ -20,12 +20,12 @@
 
 <script setup lang="ts">
 import { computed, inject, onMounted, onUnmounted, ref, watch } from 'vue';
-import { cn } from '../../../helpers/cn';
+import { cn } from '../../../helpers/cn.js';
 import {
 	commandPaletteItemVariants,
 	COMMAND_PALETTE_KEY,
 	COMMAND_PALETTE_GROUP_KEY,
-} from './command-palette';
+} from './command-palette.js';
 
 interface CommandPaletteItemProps {
 	/** Value used for filtering. Falls back to text content if not provided. */

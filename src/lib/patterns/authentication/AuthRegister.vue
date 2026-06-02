@@ -131,7 +131,7 @@ import Button from '../../general/button/Button.vue';
 import Input from '../../form/input/Input.vue';
 import Label from '../../form/label/Label.vue';
 import Divider from '../../general/divider/Divider.vue';
-import type { AuthRegisterProps } from './authentication';
+import type { AuthRegisterProps } from './authentication.js';
 
 /**
  * AuthRegister — create account card with name, email, password and social login.

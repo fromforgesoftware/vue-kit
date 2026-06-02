@@ -2,7 +2,7 @@ import 'reflect-metadata';
 import { describe, expect, it } from 'vitest';
 import { Attribute, JsonApi, Resource } from '@fromforgesoftware/ts-kit/jsonapi';
 import { ApiClient, Atomic } from '@fromforgesoftware/ts-kit/jsonapi-client';
-import { createJsonApiMockAdapter, createJsonApiMockServer } from './jsonApiMockServer';
+import { createJsonApiMockAdapter, createJsonApiMockServer } from './jsonApiMockServer.js';
 
 @JsonApi({ type: 'workspaces' })
 class Workspace extends Resource {

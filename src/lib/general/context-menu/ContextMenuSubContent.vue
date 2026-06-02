@@ -15,8 +15,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { ContextMenuSubContent, ContextMenuPortal } from 'reka-ui';
-import { cn } from '../../../helpers/cn';
-import { contextMenuSubContentVariants } from './context-menu';
+import { cn } from '../../../helpers/cn.js';
+import { contextMenuSubContentVariants } from './context-menu.js';
 
 interface ContextMenuSubContentProps {
 	sideOffset?: number;

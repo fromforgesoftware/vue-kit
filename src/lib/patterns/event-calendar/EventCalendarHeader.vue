@@ -24,8 +24,8 @@ import DateNavToolbar from '../date-nav-toolbar/DateNavToolbar.vue';
 import {
 	defaultDatePickerPresets as dayPresets,
 	defaultWeekPickerPresets as weekPresets,
-} from '../../dates/date-picker/date-picker';
-import { eventCalendarHeaderVariants, type EventCalendarView } from './event-calendar';
+} from '../../dates/date-picker/date-picker.js';
+import { eventCalendarHeaderVariants, type EventCalendarView } from './event-calendar.js';
 
 interface Props {
 	title: string;

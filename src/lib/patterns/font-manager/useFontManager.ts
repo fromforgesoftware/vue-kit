@@ -1,5 +1,5 @@
 import { ref, readonly } from 'vue';
-import { type FontSize, FONT_SIZE_LOCAL_STORAGE_KEY, FONT_SIZE_MAP } from './font-manager';
+import { type FontSize, FONT_SIZE_LOCAL_STORAGE_KEY, FONT_SIZE_MAP } from './font-manager.js';
 
 function getFontSizeFromLocalStorage(): FontSize {
 	if (typeof window === 'undefined') {

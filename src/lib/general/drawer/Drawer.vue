@@ -14,8 +14,8 @@
 
 <script setup lang="ts">
 import { provide, watch, computed, inject, useId } from 'vue';
-import { cn } from '../../../helpers/cn';
-import { useDrawer } from './useDrawer';
+import { cn } from '../../../helpers/cn.js';
+import { useDrawer } from './useDrawer.js';
 import {
 	drawerKey,
 	drawerOverlayVariants,
@@ -23,7 +23,7 @@ import {
 	TRANSITION_MS,
 	type DrawerContext,
 	type DrawerSide,
-} from './drawer';
+} from './drawer.js';
 
 interface DrawerProps {
 	open?: boolean;

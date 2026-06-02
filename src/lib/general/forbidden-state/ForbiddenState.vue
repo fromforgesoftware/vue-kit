@@ -16,7 +16,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import EmptyState from '../empty-state/EmptyState.vue';
-import { FORBIDDEN_STATE_PRESETS, type ForbiddenStateProps } from './forbidden-state';
+import { FORBIDDEN_STATE_PRESETS, type ForbiddenStateProps } from './forbidden-state.js';
 
 const props = withDefaults(defineProps<ForbiddenStateProps>(), {
 	variant: 'forbidden',

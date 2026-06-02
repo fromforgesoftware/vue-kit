@@ -17,7 +17,7 @@
 <script setup lang="ts">
 import { computed, inject, ref } from 'vue';
 import { TabsTrigger, type TabsTriggerProps } from 'reka-ui';
-import { cn } from '../../../helpers/cn';
+import { cn } from '../../../helpers/cn.js';
 import Badge from '../badge/Badge.vue';
 import {
 	tabsTriggerVariants,
@@ -25,7 +25,7 @@ import {
 	TABS_SIZE_KEY,
 	type TabsVariant,
 	type TabsSize,
-} from './tabs';
+} from './tabs.js';
 
 interface Props extends TabsTriggerProps {
 	variant?: TabsVariant;

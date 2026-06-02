@@ -22,8 +22,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { DropdownMenuContent, DropdownMenuPortal } from 'reka-ui';
-import { cn } from '../../../helpers/cn';
-import { dropdownMenuContentVariants, type DropdownMenuContentVariants } from './dropdown-menu';
+import { cn } from '../../../helpers/cn.js';
+import { dropdownMenuContentVariants, type DropdownMenuContentVariants } from './dropdown-menu.js';
 
 type DropdownSide = 'top' | 'right' | 'bottom' | 'left';
 type DropdownAlign = 'start' | 'center' | 'end';

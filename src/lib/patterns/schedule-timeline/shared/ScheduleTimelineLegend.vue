@@ -29,8 +29,8 @@
 </template>
 
 <script setup lang="ts">
-import type { ScheduleTimelineLegendItem } from '../schedule-timeline';
-import { ScheduleTimelineZ as Z } from '../utils';
+import type { ScheduleTimelineLegendItem } from '../schedule-timeline.js';
+import { ScheduleTimelineZ as Z } from '../utils.js';
 import ScheduleTimelineIndicator from './ScheduleTimelineIndicator.vue';
 
 defineProps<{

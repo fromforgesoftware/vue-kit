@@ -74,10 +74,10 @@ import { ref, computed, watch } from 'vue';
 import { ArrowRight } from '@lucide/vue';
 import { VisuallyHidden, DialogTitle, DialogDescription } from 'reka-ui';
 import Icon from '../../general/icon/Icon.vue';
-import { cn } from '../../../helpers/cn';
-import { Dialog } from '../../general/dialog';
+import { cn } from '../../../helpers/cn.js';
+import { Dialog } from '../../general/dialog/index.js';
 import DialogContent from '../../general/dialog/DialogContent.vue';
-import { Button } from '../../general/button';
+import { Button } from '../../general/button/index.js';
 import {
 	onboardingDialogContentVariants,
 	onboardingDialogMediaVariants,
@@ -87,7 +87,7 @@ import {
 	onboardingDialogFooterVariants,
 	onboardingDialogDotVariants,
 	type OnboardingStep,
-} from './onboarding-dialog';
+} from './onboarding-dialog.js';
 
 interface OnboardingDialogProps {
 	/** Array of onboarding step definitions */

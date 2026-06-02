@@ -1,2 +1,2 @@
 export { default as Slider } from './Slider.vue';
-export * from './slider';
+export * from './slider.js';

@@ -8,8 +8,8 @@
 <script setup lang="ts">
 import { computed, inject, ref } from 'vue';
 import { TabsList, type TabsListProps } from 'reka-ui';
-import { cn } from '../../../helpers/cn';
-import { tabsListVariants, TABS_VARIANT_KEY, type TabsVariant } from './tabs';
+import { cn } from '../../../helpers/cn.js';
+import { tabsListVariants, TABS_VARIANT_KEY, type TabsVariant } from './tabs.js';
 import TabsIndicatorVue from './TabsIndicator.vue';
 
 interface Props extends TabsListProps {

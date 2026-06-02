@@ -14,7 +14,7 @@ import DrawerStepClose from './DrawerStepClose.vue';
 import Button from '../button/Button.vue';
 import Input from '../../form/input/Input.vue';
 import Label from '../../form/label/Label.vue';
-import { expectNoHorizontalOverflow, forEachViewport } from '../../../test-utils/playHelpers';
+import { expectNoHorizontalOverflow, forEachViewport } from '../../../test-utils/playHelpers.js';
 
 const ALL_SIDES = ['left', 'right', 'top', 'bottom'] as const;
 const ALL_SIZES = ['sm', 'md', 'lg', 'xl', 'full'] as const;

@@ -70,14 +70,14 @@ import {
 	VisuallyHidden,
 } from 'reka-ui';
 import TooltipProvider from '../../general/tooltip/TooltipProvider.vue';
-import { cn } from '../../../helpers/cn';
-import { useSidebar, SIDEBAR_DRAWER_ID } from './useSidebar';
+import { cn } from '../../../helpers/cn.js';
+import { useSidebar, SIDEBAR_DRAWER_ID } from './useSidebar.js';
 import {
 	SIDEBAR_WIDTH,
 	SIDEBAR_WIDTH_COLLAPSED,
 	SIDEBAR_WIDTH_MOBILE,
 	sidebarVariants,
-} from './sidebar';
+} from './sidebar.js';
 
 interface SidebarProps {
 	class?: string;

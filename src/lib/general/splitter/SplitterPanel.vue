@@ -17,8 +17,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { SplitterPanel } from 'reka-ui';
-import { cn } from '../../../helpers/cn';
-import { splitterPanelVariants, type SplitterPanelSurface } from './splitter';
+import { cn } from '../../../helpers/cn.js';
+import { splitterPanelVariants, type SplitterPanelSurface } from './splitter.js';
 
 interface SplitterPanelProps {
 	id?: string;

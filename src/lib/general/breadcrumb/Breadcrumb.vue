@@ -6,8 +6,8 @@
 
 <script setup lang="ts">
 import { computed, provide, toRef } from 'vue';
-import { cn } from '../../../helpers/cn';
-import { breadcrumbVariants, BREADCRUMB_VARIANT_KEY, type BreadcrumbVariant } from './breadcrumb';
+import { cn } from '../../../helpers/cn.js';
+import { breadcrumbVariants, BREADCRUMB_VARIANT_KEY, type BreadcrumbVariant } from './breadcrumb.js';
 
 interface BreadcrumbProps {
 	variant?: BreadcrumbVariant;

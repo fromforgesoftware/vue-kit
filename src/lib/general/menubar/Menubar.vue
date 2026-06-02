@@ -7,8 +7,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { MenubarRoot } from 'reka-ui';
-import { cn } from '../../../helpers/cn';
-import { menubarVariants, type MenubarVariants } from './menubar';
+import { cn } from '../../../helpers/cn.js';
+import { menubarVariants, type MenubarVariants } from './menubar.js';
 
 interface MenubarProps {
 	size?: MenubarVariants['size'];

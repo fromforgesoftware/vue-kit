@@ -17,8 +17,8 @@
 
 <script setup lang="ts">
 import { computed, nextTick, onMounted, ref, useAttrs, watch } from 'vue';
-import { cn } from '../../../helpers/cn';
-import { textareaVariants, type TextareaVariants } from './textarea';
+import { cn } from '../../../helpers/cn.js';
+import { textareaVariants, type TextareaVariants } from './textarea.js';
 
 interface TextareaProps {
 	/** Visual style. Prefer the `error` boolean prop. */

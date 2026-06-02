@@ -6,8 +6,8 @@ import {
 	expectMinTargetSize,
 	expectNoHorizontalOverflow,
 	forEachViewport,
-} from '../../../test-utils/playHelpers';
-import type { ThemeOption } from './theme-manager';
+} from '../../../test-utils/playHelpers.js';
+import type { ThemeOption } from './theme-manager.js';
 
 // ── Module-level fixtures ───────────────────────────────────────────────────
 

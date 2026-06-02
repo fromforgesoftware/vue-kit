@@ -11,4 +11,4 @@ export { default as ContextMenuSub } from './ContextMenuSub.vue';
 export { default as ContextMenuSubTrigger } from './ContextMenuSubTrigger.vue';
 export { default as ContextMenuSubContent } from './ContextMenuSubContent.vue';
 export { default as ContextMenuShortcut } from './ContextMenuShortcut.vue';
-export * from './context-menu';
+export * from './context-menu.js';

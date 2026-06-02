@@ -15,8 +15,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { DropdownMenuSubContent, DropdownMenuPortal } from 'reka-ui';
-import { cn } from '../../../helpers/cn';
-import { dropdownMenuSubContentVariants } from './dropdown-menu';
+import { cn } from '../../../helpers/cn.js';
+import { dropdownMenuSubContentVariants } from './dropdown-menu.js';
 
 interface DropdownMenuSubContentProps {
 	sideOffset?: number;

@@ -5,7 +5,7 @@ import {
 	expectMinTargetSize,
 	expectNoHorizontalOverflow,
 	forEachViewport,
-} from '../../../test-utils/playHelpers';
+} from '../../../test-utils/playHelpers.js';
 
 interface MockItem {
 	id: number;

@@ -22,8 +22,8 @@ import { computed } from 'vue';
 import { MenubarCheckboxItem } from 'reka-ui';
 import { Check } from '@lucide/vue';
 import Icon from '../icon/Icon.vue';
-import { cn } from '../../../helpers/cn';
-import { menubarCheckboxItemVariants } from './menubar';
+import { cn } from '../../../helpers/cn.js';
+import { menubarCheckboxItemVariants } from './menubar.js';
 
 interface Props {
 	checked?: boolean | 'indeterminate';

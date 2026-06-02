@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { mount } from '@vue/test-utils';
 import { nextTick } from 'vue';
 import ChatPanel from './ChatPanel.vue';
-import type { ChatPanelMessage } from './chat-panel';
+import type { ChatPanelMessage } from './chat-panel.js';
 
 const baseMessages: ChatPanelMessage[] = [
 	{ id: 1, role: 'incoming', content: 'Hi' },

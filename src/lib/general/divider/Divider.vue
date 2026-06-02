@@ -27,7 +27,7 @@
 <script setup lang="ts">
 import { computed, useSlots } from 'vue';
 import { Separator } from 'reka-ui';
-import { cn } from '../../../helpers/cn';
+import { cn } from '../../../helpers/cn.js';
 import {
 	dividerVariants,
 	dividerWithLabelVariants,
@@ -37,7 +37,7 @@ import {
 	type DividerVariant,
 	type DividerTone,
 	type DividerInset,
-} from './divider';
+} from './divider.js';
 
 interface DividerProps {
 	orientation?: DividerOrientation;

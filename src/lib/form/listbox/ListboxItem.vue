@@ -23,8 +23,8 @@ import { computed } from 'vue';
 import { ListboxItem, ListboxItemIndicator } from 'reka-ui';
 import { Check } from '@lucide/vue';
 import Icon from '../../general/icon/Icon.vue';
-import { cn } from '../../../helpers/cn';
-import { listboxItemVariants } from './listbox';
+import { cn } from '../../../helpers/cn.js';
+import { listboxItemVariants } from './listbox.js';
 
 interface ListboxItemProps {
 	/** The value submitted with the form when this item is selected. */

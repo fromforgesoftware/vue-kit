@@ -42,7 +42,7 @@
 
 <script setup lang="ts">
 import { computed, inject, provide, ref, onMounted, onUnmounted, useId } from 'vue';
-import { cn } from '../../../helpers/cn';
+import { cn } from '../../../helpers/cn.js';
 import {
 	drawerKey,
 	drawerPanelKey,
@@ -53,8 +53,8 @@ import {
 	PANEL_GAP_PX,
 	TRANSITION_MS,
 	type DrawerPanelVariants,
-} from './drawer';
-import { ROOT_PANEL } from './useDrawer';
+} from './drawer.js';
+import { ROOT_PANEL } from './useDrawer.js';
 
 interface DrawerPanelProps {
 	/** Unique panel name. Omit for the root panel. */

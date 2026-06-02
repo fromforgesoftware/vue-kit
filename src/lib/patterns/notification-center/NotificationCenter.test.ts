@@ -6,7 +6,7 @@ import NotificationCenterItem from './NotificationCenterItem.vue';
 import NotificationCenterActions from './NotificationCenterActions.vue';
 import NotificationCenterEmpty from './NotificationCenterEmpty.vue';
 import NotificationCenterList from './NotificationCenterList.vue';
-import type { NotificationCenterItemData, NotificationCenterTab } from './notification-center';
+import type { NotificationCenterItemData, NotificationCenterTab } from './notification-center.js';
 
 const sampleItems: NotificationCenterItemData[] = [
 	{

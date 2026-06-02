@@ -7,8 +7,8 @@
 <script setup lang="ts">
 import { computed, inject } from 'vue';
 import { ToolbarLink } from 'reka-ui';
-import { cn } from '../../../helpers/cn';
-import { toolbarLinkVariants, TOOLBAR_SIZE_KEY, type ToolbarSize } from './toolbar';
+import { cn } from '../../../helpers/cn.js';
+import { toolbarLinkVariants, TOOLBAR_SIZE_KEY, type ToolbarSize } from './toolbar.js';
 
 interface ToolbarLinkProps {
 	/** The URL that the link points to. */

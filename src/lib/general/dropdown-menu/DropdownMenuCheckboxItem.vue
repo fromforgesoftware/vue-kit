@@ -15,9 +15,9 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { DropdownMenuCheckboxItem } from 'reka-ui';
-import { cn } from '../../../helpers/cn';
+import { cn } from '../../../helpers/cn.js';
 import Checkbox from '../../form/checkbox/Checkbox.vue';
-import { dropdownMenuCheckboxItemVariants } from './dropdown-menu';
+import { dropdownMenuCheckboxItemVariants } from './dropdown-menu.js';
 
 interface Props {
 	checked?: boolean | 'indeterminate';

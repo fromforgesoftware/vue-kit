@@ -11,9 +11,9 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import { cn } from '../../../helpers/cn';
-import { useSidebar } from './useSidebar';
-import { sidebarRailVariants } from './sidebar';
+import { cn } from '../../../helpers/cn.js';
+import { useSidebar } from './useSidebar.js';
+import { sidebarRailVariants } from './sidebar.js';
 
 interface SidebarRailProps {
 	class?: string;

@@ -54,20 +54,20 @@
 
 <script setup lang="ts">
 import { computed, provide, ref } from 'vue';
-import { useResponsive } from '../../../composables/useResponsive';
+import { useResponsive } from '../../../composables/useResponsive.js';
 import { Doughnut } from 'vue-chartjs';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, DoughnutController } from 'chart.js';
 import type { ChartOptions } from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import type { Context } from 'chartjs-plugin-datalabels';
-import { cn } from '../../../helpers/cn';
-import { resolveCssColor } from '../../../helpers/resolveCssColor';
+import { cn } from '../../../helpers/cn.js';
+import { resolveCssColor } from '../../../helpers/resolveCssColor.js';
 import {
 	donutChartVariants,
 	DONUT_CHART_VARIANT_KEY,
 	type DonutChartVariant,
 	type DonutSegment,
-} from './donut-chart';
+} from './donut-chart.js';
 import DonutChartLegend from './DonutChartLegend.vue';
 
 ChartJS.register(ArcElement, Tooltip, Legend, DoughnutController);

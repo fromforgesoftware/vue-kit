@@ -6,8 +6,8 @@
 
 <script setup lang="ts">
 import { computed, inject, ref } from 'vue';
-import { cn } from '../../../helpers/cn';
-import { tableHeadVariants, TABLE_DENSITY_KEY, type TableAlign, type TableDensity } from './table';
+import { cn } from '../../../helpers/cn.js';
+import { tableHeadVariants, TABLE_DENSITY_KEY, type TableAlign, type TableDensity } from './table.js';
 
 interface TableHeadProps {
 	/** Override density for this header cell (defaults to the parent table's). */

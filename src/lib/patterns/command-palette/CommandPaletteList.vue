@@ -27,8 +27,8 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import { cn } from '../../../helpers/cn';
-import { commandPaletteListVariants } from './command-palette';
+import { cn } from '../../../helpers/cn.js';
+import { commandPaletteListVariants } from './command-palette.js';
 import Skeleton from '../../general/skeleton/Skeleton.vue';
 
 const skeletonWidths = ['70%', '55%', '80%', '45%', '65%'];

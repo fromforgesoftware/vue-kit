@@ -38,15 +38,15 @@
 import { ref, watch } from 'vue';
 import { CircleCheck } from '@lucide/vue';
 import Icon from '../../general/icon/Icon.vue';
-import { Popover, PopoverTrigger, PopoverContent } from '../../general/popover';
-import { Button } from '../../general/button';
-import { Textarea } from '../../form/textarea';
-import type { ButtonVariant } from '../../general/button/button';
+import { Popover, PopoverTrigger, PopoverContent } from '../../general/popover/index.js';
+import { Button } from '../../general/button/index.js';
+import { Textarea } from '../../form/textarea/index.js';
+import type { ButtonVariant } from '../../general/button/button.js';
 import {
 	feedbackPopoverTitleVariants,
 	feedbackPopoverActionsVariants,
 	feedbackPopoverSuccessVariants,
-} from './feedback-popover';
+} from './feedback-popover.js';
 
 interface Props {
 	title?: string;

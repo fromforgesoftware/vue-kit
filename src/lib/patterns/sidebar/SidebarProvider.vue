@@ -6,14 +6,14 @@
 
 <script setup lang="ts">
 import { computed, provide, toRef } from 'vue';
-import { cn } from '../../../helpers/cn';
-import { createSidebarContext } from './useSidebar';
+import { cn } from '../../../helpers/cn.js';
+import { createSidebarContext } from './useSidebar.js';
 import {
 	SIDEBAR_CONTEXT_KEY,
 	sidebarProviderVariants,
 	type SidebarCollapsible,
 	type SidebarSide,
-} from './sidebar';
+} from './sidebar.js';
 
 interface SidebarProviderProps {
 	defaultOpen?: boolean;

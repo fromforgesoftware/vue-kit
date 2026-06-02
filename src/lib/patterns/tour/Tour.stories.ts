@@ -2,8 +2,8 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { ref } from 'vue';
 import { fn, expect, userEvent } from 'storybook/test';
 import Tour from './Tour.vue';
-import type { TourStep } from './tour';
-import { expectMinTargetSize, inBody } from '../../../test-utils/playHelpers';
+import type { TourStep } from './tour.js';
+import { expectMinTargetSize, inBody } from '../../../test-utils/playHelpers.js';
 
 // ── Module-level fixtures ──────────────────────────────────────────────
 

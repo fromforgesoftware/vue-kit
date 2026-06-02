@@ -14,8 +14,8 @@
 import { computed } from 'vue';
 import { ArrowUp, ArrowDown, Minus } from '@lucide/vue';
 import Icon from '../icon/Icon.vue';
-import { cn } from '../../../helpers/cn';
-import { statTrendVariants, type StatTrendVariants } from './stat-trend';
+import { cn } from '../../../helpers/cn.js';
+import { statTrendVariants, type StatTrendVariants } from './stat-trend.js';
 
 interface StatTrendProps {
 	/** The change value to display. Sign is ignored — direction drives the icon. */

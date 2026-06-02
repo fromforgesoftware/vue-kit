@@ -7,4 +7,4 @@ export {
 	type AvatarFallbackVariants,
 	type AvatarSize,
 	type AvatarShape,
-} from './avatar';
+} from './avatar.js';

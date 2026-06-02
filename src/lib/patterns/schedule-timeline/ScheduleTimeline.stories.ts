@@ -11,13 +11,13 @@ import type {
 	ScheduleTimelineDepartment,
 	ScheduleTimelineEmployeeRow,
 	ScheduleTimelineShift,
-} from './schedule-timeline';
+} from './schedule-timeline.js';
 import {
 	forEachViewport,
 	expectNoHorizontalOverflow,
 	expectMinTargetSize,
 	pointerDragBy,
-} from '../../../test-utils/playHelpers';
+} from '../../../test-utils/playHelpers.js';
 
 // ── Module-level fixtures ────────────────────────────────────────────────────
 

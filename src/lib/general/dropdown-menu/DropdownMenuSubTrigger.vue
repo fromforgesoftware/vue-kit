@@ -15,8 +15,8 @@ import { computed } from 'vue';
 import { DropdownMenuSubTrigger } from 'reka-ui';
 import { ChevronRight } from '@lucide/vue';
 import Icon from '../icon/Icon.vue';
-import { cn } from '../../../helpers/cn';
-import { dropdownMenuSubTriggerVariants } from './dropdown-menu';
+import { cn } from '../../../helpers/cn.js';
+import { dropdownMenuSubTriggerVariants } from './dropdown-menu.js';
 
 interface DropdownMenuSubTriggerProps {
 	/** When true, prevents the user from interacting with the item. */

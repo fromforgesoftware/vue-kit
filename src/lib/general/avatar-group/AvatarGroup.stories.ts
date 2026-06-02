@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { expect } from 'storybook/test';
 import AvatarGroup from './AvatarGroup.vue';
-import { expectNoHorizontalOverflow, forEachViewport } from '../../../test-utils/playHelpers';
-import type { AvatarGroupItem } from './avatar-group';
+import { expectNoHorizontalOverflow, forEachViewport } from '../../../test-utils/playHelpers.js';
+import type { AvatarGroupItem } from './avatar-group.js';
 
 const ALL_SIZES = ['xs', 'sm', 'default', 'lg', 'xl'] as const;
 const ALL_SHAPES = ['circle', 'rounded', 'square'] as const;

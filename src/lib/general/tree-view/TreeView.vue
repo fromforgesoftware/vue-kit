@@ -64,14 +64,14 @@ import { computed } from 'vue';
 import { TreeRoot, TreeItem } from 'reka-ui';
 import { ChevronRight, File, Folder, FolderOpen } from '@lucide/vue';
 import Icon from '../icon/Icon.vue';
-import { cn } from '../../../helpers/cn';
+import { cn } from '../../../helpers/cn.js';
 import {
 	treeViewVariants,
 	treeViewItemVariants,
 	treeViewChevronVariants,
 	type TreeNode,
 	type TreeViewSize,
-} from './tree-view';
+} from './tree-view.js';
 
 interface TreeViewProps {
 	data: TreeNode[];

@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { expect } from 'storybook/test';
 import ChatBubble from './ChatBubble.vue';
-import { expectNoHorizontalOverflow, forEachViewport } from '../../../test-utils/playHelpers';
+import { expectNoHorizontalOverflow, forEachViewport } from '../../../test-utils/playHelpers.js';
 
 type ChatBubblePropsAndCustomArgs = InstanceType<typeof ChatBubble>['$props'] & {
 	message?: string;

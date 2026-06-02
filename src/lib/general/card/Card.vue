@@ -6,8 +6,8 @@
 
 <script setup lang="ts">
 import { computed, provide, toRef, type CSSProperties } from 'vue';
-import { cn } from '../../../helpers/cn';
-import { cardVariants, CARD_VARIANT_KEY, type CardVariants, type CardVariant } from './card';
+import { cn } from '../../../helpers/cn.js';
+import { cardVariants, CARD_VARIANT_KEY, type CardVariants, type CardVariant } from './card.js';
 
 interface CardProps {
 	/** Surface style. */

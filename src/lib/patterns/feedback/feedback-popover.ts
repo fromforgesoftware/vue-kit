@@ -1,5 +1,5 @@
 import { cva } from 'class-variance-authority';
-import type { ButtonVariant } from '../../general/button/button';
+import type { ButtonVariant } from '../../general/button/button.js';
 
 export interface FeedbackPopoverProps {
 	/** Popover heading text. */

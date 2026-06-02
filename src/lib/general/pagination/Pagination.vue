@@ -91,7 +91,7 @@ import {
 	MoreHorizontal,
 } from '@lucide/vue';
 import Icon from '../icon/Icon.vue';
-import { cn } from '../../../helpers/cn';
+import { cn } from '../../../helpers/cn.js';
 import {
 	paginationVariants,
 	paginationContentVariants,
@@ -99,7 +99,7 @@ import {
 	paginationPreviousVariants,
 	paginationNextVariants,
 	paginationEllipsisVariants,
-} from './pagination';
+} from './pagination.js';
 
 interface PaginationProps {
 	/**

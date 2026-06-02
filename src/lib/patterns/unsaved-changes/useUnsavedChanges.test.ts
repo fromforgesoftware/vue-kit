@@ -2,7 +2,7 @@ import { describe, it, expect, vi } from 'vitest';
 import { mount, flushPromises } from '@vue/test-utils';
 import { defineComponent, h, nextTick, ref, type Ref } from 'vue';
 import { createRouter, createMemoryHistory, type Router } from 'vue-router';
-import { useUnsavedChanges, type UseUnsavedChangesReturn } from './useUnsavedChanges';
+import { useUnsavedChanges, type UseUnsavedChangesReturn } from './useUnsavedChanges.js';
 
 interface Setup {
 	api: UseUnsavedChangesReturn;

@@ -7,8 +7,8 @@
 <script setup lang="ts">
 import { computed, inject, ref } from 'vue';
 import { AccordionItem } from 'reka-ui';
-import { cn } from '../../../helpers/cn';
-import { accordionItemVariants, ACCORDION_VARIANT_KEY, type AccordionVariant } from './accordion';
+import { cn } from '../../../helpers/cn.js';
+import { accordionItemVariants, ACCORDION_VARIANT_KEY, type AccordionVariant } from './accordion.js';
 
 interface AccordionItemProps {
 	/**

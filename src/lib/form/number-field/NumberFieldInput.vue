@@ -10,13 +10,13 @@
 <script setup lang="ts">
 import { computed, inject } from 'vue';
 import { NumberFieldInput } from 'reka-ui';
-import { cn } from '../../../helpers/cn';
+import { cn } from '../../../helpers/cn.js';
 import {
 	numberFieldInputVariants,
 	type NumberFieldSize,
 	type NumberFieldVariant,
-} from './number-field';
-import { numberFieldContextKey } from './context';
+} from './number-field.js';
+import { numberFieldContextKey } from './context.js';
 
 interface NumberFieldInputProps {
 	/** Override size; defaults to context (the parent NumberField). */

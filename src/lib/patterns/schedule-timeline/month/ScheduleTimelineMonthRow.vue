@@ -126,7 +126,7 @@
 
 <script setup lang="ts">
 import type { ClassValue } from 'clsx';
-import { cn } from '../../../../helpers/cn';
+import { cn } from '../../../../helpers/cn.js';
 import Avatar from '../../../general/avatar/Avatar.vue';
 import Button from '../../../general/button/Button.vue';
 import TimeRangeBar from '../../time-range-bar/TimeRangeBar.vue';
@@ -134,14 +134,14 @@ import type {
 	ScheduleTimelineEmployeeRow as ScheduleTimelineEmployeeRowData,
 	ScheduleTimelineDayCell,
 	ScheduleTimelineShift,
-} from '../schedule-timeline';
-import { shiftChildrenToSegments, shiftVariantToSegmentVariant } from '../schedule-timeline';
+} from '../schedule-timeline.js';
+import { shiftChildrenToSegments, shiftVariantToSegmentVariant } from '../schedule-timeline.js';
 import {
 	getMonthOverflow,
 	MAX_VISIBLE_MONTH_SHIFTS,
 	shiftStartSec,
 	ScheduleTimelineZ as Z,
-} from '../utils';
+} from '../utils.js';
 
 const props = withDefaults(
 	defineProps<{

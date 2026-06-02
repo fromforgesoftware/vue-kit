@@ -29,8 +29,8 @@
 </template>
 
 <script setup lang="ts">
-import { cn } from '../../../helpers/cn';
-import { authCardVariants } from './authentication';
+import { cn } from '../../../helpers/cn.js';
+import { authCardVariants } from './authentication.js';
 
 interface AuthCardProps {
 	class?: string;

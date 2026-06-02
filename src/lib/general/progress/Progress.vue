@@ -16,8 +16,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { ProgressIndicator, ProgressRoot, type ProgressRootProps } from 'reka-ui';
-import { cn } from '../../../helpers/cn';
-import { progressVariants, progressIndicatorVariants, type ProgressVariants } from './progress';
+import { cn } from '../../../helpers/cn.js';
+import { progressVariants, progressIndicatorVariants, type ProgressVariants } from './progress.js';
 
 interface Props extends /* @vue-ignore */ ProgressRootProps {
 	modelValue?: number | null;

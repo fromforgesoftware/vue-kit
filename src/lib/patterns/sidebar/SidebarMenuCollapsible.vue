@@ -106,10 +106,10 @@ import {
 	TooltipPortal,
 	TooltipContent,
 } from 'reka-ui';
-import { cn } from '../../../helpers/cn';
-import { useSidebar } from './useSidebar';
-import { sidebarMenuButtonVariants } from './sidebar';
-import { tooltipContentVariants } from '../../general/tooltip/tooltip';
+import { cn } from '../../../helpers/cn.js';
+import { useSidebar } from './useSidebar.js';
+import { sidebarMenuButtonVariants } from './sidebar.js';
+import { tooltipContentVariants } from '../../general/tooltip/tooltip.js';
 import SidebarMenuButton from './SidebarMenuButton.vue';
 import SidebarMenuSub from './SidebarMenuSub.vue';
 import SidebarMenuSubItem from './SidebarMenuSubItem.vue';

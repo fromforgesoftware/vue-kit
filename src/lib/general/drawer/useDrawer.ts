@@ -1,6 +1,6 @@
 import { ref, nextTick, onUnmounted } from 'vue';
-import type { DrawerContext, DrawerSide } from './drawer';
-import { TRANSITION_MS } from './drawer';
+import type { DrawerContext, DrawerSide } from './drawer.js';
+import { TRANSITION_MS } from './drawer.js';
 
 const ROOT_PANEL = '__root__';
 

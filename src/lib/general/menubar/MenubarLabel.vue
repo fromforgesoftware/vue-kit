@@ -7,8 +7,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { MenubarLabel } from 'reka-ui';
-import { cn } from '../../../helpers/cn';
-import { menubarLabelVariants } from './menubar';
+import { cn } from '../../../helpers/cn.js';
+import { menubarLabelVariants } from './menubar.js';
 
 interface MenubarLabelProps {
 	/** When true, the label is visually indented. */

@@ -9,7 +9,7 @@ import {
 	type MaybeRefOrGetter,
 } from 'vue';
 import { onBeforeRouteLeave } from 'vue-router';
-import { useUnsavedChangesRegistry } from './unsavedChangesRegistry';
+import { useUnsavedChangesRegistry } from './unsavedChangesRegistry.js';
 
 export type FormGuardMode = 'dialog' | 'banner';
 

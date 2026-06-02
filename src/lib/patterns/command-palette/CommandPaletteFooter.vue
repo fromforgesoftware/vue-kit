@@ -23,10 +23,10 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import { cn } from '../../../helpers/cn';
+import { cn } from '../../../helpers/cn.js';
 import Kbd from '../../general/kbd/Kbd.vue';
 import KbdGroup from '../../general/kbd/KbdGroup.vue';
-import { commandPaletteFooterVariants } from './command-palette';
+import { commandPaletteFooterVariants } from './command-palette.js';
 
 interface CommandPaletteFooterProps {
 	class?: string;

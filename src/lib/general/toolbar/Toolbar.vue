@@ -7,7 +7,7 @@
 <script setup lang="ts">
 import { computed, provide, toRef } from 'vue';
 import { ToolbarRoot } from 'reka-ui';
-import { cn } from '../../../helpers/cn';
+import { cn } from '../../../helpers/cn.js';
 import {
 	toolbarVariants,
 	TOOLBAR_VARIANT_KEY,
@@ -16,7 +16,7 @@ import {
 	type ToolbarVariant,
 	type ToolbarSize,
 	type ToolbarOrientation,
-} from './toolbar';
+} from './toolbar.js';
 
 interface ToolbarProps {
 	/** Layout axis. `vertical` stacks items in a column. */

@@ -4,7 +4,7 @@ import Tabs from './Tabs.vue';
 import TabsList from './TabsList.vue';
 import TabsTrigger from './TabsTrigger.vue';
 import TabsContent from './TabsContent.vue';
-import { expectNoHorizontalOverflow, forEachViewport } from '../../../test-utils/playHelpers';
+import { expectNoHorizontalOverflow, forEachViewport } from '../../../test-utils/playHelpers.js';
 
 const ALL_VARIANTS = ['default', 'pill', 'underlined', 'ghost'] as const;
 const ALL_SIZES = ['sm', 'default'] as const;

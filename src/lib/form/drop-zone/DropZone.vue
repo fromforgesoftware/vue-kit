@@ -37,8 +37,8 @@
 import { computed, ref } from 'vue';
 import { Upload } from '@lucide/vue';
 import Icon from '../../general/icon/Icon.vue';
-import { cn } from '../../../helpers/cn';
-import { dropZoneVariants } from './drop-zone';
+import { cn } from '../../../helpers/cn.js';
+import { dropZoneVariants } from './drop-zone.js';
 
 interface DropZoneProps {
 	accept?: string;

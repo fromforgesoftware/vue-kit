@@ -17,7 +17,7 @@ export {
 	type AutocompleteFetchPage,
 	type AutocompleteFetcher,
 	type AutocompleteResolver,
-} from './autocomplete';
+} from './autocomplete.js';
 export {
 	useEntityPicker,
 	type AsyncTuple,
@@ -25,4 +25,4 @@ export {
 	type PickableSearchResult,
 	type UseEntityPickerInput,
 	type UseEntityPickerResult,
-} from './useEntityPicker';
+} from './useEntityPicker.js';

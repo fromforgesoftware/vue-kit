@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import { nextTick } from 'vue';
-import { useDataTableState } from './useDataTableState';
+import { useDataTableState } from './useDataTableState.js';
 
 describe('useDataTableState', () => {
 	beforeEach(() => {

@@ -172,11 +172,11 @@ import {
 } from 'reka-ui';
 import type { DateValue } from '@internationalized/date';
 import { type ForgeDate, EDateFormat } from '@fromforgesoftware/ts-kit';
-import { cn } from '../../../helpers/cn';
-import { toRekaDate, calendarDateToForgeDate } from '../_adapter';
+import { cn } from '../../../helpers/cn.js';
+import { toRekaDate, calendarDateToForgeDate } from '../_adapter.js';
 import Button from '../../general/button/Button.vue';
-import type { ButtonSize } from '../../general/button/button';
-import type { YearPickerVariants } from './year-picker';
+import type { ButtonSize } from '../../general/button/button.js';
+import type { YearPickerVariants } from './year-picker.js';
 import {
 	yearPickerRootVariants,
 	yearPickerContentVariants,
@@ -187,7 +187,7 @@ import {
 	yearPickerGridRowVariants,
 	yearPickerCellVariants,
 	yearPickerCellTriggerVariants,
-} from './year-picker';
+} from './year-picker.js';
 
 interface Props {
 	/** Selected year. */

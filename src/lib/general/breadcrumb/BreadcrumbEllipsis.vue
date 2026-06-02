@@ -49,8 +49,8 @@ import DropdownMenu from '../dropdown-menu/DropdownMenu.vue';
 import DropdownMenuTrigger from '../dropdown-menu/DropdownMenuTrigger.vue';
 import DropdownMenuContent from '../dropdown-menu/DropdownMenuContent.vue';
 import DropdownMenuItem from '../dropdown-menu/DropdownMenuItem.vue';
-import { cn } from '../../../helpers/cn';
-import { breadcrumbEllipsisVariants } from './breadcrumb';
+import { cn } from '../../../helpers/cn.js';
+import { breadcrumbEllipsisVariants } from './breadcrumb.js';
 
 export interface BreadcrumbEllipsisItem {
 	/** Visible label */

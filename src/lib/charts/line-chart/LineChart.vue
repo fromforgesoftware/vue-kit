@@ -25,10 +25,10 @@ import {
 	Legend,
 } from 'chart.js';
 import type { ChartData, ChartOptions } from 'chart.js';
-import { cn } from '../../../helpers/cn';
-import { resolveCssColor } from '../../../helpers/resolveCssColor';
-import { useResponsive } from '../../../composables/useResponsive';
-import { lineChartVariants, type LineChartData, type LineChartVariant } from './line-chart';
+import { cn } from '../../../helpers/cn.js';
+import { resolveCssColor } from '../../../helpers/resolveCssColor.js';
+import { useResponsive } from '../../../composables/useResponsive.js';
+import { lineChartVariants, type LineChartData, type LineChartVariant } from './line-chart.js';
 
 ChartJS.register(
 	CategoryScale,

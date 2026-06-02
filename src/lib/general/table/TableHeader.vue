@@ -6,8 +6,8 @@
 
 <script setup lang="ts">
 import { computed, inject, ref } from 'vue';
-import { cn } from '../../../helpers/cn';
-import { tableHeaderVariants, TABLE_STICKY_HEADER_KEY } from './table';
+import { cn } from '../../../helpers/cn.js';
+import { tableHeaderVariants, TABLE_STICKY_HEADER_KEY } from './table.js';
 
 interface TableHeaderProps {
 	/** Force sticky-header on or off, overriding the parent <Table>'s value. */

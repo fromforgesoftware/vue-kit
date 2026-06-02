@@ -78,14 +78,14 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 import { Check, ChevronDown, Clock, Wrench, X } from '@lucide/vue';
-import { cn } from '../../../helpers/cn';
+import { cn } from '../../../helpers/cn.js';
 import Badge from '../../general/badge/Badge.vue';
 import Collapsible from '../../general/collapsible/Collapsible.vue';
 import CollapsibleTrigger from '../../general/collapsible/CollapsibleTrigger.vue';
 import CollapsibleContent from '../../general/collapsible/CollapsibleContent.vue';
 import Spinner from '../../general/spinner/Spinner.vue';
-import type { BadgeVariant } from '../../general/badge/badge';
-import type { ToolCallStepStatus } from './tool-call-step';
+import type { BadgeVariant } from '../../general/badge/badge.js';
+import type { ToolCallStepStatus } from './tool-call-step.js';
 
 defineOptions({ inheritAttrs: false });
 

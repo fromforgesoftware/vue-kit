@@ -3,13 +3,13 @@ import { ref } from 'vue';
 import { fn, expect, userEvent } from 'storybook/test';
 import { Calendar, AlertTriangle, CheckCircle, UserPlus, MessageCircle } from '@lucide/vue';
 import NotificationCenter from './NotificationCenter.vue';
-import type { NotificationCenterItemData, NotificationCenterTab } from './notification-center';
+import type { NotificationCenterItemData, NotificationCenterTab } from './notification-center.js';
 import {
 	expectMinTargetSize,
 	expectNoHorizontalOverflow,
 	forEachViewport,
 	inBody,
-} from '../../../test-utils/playHelpers';
+} from '../../../test-utils/playHelpers.js';
 
 // ── Module-level fixtures ────────────────────────────────────────────────
 

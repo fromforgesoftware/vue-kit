@@ -82,7 +82,7 @@ import AuthCard from './AuthCard.vue';
 import Button from '../../general/button/Button.vue';
 import PinInput from '../../form/pin-input/PinInput.vue';
 import Badge from '../../general/badge/Badge.vue';
-import type { AuthOTPVerificationProps } from './authentication';
+import type { AuthOTPVerificationProps } from './authentication.js';
 
 /**
  * AuthOTPVerification — 6-digit OTP entry with countdown timer and error shake animation.

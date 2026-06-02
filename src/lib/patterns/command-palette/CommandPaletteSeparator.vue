@@ -9,8 +9,8 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import { cn } from '../../../helpers/cn';
-import { commandPaletteSeparatorVariants } from './command-palette';
+import { cn } from '../../../helpers/cn.js';
+import { commandPaletteSeparatorVariants } from './command-palette.js';
 
 interface CommandPaletteSeparatorProps {
 	class?: string;

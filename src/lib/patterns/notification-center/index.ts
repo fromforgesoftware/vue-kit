@@ -14,4 +14,4 @@ export {
 	type NotificationCenterItemData,
 	type NotificationCenterTab,
 	type NotificationCenterVariant,
-} from './notification-center';
+} from './notification-center.js';

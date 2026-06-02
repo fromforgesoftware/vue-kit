@@ -37,7 +37,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { ForgeDate, EDateFormat } from '@fromforgesoftware/ts-kit';
-import { cn } from '../../../helpers/cn';
+import { cn } from '../../../helpers/cn.js';
 import Spinner from '../spinner/Spinner.vue';
 import {
 	chatBubbleVariants,
@@ -45,7 +45,7 @@ import {
 	chatBubbleTimeVariants,
 	type ChatBubbleDirection,
 	type ChatBubbleSize,
-} from './chat-bubble';
+} from './chat-bubble.js';
 
 interface ChatBubbleProps {
 	direction: ChatBubbleDirection;

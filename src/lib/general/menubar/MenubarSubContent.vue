@@ -15,8 +15,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { MenubarSubContent, MenubarPortal } from 'reka-ui';
-import { cn } from '../../../helpers/cn';
-import { menubarSubContentVariants } from './menubar';
+import { cn } from '../../../helpers/cn.js';
+import { menubarSubContentVariants } from './menubar.js';
 
 interface MenubarSubContentProps {
 	sideOffset?: number;

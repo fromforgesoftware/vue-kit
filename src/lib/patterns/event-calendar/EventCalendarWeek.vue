@@ -156,7 +156,7 @@
 <script setup lang="ts">
 import { computed, ref, toRef } from 'vue';
 import { ForgeDate, getWeekStart as getWeekStartPref } from '@fromforgesoftware/ts-kit';
-import { cn } from '../../../helpers/cn';
+import { cn } from '../../../helpers/cn.js';
 import EventCalendarEvent from './EventCalendarEvent.vue';
 import {
 	eventCalendarTimedEventVariants,
@@ -167,7 +167,7 @@ import {
 	type EventCalendarEventClickPayload,
 	type EventCalendarEventHoverPayload,
 	type EventCalendarSlotClickPayload,
-} from './event-calendar';
+} from './event-calendar.js';
 import {
 	getWeekStart,
 	isOnDate,
@@ -179,7 +179,7 @@ import {
 	useNowLine,
 	useAutoScroll,
 	type PositionedEvent,
-} from './composables/useEventCalendarGrid';
+} from './composables/useEventCalendarGrid.js';
 
 interface Props {
 	selectedDate: ForgeDate;

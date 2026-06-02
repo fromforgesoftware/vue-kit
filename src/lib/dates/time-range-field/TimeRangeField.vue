@@ -99,15 +99,15 @@
 import { computed, ref } from 'vue';
 import { TimeRangeFieldRoot, TimeRangeFieldInput } from 'reka-ui';
 import { type ForgeDate, getHourCycle } from '@fromforgesoftware/ts-kit';
-import { cn } from '../../../helpers/cn';
+import { cn } from '../../../helpers/cn.js';
 import type { DateValue } from '@internationalized/date';
-import { hiveDateToCalendarDateTime, calendarDateToForgeDate } from '../_adapter';
+import { hiveDateToCalendarDateTime, calendarDateToForgeDate } from '../_adapter.js';
 import {
 	timeRangeFieldRootVariants,
 	timeRangeFieldInputVariants,
 	timeRangeFieldSeparatorVariants,
 	type TimeRangeFieldVariants,
-} from './time-range-field';
+} from './time-range-field.js';
 import DayPeriodRangeToggle from '../day-period-range-toggle/DayPeriodRangeToggle.vue';
 
 interface Props {

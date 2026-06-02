@@ -210,11 +210,11 @@ import {
 } from 'reka-ui';
 import { CalendarDate, type DateValue } from '@internationalized/date';
 import { type ForgeDate, EDateFormat, getWeekStartForCalendar } from '@fromforgesoftware/ts-kit';
-import { cn } from '../../../helpers/cn';
-import { toRekaDate, calendarDateToForgeDate } from '../_adapter';
-import { buttonVariants } from '../../general/button/button';
+import { cn } from '../../../helpers/cn.js';
+import { toRekaDate, calendarDateToForgeDate } from '../_adapter.js';
+import { buttonVariants } from '../../general/button/button.js';
 import DatePickerPresets from './DatePickerPresets.vue';
-import type { DatePickerPreset, DatePickerVariants } from './date-picker';
+import type { DatePickerPreset, DatePickerVariants } from './date-picker.js';
 import {
 	datePickerFieldVariants,
 	datePickerInputVariants,
@@ -229,7 +229,7 @@ import {
 	datePickerHeadCellVariants,
 	datePickerCellVariants,
 	datePickerCellTriggerVariants,
-} from './date-picker';
+} from './date-picker.js';
 
 interface Props {
 	/** Selected date (or null when nothing is selected). */

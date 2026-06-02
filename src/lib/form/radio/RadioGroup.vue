@@ -20,8 +20,8 @@
 <script setup lang="ts">
 import { computed, provide } from 'vue';
 import { RadioGroupRoot } from 'reka-ui';
-import { cn } from '../../../helpers/cn';
-import { radioGroupVariants, type RadioOrientation, type RadioSize } from './radio';
+import { cn } from '../../../helpers/cn.js';
+import { radioGroupVariants, type RadioOrientation, type RadioSize } from './radio.js';
 
 interface RadioGroupProps {
 	/** v-model binding for the selected value. */

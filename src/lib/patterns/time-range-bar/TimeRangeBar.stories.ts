@@ -2,12 +2,12 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { fn, expect, userEvent } from 'storybook/test';
 import { Coffee, UtensilsCrossed, Clock } from '@lucide/vue';
 import TimeRangeBar from './TimeRangeBar.vue';
-import type { Segment } from './time-range-bar';
+import type { Segment } from './time-range-bar.js';
 import {
 	forEachViewport,
 	expectNoHorizontalOverflow,
 	pointerDragBy,
-} from '../../../test-utils/playHelpers';
+} from '../../../test-utils/playHelpers.js';
 
 const MORNING_SEGMENTS: Segment[] = [
 	{

@@ -150,7 +150,7 @@
 import { computed, onMounted, onScopeDispose, shallowRef, toRef, watch } from 'vue';
 import type { ClassValue } from 'clsx';
 import { ForgeTime, EDateFormat, type ForgeDate } from '@fromforgesoftware/ts-kit';
-import { cn } from '../../../../helpers/cn';
+import { cn } from '../../../../helpers/cn.js';
 import type {
 	ChildHoverEvent,
 	ScheduleTimelineDepartment,
@@ -164,15 +164,15 @@ import type {
 	ShiftSegmentUpdateEvent,
 	ShiftSegmentSelectEvent,
 	ShiftBarClickEvent,
-} from '../schedule-timeline';
+} from '../schedule-timeline.js';
 import {
 	parseHHMMToSec,
 	computeStackedRowHeight,
 	selectionKey,
 	ScheduleTimelineZ as Z,
-} from '../utils';
-import { useScheduleTimelineLayout } from '../useScheduleTimelineLayout';
-import { useNowTick } from '../useNowTick';
+} from '../utils.js';
+import { useScheduleTimelineLayout } from '../useScheduleTimelineLayout.js';
+import { useNowTick } from '../useNowTick.js';
 import { ChevronDown, ChevronRight, LayoutGrid, Pencil } from '@lucide/vue';
 import ScheduleTimelineLegend from '../shared/ScheduleTimelineLegend.vue';
 import ScheduleTimelineNowIndicator from './ScheduleTimelineNowIndicator.vue';

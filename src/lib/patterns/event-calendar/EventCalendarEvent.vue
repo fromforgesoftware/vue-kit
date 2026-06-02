@@ -15,13 +15,13 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import Icon from '../../general/icon/Icon.vue';
-import { cn } from '../../../helpers/cn';
+import { cn } from '../../../helpers/cn.js';
 import {
 	eventCalendarEventVariants,
 	type EventCalendarItem,
 	type EventCalendarEventClickPayload,
 	type EventCalendarEventHoverPayload,
-} from './event-calendar';
+} from './event-calendar.js';
 
 interface Props {
 	item: EventCalendarItem;

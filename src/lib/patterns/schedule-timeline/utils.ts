@@ -1,11 +1,11 @@
 import type { ForgeDate } from '@fromforgesoftware/ts-kit';
-import { computeSegmentLanes } from '../time-range-bar';
+import { computeSegmentLanes } from '../time-range-bar/index.js';
 import type {
 	ScheduleTimelineDayCell,
 	ScheduleTimelineEmployeeRow,
 	ScheduleTimelineShift,
 	ScheduleTimelineShiftVariant,
-} from './schedule-timeline';
+} from './schedule-timeline.js';
 
 // Layout constants for the day view's absolute-positioned shift cards.
 // Centralised so DayView, DayRow, and DayShift agree on vertical math.

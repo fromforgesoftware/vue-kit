@@ -6,8 +6,8 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import { cn } from '../../helpers/cn';
-import { statCardGroupVariants, type StatCardGroupVariants } from './stat-card';
+import { cn } from '../../helpers/cn.js';
+import { statCardGroupVariants, type StatCardGroupVariants } from './stat-card.js';
 
 interface StatCardGroupProps {
 	/** Number of columns in the grid. */

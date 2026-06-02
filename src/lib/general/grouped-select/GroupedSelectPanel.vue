@@ -172,11 +172,11 @@
 import { ref, computed, watch } from 'vue';
 import { Search, CircleX, Check, ChevronLeft, ChevronRight } from '@lucide/vue';
 import Icon from '../icon/Icon.vue';
-import { useResponsive } from '../../../composables/useResponsive';
-import { cn } from '../../../helpers/cn';
+import { useResponsive } from '../../../composables/useResponsive.js';
+import { cn } from '../../../helpers/cn.js';
 import Badge from '../badge/Badge.vue';
 import ScrollArea from '../scroll-area/ScrollArea.vue';
-import type { GroupedItem, GroupedCategory } from './grouped-select';
+import type { GroupedItem, GroupedCategory } from './grouped-select.js';
 
 const { isMobile } = useResponsive();
 

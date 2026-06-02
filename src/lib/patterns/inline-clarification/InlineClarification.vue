@@ -83,7 +83,7 @@
 <script setup lang="ts">
 import { computed, ref, useId, watch } from 'vue';
 import { Check, HelpCircle } from '@lucide/vue';
-import { cn } from '../../../helpers/cn';
+import { cn } from '../../../helpers/cn.js';
 import Badge from '../../general/badge/Badge.vue';
 import Button from '../../general/button/Button.vue';
 import Label from '../../form/label/Label.vue';

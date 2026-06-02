@@ -122,13 +122,13 @@
  * ```
  */
 import { computed } from 'vue';
-import { cn } from '../../helpers/cn';
+import { cn } from '../../helpers/cn.js';
 import {
 	statCardVariants,
 	statCardLabelVariants,
 	statCardValueVariants,
 	type StatCardVariants,
-} from './stat-card';
+} from './stat-card.js';
 
 interface StatCardProps {
 	/** The metric label displayed above the value. */

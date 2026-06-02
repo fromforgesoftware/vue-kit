@@ -8,7 +8,7 @@
 
 <script setup lang="ts">
 import { computed, provide, toRef } from 'vue';
-import { cn } from '../../../helpers/cn';
+import { cn } from '../../../helpers/cn.js';
 import {
 	tableVariants,
 	tableWrapperVariants,
@@ -16,7 +16,7 @@ import {
 	TABLE_STICKY_HEADER_KEY,
 	type TableDensity,
 	type TableSurface,
-} from './table';
+} from './table.js';
 
 interface TableProps {
 	/** Padding/typography density. Propagates to <TableHead> and <TableCell>. */

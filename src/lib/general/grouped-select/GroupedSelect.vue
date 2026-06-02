@@ -89,11 +89,11 @@ import { ref, computed } from 'vue';
 import { PopoverRoot, PopoverTrigger, PopoverPortal, PopoverContent } from 'reka-ui';
 import { ChevronDown, X } from '@lucide/vue';
 import Icon from '../icon/Icon.vue';
-import { useResponsive } from '../../../composables/useResponsive';
-import { cn } from '../../../helpers/cn';
+import { useResponsive } from '../../../composables/useResponsive.js';
+import { cn } from '../../../helpers/cn.js';
 import Button from '../button/Button.vue';
 import GroupedSelectPanel from './GroupedSelectPanel.vue';
-import type { GroupedItem, GroupedCategory } from './grouped-select';
+import type { GroupedItem, GroupedCategory } from './grouped-select.js';
 
 const { isMobile } = useResponsive();
 

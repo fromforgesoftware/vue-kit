@@ -2,8 +2,8 @@ import { describe, it, expect } from 'vitest';
 import { mount } from '@vue/test-utils';
 import FilterBar from './FilterBar.vue';
 import FilterBarChip from './FilterBarChip.vue';
-import type { ColumnConfig, FiltersState } from './filter-bar';
-import { defaultDateRangePresets } from '../../dates/date-range-picker/date-range-picker';
+import type { ColumnConfig, FiltersState } from './filter-bar.js';
+import { defaultDateRangePresets } from '../../dates/date-range-picker/date-range-picker.js';
 
 const COLUMNS: ColumnConfig[] = [
 	{

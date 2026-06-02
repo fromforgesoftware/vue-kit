@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import { mount, type VueWrapper } from '@vue/test-utils';
 import ActivityTimeline from './ActivityTimeline.vue';
-import type { ActivityGroup } from './activity-timeline';
+import type { ActivityGroup } from './activity-timeline.js';
 
 const baseGroups: ActivityGroup[] = [
 	{

@@ -13,7 +13,7 @@
 import type { ForgeDate } from '@fromforgesoftware/ts-kit';
 import DateRangePresets from '../../dates/date-range-picker/DateRangePresets.vue';
 import RangeCalendar from '../../dates/range-calendar/RangeCalendar.vue';
-import type { DateRangePreset } from '../../dates/date-range-picker/date-range-picker';
+import type { DateRangePreset } from '../../dates/date-range-picker/date-range-picker.js';
 
 type DateRange = { start: ForgeDate; end: ForgeDate };
 

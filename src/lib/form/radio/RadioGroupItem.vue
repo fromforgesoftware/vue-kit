@@ -25,8 +25,8 @@
 <script setup lang="ts">
 import { computed, inject, type ComputedRef } from 'vue';
 import { RadioGroupItem, RadioGroupIndicator } from 'reka-ui';
-import { cn } from '../../../helpers/cn';
-import { radioItemVariants, radioIndicatorVariants, type RadioSize } from './radio';
+import { cn } from '../../../helpers/cn.js';
+import { radioItemVariants, radioIndicatorVariants, type RadioSize } from './radio.js';
 
 interface RadioGroupItemProps {
 	/** The value of this item. Selected when it matches the group's `modelValue`. */

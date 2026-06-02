@@ -7,8 +7,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { MenubarTrigger } from 'reka-ui';
-import { cn } from '../../../helpers/cn';
-import { menubarTriggerVariants } from './menubar';
+import { cn } from '../../../helpers/cn.js';
+import { menubarTriggerVariants } from './menubar.js';
 
 interface MenubarTriggerProps {
 	/** When true, prevents the user from interacting with the trigger. */

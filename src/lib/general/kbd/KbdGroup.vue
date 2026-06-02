@@ -9,8 +9,8 @@
 
 <script setup lang="ts">
 import { provide } from 'vue';
-import { cn } from '../../../helpers/cn';
-import { kbdGroupVariants, KBD_SIZE_KEY, KBD_VARIANT_KEY, type KbdVariants } from './kbd';
+import { cn } from '../../../helpers/cn.js';
+import { kbdGroupVariants, KBD_SIZE_KEY, KBD_VARIANT_KEY, type KbdVariants } from './kbd.js';
 
 interface KbdGroupProps {
 	size?: KbdVariants['size'];

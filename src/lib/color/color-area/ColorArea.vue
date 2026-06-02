@@ -22,13 +22,13 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { ColorAreaRoot, ColorAreaArea, ColorAreaThumb, type ColorChannel } from 'reka-ui';
-import { cn } from '../../../helpers/cn';
+import { cn } from '../../../helpers/cn.js';
 import {
 	colorAreaRootVariants,
 	colorAreaAreaVariants,
 	colorAreaThumbVariants,
 	type ColorAreaSize,
-} from './color-area';
+} from './color-area.js';
 
 interface Props {
 	/** v-model — current colour as a hex string. */

@@ -12,8 +12,8 @@
 
 <script setup lang="ts">
 import { computed, inject } from 'vue';
-import { cn } from '../../../helpers/cn';
-import { commandPaletteEmptyVariants, COMMAND_PALETTE_KEY } from './command-palette';
+import { cn } from '../../../helpers/cn.js';
+import { commandPaletteEmptyVariants, COMMAND_PALETTE_KEY } from './command-palette.js';
 
 interface CommandPaletteEmptyProps {
 	class?: string;

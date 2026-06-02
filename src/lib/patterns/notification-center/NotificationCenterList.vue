@@ -55,7 +55,7 @@ import Spinner from '../../general/spinner/Spinner.vue';
 const skeletonWidths = ['70%', '55%', '80%', '60%', '75%'];
 import NotificationCenterItem from './NotificationCenterItem.vue';
 import NotificationCenterEmpty from './NotificationCenterEmpty.vue';
-import type { NotificationCenterItemData } from './notification-center';
+import type { NotificationCenterItemData } from './notification-center.js';
 
 interface NotificationCenterListProps {
 	items: NotificationCenterItemData[];

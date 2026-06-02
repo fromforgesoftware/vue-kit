@@ -9,4 +9,4 @@ export {
 	type LanguageSelectorDensity,
 	type LanguageSelectorVariant,
 	type LanguageSelectorTriggerVariants,
-} from './language-selector';
+} from './language-selector.js';

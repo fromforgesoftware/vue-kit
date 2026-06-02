@@ -41,10 +41,10 @@
 <script setup lang="ts">
 import { computed, useAttrs } from 'vue';
 import { Primitive } from 'reka-ui';
-import { cn } from '../../../helpers/cn';
+import { cn } from '../../../helpers/cn.js';
 import Tooltip from '../../general/tooltip/Tooltip.vue';
-import { useSidebar } from './useSidebar';
-import { sidebarMenuButtonVariants, type SidebarMenuButtonSize } from './sidebar';
+import { useSidebar } from './useSidebar.js';
+import { sidebarMenuButtonVariants, type SidebarMenuButtonSize } from './sidebar.js';
 
 interface SidebarMenuButtonProps {
 	asChild?: boolean;

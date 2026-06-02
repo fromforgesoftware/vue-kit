@@ -18,13 +18,13 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { AvatarRoot, AvatarImage, AvatarFallback } from 'reka-ui';
-import { cn } from '../../../helpers/cn';
+import { cn } from '../../../helpers/cn.js';
 import {
 	avatarVariants,
 	avatarImageVariants,
 	avatarFallbackVariants,
 	type AvatarVariants,
-} from './avatar';
+} from './avatar.js';
 
 interface AvatarProps {
 	size?: AvatarVariants['size'];

@@ -29,12 +29,12 @@ import { computed } from 'vue';
 import { PopoverContent, PopoverPortal, PopoverClose } from 'reka-ui';
 import { X } from '@lucide/vue';
 import Icon from '../icon/Icon.vue';
-import { cn } from '../../../helpers/cn';
+import { cn } from '../../../helpers/cn.js';
 import {
 	popoverContentVariants,
 	popoverCloseVariants,
 	type PopoverContentVariants,
-} from './popover';
+} from './popover.js';
 
 type PopoverSide = 'top' | 'right' | 'bottom' | 'left';
 type PopoverAlign = 'start' | 'center' | 'end';

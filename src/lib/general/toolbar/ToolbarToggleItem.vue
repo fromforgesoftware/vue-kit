@@ -7,8 +7,8 @@
 <script setup lang="ts">
 import { computed, inject } from 'vue';
 import { ToolbarToggleItem } from 'reka-ui';
-import { cn } from '../../../helpers/cn';
-import { toolbarToggleItemVariants, TOOLBAR_SIZE_KEY, type ToolbarSize } from './toolbar';
+import { cn } from '../../../helpers/cn.js';
+import { toolbarToggleItemVariants, TOOLBAR_SIZE_KEY, type ToolbarSize } from './toolbar.js';
 
 interface ToolbarToggleItemProps {
 	/** Identifier used to mark this item as active. */

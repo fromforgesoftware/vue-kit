@@ -15,8 +15,8 @@ import { computed } from 'vue';
 import { MenubarSubTrigger } from 'reka-ui';
 import { ChevronRight } from '@lucide/vue';
 import Icon from '../icon/Icon.vue';
-import { cn } from '../../../helpers/cn';
-import { menubarSubTriggerVariants } from './menubar';
+import { cn } from '../../../helpers/cn.js';
+import { menubarSubTriggerVariants } from './menubar.js';
 
 interface MenubarSubTriggerProps {
 	/** When true, prevents the user from interacting with the item. */

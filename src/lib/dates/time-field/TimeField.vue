@@ -57,13 +57,13 @@ import { computed, ref } from 'vue';
 import { TimeFieldRoot, TimeFieldInput, type TimeValue } from 'reka-ui';
 import type { Time } from '@internationalized/date';
 import { type ForgeDate, getHourCycle } from '@fromforgesoftware/ts-kit';
-import { cn } from '../../../helpers/cn';
-import { toRekaTime, timeToForgeDate } from '../_adapter';
+import { cn } from '../../../helpers/cn.js';
+import { toRekaTime, timeToForgeDate } from '../_adapter.js';
 import {
 	timeFieldRootVariants,
 	timeFieldInputVariants,
 	type TimeFieldVariants,
-} from './time-field';
+} from './time-field.js';
 import DayPeriodToggle from '../day-period-toggle/DayPeriodToggle.vue';
 
 interface Props {

@@ -7,4 +7,4 @@ export {
 	type SortFieldOption,
 	type SortField,
 	type SortDirection,
-} from './sort';
+} from './sort.js';

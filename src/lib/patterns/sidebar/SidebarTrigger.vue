@@ -22,9 +22,9 @@ import { computed } from 'vue';
 import { PanelLeft } from '@lucide/vue';
 import Icon from '../../general/icon/Icon.vue';
 import Button from '../../general/button/Button.vue';
-import { cn } from '../../../helpers/cn';
-import { useSidebar, SIDEBAR_DRAWER_ID } from './useSidebar';
-import { sidebarTriggerVariants } from './sidebar';
+import { cn } from '../../../helpers/cn.js';
+import { useSidebar, SIDEBAR_DRAWER_ID } from './useSidebar.js';
+import { sidebarTriggerVariants } from './sidebar.js';
 
 interface SidebarTriggerProps {
 	class?: string;

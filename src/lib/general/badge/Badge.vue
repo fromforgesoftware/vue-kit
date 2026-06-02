@@ -18,8 +18,8 @@
 import { computed } from 'vue';
 import { X } from '@lucide/vue';
 import Icon from '../icon/Icon.vue';
-import { cn } from '../../../helpers/cn';
-import { badgeVariants, badgeRemoveVariants, type BadgeVariants } from './badge';
+import { cn } from '../../../helpers/cn.js';
+import { badgeVariants, badgeRemoveVariants, type BadgeVariants } from './badge.js';
 
 interface BadgeProps {
 	variant?: BadgeVariants['variant'];

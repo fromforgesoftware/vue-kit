@@ -24,8 +24,8 @@ import { computed, inject } from 'vue';
 import { SelectTrigger, SelectIcon } from 'reka-ui';
 import { ChevronDown } from '@lucide/vue';
 import Icon from '../../general/icon/Icon.vue';
-import { cn } from '../../../helpers/cn';
-import { selectTriggerVariants, SELECT_MULTI_KEY, type SelectSize } from './select';
+import { cn } from '../../../helpers/cn.js';
+import { selectTriggerVariants, SELECT_MULTI_KEY, type SelectSize } from './select.js';
 
 interface SelectTriggerProps {
 	/** Density. `sm` = 28 px, `default` = 32 px, `lg` = 40 px (matches Input). */

@@ -151,8 +151,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { VisuallyHidden } from 'reka-ui';
-import { cn } from '../../../helpers/cn';
-import { useResponsive } from '../../../composables/useResponsive';
+import { cn } from '../../../helpers/cn.js';
+import { useResponsive } from '../../../composables/useResponsive.js';
 import Popover from '../../general/popover/Popover.vue';
 import PopoverTrigger from '../../general/popover/PopoverTrigger.vue';
 import PopoverContent from '../../general/popover/PopoverContent.vue';
@@ -176,7 +176,7 @@ import {
 	type ColorPickerSize,
 	type ColorPickerShape,
 	type ColorPickerChannelsMode,
-} from './color-picker';
+} from './color-picker.js';
 
 interface Props {
 	/** v-model — current colour as a hex string. */

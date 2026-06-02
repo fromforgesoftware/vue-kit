@@ -7,8 +7,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { SelectLabel } from 'reka-ui';
-import { cn } from '../../../helpers/cn';
-import { selectLabelVariants } from './select';
+import { cn } from '../../../helpers/cn.js';
+import { selectLabelVariants } from './select.js';
 
 interface SelectLabelProps {
 	class?: string;

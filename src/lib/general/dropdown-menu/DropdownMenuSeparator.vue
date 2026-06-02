@@ -5,8 +5,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { DropdownMenuSeparator } from 'reka-ui';
-import { cn } from '../../../helpers/cn';
-import { dropdownMenuSeparatorVariants } from './dropdown-menu';
+import { cn } from '../../../helpers/cn.js';
+import { dropdownMenuSeparatorVariants } from './dropdown-menu.js';
 
 interface DropdownMenuSeparatorProps {
 	class?: string;

@@ -19,8 +19,8 @@
 import { computed, ref } from 'vue';
 import { Upload } from '@lucide/vue';
 import Icon from '../../general/icon/Icon.vue';
-import { cn } from '../../../helpers/cn';
-import { fileInputVariants } from './file-input';
+import { cn } from '../../../helpers/cn.js';
+import { fileInputVariants } from './file-input.js';
 
 interface FileInputProps {
 	modelValue?: File | File[] | null;

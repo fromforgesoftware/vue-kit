@@ -22,8 +22,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { MenubarContent, MenubarPortal } from 'reka-ui';
-import { cn } from '../../../helpers/cn';
-import { menubarContentVariants } from './menubar';
+import { cn } from '../../../helpers/cn.js';
+import { menubarContentVariants } from './menubar.js';
 
 interface MenubarContentProps {
 	side?: 'top' | 'right' | 'bottom' | 'left';

@@ -2,8 +2,8 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { expect, within } from 'storybook/test';
 import DonutChart from './DonutChart.vue';
 import DonutChartLegend from './DonutChartLegend.vue';
-import { DEFAULT_DONUT_COLORS, type DonutSegment } from './donut-chart';
-import { expectNoHorizontalOverflow, forEachViewport } from '../../../test-utils/playHelpers';
+import { DEFAULT_DONUT_COLORS, type DonutSegment } from './donut-chart.js';
+import { expectNoHorizontalOverflow, forEachViewport } from '../../../test-utils/playHelpers.js';
 
 const jobSegments: DonutSegment[] = [
 	{ value: 100, label: 'Active', color: DEFAULT_DONUT_COLORS[0] },

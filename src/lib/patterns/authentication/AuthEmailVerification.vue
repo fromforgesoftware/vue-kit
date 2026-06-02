@@ -40,7 +40,7 @@
 <script setup lang="ts">
 import AuthCard from './AuthCard.vue';
 import Button from '../../general/button/Button.vue';
-import type { AuthEmailVerificationProps } from './authentication';
+import type { AuthEmailVerificationProps } from './authentication.js';
 
 /**
  * AuthEmailVerification — post-registration screen asking the user to verify their email.

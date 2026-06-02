@@ -5,4 +5,4 @@ export {
 	type KpiDelta,
 	type KpiTrendDirection,
 	type KpiTileSize,
-} from './kpi-tile';
+} from './kpi-tile.js';

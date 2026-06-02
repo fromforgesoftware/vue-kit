@@ -22,8 +22,8 @@ import { computed } from 'vue';
 import { ContextMenuCheckboxItem } from 'reka-ui';
 import { Check } from '@lucide/vue';
 import Icon from '../icon/Icon.vue';
-import { cn } from '../../../helpers/cn';
-import { contextMenuCheckboxItemVariants } from './context-menu';
+import { cn } from '../../../helpers/cn.js';
+import { contextMenuCheckboxItemVariants } from './context-menu.js';
 
 interface Props {
 	checked?: boolean | 'indeterminate';

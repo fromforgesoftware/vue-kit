@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { mount } from '@vue/test-utils';
 import TreeView from './TreeView.vue';
-import type { TreeNode } from './tree-view';
+import type { TreeNode } from './tree-view.js';
 
 const sampleData: TreeNode[] = [
 	{

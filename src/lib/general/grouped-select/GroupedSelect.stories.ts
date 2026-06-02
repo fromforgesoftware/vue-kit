@@ -2,13 +2,13 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { fn, expect, userEvent, within } from 'storybook/test';
 import GroupedSelect from './GroupedSelect.vue';
 import GroupedSelectPanel from './GroupedSelectPanel.vue';
-import type { GroupedItem, GroupedCategory } from './grouped-select';
+import type { GroupedItem, GroupedCategory } from './grouped-select.js';
 import {
 	expectMinTargetSize,
 	expectNoHorizontalOverflow,
 	forEachViewport,
 	inBody,
-} from '../../../test-utils/playHelpers';
+} from '../../../test-utils/playHelpers.js';
 
 // ── Module-level fixtures ──────────────────────────────────────────────────
 

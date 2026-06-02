@@ -141,8 +141,8 @@ import type {
 	ShiftSegmentUpdateEvent,
 	ShiftSegmentSelectEvent,
 	ShiftBarClickEvent,
-} from '../schedule-timeline';
-import { computeShiftLanes, computeStackedRowHeight, ScheduleTimelineZ as Z } from '../utils';
+} from '../schedule-timeline.js';
+import { computeShiftLanes, computeStackedRowHeight, ScheduleTimelineZ as Z } from '../utils.js';
 import { AlertTriangle } from '@lucide/vue';
 
 const MIN_ROW_HEIGHT = 56;

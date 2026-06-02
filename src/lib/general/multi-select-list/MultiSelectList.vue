@@ -83,7 +83,7 @@
 
 <script setup lang="ts" generic="T">
 import { ref, computed } from 'vue';
-import { cn } from '../../../helpers/cn';
+import { cn } from '../../../helpers/cn.js';
 import InputSearch from '../../form/input-search/InputSearch.vue';
 import Checkbox from '../../form/checkbox/Checkbox.vue';
 import Button from '../button/Button.vue';

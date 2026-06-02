@@ -7,7 +7,7 @@ import {
 	CUSTOM_THEME_STORAGE_KEY,
 	DATA_THEME_ATTR,
 	PREFERS_DARK_QUERY,
-} from './theme-manager';
+} from './theme-manager.js';
 
 // sRGB → linear (IEC 61966-2-1) → OKLab (Björn Ottosson, 2020) → OKLCH.
 // Constants are the standard published matrix; do not hand-tune.

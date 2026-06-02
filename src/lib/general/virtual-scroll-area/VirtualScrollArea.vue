@@ -37,13 +37,13 @@ import {
 	ScrollAreaCorner,
 } from 'reka-ui';
 import { useVirtualizer } from '@tanstack/vue-virtual';
-import { cn } from '../../../helpers/cn';
+import { cn } from '../../../helpers/cn.js';
 import {
 	scrollAreaVariants,
 	scrollAreaViewportVariants,
 	scrollAreaScrollbarVariants,
 	scrollAreaThumbVariants,
-} from '../scroll-area/scroll-area';
+} from '../scroll-area/scroll-area.js';
 
 export interface VirtualScrollAreaProps<T = unknown> {
 	/** Items to virtualize */

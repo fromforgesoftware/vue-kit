@@ -126,8 +126,8 @@ import {
 } from 'reka-ui';
 import { CalendarDate, type DateValue } from '@internationalized/date';
 import { type ForgeDate, getWeekStartForCalendar } from '@fromforgesoftware/ts-kit';
-import { cn } from '../../../helpers/cn';
-import { toRekaDate, calendarDateToForgeDate } from '../_adapter';
+import { cn } from '../../../helpers/cn.js';
+import { toRekaDate, calendarDateToForgeDate } from '../_adapter.js';
 import {
 	calendarRootVariants,
 	calendarHeaderVariants,
@@ -140,7 +140,7 @@ import {
 	calendarCellVariants,
 	calendarCellTriggerVariants,
 	type CalendarVariants,
-} from './calendar';
+} from './calendar.js';
 
 interface Props {
 	/** Selected date (or null when nothing is selected). */

@@ -41,9 +41,9 @@ import { computed } from 'vue';
 import { ArrowDown, ArrowRight, ArrowUp } from '@lucide/vue';
 import Icon from '../icon/Icon.vue';
 import Sparkline from '../../charts/sparkline/Sparkline.vue';
-import { cn } from '../../../helpers/cn';
-import { deltaSentiment, kpiTileVariants, type KpiDelta, type KpiTileSize } from './kpi-tile';
-import type { SparklineTone } from '../../charts/sparkline/sparkline';
+import { cn } from '../../../helpers/cn.js';
+import { deltaSentiment, kpiTileVariants, type KpiDelta, type KpiTileSize } from './kpi-tile.js';
+import type { SparklineTone } from '../../charts/sparkline/sparkline.js';
 
 interface KpiTileProps {
 	label: string;

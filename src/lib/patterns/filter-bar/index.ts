@@ -35,4 +35,4 @@ export {
 	type FacetedValues,
 	type FilterBarVariant,
 	type ChipTone,
-} from './filter-bar';
+} from './filter-bar.js';

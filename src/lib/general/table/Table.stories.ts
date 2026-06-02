@@ -8,7 +8,7 @@ import TableRow from './TableRow.vue';
 import TableHead from './TableHead.vue';
 import TableCell from './TableCell.vue';
 import TableCaption from './TableCaption.vue';
-import { expectNoHorizontalOverflow, forEachViewport } from '../../../test-utils/playHelpers';
+import { expectNoHorizontalOverflow, forEachViewport } from '../../../test-utils/playHelpers.js';
 
 const components = {
 	Table,

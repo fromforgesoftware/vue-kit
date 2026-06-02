@@ -13,8 +13,8 @@
 <script setup lang="ts">
 import { computed, provide, toRef } from 'vue';
 import { SplitterGroup } from 'reka-ui';
-import { cn } from '../../../helpers/cn';
-import { splitterVariants, SPLITTER_DIRECTION_KEY, type SplitterDirection } from './splitter';
+import { cn } from '../../../helpers/cn.js';
+import { splitterVariants, SPLITTER_DIRECTION_KEY, type SplitterDirection } from './splitter.js';
 
 interface SplitterProps {
 	id?: string;

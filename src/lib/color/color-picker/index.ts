@@ -1,2 +1,2 @@
 export { default as ColorPicker } from './ColorPicker.vue';
-export * from './color-picker';
+export * from './color-picker.js';

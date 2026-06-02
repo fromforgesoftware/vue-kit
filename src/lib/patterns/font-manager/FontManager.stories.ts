@@ -6,8 +6,8 @@ import {
 	expectMinTargetSize,
 	expectNoHorizontalOverflow,
 	forEachViewport,
-} from '../../../test-utils/playHelpers';
-import type { FontSizeOption } from './font-manager';
+} from '../../../test-utils/playHelpers.js';
+import type { FontSizeOption } from './font-manager.js';
 
 // ── Meta ────────────────────────────────────────────────────────────────────
 

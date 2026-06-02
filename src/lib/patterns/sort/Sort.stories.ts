@@ -2,12 +2,12 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { fn, expect, userEvent } from 'storybook/test';
 import { Clock, CaseSensitive, Flag } from '@lucide/vue';
 import Sort from './Sort.vue';
-import type { SortFieldOption, SortField } from './sort';
+import type { SortFieldOption, SortField } from './sort.js';
 import {
 	expectMinTargetSize,
 	forEachViewport,
 	expectNoHorizontalOverflow,
-} from '../../../test-utils/playHelpers';
+} from '../../../test-utils/playHelpers.js';
 
 // ── Module-level fixtures ─────────────────────────────────────────────────────
 

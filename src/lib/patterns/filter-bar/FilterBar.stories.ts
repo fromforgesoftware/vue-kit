@@ -13,14 +13,14 @@ import {
 	CalendarDays,
 } from '@lucide/vue';
 import FilterBar from './FilterBar.vue';
-import type { ColumnConfig, FiltersState } from './filter-bar';
-import { defaultDateRangePresets } from '../../dates/date-range-picker/date-range-picker';
+import type { ColumnConfig, FiltersState } from './filter-bar.js';
+import { defaultDateRangePresets } from '../../dates/date-range-picker/date-range-picker.js';
 import {
 	inBody,
 	expectMinTargetSize,
 	forEachViewport,
 	expectNoHorizontalOverflow,
-} from '../../../test-utils/playHelpers';
+} from '../../../test-utils/playHelpers.js';
 
 // ── Module-level fixtures ─────────────────────────────────────────────────────
 

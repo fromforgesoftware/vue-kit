@@ -9,4 +9,4 @@ export {
 	type ActivityUser,
 	type ActivityItem,
 	type ActivityGroup,
-} from './activity-timeline';
+} from './activity-timeline.js';

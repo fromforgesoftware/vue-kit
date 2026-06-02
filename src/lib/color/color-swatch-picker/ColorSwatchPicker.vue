@@ -41,7 +41,7 @@ import {
 	ColorSwatchPickerItemSwatch,
 	ColorSwatchPickerItemIndicator,
 } from 'reka-ui';
-import { cn } from '../../../helpers/cn';
+import { cn } from '../../../helpers/cn.js';
 import {
 	colorSwatchPickerRootVariants,
 	colorSwatchPickerItemVariants,
@@ -49,7 +49,7 @@ import {
 	colorSwatchPickerItemIndicatorVariants,
 	type ColorSwatchPickerLayout,
 	type ColorSwatchPickerSize,
-} from './color-swatch-picker';
+} from './color-swatch-picker.js';
 
 interface Props {
 	/** v-model — selected colour (string) or colours (string[] when `multiple`). */

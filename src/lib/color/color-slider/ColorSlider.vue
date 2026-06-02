@@ -21,14 +21,14 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { ColorSliderRoot, ColorSliderTrack, ColorSliderThumb, type ColorChannel } from 'reka-ui';
-import { cn } from '../../../helpers/cn';
+import { cn } from '../../../helpers/cn.js';
 import {
 	colorSliderRootVariants,
 	colorSliderTrackVariants,
 	colorSliderThumbVariants,
 	type ColorSliderOrientation,
 	type ColorSliderSize,
-} from './color-slider';
+} from './color-slider.js';
 
 interface Props {
 	/** v-model — current colour as a hex string. */

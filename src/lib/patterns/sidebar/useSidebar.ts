@@ -7,7 +7,7 @@ import {
 	type SidebarContext,
 	type SidebarSide,
 	type SidebarState,
-} from './sidebar';
+} from './sidebar.js';
 
 const MOBILE_BREAKPOINT = 1024;
 

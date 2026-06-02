@@ -5,7 +5,7 @@ import {
 	createUnsavedChangesRegistry,
 	provideUnsavedChangesRegistry,
 	useUnsavedChangesRegistry,
-} from './unsavedChangesRegistry';
+} from './unsavedChangesRegistry.js';
 
 describe('unsavedChangesRegistry', () => {
 	it('starts with no active registration', () => {

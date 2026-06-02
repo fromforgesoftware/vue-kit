@@ -7,7 +7,7 @@
 <script setup lang="ts">
 import { provide, toRef } from 'vue';
 import { DialogRoot, useForwardPropsEmits } from 'reka-ui';
-import { DIALOG_VARIANT_KEY, type DialogVariant } from './dialog';
+import { DIALOG_VARIANT_KEY, type DialogVariant } from './dialog.js';
 
 interface DialogProps {
 	open?: boolean;

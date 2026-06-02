@@ -51,7 +51,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import { cn } from '../../../helpers/cn';
+import { cn } from '../../../helpers/cn.js';
 import Select from '../../form/select/Select.vue';
 import SelectTrigger from '../../form/select/SelectTrigger.vue';
 import SelectValue from '../../form/select/SelectValue.vue';
@@ -67,8 +67,8 @@ import {
 	themeManagerColorRowVariants,
 	themeManagerColorLabelVariants,
 	themeManagerSwatchVariants,
-} from './theme-manager';
-import { useThemeManager } from './useThemeManager';
+} from './theme-manager.js';
+import { useThemeManager } from './useThemeManager.js';
 
 interface ThemeManagerProps {
 	/** Available theme options to display in the select dropdown. */

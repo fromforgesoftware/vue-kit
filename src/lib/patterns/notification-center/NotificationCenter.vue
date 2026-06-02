@@ -114,8 +114,8 @@ import {
 	VisuallyHidden,
 } from 'reka-ui';
 import { Bell } from '@lucide/vue';
-import { useResponsive } from '../../../composables/useResponsive';
-import { cn } from '../../../helpers/cn';
+import { useResponsive } from '../../../composables/useResponsive.js';
+import { cn } from '../../../helpers/cn.js';
 import Button from '../../general/button/Button.vue';
 import Badge from '../../general/badge/Badge.vue';
 import Icon from '../../general/icon/Icon.vue';
@@ -129,7 +129,7 @@ import {
 	type NotificationCenterItemData,
 	type NotificationCenterTab,
 	type NotificationCenterVariant,
-} from './notification-center';
+} from './notification-center.js';
 
 type PopoverSide = 'top' | 'right' | 'bottom' | 'left';
 type PopoverAlign = 'start' | 'center' | 'end';

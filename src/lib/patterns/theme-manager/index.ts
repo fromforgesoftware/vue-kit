@@ -1,5 +1,5 @@
 export { default as ThemeManager } from './ThemeManager.vue';
-export { useThemeManager } from './useThemeManager';
+export { useThemeManager } from './useThemeManager.js';
 export {
 	themeManagerRootVariants,
 	themeManagerCustomPanelVariants,
@@ -18,4 +18,4 @@ export {
 	CUSTOM_THEME_STORAGE_KEY,
 	DATA_THEME_ATTR,
 	PREFERS_DARK_QUERY,
-} from './theme-manager';
+} from './theme-manager.js';

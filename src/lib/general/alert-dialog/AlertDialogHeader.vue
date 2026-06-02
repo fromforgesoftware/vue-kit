@@ -9,8 +9,8 @@
 
 <script setup lang="ts">
 import { computed, useSlots } from 'vue';
-import { cn } from '../../../helpers/cn';
-import { alertDialogHeaderVariants } from './alert-dialog';
+import { cn } from '../../../helpers/cn.js';
+import { alertDialogHeaderVariants } from './alert-dialog.js';
 
 interface Props {
 	class?: string;

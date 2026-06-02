@@ -90,8 +90,8 @@
 import { computed, watch } from 'vue';
 import type { ClassValue } from 'clsx';
 import { type ForgeDate } from '@fromforgesoftware/ts-kit';
-import { useResponsive } from '../../../composables/useResponsive';
-import { cn } from '../../../helpers/cn';
+import { useResponsive } from '../../../composables/useResponsive.js';
+import { cn } from '../../../helpers/cn.js';
 
 const { isMobile } = useResponsive();
 import type {
@@ -107,7 +107,7 @@ import type {
 	ShiftSegmentUpdateEvent,
 	ShiftSegmentSelectEvent,
 	ShiftBarClickEvent,
-} from './schedule-timeline';
+} from './schedule-timeline.js';
 import ScheduleTimelineWeekView from './week/ScheduleTimelineWeekView.vue';
 import ScheduleTimelineDayView from './day/ScheduleTimelineDayView.vue';
 import ScheduleTimelineMonthView from './month/ScheduleTimelineMonthView.vue';

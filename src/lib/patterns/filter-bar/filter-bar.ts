@@ -1,6 +1,6 @@
 import { type Component } from 'vue';
 import { cva } from 'class-variance-authority';
-import type { DateRangePreset } from '../../dates/date-range-picker/date-range-picker';
+import type { DateRangePreset } from '../../dates/date-range-picker/date-range-picker.js';
 
 /** Filterable column data type — drives the operator set and value editor UI. */
 export type ColumnDataType =

@@ -12,12 +12,12 @@
 <script setup lang="ts">
 import { computed, inject } from 'vue';
 import { ToolbarToggleGroup } from 'reka-ui';
-import { cn } from '../../../helpers/cn';
+import { cn } from '../../../helpers/cn.js';
 import {
 	toolbarToggleGroupVariants,
 	TOOLBAR_ORIENTATION_KEY,
 	type ToolbarOrientation,
-} from './toolbar';
+} from './toolbar.js';
 
 interface ToolbarToggleGroupProps {
 	/** Whether one or many items can be active. */

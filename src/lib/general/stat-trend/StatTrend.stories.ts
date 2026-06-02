@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { expect } from 'storybook/test';
 import StatTrend from './StatTrend.vue';
-import { expectNoHorizontalOverflow, forEachViewport } from '../../../test-utils/playHelpers';
+import { expectNoHorizontalOverflow, forEachViewport } from '../../../test-utils/playHelpers.js';
 
 const ALL_DIRECTIONS = ['up', 'down', 'flat'] as const;
 const ALL_TONES = ['soft', 'solid', 'ghost'] as const;

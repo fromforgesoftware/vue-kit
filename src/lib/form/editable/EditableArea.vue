@@ -24,7 +24,7 @@
 import { computed } from 'vue';
 import { EditableArea, injectEditableRootContext } from 'reka-ui';
 import { Pencil, Check, X } from '@lucide/vue';
-import { cn } from '../../../helpers/cn';
+import { cn } from '../../../helpers/cn.js';
 import Icon from '../../general/icon/Icon.vue';
 import EditableCancelTrigger from './EditableCancelTrigger.vue';
 import EditableSubmitTrigger from './EditableSubmitTrigger.vue';

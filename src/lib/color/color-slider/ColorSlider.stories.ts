@@ -7,7 +7,7 @@ import {
 	expectNoHorizontalOverflow,
 	forEachViewport,
 	pointerDragBy,
-} from '../../../test-utils/playHelpers';
+} from '../../../test-utils/playHelpers.js';
 
 const meta = {
 	title: 'Color/Color Slider',

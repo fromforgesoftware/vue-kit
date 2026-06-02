@@ -1,2 +1,2 @@
 export { default as Calendar } from './Calendar.vue';
-export * from './calendar';
+export * from './calendar.js';

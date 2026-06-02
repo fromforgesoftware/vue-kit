@@ -6,8 +6,8 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import { cn } from '../../../helpers/cn';
-import { tableRowVariants } from './table';
+import { cn } from '../../../helpers/cn.js';
+import { tableRowVariants } from './table.js';
 
 interface TableRowProps {
 	/** Stronger hover styling + pointer cursor for clickable rows. */

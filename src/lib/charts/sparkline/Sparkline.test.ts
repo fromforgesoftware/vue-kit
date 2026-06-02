@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { mount } from '@vue/test-utils';
 import Sparkline from './Sparkline.vue';
-import { buildSparklinePath } from './sparkline';
+import { buildSparklinePath } from './sparkline.js';
 
 describe('buildSparklinePath', () => {
 	it('returns empty paths for an empty input', () => {

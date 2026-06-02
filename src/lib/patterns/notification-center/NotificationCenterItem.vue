@@ -65,7 +65,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { Bell, Paperclip } from '@lucide/vue';
-import { cn } from '../../../helpers/cn';
+import { cn } from '../../../helpers/cn.js';
 import Avatar from '../../general/avatar/Avatar.vue';
 import Badge from '../../general/badge/Badge.vue';
 import Icon from '../../general/icon/Icon.vue';
@@ -73,7 +73,7 @@ import NotificationCenterActions from './NotificationCenterActions.vue';
 import {
 	notificationCenterItemVariants,
 	type NotificationCenterItemData,
-} from './notification-center';
+} from './notification-center.js';
 
 interface NotificationCenterItemProps {
 	item: NotificationCenterItemData;

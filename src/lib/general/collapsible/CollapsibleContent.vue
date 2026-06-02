@@ -9,7 +9,7 @@
 <script setup lang="ts">
 import { computed, inject } from 'vue';
 import { CollapsibleContent } from 'reka-ui';
-import { cn } from '../../../helpers/cn';
+import { cn } from '../../../helpers/cn.js';
 import {
 	collapsibleContentVariants,
 	collapsibleContentInnerVariants,
@@ -17,7 +17,7 @@ import {
 	COLLAPSIBLE_SIZE_KEY,
 	type CollapsibleVariant,
 	type CollapsibleSize,
-} from './collapsible';
+} from './collapsible.js';
 
 interface CollapsibleContentProps {
 	class?: string;

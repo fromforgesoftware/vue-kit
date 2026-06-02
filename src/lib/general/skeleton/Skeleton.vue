@@ -4,9 +4,9 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import { cn } from '../../../helpers/cn';
-import { skeletonVariants, type SkeletonVariants } from './skeleton';
-import type { SkeletonAnimate } from './types';
+import { cn } from '../../../helpers/cn.js';
+import { skeletonVariants, type SkeletonVariants } from './skeleton.js';
+import type { SkeletonAnimate } from './types.js';
 
 interface Props {
 	class?: string;

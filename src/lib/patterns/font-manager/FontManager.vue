@@ -27,17 +27,17 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import { cn } from '../../../helpers/cn';
-import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '../../form/select';
-import { Label } from '../../form/label';
+import { cn } from '../../../helpers/cn.js';
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '../../form/select/index.js';
+import { Label } from '../../form/label/index.js';
 import {
 	type FontSizeOption,
 	DEFAULT_FONT_SIZE_OPTIONS,
 	fontManagerContainerVariants,
 	fontManagerTriggerVariants,
 	fontManagerItemLabelVariants,
-} from './font-manager';
-import { useFontManager } from './useFontManager';
+} from './font-manager.js';
+import { useFontManager } from './useFontManager.js';
 
 interface FontManagerProps {
 	/**

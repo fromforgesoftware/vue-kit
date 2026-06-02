@@ -2,7 +2,7 @@ import { describe, it, expect, vi } from 'vitest';
 import { mount } from '@vue/test-utils';
 import { defineComponent, h } from 'vue';
 import LineChart from './LineChart.vue';
-import type { LineChartData } from './line-chart';
+import type { LineChartData } from './line-chart.js';
 
 // Stub vue-chartjs's Line component so the test focuses on the wrapper's
 // own behaviour (data shaping, color resolution, accessibility) without

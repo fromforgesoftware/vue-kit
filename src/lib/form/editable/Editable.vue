@@ -14,8 +14,8 @@
 <script setup lang="ts">
 import { computed, provide } from 'vue';
 import { EditableRoot } from 'reka-ui';
-import type { EditableSize } from './editable';
-import { editableSizeKey } from './context';
+import type { EditableSize } from './editable.js';
+import { editableSizeKey } from './context.js';
 
 interface EditableProps {
 	/** Controlled text value. */

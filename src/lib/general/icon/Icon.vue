@@ -4,8 +4,8 @@
 
 <script setup lang="ts">
 import { computed, type Component } from 'vue';
-import { cn } from '../../../helpers/cn';
-import { iconVariants, type IconSize } from './icon';
+import { cn } from '../../../helpers/cn.js';
+import { iconVariants, type IconSize } from './icon.js';
 
 interface IconProps {
 	icon: Component;

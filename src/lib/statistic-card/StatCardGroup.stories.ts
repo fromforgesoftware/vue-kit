@@ -3,7 +3,7 @@ import { expect } from 'storybook/test';
 import StatCard from './StatCard.vue';
 import StatCardGroup from './StatCardGroup.vue';
 import StatTrend from '../general/stat-trend/StatTrend.vue';
-import { expectNoHorizontalOverflow, forEachViewport } from '../../test-utils/playHelpers';
+import { expectNoHorizontalOverflow, forEachViewport } from '../../test-utils/playHelpers.js';
 
 const COLUMNS = [2, 3, 4, 6] as const;
 const LAYOUTS = ['connected', 'separated'] as const;

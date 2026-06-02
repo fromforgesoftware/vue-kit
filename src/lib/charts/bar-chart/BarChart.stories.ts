@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { expect, within } from 'storybook/test';
 import BarChart from './BarChart.vue';
-import { DEFAULT_BAR_COLORS, type BarChartData } from './bar-chart';
-import { forEachViewport } from '../../../test-utils/playHelpers';
+import { DEFAULT_BAR_COLORS, type BarChartData } from './bar-chart.js';
+import { forEachViewport } from '../../../test-utils/playHelpers.js';
 
 const customersData: BarChartData = {
 	categories: ['Apr 2025', 'May 2025', 'Jun 2025', 'Jul 2025', 'Aug 2025', 'Sep 2025', 'Oct 2025'],

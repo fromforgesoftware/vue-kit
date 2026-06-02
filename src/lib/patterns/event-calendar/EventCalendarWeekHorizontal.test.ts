@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { mount } from '@vue/test-utils';
 import { ForgeDate } from '@fromforgesoftware/ts-kit';
 import EventCalendarWeekHorizontal from './EventCalendarWeekHorizontal.vue';
-import type { EventCalendarItem } from './event-calendar';
+import type { EventCalendarItem } from './event-calendar.js';
 
 // Monday for predictable week math.
 const SELECTED = ForgeDate.fromISO('2025-09-29');

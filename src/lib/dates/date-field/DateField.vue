@@ -41,13 +41,13 @@ import { computed } from 'vue';
 import { DateFieldRoot, DateFieldInput } from 'reka-ui';
 import type { DateValue } from '@internationalized/date';
 import { type ForgeDate } from '@fromforgesoftware/ts-kit';
-import { cn } from '../../../helpers/cn';
-import { toRekaDate, calendarDateToForgeDate } from '../_adapter';
+import { cn } from '../../../helpers/cn.js';
+import { toRekaDate, calendarDateToForgeDate } from '../_adapter.js';
 import {
 	dateFieldRootVariants,
 	dateFieldInputVariants,
 	type DateFieldVariants,
-} from './date-field';
+} from './date-field.js';
 
 interface Props {
 	/** Selected date. */

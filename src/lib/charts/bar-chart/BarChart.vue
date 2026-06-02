@@ -32,15 +32,15 @@ import {
 	Legend,
 } from 'chart.js';
 import type { Chart, ChartDataset, ChartOptions, Plugin } from 'chart.js';
-import { cn } from '../../../helpers/cn';
-import { resolveCssColor } from '../../../helpers/resolveCssColor';
-import { useResponsive } from '../../../composables/useResponsive';
+import { cn } from '../../../helpers/cn.js';
+import { resolveCssColor } from '../../../helpers/resolveCssColor.js';
+import { useResponsive } from '../../../composables/useResponsive.js';
 import {
 	barChartVariants,
 	type BarChartData,
 	type BarChartVariant,
 	type LineOverlay,
-} from './bar-chart';
+} from './bar-chart.js';
 
 ChartJS.register(
 	CategoryScale,

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { expect, within, userEvent, waitFor } from 'storybook/test';
 import Tooltip from './Tooltip.vue';
 import Button from '../button/Button.vue';
-import { inBody } from '../../../test-utils/playHelpers';
+import { inBody } from '../../../test-utils/playHelpers.js';
 
 const ALL_SIDES = ['top', 'right', 'bottom', 'left'] as const;
 

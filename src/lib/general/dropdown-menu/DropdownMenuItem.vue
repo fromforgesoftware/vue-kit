@@ -14,8 +14,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { DropdownMenuItem } from 'reka-ui';
-import { cn } from '../../../helpers/cn';
-import { dropdownMenuItemVariants, type DropdownMenuItemVariant } from './dropdown-menu';
+import { cn } from '../../../helpers/cn.js';
+import { dropdownMenuItemVariants, type DropdownMenuItemVariant } from './dropdown-menu.js';
 
 interface DropdownMenuItemProps {
 	/** When true, prevents the user from interacting with the item. */

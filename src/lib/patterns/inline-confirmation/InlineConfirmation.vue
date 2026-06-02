@@ -89,7 +89,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 import { Check, ShieldAlert, X } from '@lucide/vue';
-import { cn } from '../../../helpers/cn';
+import { cn } from '../../../helpers/cn.js';
 import Badge from '../../general/badge/Badge.vue';
 import Button from '../../general/button/Button.vue';
 import Collapsible from '../../general/collapsible/Collapsible.vue';

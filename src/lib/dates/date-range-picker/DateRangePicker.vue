@@ -243,11 +243,11 @@ import {
 } from 'reka-ui';
 import { CalendarDate, type DateValue } from '@internationalized/date';
 import { type ForgeDate, EDateFormat, getWeekStartForCalendar } from '@fromforgesoftware/ts-kit';
-import { cn } from '../../../helpers/cn';
-import { toRekaDate, toRekaRange, rekaRangeToForgeDateRange } from '../_adapter';
-import { buttonVariants } from '../../general/button/button';
+import { cn } from '../../../helpers/cn.js';
+import { toRekaDate, toRekaRange, rekaRangeToForgeDateRange } from '../_adapter.js';
+import { buttonVariants } from '../../general/button/button.js';
 import DateRangePresets from './DateRangePresets.vue';
-import type { DateRangePreset, DateRangePickerVariants } from './date-range-picker';
+import type { DateRangePreset, DateRangePickerVariants } from './date-range-picker.js';
 import {
 	dateRangePickerFieldVariants,
 	dateRangePickerInputVariants,
@@ -262,7 +262,7 @@ import {
 	dateRangePickerHeadCellVariants,
 	dateRangePickerCellVariants,
 	dateRangePickerCellTriggerVariants,
-} from './date-range-picker';
+} from './date-range-picker.js';
 
 interface Props {
 	/** Selected range (or null when nothing is selected). */

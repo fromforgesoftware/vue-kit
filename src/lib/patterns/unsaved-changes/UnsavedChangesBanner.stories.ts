@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { fn, expect, userEvent } from 'storybook/test';
 import UnsavedChangesBanner from './UnsavedChangesBanner.vue';
-import { expectMinTargetSize, forEachViewport } from '../../../test-utils/playHelpers';
+import { expectMinTargetSize, forEachViewport } from '../../../test-utils/playHelpers.js';
 
 // ── Meta ────────────────────────────────────────────────────────────────────
 

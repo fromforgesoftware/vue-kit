@@ -12,8 +12,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { Toggle as ToggleRoot } from 'reka-ui';
-import { cn } from '../../../helpers/cn';
-import { toggleVariants, type ToggleVariants } from './toggle';
+import { cn } from '../../../helpers/cn.js';
+import { toggleVariants, type ToggleVariants } from './toggle.js';
 
 interface ToggleProps {
 	modelValue?: boolean;

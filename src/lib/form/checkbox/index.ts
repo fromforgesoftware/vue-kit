@@ -4,4 +4,4 @@ export {
 	checkboxIndicatorVariants,
 	type CheckboxVariants,
 	type CheckboxSize,
-} from './checkbox';
+} from './checkbox.js';

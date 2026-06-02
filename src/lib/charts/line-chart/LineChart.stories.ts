@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { expect, within } from 'storybook/test';
 import LineChart from './LineChart.vue';
-import type { LineChartData } from './line-chart';
-import { forEachViewport } from '../../../test-utils/playHelpers';
+import type { LineChartData } from './line-chart.js';
+import { forEachViewport } from '../../../test-utils/playHelpers.js';
 
 const temperatureData: LineChartData = {
 	categories: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],

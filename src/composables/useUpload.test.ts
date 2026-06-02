@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { useUpload } from './useUpload';
+import { useUpload } from './useUpload.js';
 
 function makeFile(name = 'f.txt', size = 100): File {
 	const blob = new Blob([new Uint8Array(size)], { type: 'application/octet-stream' });

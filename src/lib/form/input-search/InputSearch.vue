@@ -35,12 +35,12 @@ import { computed, ref, watch, onUnmounted, useAttrs } from 'vue';
 import { Search, CircleX } from '@lucide/vue';
 import Icon from '../../general/icon/Icon.vue';
 import Button from '../../general/button/Button.vue';
-import type { IconSize } from '../../general/icon/icon';
+import type { IconSize } from '../../general/icon/icon.js';
 
 // `inheritAttrs: false` so HTML attributes (id, name, autocomplete…)
 // land on the inner native `<input>`, not on the wrapper.
 defineOptions({ inheritAttrs: false });
-import { cn } from '../../../helpers/cn';
+import { cn } from '../../../helpers/cn.js';
 import {
 	inputSearchVariants,
 	inputSearchInputVariants,
@@ -48,7 +48,7 @@ import {
 	inputSearchClearVariants,
 	type InputSearchSize,
 	type InputSearchVariant,
-} from './input-search';
+} from './input-search.js';
 
 interface InputSearchProps {
 	/** The search query value (v-model). */

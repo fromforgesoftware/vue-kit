@@ -48,7 +48,7 @@ import AuthCard from './AuthCard.vue';
 import Button from '../../general/button/Button.vue';
 import Input from '../../form/input/Input.vue';
 import Label from '../../form/label/Label.vue';
-import type { AuthResetPasswordProps } from './authentication';
+import type { AuthResetPasswordProps } from './authentication.js';
 
 /**
  * AuthResetPassword — sets a new password after clicking the reset link.

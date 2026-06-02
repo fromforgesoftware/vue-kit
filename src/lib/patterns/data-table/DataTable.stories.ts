@@ -4,8 +4,8 @@ import { expect, userEvent } from 'storybook/test';
 import { type ColumnDef, type PaginationState, type SortingState } from '@tanstack/vue-table';
 import { Plus } from '@lucide/vue';
 import DataTable from './DataTable.vue';
-import type { DataTableDataSource } from './data-table';
-import type { ColumnConfig, FiltersState } from '../filter-bar/filter-bar';
+import type { DataTableDataSource } from './data-table.js';
+import type { ColumnConfig, FiltersState } from '../filter-bar/filter-bar.js';
 import Checkbox from '../../form/checkbox/Checkbox.vue';
 import Button from '../../general/button/Button.vue';
 import Icon from '../../general/icon/Icon.vue';
@@ -14,7 +14,7 @@ import {
 	expectMinTargetSize,
 	expectNoHorizontalOverflow,
 	forEachViewport,
-} from '../../../test-utils/playHelpers';
+} from '../../../test-utils/playHelpers.js';
 
 type Item = {
 	id: string;

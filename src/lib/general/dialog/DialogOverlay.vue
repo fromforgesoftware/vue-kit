@@ -5,8 +5,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { DialogOverlay, type DialogOverlayProps } from 'reka-ui';
-import { cn } from '../../../helpers/cn';
-import { dialogOverlayVariants } from './dialog';
+import { cn } from '../../../helpers/cn.js';
+import { dialogOverlayVariants } from './dialog.js';
 
 interface Props extends DialogOverlayProps {
 	class?: string;

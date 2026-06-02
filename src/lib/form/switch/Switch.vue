@@ -21,8 +21,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { SwitchRoot, SwitchThumb } from 'reka-ui';
-import { cn } from '../../../helpers/cn';
-import { switchVariants, switchThumbVariants, type SwitchVariants } from './switch';
+import { cn } from '../../../helpers/cn.js';
+import { switchVariants, switchThumbVariants, type SwitchVariants } from './switch.js';
 
 interface SwitchProps {
 	/** Controlled checked state. */

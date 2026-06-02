@@ -21,8 +21,8 @@
 <script setup lang="ts">
 import { type ForgeDate } from '@fromforgesoftware/ts-kit';
 import Button from '../../general/button/Button.vue';
-import { dateRangePresetItemVariants } from './date-range-picker';
-import type { DateRangePreset } from './date-range-picker';
+import { dateRangePresetItemVariants } from './date-range-picker.js';
+import type { DateRangePreset } from './date-range-picker.js';
 
 interface Props {
 	presets: DateRangePreset[];

@@ -41,7 +41,7 @@ import { computed } from 'vue';
 import { Info } from '@lucide/vue';
 import Icon from '../../general/icon/Icon.vue';
 import Button from '../../general/button/Button.vue';
-import { cn } from '../../../helpers/cn';
+import { cn } from '../../../helpers/cn.js';
 import {
 	unsavedChangesBannerVariants,
 	unsavedChangesBannerInnerVariants,
@@ -50,7 +50,7 @@ import {
 	unsavedChangesBannerTitleVariants,
 	unsavedChangesBannerActionsVariants,
 	unsavedChangesBannerButtonVariants,
-} from './unsaved-changes';
+} from './unsaved-changes.js';
 
 interface Props {
 	/** Whether the banner is visible. Bind to hasUnsavedChanges. */

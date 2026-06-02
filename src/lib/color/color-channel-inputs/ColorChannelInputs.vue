@@ -102,20 +102,20 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue';
 import type { ColorChannel } from 'reka-ui';
-import { cn } from '../../../helpers/cn';
+import { cn } from '../../../helpers/cn.js';
 import Tabs from '../../general/tabs/Tabs.vue';
 import TabsList from '../../general/tabs/TabsList.vue';
 import TabsTrigger from '../../general/tabs/TabsTrigger.vue';
 import TabsContent from '../../general/tabs/TabsContent.vue';
 import ColorField from '../color-field/ColorField.vue';
-import type { ColorFieldSize } from '../color-field/color-field';
+import type { ColorFieldSize } from '../color-field/color-field.js';
 import {
 	colorChannelInputsRootVariants,
 	colorChannelInputsListVariants,
 	colorChannelInputsRowVariants,
 	colorChannelInputsLabelVariants,
 	type ColorChannelInputsTab,
-} from './color-channel-inputs';
+} from './color-channel-inputs.js';
 
 interface Props {
 	/** v-model — current colour as hex (always hex, regardless of active tab). */

@@ -4,7 +4,7 @@ import { ArrowLeft, LogOut } from '@lucide/vue';
 import ForbiddenState from './ForbiddenState.vue';
 import Button from '../button/Button.vue';
 import Icon from '../icon/Icon.vue';
-import { expectNoHorizontalOverflow, forEachViewport } from '../../../test-utils/playHelpers';
+import { expectNoHorizontalOverflow, forEachViewport } from '../../../test-utils/playHelpers.js';
 
 const ALL_VARIANTS = ['forbidden', 'not-found', 'error', 'locked'] as const;
 

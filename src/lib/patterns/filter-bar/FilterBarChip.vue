@@ -286,7 +286,7 @@ import Calendar from '../../dates/calendar/Calendar.vue';
 import DateRangePickerPanel from './DateRangePickerPanel.vue';
 import Icon from '../../general/icon/Icon.vue';
 import Button from '../../general/button/Button.vue';
-import { cn } from '../../../helpers/cn';
+import { cn } from '../../../helpers/cn.js';
 import {
 	filterBarChipVariants,
 	filterBarChipBadgeVariants,
@@ -299,7 +299,7 @@ import {
 	type ColumnConfig,
 	type FilterOperator,
 	type FacetedValues,
-} from './filter-bar';
+} from './filter-bar.js';
 
 interface FilterBarChipProps {
 	filter: FilterModel;

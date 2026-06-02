@@ -14,7 +14,7 @@
 
 <script setup lang="ts">
 import { inject } from 'vue';
-import { drawerKey } from './drawer';
+import { drawerKey } from './drawer.js';
 
 const ctx = inject(drawerKey)!;
 

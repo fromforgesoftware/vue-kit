@@ -10,8 +10,8 @@
 import { computed } from 'vue';
 import { ChevronRight } from '@lucide/vue';
 import Icon from '../icon/Icon.vue';
-import { cn } from '../../../helpers/cn';
-import { breadcrumbSeparatorVariants } from './breadcrumb';
+import { cn } from '../../../helpers/cn.js';
+import { breadcrumbSeparatorVariants } from './breadcrumb.js';
 
 interface BreadcrumbSeparatorProps {
 	class?: string;

@@ -35,13 +35,13 @@
 
 <script setup lang="ts">
 import { computed, provide, reactive, watch, ref, onMounted, onUnmounted } from 'vue';
-import { cn } from '../../../helpers/cn';
+import { cn } from '../../../helpers/cn.js';
 import {
 	widgetGridVariants,
 	widgetGridPlaceholderVariants,
 	type GridItemPosition,
 	type WidgetGridBackground,
-} from './widget-grid';
+} from './widget-grid.js';
 
 interface Props {
 	cols?: number;

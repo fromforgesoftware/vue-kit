@@ -36,8 +36,8 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import { cn } from '../../../helpers/cn';
-import { buildSparklinePath, sparklineVariants, type SparklineTone } from './sparkline';
+import { cn } from '../../../helpers/cn.js';
+import { buildSparklinePath, sparklineVariants, type SparklineTone } from './sparkline.js';
 
 interface SparklineProps {
 	values: number[];

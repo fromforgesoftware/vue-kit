@@ -31,7 +31,7 @@
 </template>
 
 <script setup lang="ts">
-import type { ScheduleTimelineLegendIndicator } from '../schedule-timeline';
+import type { ScheduleTimelineLegendIndicator } from '../schedule-timeline.js';
 
 defineProps<{ type: ScheduleTimelineLegendIndicator }>();
 </script>

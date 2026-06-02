@@ -1,2 +1,2 @@
 export { default as Toggle } from './Toggle.vue';
-export * from './toggle';
+export * from './toggle.js';

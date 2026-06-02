@@ -6,8 +6,8 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import { cn } from '../../../helpers/cn';
-import { contextMenuShortcutVariants } from './context-menu';
+import { cn } from '../../../helpers/cn.js';
+import { contextMenuShortcutVariants } from './context-menu.js';
 
 interface ContextMenuShortcutProps {
 	class?: string;

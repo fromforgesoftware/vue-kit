@@ -2,12 +2,12 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { fn, expect, userEvent } from 'storybook/test';
 import { ref } from 'vue';
 import WeekdaysPicker from './WeekdaysPicker.vue';
-import type { WeekdayValue } from './weekdays-picker';
+import type { WeekdayValue } from './weekdays-picker.js';
 import {
 	expectMinTargetSize,
 	expectNoHorizontalOverflow,
 	forEachViewport,
-} from '../../../test-utils/playHelpers';
+} from '../../../test-utils/playHelpers.js';
 
 const ALL_SIZES = ['sm', 'default', 'lg'] as const;
 const ALL_VARIANTS = ['default', 'outline'] as const;

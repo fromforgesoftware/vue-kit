@@ -6,7 +6,7 @@ import {
 	createUnsavedChangesRegistry,
 	UnsavedChangesRegistryKey,
 	type UnsavedChangesRegistry,
-} from './unsavedChangesRegistry';
+} from './unsavedChangesRegistry.js';
 
 function mountOutlet(registry: UnsavedChangesRegistry | null) {
 	const Host = defineComponent({

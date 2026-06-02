@@ -6,8 +6,8 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import { cn } from '../../../helpers/cn';
-import { tableFooterVariants } from './table';
+import { cn } from '../../../helpers/cn.js';
+import { tableFooterVariants } from './table.js';
 
 interface TableFooterProps {
 	class?: string;

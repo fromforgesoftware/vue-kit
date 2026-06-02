@@ -1,2 +1,2 @@
 export { default as DateNavToolbar } from './DateNavToolbar.vue';
-export * from './date-nav-toolbar';
+export * from './date-nav-toolbar.js';

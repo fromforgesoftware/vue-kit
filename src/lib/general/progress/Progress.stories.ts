@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { expect } from 'storybook/test';
 import Progress from './Progress.vue';
-import { expectNoHorizontalOverflow, forEachViewport } from '../../../test-utils/playHelpers';
+import { expectNoHorizontalOverflow, forEachViewport } from '../../../test-utils/playHelpers.js';
 
 const ALL_VARIANTS = ['default', 'success', 'warning', 'destructive', 'info'] as const;
 const ALL_SIZES = ['sm', 'default', 'lg'] as const;

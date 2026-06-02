@@ -222,7 +222,7 @@ import {
 import { Check, ChevronDown, CircleX, X } from '@lucide/vue';
 import Icon from '../../general/icon/Icon.vue';
 import Button from '../../general/button/Button.vue';
-import { cn } from '../../../helpers/cn';
+import { cn } from '../../../helpers/cn.js';
 import Spinner from '../../general/spinner/Spinner.vue';
 import {
 	autocompleteVariants,
@@ -239,7 +239,7 @@ import {
 	type AutocompleteSize,
 	type AutocompleteFetcher,
 	type AutocompleteResolver,
-} from './autocomplete';
+} from './autocomplete.js';
 
 interface AutocompleteProps {
 	/** Selected option value (single) or values (multi). */

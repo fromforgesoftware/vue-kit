@@ -7,8 +7,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { DialogTitle, type DialogTitleProps } from 'reka-ui';
-import { cn } from '../../../helpers/cn';
-import { dialogTitleVariants } from './dialog';
+import { cn } from '../../../helpers/cn.js';
+import { dialogTitleVariants } from './dialog.js';
 
 interface Props extends DialogTitleProps {
 	class?: string;

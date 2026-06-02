@@ -6,8 +6,8 @@ import ChatBubble from '../../general/chat-bubble/ChatBubble.vue';
 import Avatar from '../../general/avatar/Avatar.vue';
 import Button from '../../general/button/Button.vue';
 import Badge from '../../general/badge/Badge.vue';
-import { expectNoHorizontalOverflow, forEachViewport } from '../../../test-utils/playHelpers';
-import type { ChatPanelMessage } from './chat-panel';
+import { expectNoHorizontalOverflow, forEachViewport } from '../../../test-utils/playHelpers.js';
+import type { ChatPanelMessage } from './chat-panel.js';
 
 type ChatPanelArgs = InstanceType<typeof ChatPanel>['$props'];
 

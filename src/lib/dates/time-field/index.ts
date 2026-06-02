@@ -1,2 +1,2 @@
 export { default as TimeField } from './TimeField.vue';
-export * from './time-field';
+export * from './time-field.js';

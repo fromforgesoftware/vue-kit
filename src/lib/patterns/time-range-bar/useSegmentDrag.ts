@@ -1,5 +1,5 @@
 import { ref, type Ref } from 'vue';
-import type { Segment, SegmentUpdateEvent } from './time-range-bar';
+import type { Segment, SegmentUpdateEvent } from './time-range-bar.js';
 
 interface DragState {
 	segmentId: string;

@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from 'vitest';
-import { generateHourTicks, segmentVariantClasses } from './time-range-bar';
-import type { SegmentVariant } from './time-range-bar';
+import { generateHourTicks, segmentVariantClasses } from './time-range-bar.js';
+import type { SegmentVariant } from './time-range-bar.js';
 import { ForgeTime, setHourCycleProvider } from '@fromforgesoftware/ts-kit/date';
 
 // ── ForgeTime.formatTimeOfDay (24h — default) ─────────────────────────────

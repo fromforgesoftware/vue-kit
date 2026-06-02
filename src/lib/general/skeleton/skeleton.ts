@@ -1,6 +1,6 @@
 import { cva, type VariantProps } from 'class-variance-authority';
 
-export type { SkeletonAnimate } from './types';
+export type { SkeletonAnimate } from './types.js';
 
 export const skeletonVariants = cva('', {
 	variants: {

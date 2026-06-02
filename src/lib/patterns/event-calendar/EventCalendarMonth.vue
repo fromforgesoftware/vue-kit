@@ -91,7 +91,7 @@
 <script setup lang="ts">
 import { computed, toRef } from 'vue';
 import { type ForgeDate, getWeekStart as getWeekStartPref } from '@fromforgesoftware/ts-kit';
-import { cn } from '../../../helpers/cn';
+import { cn } from '../../../helpers/cn.js';
 import ScrollArea from '../../general/scroll-area/ScrollArea.vue';
 import Button from '../../general/button/Button.vue';
 import EventCalendarEvent from './EventCalendarEvent.vue';
@@ -104,13 +104,13 @@ import {
 	type EventCalendarEventClickPayload,
 	type EventCalendarEventHoverPayload,
 	type EventCalendarDateClickPayload,
-} from './event-calendar';
+} from './event-calendar.js';
 import {
 	buildMonthGrid,
 	isToday,
 	getEventsForDate,
 	useWeekDayLabels,
-} from './composables/useEventCalendarGrid';
+} from './composables/useEventCalendarGrid.js';
 
 interface Props {
 	selectedDate: ForgeDate;

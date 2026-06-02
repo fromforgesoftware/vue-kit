@@ -9,5 +9,5 @@ export { default as DrawerBack } from './DrawerBack.vue';
 export { default as DrawerStepTrigger } from './DrawerStepTrigger.vue';
 export { default as DrawerStepClose } from './DrawerStepClose.vue';
 export { default as DrawerClose } from './DrawerClose.vue';
-export { useDrawer } from './useDrawer';
-export * from './drawer';
+export { useDrawer } from './useDrawer.js';
+export * from './drawer.js';

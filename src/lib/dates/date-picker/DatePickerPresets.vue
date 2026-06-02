@@ -18,8 +18,8 @@
 <script setup lang="ts">
 import { type ForgeDate } from '@fromforgesoftware/ts-kit';
 import Button from '../../general/button/Button.vue';
-import { datePickerPresetItemVariants } from './date-picker';
-import type { DatePickerPreset } from './date-picker';
+import { datePickerPresetItemVariants } from './date-picker.js';
+import type { DatePickerPreset } from './date-picker.js';
 
 interface Props {
 	presets: DatePickerPreset[];

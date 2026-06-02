@@ -32,7 +32,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { SliderRoot, SliderTrack, SliderRange, SliderThumb } from 'reka-ui';
-import { cn } from '../../../helpers/cn';
+import { cn } from '../../../helpers/cn.js';
 import {
 	sliderVariants,
 	sliderTrackVariants,
@@ -40,7 +40,7 @@ import {
 	sliderThumbVariants,
 	type SliderOrientation,
 	type SliderSize,
-} from './slider';
+} from './slider.js';
 
 interface SliderProps {
 	/** v-model binding. Always an array — single-thumb sliders use `[value]`. */

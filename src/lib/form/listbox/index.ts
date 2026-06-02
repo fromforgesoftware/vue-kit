@@ -9,4 +9,4 @@ export {
 	listboxGroupVariants,
 	listboxLabelVariants,
 	type ListboxVariants,
-} from './listbox';
+} from './listbox.js';

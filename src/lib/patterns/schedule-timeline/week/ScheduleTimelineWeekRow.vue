@@ -159,7 +159,7 @@
 import { computed } from 'vue';
 import type { ClassValue } from 'clsx';
 import { Lock, AlertTriangle } from '@lucide/vue';
-import { cn } from '../../../../helpers/cn';
+import { cn } from '../../../../helpers/cn.js';
 import Avatar from '../../../general/avatar/Avatar.vue';
 import Icon from '../../../general/icon/Icon.vue';
 import TimeRangeBar from '../../time-range-bar/TimeRangeBar.vue';
@@ -167,9 +167,9 @@ import type {
 	ScheduleTimelineEmployee,
 	ScheduleTimelineDayCell,
 	ScheduleTimelineShift,
-} from '../schedule-timeline';
-import { shiftChildrenToSegments, shiftVariantToSegmentVariant } from '../schedule-timeline';
-import { formatShiftDuration, shiftStartSec, ScheduleTimelineZ as Z } from '../utils';
+} from '../schedule-timeline.js';
+import { shiftChildrenToSegments, shiftVariantToSegmentVariant } from '../schedule-timeline.js';
+import { formatShiftDuration, shiftStartSec, ScheduleTimelineZ as Z } from '../utils.js';
 import ScheduleTimelineEmployeeMeta from '../shared/ScheduleTimelineEmployeeMeta.vue';
 import ScheduleTimelineIndicator from '../shared/ScheduleTimelineIndicator.vue';
 

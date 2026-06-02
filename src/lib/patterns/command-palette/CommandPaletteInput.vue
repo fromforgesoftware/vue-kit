@@ -18,8 +18,8 @@
 
 <script setup lang="ts">
 import { computed, inject, ref } from 'vue';
-import { cn } from '../../../helpers/cn';
-import { commandPaletteInputWrapperVariants, COMMAND_PALETTE_KEY } from './command-palette';
+import { cn } from '../../../helpers/cn.js';
+import { commandPaletteInputWrapperVariants, COMMAND_PALETTE_KEY } from './command-palette.js';
 import InputSearch from '../../form/input-search/InputSearch.vue';
 import Kbd from '../../general/kbd/Kbd.vue';
 import KbdGroup from '../../general/kbd/KbdGroup.vue';

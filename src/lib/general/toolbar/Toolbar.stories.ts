@@ -11,7 +11,7 @@ import {
 	expectMinTargetSize,
 	expectNoHorizontalOverflow,
 	forEachViewport,
-} from '../../../test-utils/playHelpers';
+} from '../../../test-utils/playHelpers.js';
 
 const ALL_VARIANTS = ['default', 'ghost'] as const;
 const ALL_SIZES = ['sm', 'default'] as const;

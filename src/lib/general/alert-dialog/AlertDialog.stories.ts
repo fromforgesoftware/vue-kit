@@ -15,7 +15,7 @@ import {
 	expectNoHorizontalOverflow,
 	forEachViewport,
 	inBody,
-} from '../../../test-utils/playHelpers';
+} from '../../../test-utils/playHelpers.js';
 
 const ALL_VARIANTS = ['default', 'destructive'] as const;
 

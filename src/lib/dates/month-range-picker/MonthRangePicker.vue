@@ -191,11 +191,11 @@ import {
 } from 'reka-ui';
 import type { DateValue } from '@internationalized/date';
 import { type ForgeDate, EDateFormat } from '@fromforgesoftware/ts-kit';
-import { cn } from '../../../helpers/cn';
-import { toRekaDate, toRekaRange, rekaRangeToForgeDateRange } from '../_adapter';
+import { cn } from '../../../helpers/cn.js';
+import { toRekaDate, toRekaRange, rekaRangeToForgeDateRange } from '../_adapter.js';
 import Button from '../../general/button/Button.vue';
-import type { ButtonSize } from '../../general/button/button';
-import type { MonthRangePickerVariants } from './month-range-picker';
+import type { ButtonSize } from '../../general/button/button.js';
+import type { MonthRangePickerVariants } from './month-range-picker.js';
 import {
 	monthRangePickerRootVariants,
 	monthRangePickerContentVariants,
@@ -206,7 +206,7 @@ import {
 	monthRangePickerGridRowVariants,
 	monthRangePickerCellVariants,
 	monthRangePickerCellTriggerVariants,
-} from './month-range-picker';
+} from './month-range-picker.js';
 
 interface Props {
 	/** Selected month range. */

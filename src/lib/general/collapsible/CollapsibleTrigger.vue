@@ -29,7 +29,7 @@ import { CollapsibleTrigger } from 'reka-ui';
 import { computed, inject } from 'vue';
 import { ChevronDown, ChevronRight } from '@lucide/vue';
 import Icon from '../icon/Icon.vue';
-import { cn } from '../../../helpers/cn';
+import { cn } from '../../../helpers/cn.js';
 import {
 	collapsibleTriggerVariants,
 	COLLAPSIBLE_VARIANT_KEY,
@@ -37,7 +37,7 @@ import {
 	type CollapsibleVariant,
 	type CollapsibleSize,
 	type CollapsibleChevronPosition,
-} from './collapsible';
+} from './collapsible.js';
 
 interface CollapsibleTriggerProps {
 	/**

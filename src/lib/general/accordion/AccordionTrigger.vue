@@ -27,7 +27,7 @@ import { computed, inject, ref } from 'vue';
 import { AccordionHeader, AccordionTrigger } from 'reka-ui';
 import { ChevronDown, ChevronRight } from '@lucide/vue';
 import Icon from '../icon/Icon.vue';
-import { cn } from '../../../helpers/cn';
+import { cn } from '../../../helpers/cn.js';
 import {
 	accordionTriggerVariants,
 	ACCORDION_VARIANT_KEY,
@@ -36,7 +36,7 @@ import {
 	type AccordionVariant,
 	type AccordionChevronPosition,
 	type AccordionSize,
-} from './accordion';
+} from './accordion.js';
 
 interface AccordionTriggerProps {
 	class?: string;

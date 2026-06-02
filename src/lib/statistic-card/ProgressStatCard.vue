@@ -136,14 +136,14 @@
  * status-text label.
  */
 import { computed } from 'vue';
-import { cn } from '../../helpers/cn';
+import { cn } from '../../helpers/cn.js';
 import {
 	progressStatCardVariants,
 	progressStatCardStatusVariants,
 	statCardLabelVariants,
 	type ProgressStatCardVariants,
 	type ProgressStatCardStatusVariants,
-} from './stat-card';
+} from './stat-card.js';
 import Progress from '../general/progress/Progress.vue';
 
 interface ProgressStatCardProps {

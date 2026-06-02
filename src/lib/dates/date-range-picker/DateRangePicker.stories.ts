@@ -4,13 +4,13 @@ import { ref } from 'vue';
 import { ForgeDate } from '@fromforgesoftware/ts-kit';
 import DateRangePicker from './DateRangePicker.vue';
 import Label from '../../form/label/Label.vue';
-import { defaultDateRangePresets } from './date-range-picker';
+import { defaultDateRangePresets } from './date-range-picker.js';
 import {
 	expectMinTargetSize,
 	expectNoHorizontalOverflow,
 	forEachViewport,
 	inBody,
-} from '../../../test-utils/playHelpers';
+} from '../../../test-utils/playHelpers.js';
 
 const meta = {
 	title: 'Dates/DateRangePicker',

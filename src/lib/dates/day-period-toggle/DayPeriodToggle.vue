@@ -4,7 +4,7 @@
 
 <script setup lang="ts">
 import { injectTimeFieldRootContext } from 'reka-ui';
-import type { DayPeriod } from './day-period-toggle';
+import type { DayPeriod } from './day-period-toggle.js';
 
 defineOptions({ name: 'DayPeriodToggle' });
 

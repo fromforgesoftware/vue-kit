@@ -6,4 +6,4 @@ export { default as TableRow } from './TableRow.vue';
 export { default as TableHead } from './TableHead.vue';
 export { default as TableCell } from './TableCell.vue';
 export { default as TableCaption } from './TableCaption.vue';
-export * from './table';
+export * from './table.js';

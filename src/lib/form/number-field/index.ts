@@ -2,4 +2,4 @@ export { default as NumberField } from './NumberField.vue';
 export { default as NumberFieldInput } from './NumberFieldInput.vue';
 export { default as NumberFieldDecrement } from './NumberFieldDecrement.vue';
 export { default as NumberFieldIncrement } from './NumberFieldIncrement.vue';
-export * from './number-field';
+export * from './number-field.js';

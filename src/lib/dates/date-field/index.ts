@@ -1,2 +1,2 @@
 export { default as DateField } from './DateField.vue';
-export * from './date-field';
+export * from './date-field.js';

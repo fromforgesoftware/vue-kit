@@ -10,8 +10,8 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import { cn } from '../../../helpers/cn';
-import { labelVariants, type LabelVariants } from './label';
+import { cn } from '../../../helpers/cn.js';
+import { labelVariants, type LabelVariants } from './label.js';
 
 interface LabelProps {
 	/** id of the form control this label labels (matches the input's `id`). */

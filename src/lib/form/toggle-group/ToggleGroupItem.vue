@@ -12,8 +12,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { ToggleGroupItem } from 'reka-ui';
-import { cn } from '../../../helpers/cn';
-import { toggleVariants, type ToggleVariants } from '../toggle/toggle';
+import { cn } from '../../../helpers/cn.js';
+import { toggleVariants, type ToggleVariants } from '../toggle/toggle.js';
 
 interface ToggleGroupItemProps {
 	/** Identifier used by the parent group to track selection. */

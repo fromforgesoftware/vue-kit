@@ -74,7 +74,7 @@ import SelectItem from '../select/SelectItem.vue';
 import SelectValue from '../select/SelectValue.vue';
 import Icon from '../../general/icon/Icon.vue';
 import Button from '../../general/button/Button.vue';
-import { cn } from '../../../helpers/cn';
+import { cn } from '../../../helpers/cn.js';
 import {
 	getLocaleOption,
 	getLocaleOptions,
@@ -83,8 +83,8 @@ import {
 	type LanguageSelectorTone,
 	type LanguageSelectorDensity,
 	type LanguageSelectorVariant,
-} from './language-selector';
-import type { SelectSize } from '../select/select';
+} from './language-selector.js';
+import type { SelectSize } from '../select/select.js';
 
 interface Props {
 	/** Currently selected locale code. */

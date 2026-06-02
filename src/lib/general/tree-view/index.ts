@@ -4,4 +4,4 @@ export {
 	treeViewItemVariants,
 	type TreeViewVariants,
 	type TreeNode,
-} from './tree-view';
+} from './tree-view.js';

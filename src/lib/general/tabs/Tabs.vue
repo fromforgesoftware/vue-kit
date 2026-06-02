@@ -15,7 +15,7 @@
 <script setup lang="ts">
 import { provide, toRef } from 'vue';
 import { TabsRoot } from 'reka-ui';
-import { TABS_VARIANT_KEY, TABS_SIZE_KEY, type TabsVariant, type TabsSize } from './tabs';
+import { TABS_VARIANT_KEY, TABS_SIZE_KEY, type TabsVariant, type TabsSize } from './tabs.js';
 
 interface TabsProps {
 	modelValue?: string | number;

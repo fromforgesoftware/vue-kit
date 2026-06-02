@@ -136,14 +136,14 @@
 import { ref, computed, shallowRef, toRef, watch } from 'vue';
 import type { ClassValue } from 'clsx';
 import { EDateFormat, type ForgeDate } from '@fromforgesoftware/ts-kit';
-import { cn } from '../../../../helpers/cn';
+import { cn } from '../../../../helpers/cn.js';
 import type {
 	ScheduleTimelineDepartment,
 	ScheduleTimelineEmployeeRow as ScheduleTimelineEmployeeRowData,
 	ScheduleTimelineShift,
 	ShiftClickEvent,
 	ShiftContextMenuEvent,
-} from '../schedule-timeline';
+} from '../schedule-timeline.js';
 import { ChevronDown, ChevronRight, LayoutGrid, Pencil } from '@lucide/vue';
 import ScheduleTimelineLegend from '../shared/ScheduleTimelineLegend.vue';
 import ScheduleTimelineVirtualScroll from '../shared/ScheduleTimelineVirtualScroll.vue';
@@ -160,9 +160,9 @@ import {
 	isWeekendDay,
 	selectionKey,
 	ScheduleTimelineZ as Z,
-} from '../utils';
-import { useScheduleTimelineLayout } from '../useScheduleTimelineLayout';
-import { useDayTick } from '../useNowTick';
+} from '../utils.js';
+import { useScheduleTimelineLayout } from '../useScheduleTimelineLayout.js';
+import { useDayTick } from '../useNowTick.js';
 
 const props = withDefaults(
 	defineProps<{

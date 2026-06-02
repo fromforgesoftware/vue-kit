@@ -2,13 +2,13 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { fn, expect } from 'storybook/test';
 import WidgetGrid from './WidgetGrid.vue';
 import WidgetGridItem from './WidgetGridItem.vue';
-import type { GridItemPosition, WidgetGridBackground } from './widget-grid';
+import type { GridItemPosition, WidgetGridBackground } from './widget-grid.js';
 import {
 	mouseDragBy,
 	expectMinTargetSize,
 	expectNoHorizontalOverflow,
 	forEachViewport,
-} from '../../../test-utils/playHelpers';
+} from '../../../test-utils/playHelpers.js';
 
 // 24-column dashboard layout. Items position via `{ i, x, y, w, h }` where
 // `x`/`w` count columns (0–23) and `y`/`h` count rows. The grid resolves the

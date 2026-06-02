@@ -17,7 +17,7 @@
 <script setup lang="ts">
 import { computed, provide, toRef } from 'vue';
 import { AccordionRoot } from 'reka-ui';
-import { cn } from '../../../helpers/cn';
+import { cn } from '../../../helpers/cn.js';
 import {
 	accordionVariants,
 	ACCORDION_VARIANT_KEY,
@@ -26,7 +26,7 @@ import {
 	type AccordionVariant,
 	type AccordionChevronPosition,
 	type AccordionSize,
-} from './accordion';
+} from './accordion.js';
 
 interface AccordionProps {
 	/**

@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { mount } from '@vue/test-utils';
 import WeekdaysPicker from './WeekdaysPicker.vue';
-import type { WeekdayValue } from './weekdays-picker';
+import type { WeekdayValue } from './weekdays-picker.js';
 
 describe('WeekdaysPicker', () => {
 	describe('rendering', () => {

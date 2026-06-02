@@ -13,8 +13,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { ColorSwatch as RekaColorSwatch } from 'reka-ui';
-import { cn } from '../../../helpers/cn';
-import { colorSwatchVariants, type ColorSwatchSize, type ColorSwatchShape } from './color-swatch';
+import { cn } from '../../../helpers/cn.js';
+import { colorSwatchVariants, type ColorSwatchSize, type ColorSwatchShape } from './color-swatch.js';
 
 interface Props {
 	/** Any valid CSS color string (hex, rgb, hsl, named). */

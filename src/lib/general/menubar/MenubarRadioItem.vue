@@ -21,8 +21,8 @@ import { computed } from 'vue';
 import { MenubarRadioItem, MenubarItemIndicator } from 'reka-ui';
 import { Circle } from '@lucide/vue';
 import Icon from '../icon/Icon.vue';
-import { cn } from '../../../helpers/cn';
-import { menubarRadioItemVariants } from './menubar';
+import { cn } from '../../../helpers/cn.js';
+import { menubarRadioItemVariants } from './menubar.js';
 
 interface MenubarRadioItemProps {
 	/** The unique value of the item. */

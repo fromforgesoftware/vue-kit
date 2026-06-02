@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { mount } from '@vue/test-utils';
 import KpiTile from './KpiTile.vue';
-import { deltaSentiment } from './kpi-tile';
+import { deltaSentiment } from './kpi-tile.js';
 
 describe('KpiTile', () => {
 	it('renders the label + value', () => {

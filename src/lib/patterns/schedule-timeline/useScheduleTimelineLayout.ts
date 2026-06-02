@@ -1,5 +1,5 @@
 import { ref, computed, onMounted, onUnmounted, unref, watch, type Ref, type MaybeRef } from 'vue';
-import type { ScheduleTimelineDepartment, ScheduleTimelineEmployeeRow } from './schedule-timeline';
+import type { ScheduleTimelineDepartment, ScheduleTimelineEmployeeRow } from './schedule-timeline.js';
 
 interface VirtualScrollExpose {
 	getScrollElement: () => HTMLElement | null;

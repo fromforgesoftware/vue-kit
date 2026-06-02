@@ -53,9 +53,9 @@
 
 <script setup lang="ts">
 import { computed, type Component } from 'vue';
-import { cn } from '../../../helpers/cn';
+import { cn } from '../../../helpers/cn.js';
 import Icon from '../icon/Icon.vue';
-import type { IconSize } from '../icon/icon';
+import type { IconSize } from '../icon/icon.js';
 import {
 	emptyStateVariants,
 	emptyStateIconVariants,
@@ -64,7 +64,7 @@ import {
 	emptyStateDescriptionVariants,
 	type EmptyStateVariants,
 	type IllustrationName,
-} from './empty-state';
+} from './empty-state.js';
 
 const lightUrls = import.meta.glob<string>(
 	'../../../assets/chart-illustrations/light/*.svg',

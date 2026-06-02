@@ -7,11 +7,11 @@ export {
 	surveyDialogActionsVariants,
 	type SurveyDialogProps,
 	type SurveyDialogEmits,
-} from './survey-dialog';
+} from './survey-dialog.js';
 export {
 	surveyRatingScaleVariants,
 	surveyRatingScaleQuestionVariants,
 	surveyRatingScaleLabelsVariants,
 	type SurveyRatingScaleProps,
 	type SurveyRatingScaleEmits,
-} from './survey-rating-scale';
+} from './survey-rating-scale.js';

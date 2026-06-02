@@ -14,8 +14,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { ContextMenuItem } from 'reka-ui';
-import { cn } from '../../../helpers/cn';
-import { contextMenuItemVariants, type ContextMenuItemVariant } from './context-menu';
+import { cn } from '../../../helpers/cn.js';
+import { contextMenuItemVariants, type ContextMenuItemVariant } from './context-menu.js';
 
 interface ContextMenuItemProps {
 	/** When true, prevents the user from interacting with the item. */

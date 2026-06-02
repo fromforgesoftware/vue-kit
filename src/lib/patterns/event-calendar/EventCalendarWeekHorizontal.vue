@@ -166,14 +166,14 @@ import {
 	type EventCalendarEventClickPayload,
 	type EventCalendarEventHoverPayload,
 	type EventCalendarSlotClickPayload,
-} from './event-calendar';
+} from './event-calendar.js';
 import {
 	isOnDate,
 	isToday,
 	formatHour,
 	formatEventTime,
 	getWeekStart,
-} from './composables/useEventCalendarGrid';
+} from './composables/useEventCalendarGrid.js';
 
 interface Props {
 	selectedDate: ForgeDate;

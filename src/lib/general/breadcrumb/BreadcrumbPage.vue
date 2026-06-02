@@ -12,8 +12,8 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import { cn } from '../../../helpers/cn';
-import { breadcrumbPageVariants } from './breadcrumb';
+import { cn } from '../../../helpers/cn.js';
+import { breadcrumbPageVariants } from './breadcrumb.js';
 
 interface BreadcrumbPageProps {
 	class?: string;

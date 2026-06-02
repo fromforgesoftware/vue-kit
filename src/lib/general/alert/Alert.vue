@@ -19,8 +19,8 @@
 import { computed, type Component } from 'vue';
 import { X } from '@lucide/vue';
 import Icon from '../icon/Icon.vue';
-import { cn } from '../../../helpers/cn';
-import { alertVariants, alertDismissVariants, type AlertVariants } from './alert';
+import { cn } from '../../../helpers/cn.js';
+import { alertVariants, alertDismissVariants, type AlertVariants } from './alert.js';
 
 interface AlertProps {
 	variant?: AlertVariants['variant'];

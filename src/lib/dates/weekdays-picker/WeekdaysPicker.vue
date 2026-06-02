@@ -47,7 +47,7 @@
 
 <script setup lang="ts">
 import { computed, ref } from 'vue';
-import { cn } from '../../../helpers/cn';
+import { cn } from '../../../helpers/cn.js';
 import Tooltip from '../../general/tooltip/Tooltip.vue';
 import {
 	weekdaysPickerVariants,
@@ -57,7 +57,7 @@ import {
 	type WeekdayButtonVariants,
 	type WeekdayValue,
 	type WeekdayItem,
-} from './weekdays-picker';
+} from './weekdays-picker.js';
 
 interface WeekdaysPickerProps {
 	/** Minimum number of days that must be selected. */

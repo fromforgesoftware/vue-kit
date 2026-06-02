@@ -9,8 +9,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import Input from '../../form/input/Input.vue';
-import { cn } from '../../../helpers/cn';
-import { sidebarInputVariants } from './sidebar';
+import { cn } from '../../../helpers/cn.js';
+import { sidebarInputVariants } from './sidebar.js';
 
 interface SidebarInputProps {
 	class?: string;

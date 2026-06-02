@@ -7,9 +7,9 @@
 <script setup lang="ts">
 import { computed, inject, ref } from 'vue';
 import { AlertDialogAction } from 'reka-ui';
-import { cn } from '../../../helpers/cn';
-import { buttonVariants, type ButtonVariants } from '../button/button';
-import { ALERT_DIALOG_VARIANT_KEY, type AlertDialogVariant } from './alert-dialog';
+import { cn } from '../../../helpers/cn.js';
+import { buttonVariants, type ButtonVariants } from '../button/button.js';
+import { ALERT_DIALOG_VARIANT_KEY, type AlertDialogVariant } from './alert-dialog.js';
 
 interface Props {
 	variant?: ButtonVariants['variant'];

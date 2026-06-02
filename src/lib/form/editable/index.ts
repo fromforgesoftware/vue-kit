@@ -5,4 +5,4 @@ export { default as EditableInput } from './EditableInput.vue';
 export { default as EditableEditTrigger } from './EditableEditTrigger.vue';
 export { default as EditableSubmitTrigger } from './EditableSubmitTrigger.vue';
 export { default as EditableCancelTrigger } from './EditableCancelTrigger.vue';
-export * from './editable';
+export * from './editable.js';

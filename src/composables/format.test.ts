@@ -8,7 +8,7 @@ import {
 	formatPercent,
 	formatRelative,
 	useRelativeTime,
-} from './format';
+} from './format.js';
 
 describe('formatCurrency', () => {
 	it('formats with the requested currency + locale', () => {

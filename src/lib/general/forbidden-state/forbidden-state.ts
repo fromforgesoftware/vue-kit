@@ -1,6 +1,6 @@
 import type { Component } from 'vue';
 import { ShieldX, FileQuestion, AlertOctagon, Lock } from '@lucide/vue';
-import type { IllustrationName } from '../empty-state/empty-state';
+import type { IllustrationName } from '../empty-state/empty-state.js';
 
 export type ForbiddenStateVariant = 'forbidden' | 'not-found' | 'error' | 'locked';
 export type ForbiddenStateSize = 'default' | 'lg';

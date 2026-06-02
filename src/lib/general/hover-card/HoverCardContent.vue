@@ -15,8 +15,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { HoverCardPortal, HoverCardContent } from 'reka-ui';
-import { cn } from '../../../helpers/cn';
-import { hoverCardContentVariants, type HoverCardSize } from './hover-card';
+import { cn } from '../../../helpers/cn.js';
+import { hoverCardContentVariants, type HoverCardSize } from './hover-card.js';
 
 type HoverCardSide = 'top' | 'right' | 'bottom' | 'left';
 type HoverCardAlign = 'start' | 'center' | 'end';

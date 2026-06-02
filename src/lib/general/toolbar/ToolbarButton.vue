@@ -7,8 +7,8 @@
 <script setup lang="ts">
 import { computed, inject } from 'vue';
 import { ToolbarButton } from 'reka-ui';
-import { cn } from '../../../helpers/cn';
-import { toolbarButtonVariants, TOOLBAR_SIZE_KEY, type ToolbarSize } from './toolbar';
+import { cn } from '../../../helpers/cn.js';
+import { toolbarButtonVariants, TOOLBAR_SIZE_KEY, type ToolbarSize } from './toolbar.js';
 
 interface ToolbarButtonProps {
 	class?: string;

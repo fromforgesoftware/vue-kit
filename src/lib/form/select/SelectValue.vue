@@ -49,7 +49,7 @@ import { SelectValue } from 'reka-ui';
 import { X } from '@lucide/vue';
 import Icon from '../../general/icon/Icon.vue';
 import Button from '../../general/button/Button.vue';
-import { SELECT_MULTI_KEY } from './select';
+import { SELECT_MULTI_KEY } from './select.js';
 
 interface SelectValueProps {
 	/** Placeholder shown when no value is selected. */

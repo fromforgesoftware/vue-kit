@@ -6,8 +6,8 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import { cn } from '../../../helpers/cn';
-import { bentoGridVariants, type BentoCols, type BentoGap } from './bento-grid';
+import { cn } from '../../../helpers/cn.js';
+import { bentoGridVariants, type BentoCols, type BentoGap } from './bento-grid.js';
 
 interface BentoGridProps {
 	/**

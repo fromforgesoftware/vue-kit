@@ -4,8 +4,8 @@
 
 <script setup lang="ts">
 import { computed, inject } from 'vue';
-import { cn } from '../../../helpers/cn';
-import { kbdVariants, KBD_SIZE_KEY, KBD_VARIANT_KEY, type KbdVariants } from './kbd';
+import { cn } from '../../../helpers/cn.js';
+import { kbdVariants, KBD_SIZE_KEY, KBD_VARIANT_KEY, type KbdVariants } from './kbd.js';
 
 interface KbdProps {
 	size?: KbdVariants['size'];

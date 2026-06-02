@@ -62,7 +62,7 @@
 <script setup lang="ts" generic="T">
 import { ref, computed, watch } from 'vue';
 import { useVirtualizer } from '@tanstack/vue-virtual';
-import { cn } from '../../../../helpers/cn';
+import { cn } from '../../../../helpers/cn.js';
 
 const props = withDefaults(
 	defineProps<{

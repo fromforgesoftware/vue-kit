@@ -64,14 +64,14 @@
 <script setup lang="ts">
 import { computed, useId } from 'vue';
 import Label from '../label/Label.vue';
-import { cn } from '../../../helpers/cn';
+import { cn } from '../../../helpers/cn.js';
 import {
 	formFieldVariants,
 	formFieldLabelColVariants,
 	formFieldControlColVariants,
 	formFieldMessageVariants,
 	type FormFieldVariants,
-} from './form-field';
+} from './form-field.js';
 
 interface FormFieldProps {
 	/** Visible label text. Required — every field needs a programmatic name. */

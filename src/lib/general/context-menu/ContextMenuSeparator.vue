@@ -5,8 +5,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { ContextMenuSeparator } from 'reka-ui';
-import { cn } from '../../../helpers/cn';
-import { contextMenuSeparatorVariants } from './context-menu';
+import { cn } from '../../../helpers/cn.js';
+import { contextMenuSeparatorVariants } from './context-menu.js';
 
 interface ContextMenuSeparatorProps {
 	class?: string;

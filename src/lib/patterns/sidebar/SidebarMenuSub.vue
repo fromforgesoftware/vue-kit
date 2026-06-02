@@ -6,9 +6,9 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import { cn } from '../../../helpers/cn';
-import { useSidebar } from './useSidebar';
-import { sidebarMenuSubVariants } from './sidebar';
+import { cn } from '../../../helpers/cn.js';
+import { useSidebar } from './useSidebar.js';
+import { sidebarMenuSubVariants } from './sidebar.js';
 
 interface SidebarMenuSubProps {
 	class?: string;

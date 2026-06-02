@@ -33,12 +33,12 @@ import {
 } from 'reka-ui';
 import { ChevronUp, ChevronDown } from '@lucide/vue';
 import Icon from '../../general/icon/Icon.vue';
-import { cn } from '../../../helpers/cn';
+import { cn } from '../../../helpers/cn.js';
 import {
 	selectContentVariants,
 	selectViewportVariants,
 	selectScrollButtonVariants,
-} from './select';
+} from './select.js';
 
 interface SelectContentProps {
 	/** `popper` follows the trigger; `item-aligned` aligns the chosen item with the trigger. */

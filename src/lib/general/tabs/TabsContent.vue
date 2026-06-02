@@ -7,8 +7,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { TabsContent, type TabsContentProps } from 'reka-ui';
-import { cn } from '../../../helpers/cn';
-import { tabsContentVariants } from './tabs';
+import { cn } from '../../../helpers/cn.js';
+import { tabsContentVariants } from './tabs.js';
 
 interface Props extends TabsContentProps {
 	class?: string;

@@ -18,8 +18,8 @@
 import { computed } from 'vue';
 import { Toaster } from 'vue-sonner';
 import 'vue-sonner/style.css';
-import { cn } from '../../../helpers/cn';
-import type { ToastPosition, ToastTheme } from './toast';
+import { cn } from '../../../helpers/cn.js';
+import type { ToastPosition, ToastTheme } from './toast.js';
 
 interface Props {
 	position?: ToastPosition;

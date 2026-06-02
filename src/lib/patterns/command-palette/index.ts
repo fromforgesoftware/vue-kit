@@ -8,4 +8,4 @@ export { default as CommandPaletteItem } from './CommandPaletteItem.vue';
 export { default as CommandPaletteSeparator } from './CommandPaletteSeparator.vue';
 export { default as CommandPaletteTrigger } from './CommandPaletteTrigger.vue';
 export { default as CommandPaletteFooter } from './CommandPaletteFooter.vue';
-export * from './command-palette';
+export * from './command-palette.js';

@@ -4,7 +4,7 @@ import { ref } from 'vue';
 import Collapsible from './Collapsible.vue';
 import CollapsibleTrigger from './CollapsibleTrigger.vue';
 import CollapsibleContent from './CollapsibleContent.vue';
-import { expectNoHorizontalOverflow, forEachViewport } from '../../../test-utils/playHelpers';
+import { expectNoHorizontalOverflow, forEachViewport } from '../../../test-utils/playHelpers.js';
 
 const ALL_VARIANTS = ['default', 'ghost'] as const;
 const ALL_SIZES = ['sm', 'default'] as const;

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { expect, within } from 'storybook/test';
 import Spinner from './Spinner.vue';
 import Button from '../button/Button.vue';
-import { expectNoHorizontalOverflow, forEachViewport } from '../../../test-utils/playHelpers';
+import { expectNoHorizontalOverflow, forEachViewport } from '../../../test-utils/playHelpers.js';
 
 const ALL_SIZES = ['xs', 'sm', 'default', 'lg', 'xl'] as const;
 const ALL_TONES = ['default', 'primary', 'current'] as const;

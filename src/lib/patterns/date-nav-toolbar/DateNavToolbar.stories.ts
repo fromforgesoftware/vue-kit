@@ -9,7 +9,7 @@ import Icon from '../../general/icon/Icon.vue';
 import {
 	defaultDatePickerPresets,
 	defaultWeekPickerPresets,
-} from '../../dates/date-picker/date-picker';
+} from '../../dates/date-picker/date-picker.js';
 
 const TODAY = ForgeDate.now();
 

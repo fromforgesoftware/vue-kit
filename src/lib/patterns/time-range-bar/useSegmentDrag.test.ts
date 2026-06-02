@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, afterEach } from 'vitest';
 import { ref } from 'vue';
-import { useSegmentDrag, type UseSegmentDragOptions } from './useSegmentDrag';
-import type { Segment, SegmentUpdateEvent } from './time-range-bar';
+import { useSegmentDrag, type UseSegmentDragOptions } from './useSegmentDrag.js';
+import type { Segment, SegmentUpdateEvent } from './time-range-bar.js';
 
 function createSegment(overrides: Partial<Segment> = {}): Segment {
 	return {

@@ -7,7 +7,7 @@
 <script setup lang="ts">
 import { computed, provide, toRef } from 'vue';
 import { AlertDialogRoot, useForwardPropsEmits } from 'reka-ui';
-import { ALERT_DIALOG_VARIANT_KEY, type AlertDialogVariant } from './alert-dialog';
+import { ALERT_DIALOG_VARIANT_KEY, type AlertDialogVariant } from './alert-dialog.js';
 
 interface AlertDialogProps {
 	open?: boolean;

@@ -1,2 +1,2 @@
 export { default as Switch } from './Switch.vue';
-export * from './switch';
+export * from './switch.js';

@@ -2,12 +2,12 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { fn, expect, userEvent } from 'storybook/test';
 import { ref } from 'vue';
 import TreeView from './TreeView.vue';
-import type { TreeNode } from './tree-view';
+import type { TreeNode } from './tree-view.js';
 import {
 	expectMinTargetSize,
 	expectNoHorizontalOverflow,
 	forEachViewport,
-} from '../../../test-utils/playHelpers';
+} from '../../../test-utils/playHelpers.js';
 
 const ALL_SIZES = ['sm', 'default'] as const;
 

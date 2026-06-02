@@ -6,8 +6,8 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import { cn } from '../../../helpers/cn';
-import { dropdownMenuShortcutVariants } from './dropdown-menu';
+import { cn } from '../../../helpers/cn.js';
+import { dropdownMenuShortcutVariants } from './dropdown-menu.js';
 
 interface DropdownMenuShortcutProps {
 	class?: string;

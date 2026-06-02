@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it } from 'vitest';
 import { defineComponent, h } from 'vue';
-import { __resetModalStackForTests, useModal } from './useModal';
+import { __resetModalStackForTests, useModal } from './useModal.js';
 
 const DummyComponent = defineComponent({
 	name: 'Dummy',

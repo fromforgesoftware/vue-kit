@@ -18,8 +18,8 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import { cn } from '../../../helpers/cn';
-import { dialogHeaderVariants } from './dialog';
+import { cn } from '../../../helpers/cn.js';
+import { dialogHeaderVariants } from './dialog.js';
 
 interface Props {
 	class?: string;

@@ -38,14 +38,14 @@ import {
 	ScrollAreaThumb,
 	ScrollAreaCorner,
 } from 'reka-ui';
-import { cn } from '../../../helpers/cn';
+import { cn } from '../../../helpers/cn.js';
 import {
 	scrollAreaVariants,
 	scrollAreaViewportVariants,
 	scrollAreaScrollbarVariants,
 	scrollAreaThumbVariants,
 	type ScrollAreaOrientation,
-} from './scroll-area';
+} from './scroll-area.js';
 
 type ScrollAreaType = 'auto' | 'always' | 'scroll' | 'hover';
 

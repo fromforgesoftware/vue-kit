@@ -5,7 +5,7 @@ import FormField from './FormField.vue';
 import Input from '../input/Input.vue';
 import Switch from '../switch/Switch.vue';
 import Textarea from '../textarea/Textarea.vue';
-import { expectNoHorizontalOverflow, forEachViewport } from '../../../test-utils/playHelpers';
+import { expectNoHorizontalOverflow, forEachViewport } from '../../../test-utils/playHelpers.js';
 
 const meta = {
 	title: 'Form/FormField',

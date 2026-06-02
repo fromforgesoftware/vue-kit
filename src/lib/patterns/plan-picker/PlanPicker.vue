@@ -81,7 +81,7 @@
 
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue';
-import { cn } from '../../../helpers/cn';
+import { cn } from '../../../helpers/cn.js';
 import { Check } from '@lucide/vue';
 import Icon from '../../general/icon/Icon.vue';
 import Dialog from '../../general/dialog/Dialog.vue';
@@ -100,7 +100,7 @@ import {
 	planPickerFeatureIconVariants,
 	type PlanOption,
 	type PlanFeature,
-} from './plan-picker';
+} from './plan-picker.js';
 
 interface PlanPickerProps {
 	/** Whether the dialog is open */

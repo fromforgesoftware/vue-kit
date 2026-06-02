@@ -8,4 +8,4 @@ export {
 	type BentoGap,
 	type BentoGridVariants,
 	type BentoCardVariants,
-} from './bento-grid';
+} from './bento-grid.js';

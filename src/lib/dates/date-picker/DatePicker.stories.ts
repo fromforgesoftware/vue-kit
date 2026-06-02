@@ -4,13 +4,13 @@ import { ref } from 'vue';
 import { ForgeDate } from '@fromforgesoftware/ts-kit';
 import DatePicker from './DatePicker.vue';
 import Label from '../../form/label/Label.vue';
-import { defaultDatePickerPresets, defaultWeekPickerPresets } from './date-picker';
+import { defaultDatePickerPresets, defaultWeekPickerPresets } from './date-picker.js';
 import {
 	expectMinTargetSize,
 	expectNoHorizontalOverflow,
 	forEachViewport,
 	inBody,
-} from '../../../test-utils/playHelpers';
+} from '../../../test-utils/playHelpers.js';
 
 const meta = {
 	title: 'Dates/DatePicker',

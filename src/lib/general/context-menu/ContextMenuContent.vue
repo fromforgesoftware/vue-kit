@@ -18,8 +18,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { ContextMenuContent, ContextMenuPortal } from 'reka-ui';
-import { cn } from '../../../helpers/cn';
-import { contextMenuContentVariants, type ContextMenuContentVariants } from './context-menu';
+import { cn } from '../../../helpers/cn.js';
+import { contextMenuContentVariants, type ContextMenuContentVariants } from './context-menu.js';
 
 interface ContextMenuContentProps {
 	size?: ContextMenuContentVariants['size'];

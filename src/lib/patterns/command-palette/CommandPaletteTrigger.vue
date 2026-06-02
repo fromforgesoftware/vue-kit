@@ -30,7 +30,7 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue';
 import { Search } from '@lucide/vue';
-import { cn } from '../../../helpers/cn';
+import { cn } from '../../../helpers/cn.js';
 import Icon from '../../general/icon/Icon.vue';
 import Button from '../../general/button/Button.vue';
 import Kbd from '../../general/kbd/Kbd.vue';

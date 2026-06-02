@@ -4,4 +4,4 @@ export {
 	buildSparklinePath,
 	type SparklineTone,
 	type SparklinePoints,
-} from './sparkline';
+} from './sparkline.js';

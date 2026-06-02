@@ -12,4 +12,4 @@ export { default as MenubarSub } from './MenubarSub.vue';
 export { default as MenubarSubTrigger } from './MenubarSubTrigger.vue';
 export { default as MenubarSubContent } from './MenubarSubContent.vue';
 export { default as MenubarShortcut } from './MenubarShortcut.vue';
-export * from './menubar';
+export * from './menubar.js';

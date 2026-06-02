@@ -33,13 +33,13 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { ColorFieldRoot, ColorFieldInput, type ColorChannel } from 'reka-ui';
-import { cn } from '../../../helpers/cn';
+import { cn } from '../../../helpers/cn.js';
 import {
 	colorFieldRootVariants,
 	colorFieldSwatchVariants,
 	colorFieldInputVariants,
 	type ColorFieldVariants,
-} from './color-field';
+} from './color-field.js';
 
 interface Props {
 	/** v-model — current colour as hex (or numeric channel value when `channel` is set). */

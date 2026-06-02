@@ -39,13 +39,13 @@
 
 <script setup lang="ts">
 import { computed, inject, ref } from 'vue';
-import { cn } from '../../../helpers/cn';
+import { cn } from '../../../helpers/cn.js';
 import {
 	donutLegendVariants,
 	DONUT_CHART_VARIANT_KEY,
 	type DonutChartVariant,
 	type DonutSegment,
-} from './donut-chart';
+} from './donut-chart.js';
 
 interface Props {
 	segments: DonutSegment[];

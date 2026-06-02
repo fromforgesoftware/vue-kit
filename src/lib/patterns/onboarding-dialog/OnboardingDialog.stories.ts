@@ -3,8 +3,8 @@ import { fn, expect, userEvent } from 'storybook/test';
 import { ref } from 'vue';
 import OnboardingDialog from './OnboardingDialog.vue';
 import Button from '../../general/button/Button.vue';
-import { inBody, expectMinTargetSize, forEachViewport } from '../../../test-utils/playHelpers';
-import type { OnboardingStep } from './onboarding-dialog';
+import { inBody, expectMinTargetSize, forEachViewport } from '../../../test-utils/playHelpers.js';
+import type { OnboardingStep } from './onboarding-dialog.js';
 
 // ── Module-level fixtures ───────────────────────────────────────────────────
 

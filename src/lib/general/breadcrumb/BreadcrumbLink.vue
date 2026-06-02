@@ -9,8 +9,8 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import { cn } from '../../../helpers/cn';
-import { breadcrumbLinkVariants } from './breadcrumb';
+import { cn } from '../../../helpers/cn.js';
+import { breadcrumbLinkVariants } from './breadcrumb.js';
 
 interface BreadcrumbLinkProps {
 	href?: string;

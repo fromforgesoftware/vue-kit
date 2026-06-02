@@ -3,12 +3,12 @@ import { fn, expect, userEvent } from 'storybook/test';
 import { ref } from 'vue';
 import { ForgeDate } from '@fromforgesoftware/ts-kit';
 import RangeCalendar from './RangeCalendar.vue';
-import { defaultDateRangePresets } from '../date-range-picker/date-range-picker';
+import { defaultDateRangePresets } from '../date-range-picker/date-range-picker.js';
 import {
 	expectMinTargetSize,
 	expectNoHorizontalOverflow,
 	forEachViewport,
-} from '../../../test-utils/playHelpers';
+} from '../../../test-utils/playHelpers.js';
 
 const meta = {
 	title: 'Dates/RangeCalendar',

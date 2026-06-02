@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import { mount } from '@vue/test-utils';
 import OnboardingDialog from './OnboardingDialog.vue';
-import type { OnboardingStep } from './onboarding-dialog';
+import type { OnboardingStep } from './onboarding-dialog.js';
 
 const steps: OnboardingStep[] = [
 	{ id: 'step-1', title: 'Welcome', description: 'First step description' },

@@ -122,11 +122,11 @@
 <script setup lang="ts">
 import { computed, nextTick, ref, watch } from 'vue';
 import { ArrowUp } from '@lucide/vue';
-import { cn } from '../../../helpers/cn';
+import { cn } from '../../../helpers/cn.js';
 import Button from '../../general/button/Button.vue';
 import ChatBubble from '../../general/chat-bubble/ChatBubble.vue';
 import Textarea from '../../form/textarea/Textarea.vue';
-import { chatPanelVariants, type ChatPanelMessage, type ChatPanelSize } from './chat-panel';
+import { chatPanelVariants, type ChatPanelMessage, type ChatPanelSize } from './chat-panel.js';
 
 interface ChatPanelProps {
 	/** Conversation history rendered in the body. */

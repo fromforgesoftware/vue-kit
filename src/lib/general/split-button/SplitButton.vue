@@ -61,7 +61,7 @@
 import { computed, ref } from 'vue';
 import { ChevronDown } from '@lucide/vue';
 import Icon from '../icon/Icon.vue';
-import { cn } from '../../../helpers/cn';
+import { cn } from '../../../helpers/cn.js';
 import Button from '../button/Button.vue';
 import {
 	DropdownMenu,
@@ -69,8 +69,8 @@ import {
 	DropdownMenuContent,
 	DropdownMenuRadioGroup,
 	DropdownMenuRadioItem,
-} from '../dropdown-menu';
-import type { ButtonVariants } from '../button/button';
+} from '../dropdown-menu/index.js';
+import type { ButtonVariants } from '../button/button.js';
 import {
 	splitButtonRootVariants,
 	splitButtonPrimaryVariants,
@@ -79,7 +79,7 @@ import {
 	splitButtonItemLabelVariants,
 	splitButtonItemDescriptionVariants,
 	type SplitButtonAction,
-} from './split-button';
+} from './split-button.js';
 
 interface SplitButtonProps {
 	/** Available actions to choose from. */

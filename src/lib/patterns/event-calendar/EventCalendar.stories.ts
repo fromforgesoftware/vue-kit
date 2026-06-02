@@ -2,12 +2,12 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { fn, expect, userEvent, within } from 'storybook/test';
 import { ForgeDate } from '@fromforgesoftware/ts-kit';
 import EventCalendar from './EventCalendar.vue';
-import type { EventCalendarItem, EventCalendarView } from './event-calendar';
+import type { EventCalendarItem, EventCalendarView } from './event-calendar.js';
 import {
 	forEachViewport,
 	expectNoHorizontalOverflow,
 	expectMinTargetSize,
-} from '../../../test-utils/playHelpers';
+} from '../../../test-utils/playHelpers.js';
 
 // ── Module-level fixtures ────────────────────────────────────────────────────
 

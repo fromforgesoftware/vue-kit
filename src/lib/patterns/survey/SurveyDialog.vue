@@ -42,18 +42,18 @@
 
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue';
-import { Dialog } from '../../general/dialog';
+import { Dialog } from '../../general/dialog/index.js';
 import DialogContent from '../../general/dialog/DialogContent.vue';
 import DialogHeader from '../../general/dialog/DialogHeader.vue';
 import DialogTitle from '../../general/dialog/DialogTitle.vue';
-import { Button } from '../../general/button';
-import type { DialogSize } from '../../general/dialog/dialog';
+import { Button } from '../../general/button/index.js';
+import type { DialogSize } from '../../general/dialog/dialog.js';
 import {
 	surveyDialogBodyVariants,
 	surveyDialogFooterVariants,
 	surveyDialogStepIndicatorVariants,
 	surveyDialogActionsVariants,
-} from './survey-dialog';
+} from './survey-dialog.js';
 
 interface Props {
 	open?: boolean;

@@ -1,6 +1,6 @@
 import { computed, ref, onMounted, onBeforeUnmount, nextTick, type Ref } from 'vue';
 import { ForgeDate, ForgeTime } from '@fromforgesoftware/ts-kit';
-import type { EventCalendarItem } from '../event-calendar';
+import type { EventCalendarItem } from '../event-calendar.js';
 
 export function getWeekStart(date: ForgeDate, weekStartsOn: number): ForgeDate {
 	const current = date.startOf('day');

@@ -99,13 +99,13 @@
  * icon block. Use for KPIs where the icon adds quick recognition.
  */
 import { computed } from 'vue';
-import { cn } from '../../helpers/cn';
+import { cn } from '../../helpers/cn.js';
 import {
 	iconStatCardVariants,
 	statCardLabelVariants,
 	statCardValueVariants,
 	type IconStatCardVariants,
-} from './stat-card';
+} from './stat-card.js';
 
 interface IconStatCardProps {
 	/** The metric label. */

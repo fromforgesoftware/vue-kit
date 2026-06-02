@@ -6,8 +6,8 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import { cn } from '../../../helpers/cn';
-import { cardHeaderVariants, type CardHeaderVariants } from './card';
+import { cn } from '../../../helpers/cn.js';
+import { cardHeaderVariants, type CardHeaderVariants } from './card.js';
 
 interface CardHeaderProps {
 	spacing?: CardHeaderVariants['spacing'];

@@ -7,8 +7,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { DropdownMenuLabel } from 'reka-ui';
-import { cn } from '../../../helpers/cn';
-import { dropdownMenuLabelVariants } from './dropdown-menu';
+import { cn } from '../../../helpers/cn.js';
+import { dropdownMenuLabelVariants } from './dropdown-menu.js';
 
 interface DropdownMenuLabelProps {
 	/** When true, the label is visually indented to align with checkbox/radio items. */

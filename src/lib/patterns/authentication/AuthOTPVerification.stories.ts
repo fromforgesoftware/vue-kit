@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { expect } from 'storybook/test';
 import AuthOTPVerification from './AuthOTPVerification.vue';
-import { expectMinTargetSize } from '../../../test-utils/playHelpers';
+import { expectMinTargetSize } from '../../../test-utils/playHelpers.js';
 
 const meta = {
 	title: 'Authentication/OTPVerification',

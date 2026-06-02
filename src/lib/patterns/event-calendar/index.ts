@@ -34,14 +34,14 @@ export {
 	eventCalendarYearMiniMonthVariants,
 	eventCalendarYearMiniDayVariants,
 	type EventCalendarEventVariants,
-} from './event-calendar';
+} from './event-calendar.js';
 
 // Composables
 export {
 	useEventCalendar,
 	type UseEventCalendarOptions,
 	type UseEventCalendarReturn,
-} from './composables/useEventCalendar';
+} from './composables/useEventCalendar.js';
 
 export {
 	getWeekStart,
@@ -58,4 +58,4 @@ export {
 	useAutoScroll,
 	HOUR_HEIGHT,
 	type PositionedEvent,
-} from './composables/useEventCalendarGrid';
+} from './composables/useEventCalendarGrid.js';

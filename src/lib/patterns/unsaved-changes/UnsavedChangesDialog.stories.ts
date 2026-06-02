@@ -3,7 +3,7 @@ import { fn, expect } from 'storybook/test';
 import { ref } from 'vue';
 import UnsavedChangesDialog from './UnsavedChangesDialog.vue';
 import Button from '../../general/button/Button.vue';
-import { inBody, expectMinTargetSize } from '../../../test-utils/playHelpers';
+import { inBody, expectMinTargetSize } from '../../../test-utils/playHelpers.js';
 
 // ── Meta ────────────────────────────────────────────────────────────────────
 

@@ -21,7 +21,7 @@ import CommandPaletteGroup from './CommandPaletteGroup.vue';
 import CommandPaletteItem from './CommandPaletteItem.vue';
 import CommandPaletteSeparator from './CommandPaletteSeparator.vue';
 import CommandPaletteTrigger from './CommandPaletteTrigger.vue';
-import { inBody } from '../../../test-utils/playHelpers';
+import { inBody } from '../../../test-utils/playHelpers.js';
 
 const meta = {
 	title: 'Patterns/CommandPalette',

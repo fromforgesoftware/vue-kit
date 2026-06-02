@@ -309,10 +309,10 @@ import {
 	gapSegments,
 	gapMaskStyle,
 	gapEdges,
-} from './time-range-bar';
+} from './time-range-bar.js';
 import { ForgeTime } from '@fromforgesoftware/ts-kit';
-import { useSegmentDrag } from './useSegmentDrag';
-import { cn } from '../../../helpers/cn';
+import { useSegmentDrag } from './useSegmentDrag.js';
+import { cn } from '../../../helpers/cn.js';
 import HoverCard from '../../general/hover-card/HoverCard.vue';
 import HoverCardTrigger from '../../general/hover-card/HoverCardTrigger.vue';
 import HoverCardContent from '../../general/hover-card/HoverCardContent.vue';

@@ -6,8 +6,8 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import { cn } from '../../../helpers/cn';
-import { alertDescriptionVariants, type AlertSize } from './alert';
+import { cn } from '../../../helpers/cn.js';
+import { alertDescriptionVariants, type AlertSize } from './alert.js';
 
 interface AlertDescriptionProps {
 	size?: AlertSize;

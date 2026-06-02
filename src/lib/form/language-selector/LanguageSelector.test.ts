@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { mount } from '@vue/test-utils';
-import { getLocaleOption, getLocaleOptions, resolveLocale } from './language-selector';
+import { getLocaleOption, getLocaleOptions, resolveLocale } from './language-selector.js';
 import LanguageSelector from './LanguageSelector.vue';
 
 // ============================================

@@ -20,8 +20,8 @@
 
 <script setup lang="ts">
 import { inject, computed } from 'vue';
-import { cn } from '../../../helpers/cn';
-import { drawerKey, drawerBackVariants } from './drawer';
+import { cn } from '../../../helpers/cn.js';
+import { drawerKey, drawerBackVariants } from './drawer.js';
 
 interface Props {
 	class?: string;

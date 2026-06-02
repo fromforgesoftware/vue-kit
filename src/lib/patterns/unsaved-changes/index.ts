@@ -8,15 +8,15 @@ export {
 	UnsavedChangesRegistryKey,
 	type UnsavedChangesRegistration,
 	type UnsavedChangesRegistry,
-} from './unsavedChangesRegistry';
-export { useUnsavedChanges } from './useUnsavedChanges';
+} from './unsavedChangesRegistry.js';
+export { useUnsavedChanges } from './useUnsavedChanges.js';
 export type {
 	UseUnsavedChangesOptions,
 	UseUnsavedChangesReturn,
 	UnsavedChangesMode,
-} from './useUnsavedChanges';
-export { useFormGuard } from './useFormGuard';
-export type { UseFormGuardOptions, UseFormGuardReturn, FormGuardMode } from './useFormGuard';
+} from './useUnsavedChanges.js';
+export { useFormGuard } from './useFormGuard.js';
+export type { UseFormGuardOptions, UseFormGuardReturn, FormGuardMode } from './useFormGuard.js';
 export {
 	unsavedChangesBannerVariants,
 	unsavedChangesBannerInnerVariants,
@@ -25,4 +25,4 @@ export {
 	unsavedChangesBannerTitleVariants,
 	unsavedChangesBannerActionsVariants,
 	unsavedChangesBannerButtonVariants,
-} from './unsaved-changes';
+} from './unsaved-changes.js';

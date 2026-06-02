@@ -12,14 +12,14 @@
 <script setup lang="ts">
 import { computed, provide, toRef } from 'vue';
 import { CollapsibleRoot } from 'reka-ui';
-import { cn } from '../../../helpers/cn';
+import { cn } from '../../../helpers/cn.js';
 import {
 	collapsibleVariants,
 	COLLAPSIBLE_VARIANT_KEY,
 	COLLAPSIBLE_SIZE_KEY,
 	type CollapsibleVariant,
 	type CollapsibleSize,
-} from './collapsible';
+} from './collapsible.js';
 
 interface CollapsibleProps {
 	/** Controlled open state. */

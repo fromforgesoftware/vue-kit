@@ -12,13 +12,13 @@
 <script setup lang="ts">
 import { computed, provide } from 'vue';
 import { NumberFieldRoot } from 'reka-ui';
-import { cn } from '../../../helpers/cn';
+import { cn } from '../../../helpers/cn.js';
 import {
 	numberFieldRootVariants,
 	type NumberFieldSize,
 	type NumberFieldVariant,
-} from './number-field';
-import { numberFieldContextKey } from './context';
+} from './number-field.js';
+import { numberFieldContextKey } from './context.js';
 
 interface NumberFieldProps {
 	/** Controlled numeric value. */

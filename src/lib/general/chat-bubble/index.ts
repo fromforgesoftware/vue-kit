@@ -1,2 +1,2 @@
 export { default as ChatBubble } from './ChatBubble.vue';
-export * from './chat-bubble';
+export * from './chat-bubble.js';

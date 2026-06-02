@@ -6,8 +6,8 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import { cn } from '../../../helpers/cn';
-import { sidebarGroupContentVariants } from './sidebar';
+import { cn } from '../../../helpers/cn.js';
+import { sidebarGroupContentVariants } from './sidebar.js';
 
 interface SidebarGroupContentProps {
 	class?: string;

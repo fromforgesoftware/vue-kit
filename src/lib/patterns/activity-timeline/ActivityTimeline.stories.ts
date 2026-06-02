@@ -1,12 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { expect, userEvent, within } from 'storybook/test';
 import ActivityTimeline from './ActivityTimeline.vue';
-import type { ActivityGroup } from './activity-timeline';
+import type { ActivityGroup } from './activity-timeline.js';
 import {
 	forEachViewport,
 	expectNoHorizontalOverflow,
 	expectMinTargetSize,
-} from '../../../test-utils/playHelpers';
+} from '../../../test-utils/playHelpers.js';
 
 // ─── Fixtures ─────────────────────────────────────────────────────────────────
 // Lifted to module scope so demo + interactive stories share a single dataset

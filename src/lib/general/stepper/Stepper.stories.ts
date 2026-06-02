@@ -2,8 +2,8 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { fn, expect, userEvent } from 'storybook/test';
 import { ref } from 'vue';
 import Stepper from './Stepper.vue';
-import type { Step } from './stepper';
-import { expectNoHorizontalOverflow, forEachViewport } from '../../../test-utils/playHelpers';
+import type { Step } from './stepper.js';
+import { expectNoHorizontalOverflow, forEachViewport } from '../../../test-utils/playHelpers.js';
 
 const baseSteps: Step[] = [
 	{ id: '1', title: 'Personal Info', description: 'Enter your details' },

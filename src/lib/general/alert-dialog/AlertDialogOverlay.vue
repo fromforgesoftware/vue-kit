@@ -5,8 +5,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { AlertDialogOverlay, type AlertDialogOverlayProps } from 'reka-ui';
-import { cn } from '../../../helpers/cn';
-import { alertDialogOverlayVariants } from './alert-dialog';
+import { cn } from '../../../helpers/cn.js';
+import { alertDialogOverlayVariants } from './alert-dialog.js';
 
 interface Props extends AlertDialogOverlayProps {
 	class?: string;

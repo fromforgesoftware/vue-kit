@@ -125,7 +125,7 @@
 import { computed, provide, toRef } from 'vue';
 import { Check } from '@lucide/vue';
 import Icon from '../icon/Icon.vue';
-import { cn } from '../../../helpers/cn';
+import { cn } from '../../../helpers/cn.js';
 import Spinner from '../spinner/Spinner.vue';
 import Button from '../button/Button.vue';
 import {
@@ -140,7 +140,7 @@ import {
 	type StepperItemState,
 	type StepperVariant,
 	type StepperOrientation,
-} from './stepper';
+} from './stepper.js';
 
 interface StepperProps {
 	/** Array of steps to display. */

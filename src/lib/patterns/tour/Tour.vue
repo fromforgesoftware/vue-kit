@@ -77,9 +77,9 @@
 <script setup lang="ts">
 import { computed, onMounted, watch } from 'vue';
 import { PopoverRoot, PopoverAnchor, PopoverPortal, PopoverContent, PopoverArrow } from 'reka-ui';
-import { cn } from '../../../helpers/cn';
-import { useTour, type UseTourOptions } from './useTour';
-import { tourCardVariants, type TourStep } from './tour';
+import { cn } from '../../../helpers/cn.js';
+import { useTour, type UseTourOptions } from './useTour.js';
+import { tourCardVariants, type TourStep } from './tour.js';
 import TourCard from './TourCard.vue';
 
 interface TourProps {

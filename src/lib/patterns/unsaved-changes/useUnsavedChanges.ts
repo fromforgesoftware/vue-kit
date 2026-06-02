@@ -8,7 +8,7 @@ import {
 	type MaybeRefOrGetter,
 } from 'vue';
 import type { Router } from 'vue-router';
-import { useUnsavedChangesRegistry } from './unsavedChangesRegistry';
+import { useUnsavedChangesRegistry } from './unsavedChangesRegistry.js';
 
 export type UnsavedChangesMode = 'dialog' | 'banner';
 

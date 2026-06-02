@@ -57,8 +57,8 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 import { DialogContent, DialogPortal, DialogClose } from 'reka-ui';
-import { cn } from '../../../helpers/cn';
-import { dialogContentVariants, dialogCloseVariants, type DialogContentVariants } from './dialog';
+import { cn } from '../../../helpers/cn.js';
+import { dialogContentVariants, dialogCloseVariants, type DialogContentVariants } from './dialog.js';
 import DialogOverlay from './DialogOverlay.vue';
 
 interface Props {

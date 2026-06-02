@@ -1,2 +1,2 @@
 export { default as Stepper } from './Stepper.vue';
-export * from './stepper';
+export * from './stepper.js';

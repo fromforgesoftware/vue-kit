@@ -13,8 +13,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { Primitive } from 'reka-ui';
-import { cn } from '../../../helpers/cn';
-import { sidebarMenuActionVariants } from './sidebar';
+import { cn } from '../../../helpers/cn.js';
+import { sidebarMenuActionVariants } from './sidebar.js';
 
 interface SidebarMenuActionProps {
 	asChild?: boolean;

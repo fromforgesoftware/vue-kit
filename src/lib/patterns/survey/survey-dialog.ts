@@ -1,5 +1,5 @@
 import { cva } from 'class-variance-authority';
-import type { DialogSize } from '../../general/dialog/dialog';
+import type { DialogSize } from '../../general/dialog/dialog.js';
 
 export interface SurveyDialogProps {
 	/** Whether the dialog is open. */

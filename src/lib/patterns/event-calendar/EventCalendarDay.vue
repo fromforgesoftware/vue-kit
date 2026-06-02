@@ -99,7 +99,7 @@
 <script setup lang="ts">
 import { computed, ref, toRef } from 'vue';
 import { ForgeDate } from '@fromforgesoftware/ts-kit';
-import { cn } from '../../../helpers/cn';
+import { cn } from '../../../helpers/cn.js';
 import ScrollArea from '../../general/scroll-area/ScrollArea.vue';
 import EventCalendarEvent from './EventCalendarEvent.vue';
 import {
@@ -110,7 +110,7 @@ import {
 	type EventCalendarEventClickPayload,
 	type EventCalendarEventHoverPayload,
 	type EventCalendarSlotClickPayload,
-} from './event-calendar';
+} from './event-calendar.js';
 import {
 	isOnDate,
 	isToday,
@@ -120,7 +120,7 @@ import {
 	getPositionedEventStyle,
 	useNowLine,
 	useAutoScroll,
-} from './composables/useEventCalendarGrid';
+} from './composables/useEventCalendarGrid.js';
 
 interface Props {
 	selectedDate: ForgeDate;

@@ -3,8 +3,8 @@ import { fn, expect, userEvent } from 'storybook/test';
 import { ref } from 'vue';
 import PlanPicker from './PlanPicker.vue';
 import Button from '../../general/button/Button.vue';
-import { inBody, expectMinTargetSize, forEachViewport } from '../../../test-utils/playHelpers';
-import type { PlanOption, PlanFeature } from './plan-picker';
+import { inBody, expectMinTargetSize, forEachViewport } from '../../../test-utils/playHelpers.js';
+import type { PlanOption, PlanFeature } from './plan-picker.js';
 
 // ── Module-level fixtures ───────────────────────────────────────────────────
 

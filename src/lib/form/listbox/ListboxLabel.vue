@@ -7,8 +7,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { ListboxGroupLabel } from 'reka-ui';
-import { cn } from '../../../helpers/cn';
-import { listboxLabelVariants } from './listbox';
+import { cn } from '../../../helpers/cn.js';
+import { listboxLabelVariants } from './listbox.js';
 
 interface ListboxLabelProps {
 	class?: string;

@@ -7,8 +7,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { DialogDescription, type DialogDescriptionProps } from 'reka-ui';
-import { cn } from '../../../helpers/cn';
-import { dialogDescriptionVariants } from './dialog';
+import { cn } from '../../../helpers/cn.js';
+import { dialogDescriptionVariants } from './dialog.js';
 
 interface Props extends DialogDescriptionProps {
 	class?: string;

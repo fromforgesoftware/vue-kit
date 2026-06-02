@@ -23,13 +23,13 @@ export type {
 	ShiftSegmentUpdateEvent,
 	ShiftSegmentSelectEvent,
 	ShiftBarClickEvent,
-} from './schedule-timeline';
+} from './schedule-timeline.js';
 
 export {
 	shiftVariantClasses,
 	shiftVariantToSegmentVariant,
 	shiftChildrenToSegments,
-} from './schedule-timeline';
+} from './schedule-timeline.js';
 
 export {
 	parseHHMMToSec,
@@ -38,4 +38,4 @@ export {
 	variantTokenColor,
 	buildDayRange,
 	isWeekendDay,
-} from './utils';
+} from './utils.js';

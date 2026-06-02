@@ -6,8 +6,8 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import { cn } from '../../../helpers/cn';
-import { cardFooterVariants, type CardFooterVariants } from './card';
+import { cn } from '../../../helpers/cn.js';
+import { cardFooterVariants, type CardFooterVariants } from './card.js';
 
 interface CardFooterProps {
 	align?: CardFooterVariants['align'];

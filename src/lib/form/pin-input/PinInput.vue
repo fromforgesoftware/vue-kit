@@ -24,13 +24,13 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { PinInputRoot, PinInputInput } from 'reka-ui';
-import { cn } from '../../../helpers/cn';
+import { cn } from '../../../helpers/cn.js';
 import {
 	pinInputRootVariants,
 	pinInputInputVariants,
 	type PinInputSize,
 	type PinInputVariant,
-} from './pin-input';
+} from './pin-input.js';
 
 interface PinInputProps {
 	/** Array of per-cell string values. Length matches `length`. */

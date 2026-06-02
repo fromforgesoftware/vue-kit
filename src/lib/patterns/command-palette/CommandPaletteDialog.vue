@@ -20,7 +20,7 @@
 import { VisuallyHidden, DialogTitle, DialogDescription } from 'reka-ui';
 import Dialog from '../../general/dialog/Dialog.vue';
 import DialogContent from '../../general/dialog/DialogContent.vue';
-import type { DialogSize } from '../../general/dialog/dialog';
+import type { DialogSize } from '../../general/dialog/dialog.js';
 
 interface CommandPaletteDialogProps {
 	open?: boolean;

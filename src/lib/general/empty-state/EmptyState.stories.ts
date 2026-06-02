@@ -5,7 +5,7 @@ import EmptyState from './EmptyState.vue';
 import EmptyStateAction from './EmptyStateAction.vue';
 import Button from '../button/Button.vue';
 import Icon from '../icon/Icon.vue';
-import { expectNoHorizontalOverflow, forEachViewport } from '../../../test-utils/playHelpers';
+import { expectNoHorizontalOverflow, forEachViewport } from '../../../test-utils/playHelpers.js';
 
 const ALL_SIZES = ['sm', 'default', 'lg'] as const;
 const ALL_TONES = ['default', 'muted'] as const;

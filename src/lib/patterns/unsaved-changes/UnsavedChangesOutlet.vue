@@ -14,7 +14,7 @@
 <script setup lang="ts">
 import { computed, toValue } from 'vue';
 import UnsavedChangesDialog from './UnsavedChangesDialog.vue';
-import { useUnsavedChangesRegistry } from './unsavedChangesRegistry';
+import { useUnsavedChangesRegistry } from './unsavedChangesRegistry.js';
 
 const registry = useUnsavedChangesRegistry();
 const active = registry?.active;

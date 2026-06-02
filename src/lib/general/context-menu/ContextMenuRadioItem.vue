@@ -21,8 +21,8 @@ import { computed } from 'vue';
 import { ContextMenuRadioItem, ContextMenuItemIndicator } from 'reka-ui';
 import { Circle } from '@lucide/vue';
 import Icon from '../icon/Icon.vue';
-import { cn } from '../../../helpers/cn';
-import { contextMenuRadioItemVariants } from './context-menu';
+import { cn } from '../../../helpers/cn.js';
+import { contextMenuRadioItemVariants } from './context-menu.js';
 
 interface ContextMenuRadioItemProps {
 	/** The unique value of the item. */

@@ -1,5 +1,5 @@
 import { ref, computed, watch, onBeforeUnmount, type Ref, type ComputedRef, nextTick } from 'vue';
-import type { TourStep } from './tour';
+import type { TourStep } from './tour.js';
 
 export interface UseTourOptions {
 	steps: TourStep[];

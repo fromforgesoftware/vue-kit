@@ -5,7 +5,7 @@ import HoverCardTrigger from './HoverCardTrigger.vue';
 import HoverCardContent from './HoverCardContent.vue';
 import Avatar from '../avatar/Avatar.vue';
 import Button from '../button/Button.vue';
-import { expectNoHorizontalOverflow, forEachViewport } from '../../../test-utils/playHelpers';
+import { expectNoHorizontalOverflow, forEachViewport } from '../../../test-utils/playHelpers.js';
 
 const ALL_SIDES = ['top', 'right', 'bottom', 'left'] as const;
 const ALL_ALIGNS = ['start', 'center', 'end'] as const;

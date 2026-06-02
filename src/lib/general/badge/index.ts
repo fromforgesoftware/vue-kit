@@ -6,4 +6,4 @@ export {
 	type BadgeVariant,
 	type BadgeSize,
 	type BadgeShape,
-} from './badge';
+} from './badge.js';

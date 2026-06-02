@@ -6,8 +6,8 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import { cn } from '../../../helpers/cn';
-import { alertDialogFooterVariants } from './alert-dialog';
+import { cn } from '../../../helpers/cn.js';
+import { alertDialogFooterVariants } from './alert-dialog.js';
 
 interface Props {
 	class?: string;

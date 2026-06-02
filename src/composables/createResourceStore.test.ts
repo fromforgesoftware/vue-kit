@@ -8,7 +8,7 @@ import {
 	type HttpRequest,
 	type HttpResponse,
 } from '@fromforgesoftware/ts-kit/jsonapi-client';
-import { createResourceStore } from './createResourceStore';
+import { createResourceStore } from './createResourceStore.js';
 
 @JsonApi({ type: 'workspaces' })
 class Workspace extends Resource {

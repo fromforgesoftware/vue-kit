@@ -483,7 +483,7 @@ import { computed, onMounted, onUnmounted, ref, watch, watchEffect } from 'vue';
 import { Settings2, X, ArrowUp, ArrowDown, ArrowUpDown, SearchX, Plus } from '@lucide/vue';
 import Icon from '../../general/icon/Icon.vue';
 import EmptyState from '../../general/empty-state/EmptyState.vue';
-import type { IllustrationName } from '../../general/empty-state/empty-state';
+import type { IllustrationName } from '../../general/empty-state/empty-state.js';
 import {
 	useVueTable,
 	getCoreRowModel,
@@ -495,7 +495,7 @@ import {
 	type VisibilityState,
 	type RowSelectionState,
 } from '@tanstack/vue-table';
-import { cn } from '../../../helpers/cn';
+import { cn } from '../../../helpers/cn.js';
 import Alert from '../../general/alert/Alert.vue';
 import Button from '../../general/button/Button.vue';
 import Checkbox from '../../form/checkbox/Checkbox.vue';
@@ -506,7 +506,7 @@ import {
 	DropdownMenuTrigger,
 	DropdownMenuContent,
 	DropdownMenuCheckboxItem,
-} from '../../general/dropdown-menu';
+} from '../../general/dropdown-menu/index.js';
 import Pagination from '../../general/pagination/Pagination.vue';
 import FilterBar from '../filter-bar/FilterBar.vue';
 import {
@@ -517,8 +517,8 @@ import {
 	type DataTableLayout,
 	type DataTableVariant,
 	type SelectionMode,
-} from './data-table';
-import type { ColumnConfig, FiltersState } from '../filter-bar/filter-bar';
+} from './data-table.js';
+import type { ColumnConfig, FiltersState } from '../filter-bar/filter-bar.js';
 
 export interface DataTableProps<T = unknown> {
 	columns: ColumnDef<T, unknown>[];

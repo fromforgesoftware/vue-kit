@@ -5,7 +5,7 @@ import Accordion from './Accordion.vue';
 import AccordionItem from './AccordionItem.vue';
 import AccordionTrigger from './AccordionTrigger.vue';
 import AccordionContent from './AccordionContent.vue';
-import { expectNoHorizontalOverflow, forEachViewport } from '../../../test-utils/playHelpers';
+import { expectNoHorizontalOverflow, forEachViewport } from '../../../test-utils/playHelpers.js';
 
 const ALL_VARIANTS = ['default', 'ghost'] as const;
 const ALL_SIZES = ['sm', 'default'] as const;

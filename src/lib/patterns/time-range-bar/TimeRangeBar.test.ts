@@ -1,7 +1,7 @@
 import { describe, it, expect, vi } from 'vitest';
 import { mount } from '@vue/test-utils';
 import TimeRangeBar from './TimeRangeBar.vue';
-import type { Segment } from './time-range-bar';
+import type { Segment } from './time-range-bar.js';
 
 function createSegments(): Segment[] {
 	return [

@@ -5,9 +5,9 @@
 <script setup lang="ts">
 import { computed, inject, ref, type Ref } from 'vue';
 import { EditableInput } from 'reka-ui';
-import { cn } from '../../../helpers/cn';
-import { editableInputVariants, type EditableSize } from './editable';
-import { editableSizeKey } from './context';
+import { cn } from '../../../helpers/cn.js';
+import { editableInputVariants, type EditableSize } from './editable.js';
+import { editableSizeKey } from './context.js';
 
 interface EditableInputProps {
 	/** Override the size inherited from the parent Editable. */

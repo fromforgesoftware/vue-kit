@@ -18,7 +18,7 @@
 <script setup lang="ts">
 import { provide, computed } from 'vue';
 import { SelectRoot } from 'reka-ui';
-import { SELECT_MULTI_KEY } from './select';
+import { SELECT_MULTI_KEY } from './select.js';
 
 interface SelectProps {
 	/** v-model — string for single-select, string[] for multi. */

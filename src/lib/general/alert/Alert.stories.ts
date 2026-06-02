@@ -9,7 +9,7 @@ import {
 	expectMinTargetSize,
 	expectNoHorizontalOverflow,
 	forEachViewport,
-} from '../../../test-utils/playHelpers';
+} from '../../../test-utils/playHelpers.js';
 
 const ALL_VARIANTS = ['default', 'info', 'warning', 'destructive', 'success'] as const;
 const ALL_TONES = ['solid', 'soft'] as const;

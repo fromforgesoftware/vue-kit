@@ -6,8 +6,8 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import { cn } from '../../../helpers/cn';
-import { sidebarMenuBadgeVariants } from './sidebar';
+import { cn } from '../../../helpers/cn.js';
+import { sidebarMenuBadgeVariants } from './sidebar.js';
 
 interface SidebarMenuBadgeProps {
 	class?: string;

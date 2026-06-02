@@ -111,13 +111,13 @@ import {
 	type EventCalendarDateClickPayload,
 	type EventCalendarEventClickPayload,
 	type EventCalendarEventHoverPayload,
-} from './event-calendar';
+} from './event-calendar.js';
 import {
 	buildMonthGrid,
 	isToday,
 	isOnDate,
 	useWeekDayLabels,
-} from './composables/useEventCalendarGrid';
+} from './composables/useEventCalendarGrid.js';
 
 interface Props {
 	selectedDate: ForgeDate;

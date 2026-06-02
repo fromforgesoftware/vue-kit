@@ -15,9 +15,9 @@ import { computed, inject } from 'vue';
 import { NumberFieldDecrement } from 'reka-ui';
 import { Minus } from '@lucide/vue';
 import Icon from '../../general/icon/Icon.vue';
-import { cn } from '../../../helpers/cn';
-import { numberFieldButtonVariants, type NumberFieldSize } from './number-field';
-import { numberFieldContextKey } from './context';
+import { cn } from '../../../helpers/cn.js';
+import { numberFieldButtonVariants, type NumberFieldSize } from './number-field.js';
+import { numberFieldContextKey } from './context.js';
 
 interface NumberFieldDecrementProps {
 	/** Override size; defaults to context (the parent NumberField). */

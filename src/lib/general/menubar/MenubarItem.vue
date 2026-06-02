@@ -14,8 +14,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { MenubarItem } from 'reka-ui';
-import { cn } from '../../../helpers/cn';
-import { menubarItemVariants, type MenubarItemVariant } from './menubar';
+import { cn } from '../../../helpers/cn.js';
+import { menubarItemVariants, type MenubarItemVariant } from './menubar.js';
 
 interface MenubarItemProps {
 	/** When true, prevents the user from interacting with the item. */

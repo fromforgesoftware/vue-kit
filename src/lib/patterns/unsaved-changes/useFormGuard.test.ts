@@ -2,12 +2,12 @@ import { describe, it, expect, vi } from 'vitest';
 import { mount, flushPromises } from '@vue/test-utils';
 import { defineComponent, h, nextTick, ref, type Ref } from 'vue';
 import { createRouter, createMemoryHistory } from 'vue-router';
-import { useFormGuard, type UseFormGuardReturn } from './useFormGuard';
+import { useFormGuard, type UseFormGuardReturn } from './useFormGuard.js';
 import {
 	createUnsavedChangesRegistry,
 	UnsavedChangesRegistryKey,
 	type UnsavedChangesRegistry,
-} from './unsavedChangesRegistry';
+} from './unsavedChangesRegistry.js';
 
 interface FormState {
 	name: string;

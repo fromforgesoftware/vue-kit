@@ -20,8 +20,8 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import { cn } from '../../../helpers/cn';
-import { spinnerVariants, type SpinnerVariants } from './spinner';
+import { cn } from '../../../helpers/cn.js';
+import { spinnerVariants, type SpinnerVariants } from './spinner.js';
 
 interface SpinnerProps {
 	size?: SpinnerVariants['size'];

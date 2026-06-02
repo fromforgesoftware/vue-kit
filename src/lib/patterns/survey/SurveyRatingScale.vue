@@ -23,13 +23,13 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import { cn } from '../../../helpers/cn';
-import { ToggleGroup, ToggleGroupItem } from '../../form/toggle-group';
+import { cn } from '../../../helpers/cn.js';
+import { ToggleGroup, ToggleGroupItem } from '../../form/toggle-group/index.js';
 import {
 	surveyRatingScaleVariants,
 	surveyRatingScaleQuestionVariants,
 	surveyRatingScaleLabelsVariants,
-} from './survey-rating-scale';
+} from './survey-rating-scale.js';
 
 interface Props {
 	modelValue?: string;

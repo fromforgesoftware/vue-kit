@@ -1,6 +1,6 @@
 export { default as DataTable } from './DataTable.vue';
-export { useDataTableState } from './useDataTableState';
-export type { UseDataTableStateOptions } from './useDataTableState';
+export { useDataTableState } from './useDataTableState.js';
+export type { UseDataTableStateOptions } from './useDataTableState.js';
 export {
 	dataDataTableVariant,
 	dataTableToolbarVariants,
@@ -18,4 +18,4 @@ export {
 	type DataTableSelectionActionsScope,
 	FlexRender,
 	getCoreRowModel,
-} from './data-table';
+} from './data-table.js';

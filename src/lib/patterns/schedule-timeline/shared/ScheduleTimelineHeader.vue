@@ -80,8 +80,8 @@
 </template>
 
 <script setup lang="ts">
-import { cn } from '../../../../helpers/cn';
-import { ScheduleTimelineZ as Z } from '../utils';
+import { cn } from '../../../../helpers/cn.js';
+import { ScheduleTimelineZ as Z } from '../utils.js';
 
 export interface ScheduleTimelineHeaderColumn {
 	/** Primary label (e.g. weekday short "Mon", day-of-month "15", or hour "08:00") */

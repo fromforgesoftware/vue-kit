@@ -19,12 +19,12 @@
 
 <script setup lang="ts">
 import { computed, provide, ref, watch } from 'vue';
-import { cn } from '../../../helpers/cn';
+import { cn } from '../../../helpers/cn.js';
 import {
 	commandPaletteVariants,
 	COMMAND_PALETTE_KEY,
 	type CommandPaletteContext,
-} from './command-palette';
+} from './command-palette.js';
 
 const MAX_RECENTS = 5;
 

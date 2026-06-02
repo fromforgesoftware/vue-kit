@@ -7,8 +7,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { AlertDialogTitle, type AlertDialogTitleProps } from 'reka-ui';
-import { cn } from '../../../helpers/cn';
-import { alertDialogTitleVariants } from './alert-dialog';
+import { cn } from '../../../helpers/cn.js';
+import { alertDialogTitleVariants } from './alert-dialog.js';
 
 interface Props extends AlertDialogTitleProps {
 	class?: string;

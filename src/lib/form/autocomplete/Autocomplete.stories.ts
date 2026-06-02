@@ -3,13 +3,13 @@ import { ref } from 'vue';
 import { fn, expect, userEvent, waitFor } from 'storybook/test';
 import Autocomplete from './Autocomplete.vue';
 import Label from '../label/Label.vue';
-import type { AutocompleteOption, AutocompleteOptionGroup } from './autocomplete';
+import type { AutocompleteOption, AutocompleteOptionGroup } from './autocomplete.js';
 import {
 	expectMinTargetSize,
 	expectNoHorizontalOverflow,
 	forEachViewport,
 	inBody,
-} from '../../../test-utils/playHelpers';
+} from '../../../test-utils/playHelpers.js';
 
 const ALL_SIZES = ['sm', 'default', 'lg'] as const;
 

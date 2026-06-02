@@ -4,4 +4,4 @@ export { default as ToolbarLink } from './ToolbarLink.vue';
 export { default as ToolbarSeparator } from './ToolbarSeparator.vue';
 export { default as ToolbarToggleGroup } from './ToolbarToggleGroup.vue';
 export { default as ToolbarToggleItem } from './ToolbarToggleItem.vue';
-export * from './toolbar';
+export * from './toolbar.js';

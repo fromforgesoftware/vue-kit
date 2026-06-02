@@ -27,8 +27,8 @@ import { computed } from 'vue';
 import { SelectItem, SelectItemText, SelectItemIndicator } from 'reka-ui';
 import { Check } from '@lucide/vue';
 import Icon from '../../general/icon/Icon.vue';
-import { cn } from '../../../helpers/cn';
-import { selectItemVariants } from './select';
+import { cn } from '../../../helpers/cn.js';
+import { selectItemVariants } from './select.js';
 
 interface SelectItemProps {
 	/** The value of this item — selected when it matches the root's modelValue. */

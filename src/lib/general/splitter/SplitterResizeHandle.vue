@@ -14,12 +14,12 @@
 <script setup lang="ts">
 import { computed, inject } from 'vue';
 import { SplitterResizeHandle } from 'reka-ui';
-import { cn } from '../../../helpers/cn';
+import { cn } from '../../../helpers/cn.js';
 import {
 	splitterResizeHandleVariants,
 	SPLITTER_DIRECTION_KEY,
 	type SplitterHandleThickness,
-} from './splitter';
+} from './splitter.js';
 
 interface SplitterResizeHandleProps {
 	id?: string;

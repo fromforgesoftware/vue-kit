@@ -3,7 +3,7 @@ import { fn, expect, within, userEvent } from 'storybook/test';
 import { ref } from 'vue';
 import ColorField from './ColorField.vue';
 import Label from '../../form/label/Label.vue';
-import { expectNoHorizontalOverflow, forEachViewport } from '../../../test-utils/playHelpers';
+import { expectNoHorizontalOverflow, forEachViewport } from '../../../test-utils/playHelpers.js';
 
 const meta = {
 	title: 'Color/Color Field',

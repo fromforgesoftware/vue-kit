@@ -7,8 +7,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { AlertDialogCancel } from 'reka-ui';
-import { cn } from '../../../helpers/cn';
-import { buttonVariants, type ButtonVariants } from '../button/button';
+import { cn } from '../../../helpers/cn.js';
+import { buttonVariants, type ButtonVariants } from '../button/button.js';
 
 interface Props {
 	variant?: ButtonVariants['variant'];

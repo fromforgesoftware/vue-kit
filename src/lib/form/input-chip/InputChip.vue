@@ -66,7 +66,7 @@ import Button from '../../general/button/Button.vue';
 // `inheritAttrs: false` so HTML attributes (id, name, autocomplete…)
 // land on the inner native `<input>`, not on the wrapper.
 defineOptions({ inheritAttrs: false });
-import { cn } from '../../../helpers/cn';
+import { cn } from '../../../helpers/cn.js';
 import {
 	inputChipVariants,
 	inputChipInputVariants,
@@ -76,7 +76,7 @@ import {
 	type InputChipSize,
 	type InputChipVariant,
 	type InputChipTagVariant,
-} from './input-chip';
+} from './input-chip.js';
 
 interface InputChipProps {
 	/** Array of chip values (v-model). */

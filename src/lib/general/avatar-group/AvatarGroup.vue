@@ -82,14 +82,14 @@
 import { computed } from 'vue';
 import Avatar from '../avatar/Avatar.vue';
 import Tooltip from '../tooltip/Tooltip.vue';
-import type { AvatarSize, AvatarShape } from '../avatar/avatar';
-import { cn } from '../../../helpers/cn';
+import type { AvatarSize, AvatarShape } from '../avatar/avatar.js';
+import { cn } from '../../../helpers/cn.js';
 import {
 	avatarGroupVariants,
 	avatarGroupItemVariants,
 	avatarGroupOverflowVariants,
 	type AvatarGroupItem,
-} from './avatar-group';
+} from './avatar-group.js';
 
 interface Props {
 	/** Avatars to render. The first `max` are shown as faces; the rest collapse into the overflow badge. */

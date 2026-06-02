@@ -91,7 +91,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import { cn } from '../../../helpers/cn';
+import { cn } from '../../../helpers/cn.js';
 import EventCalendarHeader from './EventCalendarHeader.vue';
 import EventCalendarDay from './EventCalendarDay.vue';
 import EventCalendarWeek from './EventCalendarWeek.vue';
@@ -108,8 +108,8 @@ import {
 	type EventCalendarEventHoverPayload,
 	type EventCalendarSlotClickPayload,
 	type EventCalendarDateClickPayload,
-} from './event-calendar';
-import { useEventCalendar } from './composables/useEventCalendar';
+} from './event-calendar.js';
+import { useEventCalendar } from './composables/useEventCalendar.js';
 import { toRef } from 'vue';
 
 const props = withDefaults(defineProps<EventCalendarProps>(), {

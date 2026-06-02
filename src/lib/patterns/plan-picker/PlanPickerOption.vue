@@ -43,12 +43,12 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { RadioGroupItem, RadioGroupIndicator } from 'reka-ui';
-import { cn } from '../../../helpers/cn';
+import { cn } from '../../../helpers/cn.js';
 import {
 	planPickerOptionVariants,
 	planPickerOptionNameVariants,
 	planPickerOptionPriceVariants,
-} from './plan-picker';
+} from './plan-picker.js';
 
 interface PlanPickerOptionProps {
 	/** Unique value for this option */

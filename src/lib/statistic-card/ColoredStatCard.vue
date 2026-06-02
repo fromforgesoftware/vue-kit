@@ -117,12 +117,12 @@
  * tonal contrast carries the meaning (e.g. a "danger" alert card).
  */
 import { computed } from 'vue';
-import { cn } from '../../helpers/cn';
+import { cn } from '../../helpers/cn.js';
 import {
 	coloredStatCardVariants,
 	type ColoredStatCardVariants,
 	type ColoredStatCardTone,
-} from './stat-card';
+} from './stat-card.js';
 
 interface ColoredStatCardProps {
 	/** The metric label. */

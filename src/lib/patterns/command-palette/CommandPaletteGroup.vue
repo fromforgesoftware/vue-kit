@@ -23,14 +23,14 @@
 
 <script setup lang="ts">
 import { computed, inject, provide, ref } from 'vue';
-import { cn } from '../../../helpers/cn';
+import { cn } from '../../../helpers/cn.js';
 import {
 	commandPaletteGroupVariants,
 	COMMAND_PALETTE_KEY,
 	COMMAND_PALETTE_SUB_ID_KEY,
 	COMMAND_PALETTE_GROUP_KEY,
 	type CommandPaletteGroupContext,
-} from './command-palette';
+} from './command-palette.js';
 
 interface CommandPaletteGroupProps {
 	/** Group heading text */

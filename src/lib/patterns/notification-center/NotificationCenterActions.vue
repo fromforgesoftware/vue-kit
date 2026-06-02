@@ -19,7 +19,7 @@
 <script setup lang="ts">
 import Button from '../../general/button/Button.vue';
 import Icon from '../../general/icon/Icon.vue';
-import type { NotificationCenterAction } from './notification-center';
+import type { NotificationCenterAction } from './notification-center.js';
 
 interface NotificationCenterActionsProps {
 	actions: NotificationCenterAction[];

@@ -50,15 +50,15 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import { cn } from '../../../helpers/cn';
+import { cn } from '../../../helpers/cn.js';
 import Button from '../../general/button/Button.vue';
-import type { TourStep } from './tour';
+import type { TourStep } from './tour.js';
 import {
 	tourCardTitleVariants,
 	tourCardDescriptionVariants,
 	tourCardFooterVariants,
 	tourCardCounterVariants,
-} from './tour';
+} from './tour.js';
 
 interface TourCardProps {
 	/** Current step data */

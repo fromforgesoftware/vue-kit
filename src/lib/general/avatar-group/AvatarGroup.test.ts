@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { mount } from '@vue/test-utils';
 import AvatarGroup from './AvatarGroup.vue';
-import type { AvatarGroupItem } from './avatar-group';
+import type { AvatarGroupItem } from './avatar-group.js';
 
 const ITEMS: AvatarGroupItem[] = [
 	{ name: 'Alice Adams', description: 'alice@acme.io' },

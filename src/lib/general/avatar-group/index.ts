@@ -6,4 +6,4 @@ export {
 	type AvatarGroupVariants,
 	type AvatarGroupItemVariants,
 	type AvatarGroupItem,
-} from './avatar-group';
+} from './avatar-group.js';

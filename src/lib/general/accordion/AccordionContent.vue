@@ -9,7 +9,7 @@
 <script setup lang="ts">
 import { computed, inject, ref } from 'vue';
 import { AccordionContent } from 'reka-ui';
-import { cn } from '../../../helpers/cn';
+import { cn } from '../../../helpers/cn.js';
 import {
 	accordionContentVariants,
 	accordionContentInnerVariants,
@@ -17,7 +17,7 @@ import {
 	ACCORDION_SIZE_KEY,
 	type AccordionVariant,
 	type AccordionSize,
-} from './accordion';
+} from './accordion.js';
 
 interface AccordionContentProps {
 	class?: string;

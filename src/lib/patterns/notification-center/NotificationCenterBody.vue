@@ -85,7 +85,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import { cn } from '../../../helpers/cn';
+import { cn } from '../../../helpers/cn.js';
 import Button from '../../general/button/Button.vue';
 import Badge from '../../general/badge/Badge.vue';
 import Tabs from '../../general/tabs/Tabs.vue';
@@ -100,7 +100,7 @@ import {
 	type NotificationCenterItemData,
 	type NotificationCenterTab,
 	type NotificationCenterVariant,
-} from './notification-center';
+} from './notification-center.js';
 
 interface Props {
 	variant?: NotificationCenterVariant;

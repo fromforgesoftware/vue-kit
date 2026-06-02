@@ -94,7 +94,7 @@
 import { computed } from 'vue';
 import { ChevronLeft, ChevronRight } from '@lucide/vue';
 import { type ForgeDate } from '@fromforgesoftware/ts-kit';
-import { cn } from '../../../helpers/cn';
+import { cn } from '../../../helpers/cn.js';
 import Icon from '../../general/icon/Icon.vue';
 import Button from '../../general/button/Button.vue';
 import Tooltip from '../../general/tooltip/Tooltip.vue';
@@ -104,8 +104,8 @@ import DatePicker from '../../dates/date-picker/DatePicker.vue';
 import DateRangePicker from '../../dates/date-range-picker/DateRangePicker.vue';
 import MonthPicker from '../../dates/month-picker/MonthPicker.vue';
 import YearPicker from '../../dates/year-picker/YearPicker.vue';
-import type { DatePickerPreset } from '../../dates/date-picker/date-picker';
-import type { DateRangePreset } from '../../dates/date-range-picker/date-range-picker';
+import type { DatePickerPreset } from '../../dates/date-picker/date-picker.js';
+import type { DateRangePreset } from '../../dates/date-range-picker/date-range-picker.js';
 import {
 	dateNavToolbarVariants,
 	dateNavToolbarLeftClusterVariants,
@@ -113,7 +113,7 @@ import {
 	dateNavToolbarActionsVariants,
 	type DateNavToolbarView,
 	type DateNavToolbarPickerType,
-} from './date-nav-toolbar';
+} from './date-nav-toolbar.js';
 
 interface Props {
 	view: string;

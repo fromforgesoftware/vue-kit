@@ -2,13 +2,13 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { fn, expect, userEvent } from 'storybook/test';
 import { ref } from 'vue';
 import SplitButton from './SplitButton.vue';
-import type { SplitButtonAction } from './split-button';
+import type { SplitButtonAction } from './split-button.js';
 import {
 	expectMinTargetSize,
 	expectNoHorizontalOverflow,
 	forEachViewport,
 	inBody,
-} from '../../../test-utils/playHelpers';
+} from '../../../test-utils/playHelpers.js';
 
 const ALL_VARIANTS = ['default', 'secondary', 'destructive', 'outline', 'ghost'] as const;
 const ALL_SIZES = ['xs', 'sm', 'default', 'lg'] as const;

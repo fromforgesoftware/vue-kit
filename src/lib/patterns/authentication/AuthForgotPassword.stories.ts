@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { expect, userEvent } from 'storybook/test';
 import AuthForgotPassword from './AuthForgotPassword.vue';
-import { expectMinTargetSize } from '../../../test-utils/playHelpers';
+import { expectMinTargetSize } from '../../../test-utils/playHelpers.js';
 
 const meta = {
 	title: 'Authentication/ForgotPassword',

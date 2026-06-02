@@ -48,8 +48,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { CheckboxRoot, CheckboxIndicator } from 'reka-ui';
-import { cn } from '../../../helpers/cn';
-import { checkboxVariants, checkboxIndicatorVariants, type CheckboxVariants } from './checkbox';
+import { cn } from '../../../helpers/cn.js';
+import { checkboxVariants, checkboxIndicatorVariants, type CheckboxVariants } from './checkbox.js';
 
 interface CheckboxProps {
 	/** Controlled state. Pass `'indeterminate'` for the dash variant. */

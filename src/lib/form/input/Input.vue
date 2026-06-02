@@ -29,13 +29,13 @@ import { computed, useAttrs } from 'vue';
 // land on the inner native `<input>`, not on the wrapper. Critical for
 // `getByLabelText` / `for`/`id` association.
 defineOptions({ inheritAttrs: false });
-import { cn } from '../../../helpers/cn';
+import { cn } from '../../../helpers/cn.js';
 import {
 	inputVariants,
 	inputWrapperVariants,
 	inputAffixVariants,
 	type InputWrapperVariants,
-} from './input';
+} from './input.js';
 
 interface InputProps {
 	/** Visual style. `error` flips border/ring to destructive tones. */

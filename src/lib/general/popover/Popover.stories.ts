@@ -11,7 +11,7 @@ import {
 	expectNoHorizontalOverflow,
 	forEachViewport,
 	inBody,
-} from '../../../test-utils/playHelpers';
+} from '../../../test-utils/playHelpers.js';
 
 const ALL_SIDES = ['top', 'right', 'bottom', 'left'] as const;
 const ALL_ALIGNS = ['start', 'center', 'end'] as const;

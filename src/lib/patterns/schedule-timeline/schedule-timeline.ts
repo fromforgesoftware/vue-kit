@@ -1,5 +1,5 @@
 import type { Component } from 'vue';
-import type { Segment, SegmentVariant } from '../time-range-bar/time-range-bar';
+import type { Segment, SegmentVariant } from '../time-range-bar/time-range-bar.js';
 
 export type ScheduleTimelineView = 'day' | 'week' | 'month';
 

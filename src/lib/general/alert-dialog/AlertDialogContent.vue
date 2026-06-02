@@ -69,7 +69,7 @@
 import { computed, inject, ref } from 'vue';
 import { AlertDialogContent, AlertDialogPortal } from 'reka-ui';
 import { TriangleAlert, Trash2 } from '@lucide/vue';
-import { cn } from '../../../helpers/cn';
+import { cn } from '../../../helpers/cn.js';
 import {
 	alertDialogContentVariants,
 	alertDialogConfirmInputVariants,
@@ -78,7 +78,7 @@ import {
 	ALERT_DIALOG_VARIANT_KEY,
 	type AlertDialogContentVariants,
 	type AlertDialogVariant,
-} from './alert-dialog';
+} from './alert-dialog.js';
 import AlertDialogOverlay from './AlertDialogOverlay.vue';
 import AlertDialogTitle from './AlertDialogTitle.vue';
 import AlertDialogDescription from './AlertDialogDescription.vue';

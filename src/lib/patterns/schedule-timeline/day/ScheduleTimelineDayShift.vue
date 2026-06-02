@@ -300,7 +300,7 @@
 import { computed, nextTick, ref, watch, type CSSProperties } from 'vue';
 import { ForgeTime } from '@fromforgesoftware/ts-kit';
 import { Lock } from '@lucide/vue';
-import { cn } from '../../../../helpers/cn';
+import { cn } from '../../../../helpers/cn.js';
 import Icon from '../../../general/icon/Icon.vue';
 import HoverCard from '../../../general/hover-card/HoverCard.vue';
 import HoverCardTrigger from '../../../general/hover-card/HoverCardTrigger.vue';
@@ -310,12 +310,12 @@ import type {
 	ScheduleTimelineShift,
 	ScheduleTimelineShiftChild,
 	ScheduleTimelineShiftVariant,
-} from '../schedule-timeline';
+} from '../schedule-timeline.js';
 import {
 	shiftVariantClasses,
 	shiftVariantToSegmentVariant,
 	shiftChildrenToSegments,
-} from '../schedule-timeline';
+} from '../schedule-timeline.js';
 import {
 	parseHHMMToSec,
 	formatShiftDuration,
@@ -324,7 +324,7 @@ import {
 	DAY_SHIFT_CARD_HEIGHT as CARD_HEIGHT,
 	DAY_SHIFT_CARD_SPACING as CARD_SPACING,
 	DAY_SHIFT_TOP_PADDING as TOP_PADDING,
-} from '../utils';
+} from '../utils.js';
 
 const props = withDefaults(
 	defineProps<{

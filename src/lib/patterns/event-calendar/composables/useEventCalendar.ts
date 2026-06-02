@@ -1,6 +1,6 @@
 import { computed, type Ref } from 'vue';
 import { ForgeDate } from '@fromforgesoftware/ts-kit';
-import type { EventCalendarItem, EventCalendarView } from '../event-calendar';
+import type { EventCalendarItem, EventCalendarView } from '../event-calendar.js';
 
 export interface UseEventCalendarOptions {
 	selectedDate: Ref<ForgeDate>;

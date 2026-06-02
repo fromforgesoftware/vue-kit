@@ -6,7 +6,7 @@ import {
 	expectMinTargetSize,
 	forEachViewport,
 	expectNoHorizontalOverflow,
-} from '../../../test-utils/playHelpers';
+} from '../../../test-utils/playHelpers.js';
 
 const meta = {
 	title: 'Patterns/Feedback Popover',

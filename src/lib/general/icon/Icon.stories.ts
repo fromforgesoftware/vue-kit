@@ -3,7 +3,7 @@ import type { Component } from 'vue';
 import { expect } from 'storybook/test';
 import { House, Settings, User, AlertCircle } from '@lucide/vue';
 import Icon from './Icon.vue';
-import { expectNoHorizontalOverflow, forEachViewport } from '../../../test-utils/playHelpers';
+import { expectNoHorizontalOverflow, forEachViewport } from '../../../test-utils/playHelpers.js';
 
 const ALL_SIZES = ['2xs', 'xs', 'xs-sm', 'sm', 'md', 'default', 'lg', 'xl', 'none'] as const;
 

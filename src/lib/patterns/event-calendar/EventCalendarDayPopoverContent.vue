@@ -26,7 +26,7 @@ import type {
 	EventCalendarItem,
 	EventCalendarEventClickPayload,
 	EventCalendarEventHoverPayload,
-} from './event-calendar';
+} from './event-calendar.js';
 
 interface Props {
 	date: ForgeDate;

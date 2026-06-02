@@ -21,8 +21,8 @@ import { computed } from 'vue';
 import { DropdownMenuRadioItem, DropdownMenuItemIndicator } from 'reka-ui';
 import { Circle } from '@lucide/vue';
 import Icon from '../icon/Icon.vue';
-import { cn } from '../../../helpers/cn';
-import { dropdownMenuRadioItemVariants } from './dropdown-menu';
+import { cn } from '../../../helpers/cn.js';
+import { dropdownMenuRadioItemVariants } from './dropdown-menu.js';
 
 interface DropdownMenuRadioItemProps {
 	/** The unique value of the item. */

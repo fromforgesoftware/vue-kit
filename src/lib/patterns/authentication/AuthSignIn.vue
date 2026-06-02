@@ -171,7 +171,7 @@ import Divider from '../../general/divider/Divider.vue';
 import Alert from '../../general/alert/Alert.vue';
 import AlertTitle from '../../general/alert/AlertTitle.vue';
 import AlertDescription from '../../general/alert/AlertDescription.vue';
-import type { AuthSignInProps } from './authentication';
+import type { AuthSignInProps } from './authentication.js';
 
 /**
  * AuthSignIn — sign-in card with email/password, social login and links.

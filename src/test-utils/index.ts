@@ -1,1 +1,1 @@
-export * from './jsonApiMockServer';
+export * from './jsonApiMockServer.js';

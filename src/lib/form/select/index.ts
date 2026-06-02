@@ -6,4 +6,4 @@ export { default as SelectItem } from './SelectItem.vue';
 export { default as SelectGroup } from './SelectGroup.vue';
 export { default as SelectLabel } from './SelectLabel.vue';
 export { default as SelectSeparator } from './SelectSeparator.vue';
-export * from './select';
+export * from './select.js';

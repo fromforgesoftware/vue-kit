@@ -1,5 +1,5 @@
 import type { InjectionKey, Ref } from 'vue';
-import type { EditableSize } from './editable';
+import type { EditableSize } from './editable.js';
 
 // Shared size token between Editable and its sub-components. Set by Editable
 // via `provide`; consumed by Preview / Input / Trigger via `inject` so a

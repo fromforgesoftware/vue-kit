@@ -18,13 +18,13 @@
 import { computed, ref } from 'vue';
 import { Pipette } from '@lucide/vue';
 import Button from '../../general/button/Button.vue';
-import { cn } from '../../../helpers/cn';
+import { cn } from '../../../helpers/cn.js';
 import {
 	colorEyeDropperVariants,
 	isEyeDropperSupported,
 	pickColorFromScreen,
 	type ColorEyeDropperSize,
-} from './color-eye-dropper';
+} from './color-eye-dropper.js';
 
 interface Props {
 	/** Density. Matches sibling slider/field sizes. */

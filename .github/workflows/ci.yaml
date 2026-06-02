@@ -19,3 +19,4 @@ jobs:
           node-version: 22
       - run: cd ts-kit && npm install && npm run build
       - run: cd vue-kit && npm install --legacy-peer-deps && npm run build
+      - run: cd vue-kit && npx vitest run --project=unit

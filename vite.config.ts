@@ -95,8 +95,8 @@ export default defineConfig({
 		},
 	},
 	test: {
-		workspace: [
-			// Unit tests workspace - runs component tests with jsdom
+		projects: [
+			// Unit tests project - runs component tests with jsdom
 			{
 				extends: true,
 				test: {
@@ -107,7 +107,7 @@ export default defineConfig({
 					globals: true,
 				},
 			},
-			// Storybook tests workspace - runs interaction tests in browser
+			// Storybook tests project - runs interaction tests in browser
 			{
 				extends: true,
 				plugins: [

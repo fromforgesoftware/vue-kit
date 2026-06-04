@@ -1,6 +1,6 @@
 {
 	"name": "@fromforgesoftware/vue-kit",
-	"version": "0.1.1",
+	"version": "0.1.2",
 	"type": "module",
 	"main": "./dist/index.js",
 	"module": "./dist/index.js",
@@ -11,6 +11,7 @@
 			"import": "./dist/index.js"
 		},
 		"./style.css": "./dist/vue-kit.css",
+		"./theme.css": "./dist/theme.css",
 		"./test-utils": {
 			"types": "./dist/test-utils/index.d.ts",
 			"import": "./dist/test-utils.js"
@@ -28,7 +29,8 @@
 		"url": "https://github.com/fromforgesoftware/vue-kit.git"
 	},
 	"scripts": {
-		"build": "vite build && vue-tsc --emitDeclarationOnly -p tsconfig.build.json",
+		"build": "vite build && vue-tsc --emitDeclarationOnly -p tsconfig.build.json && npm run build:theme",
+		"build:theme": "cp src/styles/globals.css dist/theme.css && cp src/styles/_colors.css dist/_colors.css",
 		"storybook": "storybook dev -p 6006",
 		"build-storybook": "storybook build",
 		"test": "vitest run --project=unit",

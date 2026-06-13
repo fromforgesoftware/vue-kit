@@ -97,6 +97,7 @@ export * from './lib/dates/weekdays-picker/index.js';
 export * from './lib/patterns/activity-timeline/index.js';
 export * from './lib/patterns/authentication/index.js';
 export * from './lib/patterns/data-table/index.js';
+export * from './lib/patterns/list-detail/index.js';
 export * from './lib/patterns/date-nav-toolbar/index.js';
 export * from './lib/patterns/event-calendar/index.js';
 export * from './lib/patterns/feedback/index.js';

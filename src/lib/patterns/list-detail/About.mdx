@@ -1,0 +1,33 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import * as Stories from './ListDetail.stories';
+
+<Meta of={Stories} />
+
+# ListDetail
+
+A responsive master–detail layout: a selectable list (the "master") on the left and a detail panel
+on the right. On wide viewports both panes show side-by-side with a resizable divider; on narrow
+viewports the layout collapses to a single column that drills down — the list first, then the detail
+slides in with a back affordance.
+
+## When to use
+
+- Browsing a collection where each item has rich, multi-section detail (accounts, conversations,
+  settings sections, admin records).
+- When you want the list to stay in view on desktop while the user moves between items, but a
+  focused single-column flow on mobile.
+
+## Anatomy
+
+- **`ListDetail`** — the shell. Slots: `list`, `detail`, `empty` (shown in the detail pane when
+  nothing is selected on wide viewports), and `mobile-bar` (extra content beside the back button).
+  Drive the responsive drill-down by binding `selected` to the current item's id, and clear it in
+  the `back` handler.
+- **`ListDetailItem`** — one selectable row: `leading` slot (avatar/icon), `title`/`subtitle`, and a
+  `trailing` slot (value/badge). Set `active` on the current row; emits `select`.
+- **`ListDetailHeader`** — the detail-pane header: `leading` slot, `title`/`subtitle`, and an
+  `actions` slot for trailing controls.
+
+Tabs inside the detail compose from the kit `Tabs` family — `ListDetail` is layout-only.
+
+<Canvas of={Stories.Default} />

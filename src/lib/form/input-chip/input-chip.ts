@@ -6,7 +6,7 @@ export const inputChipVariants = cva(
 		'relative flex w-full min-w-0 flex-wrap items-center gap-1.5 rounded-md border bg-transparent',
 		'transition-[color,box-shadow] outline-none',
 		'border-input',
-		'has-[input:focus-visible]:border-primary has-[input:focus-visible]:ring-2 has-[input:focus-visible]:ring-ring/50',
+		'has-[input:focus-visible]:border-primary has-[input:focus-visible]:ring-inset has-[input:focus-visible]:ring-primary',
 		'has-[input:disabled]:cursor-not-allowed has-[input:disabled]:opacity-50',
 		'aria-[invalid=true]:border-destructive aria-[invalid=true]:ring-destructive/20',
 	].join(' '),
@@ -33,7 +33,7 @@ export const inputChipVariants = cva(
 export const inputChipInputVariants = cva(
 	[
 		'flex-1 min-w-[8ch] bg-transparent border-0 outline-none',
-		'text-foreground placeholder:text-muted-foreground',
+		'text-foreground placeholder:text-muted-foreground/70',
 		'focus:outline-none focus:ring-0',
 		'disabled:cursor-not-allowed',
 	].join(' '),

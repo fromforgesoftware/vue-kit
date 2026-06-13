@@ -11,7 +11,7 @@ export const switchVariants = cva(
 		'border-2 border-transparent shadow-xs',
 		'transition-[background-color,box-shadow] outline-none',
 		'cursor-pointer',
-		'focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:ring-offset-2 focus-visible:ring-offset-background',
+		'focus-visible:ring-[3px] focus-visible:ring-ring/50',
 		'disabled:cursor-not-allowed disabled:opacity-50',
 		'data-[state=checked]:bg-primary data-[state=unchecked]:bg-input',
 		'aria-[invalid=true]:ring-2 aria-[invalid=true]:ring-destructive/20',

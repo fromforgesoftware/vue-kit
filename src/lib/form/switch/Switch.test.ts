@@ -155,7 +155,7 @@ describe('Switch', () => {
 	// ============================================
 	describe('keyboard accessibility', () => {
 		it('should have focus visible ring', () => {
-			expect(wrapper.classes()).toContain('focus-visible:ring-2');
+			expect(wrapper.classes()).toContain('focus-visible:ring-[3px]');
 		});
 
 		it('should be interactive element', () => {

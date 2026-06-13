@@ -12,7 +12,7 @@ export const toggleVariants = cva(
 		'text-sm leading-tight whitespace-nowrap',
 		'transition-[color,background-color,border-color,box-shadow] outline-none',
 		'hover:bg-accent/60 hover:text-accent-foreground',
-		'focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:ring-offset-2 focus-visible:ring-offset-background',
+		'focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50',
 		'disabled:pointer-events-none disabled:opacity-50',
 		'data-[state=on]:bg-accent data-[state=on]:text-accent-foreground',
 		"[&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",

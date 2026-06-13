@@ -23,10 +23,10 @@ export const numberFieldRootVariants = cva('inline-flex items-center', {
 // accept the quirk over breaking visual proportions.
 export const numberFieldInputVariants = cva(
 	[
-		'border-input placeholder:text-muted-foreground',
+		'border-input placeholder:text-muted-foreground/70',
 		'relative w-full min-w-[3.5rem] -mx-px border bg-transparent text-center',
 		'text-sm transition-[color,box-shadow] outline-none',
-		'focus:z-10 focus:ring-0 focus-visible:outline-none focus-visible:ring-inset focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:border-primary',
+		'focus:z-10 focus:ring-0 focus-visible:outline-none focus-visible:ring-inset focus-visible:ring-primary focus-visible:border-primary',
 		'disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50',
 		'aria-[invalid=true]:border-destructive aria-[invalid=true]:ring-destructive/20',
 	].join(' '),
@@ -56,7 +56,7 @@ export const numberFieldButtonVariants = cva(
 		'relative inline-flex shrink-0 items-center justify-center border border-input bg-transparent',
 		'text-muted-foreground transition-colors',
 		'hover:bg-accent hover:text-accent-foreground',
-		'focus:z-10 focus-visible:outline-none focus-visible:ring-inset focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:border-primary',
+		'focus:z-10 focus-visible:outline-none focus-visible:ring-inset focus-visible:ring-primary focus-visible:border-primary',
 		'disabled:pointer-events-none disabled:opacity-50',
 		"[&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
 	].join(' '),

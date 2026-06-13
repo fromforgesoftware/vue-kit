@@ -142,12 +142,8 @@ describe('Checkbox', () => {
 		});
 
 		it('should have focus visible styles', () => {
-			expect(wrapper.classes()).toContain('focus-visible:ring-2');
+			expect(wrapper.classes()).toContain('focus-visible:ring-[3px]');
 			expect(wrapper.classes()).toContain('focus-visible:ring-ring/50');
-		});
-
-		it('should have ring offset styling', () => {
-			expect(wrapper.classes()).toContain('focus-visible:ring-offset-2');
 		});
 
 		it('should have shrink-0 to prevent shrinking', () => {

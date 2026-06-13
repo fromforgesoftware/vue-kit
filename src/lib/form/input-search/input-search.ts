@@ -7,7 +7,7 @@ export const inputSearchVariants = cva(
 		'relative flex w-full min-w-0 items-center rounded-md border bg-transparent',
 		'transition-[color,box-shadow] outline-none',
 		'border-input',
-		'has-[input:focus-visible]:border-primary has-[input:focus-visible]:ring-2 has-[input:focus-visible]:ring-ring/50',
+		'has-[input:focus-visible]:border-primary has-[input:focus-visible]:ring-inset has-[input:focus-visible]:ring-primary',
 		'has-[input:disabled]:cursor-not-allowed has-[input:disabled]:opacity-50',
 		'has-[input[aria-invalid=true]]:border-destructive has-[input[aria-invalid=true]]:ring-destructive/20',
 	].join(' '),
@@ -37,7 +37,7 @@ export const inputSearchVariants = cva(
 export const inputSearchInputVariants = cva(
 	[
 		'peer flex-1 min-w-0 bg-transparent outline-none border-0',
-		'text-foreground placeholder:text-muted-foreground',
+		'text-foreground placeholder:text-muted-foreground/70',
 		'disabled:cursor-not-allowed',
 		'[&::-webkit-search-cancel-button]:appearance-none [&::-webkit-search-decoration]:appearance-none',
 		'[&::-webkit-search-results-button]:appearance-none [&::-webkit-search-results-decoration]:appearance-none',

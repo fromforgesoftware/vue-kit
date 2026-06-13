@@ -8,11 +8,11 @@ import type { InjectionKey, ComputedRef } from 'vue';
  */
 export const selectTriggerVariants = cva(
 	[
-		'border-input data-placeholder:text-muted-foreground',
+		'border-input data-placeholder:text-muted-foreground/70',
 		'flex w-full cursor-pointer items-center justify-between gap-2 rounded-md border bg-background px-3',
 		'text-sm transition-[color,box-shadow] outline-none',
-		'focus:ring-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:border-primary',
-		'data-[state=open]:border-primary data-[state=open]:ring-2 data-[state=open]:ring-ring/50',
+		'focus:ring-0 focus-visible:outline-none focus-visible:ring-inset focus-visible:ring-primary focus-visible:border-primary',
+		'data-[state=open]:border-primary data-[state=open]:ring-inset data-[state=open]:ring-primary',
 		'aria-[invalid=true]:border-destructive aria-[invalid=true]:ring-destructive/20',
 		'disabled:cursor-not-allowed disabled:opacity-50',
 		"[&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",

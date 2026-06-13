@@ -36,9 +36,9 @@ export const editablePreviewVariants = cva(
 export const editableInputVariants = cva(
 	[
 		'flex w-full min-w-0 rounded-md border border-input bg-transparent text-foreground',
-		'placeholder:text-muted-foreground',
+		'placeholder:text-muted-foreground/70',
 		'transition-[color,box-shadow] outline-none',
-		'focus-visible:border-primary focus-visible:ring-2 focus-visible:ring-ring/50',
+		'focus-visible:border-primary focus-visible:ring-inset focus-visible:ring-primary',
 		'disabled:cursor-not-allowed disabled:opacity-50',
 	].join(' '),
 	{

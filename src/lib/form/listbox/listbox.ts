@@ -6,7 +6,7 @@ export const listboxVariants = cva(
 	[
 		'w-full rounded-md border border-input bg-background text-sm',
 		'transition-[color,box-shadow] outline-none',
-		'focus-within:ring-2 focus-within:ring-ring/50 focus-within:border-primary',
+		'focus-within:ring-inset focus-within:ring-primary focus-within:border-primary',
 		'aria-[invalid=true]:border-destructive aria-[invalid=true]:ring-destructive/20',
 		'data-[disabled]:opacity-50',
 	].join(' '),

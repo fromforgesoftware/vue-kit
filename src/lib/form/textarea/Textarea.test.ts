@@ -117,7 +117,7 @@ describe('Textarea', () => {
 		});
 
 		it('should have placeholder styling', () => {
-			expect(wrapper.classes()).toContain('placeholder:text-muted-foreground');
+			expect(wrapper.classes()).toContain('placeholder:text-muted-foreground/70');
 		});
 	});
 
@@ -187,7 +187,7 @@ describe('Textarea', () => {
 	describe('focus styling', () => {
 		it('should have focus visible ring', () => {
 			expect(wrapper.classes()).toContain('focus-visible:border-primary');
-			expect(wrapper.classes()).toContain('focus-visible:ring-2');
+			expect(wrapper.classes()).toContain('focus-visible:ring-primary');
 		});
 
 		it('should have outline none', () => {

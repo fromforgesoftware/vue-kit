@@ -72,7 +72,7 @@ describe('Button', () => {
 
 		it('should apply link variant classes', async () => {
 			await wrapper.setProps({ variant: 'link' });
-			expect(wrapper.classes()).toContain('text-primary-text');
+			expect(wrapper.classes()).toContain('text-primary');
 			expect(wrapper.classes()).toContain('underline-offset-4');
 		});
 	});
@@ -94,7 +94,7 @@ describe('Button', () => {
 
 		it('should apply lg size classes', async () => {
 			await wrapper.setProps({ size: 'lg' });
-			expect(wrapper.classes()).toContain('h-10');
+			expect(wrapper.classes()).toContain('h-9');
 			expect(wrapper.classes()).toContain('px-4');
 		});
 

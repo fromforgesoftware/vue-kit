@@ -19,10 +19,10 @@ export const pinInputRootVariants = cva('inline-flex items-center', {
 // identical across viewports so OTP layouts don't reflow on rotation.
 export const pinInputInputVariants = cva(
 	[
-		'border-input placeholder:text-muted-foreground',
+		'border-input placeholder:text-muted-foreground/70',
 		'flex items-center justify-center rounded-md border bg-transparent',
 		'text-center transition-[color,box-shadow] outline-none shadow-xs',
-		'focus:z-10 focus:ring-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:border-primary',
+		'focus:z-10 focus:ring-0 focus-visible:outline-none focus-visible:ring-inset focus-visible:ring-primary focus-visible:border-primary',
 		'data-[complete]:border-primary',
 		'disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50',
 		'aria-[invalid=true]:border-destructive aria-[invalid=true]:ring-destructive/20',

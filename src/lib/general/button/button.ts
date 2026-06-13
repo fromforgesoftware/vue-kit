@@ -1,23 +1,15 @@
 import { cva, type VariantProps } from 'class-variance-authority';
 
-// Base classes guarantee:
-// - WCAG 2.5.8 target size: every non-icon size meets ≥ 24×24 px (the smallest
-//   `sm` is 28 px high; icon `xs` is 24 px square).
-// - WCAG 2.4.7 / 2.4.13 focus visible: 3 px ring at ≥ 3:1 contrast.
-// - WCAG 1.4.11 disabled state: 50 % opacity + pointer-events-none.
-//
-// Sizes are identical on mobile and desktop. Earlier passes bumped `default`/
-// `lg`/`icon` to 44 px on `max-sm:` to chase Apple HIG / Material's primary-
-// touch-target guidance, but it broke proportions inside dense layouts
-// (toolbars, table actions, popovers) where a button suddenly grew 12 px
-// taller than its neighbours. Keeping a single sizing pass across viewports
-// lets the consumer choose `lg` (40 px) or `default` (32 px) explicitly when
-// they want a true touch target.
+// Base / shared variants track the workair UI library so the two design systems
+// stay visually identical (text-base, gap-2, h-7/8/9 size ramp, shadow-xs on the
+// solid/outline variants only). Forge keeps a few additions workair lacks but
+// consumers rely on: the `soft-*` low-emphasis variants, the `xs` text size and
+// the `icon-xs/-sm/-lg` square sizes, the `block` modifier, plus stronger a11y
+// (aria-disabled handling, WCAG 2.5.8 ≥24px targets — smallest `xs` is 24px).
 export const buttonVariants = cva(
 	[
-		'data-[slot=button] inline-flex items-center justify-center gap-1.5',
-		'whitespace-nowrap rounded-md text-sm font-medium cursor-pointer',
-		'transition-[color,background-color,border-color,box-shadow,opacity]',
+		'data-[slot=button] inline-flex items-center justify-center gap-2',
+		'whitespace-nowrap rounded-md text-base font-medium cursor-pointer transition-all',
 		'disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50',
 		"[&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0",
 		'outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]',
@@ -29,10 +21,10 @@ export const buttonVariants = cva(
 				default: 'bg-primary text-primary-foreground shadow-xs hover:bg-primary/90',
 				secondary: 'bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80',
 				destructive:
-					'bg-destructive text-white shadow-xs hover:bg-destructive/90 focus-visible:ring-destructive/30',
+					'bg-destructive text-white hover:bg-destructive/90 focus-visible:ring-destructive/20',
 				outline: 'border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground',
 				ghost: 'hover:bg-accent hover:text-accent-foreground',
-				link: 'text-primary-text underline-offset-4 hover:underline focus-visible:ring-0 focus-visible:underline',
+				link: 'text-primary underline-offset-4 hover:underline',
 				// Soft variants for low-emphasis surfaces (toolbars, secondary actions in dense layouts).
 				'soft-destructive':
 					'bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:ring-destructive/30',
@@ -41,13 +33,14 @@ export const buttonVariants = cva(
 				'soft-info': 'bg-info/10 text-info hover:bg-info/20',
 			},
 			size: {
-				// Text-bearing sizes
+				// Text-bearing sizes — sm/default/lg track workair; xs is forge-only.
 				xs: 'h-6 px-2 text-xs has-[>svg]:px-1.5',
-				sm: 'h-7 px-2.5 text-xs has-[>svg]:px-2',
-				default: 'h-8 px-3 text-sm has-[>svg]:px-2.5',
-				lg: 'h-10 px-4 text-sm has-[>svg]:px-3.5',
+				sm: 'h-7 gap-1.5 px-2.5 has-[>svg]:px-2',
+				default: 'h-8 px-3 py-2 has-[>svg]:px-2.5',
+				lg: 'h-9 px-4 has-[>svg]:px-3',
 				// Icon-only sizes — square. Names align with text sizes; consumers must
-				// pass an `aria-label` to satisfy WCAG SC 4.1.2.
+				// pass an `aria-label` to satisfy WCAG SC 4.1.2. Only `icon` (size-8)
+				// exists in workair; the rest are forge additions.
 				'icon-xs': 'size-6',
 				'icon-sm': 'size-7',
 				icon: 'size-8',

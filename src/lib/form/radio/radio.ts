@@ -24,7 +24,7 @@ export const radioItemVariants = cva(
 		'rounded-full border border-input bg-background shadow-xs',
 		'transition-[color,border-color,box-shadow] outline-none',
 		'cursor-pointer',
-		'focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:ring-offset-2 focus-visible:ring-offset-background',
+		'focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50',
 		'disabled:cursor-not-allowed disabled:opacity-50',
 		'data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50',
 		'data-[state=checked]:border-primary data-[state=checked]:text-primary',

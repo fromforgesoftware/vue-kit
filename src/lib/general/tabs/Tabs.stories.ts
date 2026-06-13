@@ -1,12 +1,15 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { fn, expect, within, userEvent, waitFor } from 'storybook/test';
+import { Activity, Mail, Users, FileText } from '@lucide/vue';
 import Tabs from './Tabs.vue';
 import TabsList from './TabsList.vue';
 import TabsTrigger from './TabsTrigger.vue';
 import TabsContent from './TabsContent.vue';
+import Icon from '../icon/Icon.vue';
+import Badge from '../badge/Badge.vue';
 import { expectNoHorizontalOverflow, forEachViewport } from '../../../test-utils/playHelpers.js';
 
-const ALL_VARIANTS = ['default', 'pill', 'underlined', 'ghost'] as const;
+const ALL_VARIANTS = ['default', 'pill', 'underlined', 'ghost', 'enclosed'] as const;
 const ALL_SIZES = ['sm', 'default'] as const;
 const ALL_ORIENTATIONS = ['horizontal', 'vertical'] as const;
 
@@ -89,24 +92,53 @@ export const Variants: Story = {
 		},
 	},
 	render: () => ({
-		components: { Tabs, TabsList, TabsTrigger, TabsContent },
-		setup: () => ({ ALL_VARIANTS }),
+		components: { Tabs, TabsList, TabsTrigger, TabsContent, Icon, Badge },
+		setup: () => ({ ALL_VARIANTS, Activity, Mail, Users }),
 		template: `
       <div class="flex flex-col gap-8 w-full max-w-2xl">
         <div v-for="v in ALL_VARIANTS" :key="v" class="flex flex-col gap-2">
           <span class="text-xs font-medium text-muted-foreground">{{ v }}</span>
           <Tabs :variant="v" default-value="a">
             <TabsList>
-              <TabsTrigger value="a">First</TabsTrigger>
-              <TabsTrigger value="b">Second</TabsTrigger>
-              <TabsTrigger value="c">Third</TabsTrigger>
+              <TabsTrigger value="a"><Icon :icon="Activity" size="xs-sm" />Activity</TabsTrigger>
+              <TabsTrigger value="b"><Icon :icon="Mail" size="xs-sm" />Emails<Badge variant="secondary">0</Badge></TabsTrigger>
+              <TabsTrigger value="c"><Icon :icon="Users" size="xs-sm" />Team<Badge variant="secondary">1</Badge></TabsTrigger>
             </TabsList>
-            <TabsContent value="a"><p class="p-3 text-sm">First panel</p></TabsContent>
-            <TabsContent value="b"><p class="p-3 text-sm">Second panel</p></TabsContent>
-            <TabsContent value="c"><p class="p-3 text-sm">Third panel</p></TabsContent>
+            <TabsContent value="a"><p class="p-3 text-sm">Activity panel</p></TabsContent>
+            <TabsContent value="b"><p class="p-3 text-sm">Emails panel</p></TabsContent>
+            <TabsContent value="c"><p class="p-3 text-sm">Team panel</p></TabsContent>
           </Tabs>
         </div>
       </div>
+    `,
+	}),
+};
+
+export const RecordTabs: Story = {
+	parameters: {
+		docs: {
+			description: {
+				story:
+					'The `enclosed` variant as record/workflow tabs (Attio, mmc-fe): icon + label + count badge, the active tab a bordered pill, with a bottom-border divider on the list.',
+			},
+		},
+	},
+	render: () => ({
+		components: { Tabs, TabsList, TabsTrigger, TabsContent, Icon, Badge },
+		setup: () => ({ Activity, Mail, Users, FileText }),
+		template: `
+      <Tabs variant="enclosed" default-value="emails" class="w-full">
+        <TabsList class="w-full justify-start border-b border-border px-1 pb-2">
+          <TabsTrigger value="activity"><Icon :icon="Activity" size="xs-sm" />Activity</TabsTrigger>
+          <TabsTrigger value="emails"><Icon :icon="Mail" size="xs-sm" />Emails<Badge variant="secondary">0</Badge></TabsTrigger>
+          <TabsTrigger value="team"><Icon :icon="Users" size="xs-sm" />Team<Badge variant="secondary">1</Badge></TabsTrigger>
+          <TabsTrigger value="notes"><Icon :icon="FileText" size="xs-sm" />Notes<Badge variant="secondary">1</Badge></TabsTrigger>
+        </TabsList>
+        <TabsContent value="activity"><p class="p-4 text-sm">Activity</p></TabsContent>
+        <TabsContent value="emails"><p class="p-4 text-sm">Emails</p></TabsContent>
+        <TabsContent value="team"><p class="p-4 text-sm">Team</p></TabsContent>
+        <TabsContent value="notes"><p class="p-4 text-sm">Notes</p></TabsContent>
+      </Tabs>
     `,
 	}),
 };

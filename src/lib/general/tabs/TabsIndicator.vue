@@ -46,7 +46,8 @@ const classes = computed(() =>
 	translate: var(--reka-tabs-indicator-position) 0;
 }
 
-[data-orientation='horizontal'] > .wui-tabs-indicator[data-variant='ghost'] {
+[data-orientation='horizontal'] > .wui-tabs-indicator[data-variant='ghost'],
+[data-orientation='horizontal'] > .wui-tabs-indicator[data-variant='enclosed'] {
 	width: var(--reka-tabs-indicator-size);
 	height: 100%;
 	top: 0;
@@ -72,7 +73,8 @@ const classes = computed(() =>
 	translate: 0 var(--reka-tabs-indicator-position);
 }
 
-[data-orientation='vertical'] > .wui-tabs-indicator[data-variant='ghost'] {
+[data-orientation='vertical'] > .wui-tabs-indicator[data-variant='ghost'],
+[data-orientation='vertical'] > .wui-tabs-indicator[data-variant='enclosed'] {
 	height: var(--reka-tabs-indicator-size);
 	width: 100%;
 	left: 0;

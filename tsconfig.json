@@ -2,6 +2,11 @@
 	"compilerOptions": {
 		"target": "ES2022",
 		"useDefineForClassFields": true,
+		// ts-kit (path-mapped to source in dev) uses legacy decorators on its
+		// JSON:API models; match its config so the IDE/dev typecheck resolves them
+		// (the build maps ts-kit to dist/*.d.ts, so it's unaffected).
+		"experimentalDecorators": true,
+		"emitDecoratorMetadata": true,
 		"module": "ESNext",
 		"lib": ["ES2022", "DOM", "DOM.Iterable"],
 		"skipLibCheck": true,

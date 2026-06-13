@@ -496,8 +496,11 @@ function createColumns(): ColumnDef<Item>[] {
 			header: ({ table }) => {
 				return h(Checkbox, {
 					class: 'flex',
-					checked:
-						table.getIsAllRowsSelected() || (table.getIsSomePageRowsSelected() && 'indeterminate'),
+					checked: table.getIsAllRowsSelected()
+						? true
+						: table.getIsSomePageRowsSelected()
+							? 'indeterminate'
+							: false,
 					'onUpdate:checked': (value: boolean | 'indeterminate') =>
 						table.toggleAllRowsSelected(!!value),
 					ariaLabel: 'Select all',

@@ -31,6 +31,8 @@
 	"scripts": {
 		"build": "vite build && vue-tsc --emitDeclarationOnly -p tsconfig.build.json && npm run build:theme",
 		"build:theme": "cp src/styles/globals.css dist/theme.css && cp src/styles/_colors.css dist/_colors.css",
+		"release": "npm run build && npm publish --access=public",
+		"release:token": "NODE_AUTH_TOKEN=$(gh auth token) npm run release",
 		"storybook": "storybook dev -p 6006",
 		"build-storybook": "storybook build",
 		"test": "vitest run --project=unit",

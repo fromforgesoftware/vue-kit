@@ -35,7 +35,7 @@ export const editablePreviewVariants = cva(
 // stable at every size.
 export const editableInputVariants = cva(
 	[
-		'flex w-full min-w-0 rounded-md border border-input bg-transparent text-foreground shadow-xs',
+		'flex w-full min-w-0 rounded-md border border-input bg-transparent text-foreground',
 		'placeholder:text-muted-foreground',
 		'transition-[color,box-shadow] outline-none',
 		'focus-visible:border-primary focus-visible:ring-2 focus-visible:ring-ring/50',

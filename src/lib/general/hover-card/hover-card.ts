@@ -3,7 +3,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 export type HoverCardSize = 'sm' | 'default' | 'lg';
 
 export const hoverCardContentVariants = cva(
-	`bg-popover text-popover-foreground z-60 rounded-md border border-border p-4 shadow-md
+	`bg-popover text-popover-foreground z-60 rounded-md border border-border p-4
    outline-none
    data-[state=open]:animate-in data-[state=closed]:animate-out
    data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0

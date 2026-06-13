@@ -3,7 +3,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 /** Wrapper for {@link InputChip}. Behaves like {@link inputWrapperVariants} but auto-grows to fit chips. */
 export const inputChipVariants = cva(
 	[
-		'relative flex w-full min-w-0 flex-wrap items-center gap-1.5 rounded-md border bg-transparent shadow-xs',
+		'relative flex w-full min-w-0 flex-wrap items-center gap-1.5 rounded-md border bg-transparent',
 		'transition-[color,box-shadow] outline-none',
 		'border-input',
 		'has-[input:focus-visible]:border-primary has-[input:focus-visible]:ring-2 has-[input:focus-visible]:ring-ring/50',

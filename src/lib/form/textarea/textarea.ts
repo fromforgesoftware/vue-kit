@@ -8,7 +8,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
  */
 export const textareaVariants = cva(
 	[
-		'flex w-full min-w-0 rounded-md border bg-transparent shadow-xs',
+		'flex w-full min-w-0 rounded-md border bg-transparent',
 		'border-input text-foreground placeholder:text-muted-foreground',
 		'transition-[color,box-shadow] outline-none',
 		'focus-visible:border-primary focus-visible:ring-2 focus-visible:ring-ring/50',

@@ -4,7 +4,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 // share the same focus-within / error states.
 export const inputSearchVariants = cva(
 	[
-		'relative flex w-full min-w-0 items-center rounded-md border bg-transparent shadow-xs',
+		'relative flex w-full min-w-0 items-center rounded-md border bg-transparent',
 		'transition-[color,box-shadow] outline-none',
 		'border-input',
 		'has-[input:focus-visible]:border-primary has-[input:focus-visible]:ring-2 has-[input:focus-visible]:ring-ring/50',

@@ -209,6 +209,40 @@ export const TitleOnly: Story = {
 	},
 };
 
+// Regression guard for the icon alignment: single-line alerts (no subtitle)
+// must centre the icon against the line; only a title + description top-aligns it.
+export const IconAlignment: Story = {
+	render: () => ({
+		components: { Alert, AlertTitle, AlertDescription },
+		setup: () => ({ Info, CheckCircle, AlertTriangle }),
+		template: `
+      <div class="flex flex-col gap-3 sm:min-w-96">
+        <!-- description-only, single line → icon centred -->
+        <Alert :icon="Info" variant="info" tone="soft">
+          <AlertDescription>You have unpublished changes.</AlertDescription>
+        </Alert>
+        <!-- title-only, single line → icon centred -->
+        <Alert :icon="CheckCircle" variant="success" tone="soft">
+          <AlertTitle>Saved just now.</AlertTitle>
+        </Alert>
+        <!-- title + description → icon aligns to the first line -->
+        <Alert :icon="AlertTriangle" variant="warning" tone="soft">
+          <AlertTitle>Heads up</AlertTitle>
+          <AlertDescription>This one has a subtitle, so the icon aligns to the first line instead of centring.</AlertDescription>
+        </Alert>
+      </div>
+    `,
+	}),
+	parameters: {
+		docs: {
+			description: {
+				story:
+					'Single-line alerts (title-only or description-only) centre the icon against the line. Only when both a title and a description are present does the icon top-align to the first line.',
+			},
+		},
+	},
+};
+
 export const Dismissible: Story = {
 	args: { dismissible: true, dismissLabel: 'Dismiss notice', variant: 'info' },
 	render: (args) => ({

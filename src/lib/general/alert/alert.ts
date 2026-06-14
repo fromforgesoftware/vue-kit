@@ -2,7 +2,10 @@ import { cva, type VariantProps } from 'class-variance-authority';
 
 /** Alert banner — `info` / `warning` / `destructive` / `success` semantic variants. */
 export const alertVariants = cva(
-	'relative w-full rounded-lg border px-3 py-2 text-sm grid has-[>svg]:grid-cols-[calc(var(--spacing)*4)_1fr] grid-cols-[0_1fr] has-[>svg]:gap-x-3 gap-y-0.5 items-start [&>svg]:size-4 [&>svg]:translate-y-0.5 [&>svg]:text-current',
+	// Icon alignment: centre it by default so single-line alerts (title-only or
+	// description-only) read straight. Only top-align (with the first-line nudge)
+	// when BOTH a title and a description are present — the genuine multi-line case.
+	'relative w-full rounded-lg border px-3 py-2 text-sm grid has-[>svg]:grid-cols-[calc(var(--spacing)*4)_1fr] grid-cols-[0_1fr] has-[>svg]:gap-x-3 gap-y-0.5 items-center has-[[data-slot=alert-title]]:has-[[data-slot=alert-description]]:items-start [&>svg]:size-4 has-[[data-slot=alert-title]]:has-[[data-slot=alert-description]]:[&>svg]:translate-y-0.5 [&>svg]:text-current',
 	{
 		variants: {
 			variant: {
